@@ -17,3 +17,94 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(NHSRwaitinglist)
 ```
+
+This is an example walkthrough using the same running example that is used in the reference paper [Fong el al.](https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1.full-text)
+
+It is centred on a P4 (priority 4) Ear,Nose & Throat (ENT) waiting list at an acute hospital.
+
+## Setup
+
+First, we'll add the initial data we need, taken from the white paper.
+
+```{r}
+# Queue size (patients)
+queue_size <- 1200
+
+# Waiting time target (weeks)
+waiting_time_target <- 52
+
+# Average waiting time in the queue (weeks)
+avg_waiting_time <- 63
+
+# Proportion of waiting list who have missed the 52 week target (%)
+perc_missing_target <- 0.51
+
+# Demand (patients per week)
+demand <- 30
+
+# Capacity (procedures per week)
+capacity <- 27
+
+# Standard deviation of number of operations per week
+std_dev_procedures <- 160  
+
+```
+
+
+## Demand, capacity, and load
+
+> Fact 1:  Capacity must be larger than demand, otherwise the waiting list size will grow indefinitely.
+
+```{r}
+load <- queue_load(demand, capacity)
+
+load
+```
+
+We see that the load is `r round(load, 2)`, which is greater than 1.
+
+> Fact 2:  If the load is greater than 1, then the queue is unstable, and the waiting list will grow indefinitely.  If the load is less than 1, then the queue will be stable and the load is the proportion of the time that that waiting list is non-empty.  
+
+## Waiting list targets
+
+> Fact 3:  If the load on a queue is less than 1 then the chance of missing the target halves each time we increase the target by some fixed number of days.
+
+> Fact 4: If we want to have a chance between 1.8%-0.2% of making a waiting time target, then the average patient should have a waiting time between a quarter and a sixth of the target. In the case of a P4 waiting list, the target wait is 52 weeks. Thus, we should expect the average patient being operated on to have waited between 9 and 13 weeks. In the case of P2 customers, the target is 4 weeks. Thus, the mean wait of a typical patient should be under one week.
+
+```{r}
+average_wait <- average_wait(waiting_time_target)
+
+average_wait
+```
+We see that the average wait is `r average_wait` weeks.
+
+## Target queue length
+
+> Fact 5:
+
+> Fact 6:
+
+## Relief capacity
+
+> Fact 7:
+
+## Target capacity
+
+> Fact 8:
+
+## Waiting pressure
+
+> Fact 9:
+
+## Conclusion
+
+## Appendix
+
+### Typical waiting time targets
+
+| Priority | Waiting Time Target (Referral to Treatment) |
+|----------|---------------------------------------------|
+| P1       | Emergency                                   |
+| P2       | \<= 4 weeks                                 |
+| P3       | \<= 12 weeks                                |
+| P4       | \<= 52 weeks                                |
