@@ -1,8 +1,8 @@
 ---
-title: "Example Walkthrough"
+title: "Walkthrough a real waiting list example"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Example Walkthrough}
+  %\VignetteIndexEntry{Walkthrough a real waiting list example}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
