@@ -1,4 +1,4 @@
-#' @title Title
+#' @title Calculate the average waiting time
 #'
 #' @description This calculates the average wait given the two inputs of target_wait and a numerical value for factor
 #' The average wait is actually the target mean wait and is calculated as follows: target_wait / factor
