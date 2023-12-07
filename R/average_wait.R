@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @examples if the target wait is 52 weeks then the average wait with a factor of 4 would be 13
-#' weeks and with a factor of 6 i would be 8.67 weeks.
+#' weeks and with a factor of 6 it would be 8.67 weeks.
 #' average_wait(52, 4)
 #'
 average_wait <- function(target_wait, factor = 4) {
