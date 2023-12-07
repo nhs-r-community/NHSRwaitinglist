@@ -1,4 +1,4 @@
-#' @title Title
+#' @title Calculate the queue load
 #'
 #' @description
 #' A short description...
