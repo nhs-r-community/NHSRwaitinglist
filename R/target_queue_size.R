@@ -13,9 +13,9 @@
 #' 
 #' Only applicable when Capacity > Demand.
 #'
-#' @param demand
-#' @param target_wait
-#' @param factor
+#' @param demand Rate of demand in same units as target wait - e.g. if target wait is weeks, then demand in units of patients/week.
+#' @param target_wait The number of weeks that has been set as the target within which the patient should be seen.
+#' @param factor Factor used in average wait calculation - to get a quarter of the target use factor=4 and one sixth of the target use factor = 6 etc
 #'
 #' @return target queue length
 #' @export

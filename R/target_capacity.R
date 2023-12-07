@@ -9,8 +9,8 @@
 #' 
 #' Target Capacity = Demand + 2 * ( 1 + 4 * F ) / Target Wait
 #'
-#' @param demand
-#' @param target_wait
+#' @param demand Rate of demand in same units as target wait - e.g. if target wait is weeks, then demand in units of patients/week.
+#' @param target_wait The number of weeks that has been set as the target within which the patient should be seen.
 #'
 #' @return target capacity to achieve a target waiting time
 #' @export
