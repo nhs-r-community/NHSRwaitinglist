@@ -1,18 +1,28 @@
-#' @title Title
+#' @title Relief Capacity
 #'
 #' @description
-#' A short description...
+#' Calculates required relief capacity to achieve target queue size in a given 
+#' period of time as a function of demand, queue size, target queue size and 
+#' time period. 
+#' 
+#' Relief Capacity is required if Queue Size > 2 * Target Queue Size.
+#' 
+#' Relief Capacity = Current Demand + (Queue Size - Target Queue Size)/Time Steps
 #'
-#' @param demand
-#' @param queue_size
-#' @param target_queue_size
-#' @param weeks_to_target
+#' @param demand Rate of demand in same units as target wait - e.g. if target wait is weeks, then demand in units of patients/week.
+#' @param queue_size Current number of patients in queue.
+#' @param target_queue_size Desired number of patients in queue.
+#' @param weeks_to_target Desired number of time-steps to reach the target queue size by.
 #'
-#' @return
+#' @return rel_cap
 #' @export
 #'
-#' @examples
-#'
+#' @examples If demand is 30 patients per week, the current queue size is 1200,
+#' and the target is to achieve a queue size of 390 in 26 weeks, then 
+#' 
+#' Relief Capacity = 30 + (1200 - 390)/26 = 61.15 patients per week.
+#' 
+#' relief_capacity(30, 1200, 390, 26)
 #'
 relief_capacity <- function(demand, queue_size, target_queue_size, weeks_to_target) {
   rel_cap <- demand + (queue_size  -  target_queue_size) / weeks_to_target
