@@ -20,7 +20,7 @@ library(NHSRwaitinglist)
 
 This vignette is a practical demonstration of the {NHSRwaitinglist} functions, using the same running example that is used in the reference white paper [Fong el al.](https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1.full-text), and [video](https://www.youtube.com/watch?v=NWthhW5Fgls).
 
-The example is centred on a P4 (priority 4) Ear,Nose & Throat (ENT) waiting list at an acute hospital.
+The example is centred on a P4 (priority 4) Ear, Nose & Throat (ENT) waiting list at an acute hospital.
 
 The package functions we will be using are:
 ```{r child = 'functions_table.Rmd'}
@@ -63,9 +63,11 @@ load <- queue_load(demand, capacity)
 load
 ```
 
-We see that the load is `r round(load, 2)`, which is greater than 1.  The queue will therefore grow in size indefinitely.
+We see that the load is `r round(load, 2)`, which is greater than 1.
+The queue will therefore grow in size indefinitely.
 
-> Fact 2: If the load is greater than 1, then the queue is unstable, and the waiting list will grow indefinitely. If the load is less than 1, then the queue will be stable and the load is the proportion of the time that that waiting list is non-empty.
+> Fact 2: If the load is greater than 1, then the queue is unstable, and the waiting list will grow indefinitely. 
+If the load is less than 1, then the queue will be stable and the load is the proportion of the time that that waiting list is non-empty.
 
 ## Waiting list targets
 
@@ -73,7 +75,10 @@ We see that the load is `r round(load, 2)`, which is greater than 1.  The queue 
 
 > Fact 4: If we want to have a chance between 1.8%-0.2% of not achieving a waiting time target, then the average patient should have a waiting time between a quarter and a sixth of the target. 
 
-In the case of a P4 waiting list, the target wait is 52 weeks. Thus, we should expect the average patient being operated on to have waited between 9 and 13 weeks. In the case of P2 customers, the target is 4 weeks. Thus, the mean wait of a typical patient should be under one week.
+In the case of a P4 waiting list, the target wait is 52 weeks. 
+Thus, we should expect the average patient being operated on to have waited between 9 and 13 weeks. 
+In the case of P2 customers, the target is 4 weeks. 
+Thus, the mean wait of a typical patient should be under one week.
 
 ```{r}
 average_wait <- average_wait(waiting_time_target)
@@ -100,7 +105,8 @@ queue_ratio <- queue_size / target_queue_size
 queue_ratio
 ```
 
-In this example, the target queue size is `r target_queue_size`, and the actual queue is `r queue_size`. The queue ratio is `r round(queue_ratio, 1)`, meaning that the queue is `r round(queue_ratio, 1)` times its target size.
+In this example, the target queue size is `r target_queue_size`, and the actual queue is `r queue_size`. 
+The queue ratio is `r round(queue_ratio, 1)`, meaning that the queue is `r round(queue_ratio, 1)` times its target size.
 
 If the waiting list size is over twice the target queue size, then we consider that special measures are needed to increase capacity, and reduce waiting list size.
 
@@ -121,17 +127,24 @@ relief_capacity
 
 ```
 
-In this example, we decide that the target should be achieved by the start of the summer, 26 weeks away. To do this, the capacity needed is `r round(relief_capacity, 1)` procedures per week, compared to `r capacity` procedures per week currently being performed.
+In this example, we decide that the target should be achieved by the start of the summer, 26 weeks away. 
+To do this, the capacity needed is `r round(relief_capacity, 1)` procedures per week, compared to `r capacity` procedures per week currently being performed.
 
 ## Target capacity
 
-As discussed above if the queue size is more than double its target then capacity should be increased temporarily. However, once the queue size is within an acceptable range, we can maintain the waiting time target with what is potentially a much smaller capacity allocation to the waiting list.
+As discussed above if the queue size is more than double its target then capacity should be increased temporarily. 
+However, once the queue size is within an acceptable range, we can maintain the waiting time target with what is potentially a much smaller capacity allocation to the waiting list.
 
-We know the waiting time (`r average_wait` weeks) and queue size (`r target_queue_size` patients) of a waiting list operating at its target equilibrium. Now we calculate a capacity allocation that will maintain this equilibrium in the long run.
+We know the waiting time (`r average_wait` weeks) and queue size (`r target_queue_size` patients) of a waiting list operating at its target equilibrium. 
+Now we calculate a capacity allocation that will maintain this equilibrium in the long run.
 
-> Fact 8: Target capacity formula, based on the Pollaczek-Khinchine formula. The target capacity depends on demand, plus an additional capacity which is based on serice variability, and the waiting time target.
+> Fact 8: Target capacity formula, based on the Pollaczek-Khinchine formula. 
+The target capacity depends on demand, plus an additional capacity which is based on serice variability, and the waiting time target.
 
-The parameter "F" depends on the variability of the service. If we do not know F, we can assume F = 1. Values less than 1 are good. Higher values represent more variability, which in turn will increase the capacity required to maintain equilibrium.
+The parameter "F" depends on the variability of the service. 
+If we do not know F, we can assume F = 1. 
+Values less than 1 are good. 
+Higher values represent more variability, which in turn will increase the capacity required to maintain equilibrium.
 
 ```{r}
 # set the "F" variability parameter
@@ -164,7 +177,9 @@ So, decreasing variability of service (for example by stabilising operating thea
 
 ## Waiting list pressure
 
-> Fact 9: Waiting list pressure. For a waiting list with target waiting time, the pressure on the waiting list is twice the mean waiting time divided by the target waiting time. The pressure of any given waiting list should be less than 1. If the pressure is greater than 1 then the waiting list is most likely going to miss its target.
+> Fact 9: Waiting list pressure. For a waiting list with target waiting time, the pressure on the waiting list is twice the mean waiting time divided by the target waiting time. 
+The pressure of any given waiting list should be less than 1. 
+If the pressure is greater than 1 then the waiting list is most likely going to miss its target.
 
 <!--TODO check the 2x factor in this equation.  Pressure should be less than 1, but the examples omit the 2x factor.  Should pressure be less than 0.5, 1, or 2?-->
 
@@ -177,8 +192,10 @@ waiting_list_pressure_p4 <- waiting_list_pressure(avg_waiting_time, waiting_time
 waiting_list_pressure_p4
 ```
 
-The queue size is large, with `r queue_size` patients waiting. The waiting time target is `r waiting_time_target` weeks, and the average waiting time being experienced is `r avg_waiting_time` weeks. This gives a waiting list pressure of `r round(waiting_list_pressure_p4, 2)`.\
-*NOTE* these numbers are slightly different to the [white paper](https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1.full-text), which changes the average waiting time from 63 weeks to 61 weeks during the example.
+The queue size is large, with `r queue_size` patients waiting. 
+The waiting time target is `r waiting_time_target` weeks, and the average waiting time being experienced is `r avg_waiting_time` weeks. 
+This gives a waiting list pressure of `r round(waiting_list_pressure_p4, 2)`.
+**NOTE** these numbers are slightly different to the [white paper](https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1.full-text), which changes the average waiting time from 63 weeks to 61 weeks during the example.
 
 If we look at the P2 ENT example:
 
@@ -191,13 +208,17 @@ waiting_list_pressure_p2 <- waiting_list_pressure(avg_waiting_time_p2, waiting_t
 waiting_list_pressure_p2
 ```
 
-The queue size is smaller, with `r queue_size_p2` patients waiting. The waiting time target is `r waiting_time_target_p2` weeks, and the average waiting time being experienced is `r avg_waiting_time_p2`. This gives a waiting list pressure of `r round(waiting_list_pressure_p2, 2)`.
+The queue size is smaller, with `r queue_size_p2` patients waiting. 
+The waiting time target is `r waiting_time_target_p2` weeks, and the average waiting time being experienced is `r avg_waiting_time_p2`. 
+This gives a waiting list pressure of `r round(waiting_list_pressure_p2, 2)`.
 
-In these two examples the pressure on the much shorter P2 waiting list is 5 times higher than that on the P4 list. Closer attention should be paid to P2 procedures.
+In these two examples the pressure on the much shorter P2 waiting list is 5 times higher than that on the P4 list. 
+Closer attention should be paid to P2 procedures.
 
 ## Summary
 
-This worked example aims to demonstrate the functions available in this package. In chronological order of application they were:
+This worked example aims to demonstrate the functions available in this package. 
+In chronological order of application they were:
 ```{r child = 'functions_table.Rmd'}
 ```
 
