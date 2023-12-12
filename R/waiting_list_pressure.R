@@ -7,7 +7,7 @@
 #'  The waiting list pressure is calculated as follows:
 #'  pressure = 2 x mean_wait / target_wait
 #'
-#' @param target_mean_wait Numeric value of target mean waiting time to achieve a given target wait
+#' @param mean_wait Numeric value of target mean waiting time to achieve a given target wait
 #' @param target_wait Numeric value of the number of weeks that has been set as the target within which the patient should be seen
 #'
 #' @return Numeric value of wait_pressure which is the waiting list pressure
@@ -16,7 +16,7 @@
 #' @examples
 #' waiting_list_pressure(63,52)
 #'
-waiting_list_pressure <- function(target_mean_wait, target_wait) {
-  wait_pressure <- 2 * target_mean_wait / target_wait
+waiting_list_pressure <- function(mean_wait, target_wait) {
+  wait_pressure <- 2 * mean_wait / target_wait
   return(wait_pressure)
 }
