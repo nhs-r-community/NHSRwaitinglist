@@ -23,7 +23,7 @@ This vignette is a practical demonstration of the {NHSRwaitinglist} functions, u
 The example is centred on a P4 (priority 4) Ear, Nose & Throat (ENT) waiting list at an acute hospital.
 
 The package functions we will be using are:
-```{r child = 'functions_table.Rmd'}
+```{r child = 'functions_table.Md'}
 ```
 
 ## Setup
@@ -219,7 +219,7 @@ Closer attention should be paid to P2 procedures.
 
 This worked example aims to demonstrate the functions available in this package. 
 In chronological order of application they were:
-```{r child = 'functions_table.Rmd'}
+```{r child = 'functions_table.Md'}
 ```
 
 ## Further reading
