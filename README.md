@@ -1,13 +1,21 @@
 <!-- badges: start -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/nhs-r-community/NHSRwaitinglist/workflows/R-CMD-check/badge.svg)](https://github.com/nhs-r-community/NHSRwaitinglist/actions)
+[![R-CMD-check](https://github.com/nhs-r-community/NHSRwaitinglist/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nhs-r-community/NHSRwaitinglist/actions/workflows/R-CMD-check.yaml)
 [![Codecov test coverage](https://codecov.io/gh/nhs-r-community/NHSRwaitinglist/branch/main/graph/badge.svg)](https://app.codecov.io/gh/nhs-r-community/NHSRwaitinglist?branch=main)
+
 
 <!-- badges: end -->
 
 
-# NHSRwaitinglist
-R-package to implement the waiting list management approach described in this paper by Fong et al https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1
+# NHSRwaitinglist <a alt="NHS-R Community's logo" href='https://nhsrcommunity.com/'><img src='https://nhs-r-community.github.io/assets/logo/nhsr-logo.png' align="right" height="80" /></a>
+
+An R-package to implement the waiting list management approach described in this paper by Fong et al https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1
+
+
+## To install the package, run:
+``` r
+remotes::install_github("nhs-r-community/NHSRwaitinglist", build_vignettes = TRUE)
+```
 
 
 ## Contribution
