@@ -20,17 +20,17 @@
 # })
 
 test_that("it returns an expected result with fixed single values, against arithmetic", {
-  em <- "target_capacity(): aritmetic error with single value inputs."
+  em <- "target_capacity(): arithmetic error with single value inputs."
   expect_equal(target_capacity(30,52,3), 30 + 2*(1+4*3)/52)
 })
 
 test_that("it returns an expected result with fixed single values", {
-  em <- "target_capacity(): aritmetic error with single value inputs."
+  em <- "target_capacity(): arithmetic error with single value inputs."
   expect_equal(target_capacity(30,52,3), 30.5)
 })
 
 test_that("it returns an expected result with vector of fixed values", {
-  em <- "target_capacity(): aritmetic error with vector of input values."
+  em <- "target_capacity(): arithmetic error with vector of input values."
   expect_equal(
     target_capacity(
       c(30, 42, 35 ),

@@ -30,17 +30,17 @@
 #'
 
 test_that("it returns an expected result with fixed single values, against arithmetic", {
-  em <- "relief_capacity(): aritmetic error with single value inputs."
+  em <- "relief_capacity(): arithmetic error with single value inputs."
   expect_equal(relief_capacity(30, 1200, 390, 26), 30 + (1200 - 390)/26)
 })
 
 test_that("it returns an expected result with fixed single values", {
-  em <- "relief_capacity(): aritmetic error with single value inputs."
+  em <- "relief_capacity(): arithmetic error with single value inputs."
   expect_equal(relief_capacity(30, 1200, 390, 26), 61.153846)
 })
 
 test_that("it returns an expected result with vector of fixed values", {
-  em <- "relief_capacity(): aritmetic error with vector of input values."
+  em <- "relief_capacity(): arithmetic error with vector of input values."
   expect_equal(
     relief_capacity(
       c(30, 33, 35 ),

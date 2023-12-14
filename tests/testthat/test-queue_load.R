@@ -20,19 +20,18 @@
 # })
 
 test_that("it returns an expected result with fixed single values, against arithmetic", {
-  em <- "queue_load(): aritmetic error with single value inputs."
+  em <- "queue_load(): arithmetic error with single value inputs."
   expect_equal(queue_load(30, 27), 30/27)
 })
 
 test_that("it returns an expected result with fixed single values", {
-  queue_load <-
-    em <- "queue_load(): aritmetic error with single value inputs."
+  em <- "queue_load(): arithmetic error with single value inputs."
   expect_equal(queue_load(30, 27), 1.11111111)
 })
 
 
 test_that("it returns an expected result with vector of fixed values", {
-  em <- "queue_load(): aritmetic error with vector of values as inputs."
+  em <- "queue_load(): arithmetic error with vector of values as inputs."
   expect_equal(
     queue_load(
       c(35, 30, 52),

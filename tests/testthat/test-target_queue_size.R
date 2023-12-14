@@ -20,14 +20,14 @@
 
 
 test_that("it returns an expected result with fixed single values", {
-  em <- "target_queue_size(): aritmetic error with single value inputs."
+  em <- "target_queue_size(): arithmetic error with single value inputs."
   expect_equal(target_queue_size(30, 52), 390)
   expect_equal(target_queue_size(30, 50), 375)
   expect_equal(target_queue_size(30, 50, 6), 250)
 })
 
 test_that("it returns an expected result with vector of fixed values", {
-  em <- "target_queue_size(): aritmetic error with vector of values as inputs."
+  em <- "target_queue_size(): arithmetic error with vector of values as inputs."
   expect_equal(
     target_queue_size(
       c(30, 30, 30 ),

@@ -19,17 +19,17 @@
 # })
 
 test_that("it returns an expected result with fixed single values, against arithmetic", {
-  em <- "waiting_list_pressure(): aritmetic error with single value inputs."
+  em <- "waiting_list_pressure(): arithmetic error with single value inputs."
   expect_equal(waiting_list_pressure(63, 52), 2 * 63 / 52)
 })
 
 test_that("it returns an expected result with fixed single values", {
-  em <- "waiting_list_pressure(): aritmetic error with single value inputs."
+  em <- "waiting_list_pressure(): arithmetic error with single value inputs."
   expect_equal(waiting_list_pressure(63, 52), 2.42307692)
 })
 
 test_that("it returns an expected result with vector of fixed values", {
-  em <- "waiting_list_pressure(): aritmetic error with vector of input values."
+  em <- "waiting_list_pressure(): arithmetic error with vector of input values."
   expect_equal(
     waiting_list_pressure(
       c(63, 42, 55 ),

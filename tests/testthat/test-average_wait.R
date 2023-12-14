@@ -20,14 +20,12 @@
 # })
 
 test_that("it returns an expected result with fixed single values, against arithmetic", {
-  target_wait <-
-    em <- "average_wait(): aritmetic error with single value inputs."
+  em <- "average_wait(): arithmetic error with single value inputs."
   expect_equal(average_wait(52, 4), 52/4)
 })
 
 test_that("it returns an expected result with fixed single values", {
-  target_wait <-
-  em <- "average_wait(): aritmetic error with single value inputs."
+  em <- "average_wait(): arithmetic error with single value inputs."
   expect_equal(average_wait(52, 4), 13)
 })
 
