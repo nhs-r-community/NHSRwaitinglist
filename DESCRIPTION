@@ -12,13 +12,15 @@ Authors@R: c(
           person("NHS-R community", email = "nhs.rcommunity@nhs.net", role = "cph")
           )
 Maintainer: Tom Smith <thomas.smith5@nuh.nhs.uk>
-Description: R-package to implement the waiting list management approach described in this paper by Fong et al 2022
+Description: R-package to implement the waiting list management approach described in this paper by Fong et al 2022.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 URL: https://nhs-r-community.github.io/NHSRwaitinglist/
+Config/testthat/edition: 3

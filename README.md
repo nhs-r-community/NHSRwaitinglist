@@ -1,3 +1,11 @@
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![R-CMD-check](https://github.com/nhs-r-community/NHSRwaitinglist/workflows/R-CMD-check/badge.svg)](https://github.com/nhs-r-community/NHSRwaitinglist/actions)
+[![Codecov test coverage](https://codecov.io/gh/nhs-r-community/NHSRwaitinglist/branch/main/graph/badge.svg)](https://app.codecov.io/gh/nhs-r-community/NHSRwaitinglist?branch=main)
+
+<!-- badges: end -->
+
+
 # NHSRwaitinglist
 R-package to implement the waiting list management approach described in this paper by Fong et al https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1
 
