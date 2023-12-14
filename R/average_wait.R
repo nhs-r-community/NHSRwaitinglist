@@ -12,12 +12,18 @@
 #' @return Numeric value of target mean waiting time to achieve a given target wait.
 #' @export
 #'
-#' @examples 
+#' @examples
 #' # If the target wait is 52 weeks then the target mean wait with a factor of 4 would be 13
 #' # weeks and with a factor of 6 it would be 8.67 weeks.
 #' average_wait(52, 4)
 #'
 average_wait <- function(target_wait, factor = 4) {
+
+  check_class(target_wait, factor)
+  check_lengths_match(target_wait, factor)
+
   target_mean_wait <- target_wait / factor
+
   return(target_mean_wait)
+
 }

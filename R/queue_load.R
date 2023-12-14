@@ -13,13 +13,19 @@
 #' @return Numeric value of load which is the ratio between demand and capacity
 #' @export
 #'
-#' @examples 
+#' @examples
 #' # If 30 patients are added to the waiting list each week (demand) and 27 removed (capacity)
 #' # this results in a queue load of 1.11 (30/27)
 #' queue_load(30,27)
 #'
 #'
 queue_load <- function(demand, capacity) {
+
+  check_class(demand, capacity)
+  check_lengths_match(demand, capacity)
+
   load <- demand / capacity
-  return (load)
+
+  return(load)
+
 }
