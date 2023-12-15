@@ -23,4 +23,5 @@ Suggests:
 VignetteBuilder: knitr
 URL: https://nhs-r-community.github.io/NHSRwaitinglist/
 Imports: 
-    cli
+    cli,
+    rlang

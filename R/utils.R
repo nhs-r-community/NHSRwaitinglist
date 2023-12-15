@@ -3,10 +3,9 @@
 #' @param .expected_class Character. The name of the class against which objects
 #'     will be checked.
 #' @noRd
-check_class <- function(..., .expected_class = "numeric") {
+check_class <- function(..., .expected_class = "numeric", .call = rlang::caller_env()) {
 
-  args <- list(...)
-  names(args) <- unlist(substitute(...()))
+  args <- rlang::dots_list(..., .named = TRUE)
 
   args_class_lgl <- lapply(
     args,
@@ -21,10 +20,11 @@ check_class <- function(..., .expected_class = "numeric") {
     failing_args_classes <- sapply(failing_args, class)
 
     cli::cli_abort(
-      c(
+      message = c(
         "{.var {failing_arg_names}} must be of class {.cls {(.expected_class)}}",
         x = "You provided input of class {.cls {failing_args_classes}}."
-      )
+      ),
+      call = .call
     )
   }
 
@@ -33,10 +33,9 @@ check_class <- function(..., .expected_class = "numeric") {
 #' Check that Lengths of Argument Inputs Match
 #' @param ... Objects to be compared for length.
 #' @noRd
-check_lengths_match <- function(...) {
+check_lengths_match <- function(..., .call = rlang::caller_env()) {
 
-  args <- list(...)
-  names(args) <- unlist(substitute(...()))
+  args <- rlang::dots_list(..., .named = TRUE)
 
   arg_lengths <- lengths(args)
 
@@ -44,10 +43,11 @@ check_lengths_match <- function(...) {
 
   if (!lengths_are_equal) {
     cli::cli_abort(
-      c(
+      message = c(
         "{.arg {names(args)}} must be the same length.",
         x = "You provided inputs with lengths of {paste(arg_lengths)}."
-      )
+      ),
+      call = .call
     )
   }
 
