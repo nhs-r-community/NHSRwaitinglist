@@ -10,6 +10,8 @@ target_capacity(demand, target_wait, F = 1)
 \item{demand}{Numeric value of rate of demand in same units as target wait - e.g. if target wait is weeks, then demand in units of patients/week.}
 
 \item{target_wait}{Numeric value of number of weeks that has been set as the target within which the patient should be seen.}
+
+\item{F}{Holding value, needs definition of F adding.}
 }
 \value{
 A numeric value of target capacity required to achieve a target waiting time.
