@@ -9,7 +9,7 @@
 
 # NHSRwaitinglist <a alt="NHS-R Community's logo" href='https://nhsrcommunity.com/'><img src='https://nhs-r-community.github.io/assets/logo/nhsr-logo.png' align="right" height="80" /></a>
 
-An R-package to implement the waiting list management approach described in this paper by Fong et al https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1
+An R-package to implement the waiting list management approach described in the paper [Understanding Waiting Lists Pressures](https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1) by Fong et al.
 
 
 ## To install the package, run:
