@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   example_walkthrough: example_walkthrough.html
-last_built: 2023-12-14T22:24Z
+last_built: 2023-12-18T15:02Z
 urls:
   reference: https://nhs-r-community.github.io/NHSRwaitinglist/reference
   article: https://nhs-r-community.github.io/NHSRwaitinglist/articles
