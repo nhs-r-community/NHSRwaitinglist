@@ -1,15 +1,14 @@
 #' @title Target Capacity
 #'
 #' @description
-#' Calculates the target capacity to achieve a given target waiting time as a function of observed demand, target waiting time and a variability of demand parameter F.
-#'
-#' F defaults to 1.
-#'
+#' Calculates the target capacity to achieve a given target waiting time as a function of observed demand, target waiting time and a variability coefficient F.
+#' 
 #' Target Capacity = Demand + 2 * ( 1 + 4 * F ) / Target Wait
+#' F defaults to 1.
 #'
 #' @param demand Numeric value of rate of demand in same units as target wait - e.g. if target wait is weeks, then demand in units of patients/week.
 #' @param target_wait Numeric value of number of weeks that has been set as the target within which the patient should be seen.
-#' @param F Holding value, needs definition of F adding.
+#' @param F Variability coefficient, F = V/C * (D/C)^2 where C is the current number of operations per week; V is the current variance in the number of operations per week; D is the observed demand. Defaults to 1.
 #'
 #' @return A numeric value of target capacity required to achieve a target waiting time.
 #' @export
