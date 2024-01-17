@@ -2,18 +2,13 @@
 % Please edit documentation in R/wl_insert.R
 \name{wl_insert}
 \alias{wl_insert}
-\title{schedules removal dates on a waiting list}
+\title{Queue SIZE}
 \usage{
 wl_insert(waiting_list, additions, referral_index = 1)
 }
 \arguments{
-\item{waiting_list}{dataframe}
-
-\item{schedule}{Numeric value}
-}
-\value{
-updated_list
+\item{end_date}{}
 }
 \description{
-schedules removal dates on a waiting list
+Queue SIZE
 }

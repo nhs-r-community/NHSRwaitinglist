@@ -1,13 +1,45 @@
-# cumsum(x)
-# X[X = .1] <- 0
-# # X[X = .1] <- X[X = .1] + 0
+#' @title Queue SIZE
+#'
+#' @description
 
-#Count arrivals before start date
+#'
+#' @param waiting_list
+#' @param start_date
+#' @param end_date
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#'
+#'
 
-wl <- waiting_list
-wl[wl$referral<start_date,1] <-start_date
-table(wl[,1])
+wl_queue_size <- function(waiting_list, start_date = NULL, end_date = NULL) {
+  wl <- waiting_list
 
-dates <- seq(as.Date(start_date), as.Date(end_date), by="day")
-queues <- data.frame(dates,rep(0,length(dates)))
-data[which(data$age>10 & data$age<50),]
+  if ( is.null(start_date) ) {
+    start_date = min(wl[,1])
+  }
+  if ( is.null(end_date) ) {
+    end_date = max(wl[,1])
+  }
+
+  wl[wl$referral<start_date,1] <-start_date
+  arrival_counts <- data.frame(table(wl[,1]))
+
+  dates <- seq(as.Date(start_date), as.Date(end_date), by="day")
+  queues <- data.frame(dates,rep(0,length(dates)))
+
+  queues[which(queues[,1] %in% arrival_counts[,1]),2] <- arrival_counts[,2]
+  queues$cummulative_arrivals <- cumsum(queues[,2])
+
+  departure_counts <- data.frame(table(wl[ which( (start_date <= wl[,2]) & (wl[,2] <= end_date)),2]))
+  queues$departures <- rep(0,length(dates))
+  queues[which(queues[,1] %in% departure_counts[,1]),4] <- departure_counts[,2]
+  queues$cummulative_departures <- cumsum(queues[,4])
+
+  queues$queue_size <- queues$cummulative_arrivals - queues$cummulative_departures
+
+  return (queues[,c(1,6)])
+
+}
