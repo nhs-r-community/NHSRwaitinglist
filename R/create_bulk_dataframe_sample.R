@@ -1,3 +1,5 @@
+
+create_bulk_dataframe_sample <- function(){
 bulk <- data.frame(hospital_sites=c("ABC001","DHR70","JRW20","RFW002","DHR70"),
                    specialties = c(100,110,120,130,100),
                    opcs4_code = c("A","B","C","D","A"),
@@ -8,3 +10,5 @@ bulk <- data.frame(hospital_sites=c("ABC001","DHR70","JRW20","RFW002","DHR70"),
                    sd=10,
                    rott=c(0,0.1,0.05,0.2,0.1)
 )
+return(bulk)
+}

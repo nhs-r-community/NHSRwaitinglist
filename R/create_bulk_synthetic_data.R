@@ -1,5 +1,5 @@
 
-create_bulk_data <- function(bulk){
+create_bulk_synthetic_data <- function(bulk){
 result <- bulk |>
   purrr::pmap(create_waiting_list) |>
   dplyr::bind_rows()
