@@ -30,21 +30,19 @@ test_that("it returns an expected result with vector of fixed values", {
   em <- "target_queue_size(): arithmetic error with vector of values as inputs."
   expect_equal(
     target_queue_size(
-      c(30, 30, 30 ),
+      c(30, 30, 30),
       c(52, 50, 50),
-      c(4,4,6)
-    )
-    , c(390, 375, 250)
+      c(4, 4, 6)
+    ),
+    c(390, 375, 250)
   )
 })
 
 
 test_that("it returns the same length output as provided on input", {
-  n <- round(runif(1, 0,30))
+  n <- round(runif(1, 0, 30))
   in1 <- rnorm(n = n, 50, 20)
-  in2 <- in1 * (1.2 + runif(1,0,1.5))
+  in2 <- in1 * (1.2 + runif(1, 0, 1.5))
   em <- "target_queue_size(): output vector length != input vector length."
   expect_length(target_queue_size(in1, in2), length(in1))
 })
-
-
