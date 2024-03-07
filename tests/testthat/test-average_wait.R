@@ -19,9 +19,9 @@
 #   expect_error(target_wait(in1, in2), em)
 # })
 
-test_that("it returns an expected result with fixed single values, against arithmetic", {
+test_that("it returns expected result with fixed single values vs arithmetic", {
   em <- "average_wait(): arithmetic error with single value inputs."
-  expect_equal(average_wait(52, 4), 52/4)
+  expect_equal(average_wait(52, 4), 52 / 4)
 })
 
 test_that("it returns an expected result with fixed single values", {
@@ -36,19 +36,17 @@ test_that("it returns an expected result with vector of fixed values", {
   expect_equal(
     average_wait(
       c(35, 30, 52),
-      c(4,4,6)
-    )
-    , c(8.75, 7.5, 8.6666667)
+      c(4, 4, 6)
+    ),
+    c(8.75, 7.5, 8.6666667)
   )
 })
 
 
 test_that("it returns the same length output as provided on input", {
-  n <- round(runif(1, 0,30))
+  n <- round(runif(1, 0, 30))
   in1 <- rnorm(n = n, 50, 20)
   in2 <- rnorm(n = n, 4, 2)
   em <- "target_queue_size(): output vector length != input vector length."
   expect_length(average_wait(in1, in2), length(in1))
 })
-
-

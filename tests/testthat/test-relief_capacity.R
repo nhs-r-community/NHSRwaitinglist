@@ -29,9 +29,9 @@
 # })
 #'
 
-test_that("it returns an expected result with fixed single values, against arithmetic", {
+test_that("it returns expected result with fixed single values vs arithmetic", {
   em <- "relief_capacity(): arithmetic error with single value inputs."
-  expect_equal(relief_capacity(30, 1200, 390, 26), 30 + (1200 - 390)/26)
+  expect_equal(relief_capacity(30, 1200, 390, 26), 30 + (1200 - 390) / 26)
 })
 
 test_that("it returns an expected result with fixed single values", {
@@ -43,25 +43,23 @@ test_that("it returns an expected result with vector of fixed values", {
   em <- "relief_capacity(): arithmetic error with vector of input values."
   expect_equal(
     relief_capacity(
-      c(30, 33, 35 ),
+      c(30, 33, 35),
       c(1200, 800, 250),
-      c(390,200,100),
+      c(390, 200, 100),
       c(26, 30, 15)
-      )
-    , c(61.153846, 53, 45)
-    )
+    ),
+    c(61.153846, 53, 45)
+  )
 })
 
 
 test_that("it returns the same length output as provided on input", {
-  n <- round(runif(1, 0,30))
+  n <- round(runif(1, 0, 30))
   in1 <- rnorm(n = n, 50, 20)
-  in2 <- in1 * (15 * runif(1,0 ,1.5))
-  in3 <- in1 * (5 * runif(1,1 ,1.5))
-  in4 <- in1 * (runif(1,0.5,1.5))
+  in2 <- in1 * (15 * runif(1, 0, 1.5))
+  in3 <- in1 * (5 * runif(1, 1, 1.5))
+  in4 <- in1 * (runif(1, 0.5, 1.5))
 
   em <- "relief_capacity(): output vector length != input vector length."
   expect_length(relief_capacity(in1, in2, in3, in4), length(in1))
 })
-
-
