@@ -146,7 +146,7 @@ paper.</p>
 <span><span class="va">capacity</span> <span class="op">&lt;-</span> <span class="fl">27</span></span>
 <span></span>
 <span><span class="co"># Standard deviation of number of operations per week</span></span>
-<span><span class="va">std_dev_procedures</span> <span class="op">&lt;-</span> <span class="fl">160</span>  </span></code></pre></div>
+<span><span class="va">std_dev_procedures</span> <span class="op">&lt;-</span> <span class="fl">160</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="demand-capacity-and-load">Demand, capacity, and load<a class="anchor" aria-label="anchor" href="#demand-capacity-and-load"></a>
@@ -236,9 +236,9 @@ down, and apply the necessary relief capacity.</p>
 <code class="sourceCode R"><span><span class="va">weeks_until_target_acheived</span> <span class="op">&lt;-</span> <span class="fl">26</span></span>
 <span></span>
 <span><span class="va">relief_capacity</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/relief_capacity.html">relief_capacity</a></span><span class="op">(</span></span>
-<span>  demand <span class="op">=</span> <span class="va">demand</span>, </span>
-<span>  queue_size <span class="op">=</span> <span class="va">queue_size</span>, </span>
-<span>  target_queue_size <span class="op">=</span> <span class="va">target_queue_size</span>, </span>
+<span>  demand <span class="op">=</span> <span class="va">demand</span>,</span>
+<span>  queue_size <span class="op">=</span> <span class="va">queue_size</span>,</span>
+<span>  target_queue_size <span class="op">=</span> <span class="va">target_queue_size</span>,</span>
 <span>  weeks_to_target <span class="op">=</span> <span class="va">weeks_until_target_acheived</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">relief_capacity</span></span>
@@ -275,9 +275,10 @@ capacity required to maintain equilibrium.</p>
 <span><span class="va">f_1</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span></span>
 <span><span class="va">target_capacity_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/target_capacity.html">target_capacity</a></span><span class="op">(</span></span>
-<span>  demand <span class="op">=</span> <span class="va">demand</span>, </span>
+<span>  demand <span class="op">=</span> <span class="va">demand</span>,</span>
 <span>  target_wait <span class="op">=</span> <span class="va">waiting_time_target</span>,</span>
-<span>  F <span class="op">=</span> <span class="va">f_1</span><span class="op">)</span></span>
+<span>  F <span class="op">=</span> <span class="va">f_1</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">target_capacity_1</span></span>
 <span><span class="co">#&gt; [1] 30.19231</span></span></code></pre></div>
 <p>If F is 1, we can see that the capacity required is 30.19, or 0.19
@@ -286,9 +287,10 @@ more than the demand.</p>
 <code class="sourceCode R"><span><span class="va">f_2</span> <span class="op">&lt;-</span> <span class="fl">6.58</span></span>
 <span></span>
 <span><span class="va">target_capacity_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/target_capacity.html">target_capacity</a></span><span class="op">(</span></span>
-<span>  demand <span class="op">=</span> <span class="va">demand</span>, </span>
-<span>  target_wait <span class="op">=</span> <span class="va">waiting_time_target</span>, </span>
-<span>  F <span class="op">=</span> <span class="va">f_2</span><span class="op">)</span></span>
+<span>  demand <span class="op">=</span> <span class="va">demand</span>,</span>
+<span>  target_wait <span class="op">=</span> <span class="va">waiting_time_target</span>,</span>
+<span>  F <span class="op">=</span> <span class="va">f_2</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">target_capacity_2</span></span>
 <span><span class="co">#&gt; [1] 31.05077</span></span></code></pre></div>
 <p>If F is 6.58, we can see that the capacity required is 31.05, or 1.05
@@ -315,7 +317,10 @@ which to compare waiting lists, and help make resource allocation
 decisions.</p>
 <p>For the P4 ENT example we have been following:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">waiting_list_pressure_p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/waiting_list_pressure.html">waiting_list_pressure</a></span><span class="op">(</span><span class="va">avg_waiting_time</span>, <span class="va">waiting_time_target</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">waiting_list_pressure_p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/waiting_list_pressure.html">waiting_list_pressure</a></span><span class="op">(</span></span>
+<span>  <span class="va">avg_waiting_time</span>,</span>
+<span>  <span class="va">waiting_time_target</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">waiting_list_pressure_p4</span></span>
 <span><span class="co">#&gt; [1] 2.423077</span></span></code></pre></div>
 <p>The queue size is large, with 1200 patients waiting. The waiting time
@@ -330,7 +335,10 @@ weeks during the example.</p>
 <span><span class="va">avg_waiting_time_p2</span> <span class="op">&lt;-</span> <span class="fl">24</span></span>
 <span><span class="va">waiting_time_target_p2</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
 <span></span>
-<span><span class="va">waiting_list_pressure_p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/waiting_list_pressure.html">waiting_list_pressure</a></span><span class="op">(</span><span class="va">avg_waiting_time_p2</span>, <span class="va">waiting_time_target_p2</span><span class="op">)</span></span>
+<span><span class="va">waiting_list_pressure_p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/waiting_list_pressure.html">waiting_list_pressure</a></span><span class="op">(</span></span>
+<span>  <span class="va">avg_waiting_time_p2</span>,</span>
+<span>  <span class="va">waiting_time_target_p2</span></span>
+<span><span class="op">)</span></span>
 <span><span class="va">waiting_list_pressure_p2</span></span>
 <span><span class="co">#&gt; [1] 12</span></span></code></pre></div>
 <p>The queue size is smaller, with 220 patients waiting. The waiting
