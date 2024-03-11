@@ -24,6 +24,7 @@
 #' # would be 13 weeks and with a factor of 6 it would be 8.67 weeks.
 #' average_wait(52, 4)
 average_wait <- function(target_wait, factor = 4) {
+  check_class(target_wait, factor)
   target_mean_wait <- target_wait / factor
   return(target_mean_wait)
 }
