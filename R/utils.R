@@ -1,13 +1,14 @@
 #' Check Class of Argument Inputs
 #' @param ... Objects to be checked for class.
 #' @param .expected_class Character. The name of the class against which objects
-#' @param .call Environment. The environment in which this function is called.
-#'     will be checked.
+#'     should be checked.
+#' @param .call The environment in which this function is to be
+#'     called.
 #' @noRd
 check_class <- function(
-    ...,
-    .expected_class = c("numeric", "character"),
-    .call = rlang::caller_env()
+  ...,
+  .expected_class = c("numeric", "character"),
+  .call = rlang::caller_env()
 ) {
 
   .expected_class <- match.arg(.expected_class)

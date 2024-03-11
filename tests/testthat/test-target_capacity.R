@@ -31,7 +31,7 @@ test_that("it returns an expected result with vector of fixed values", {
 test_that("it returns the same length output as provided on input", {
   n <- round(runif(1, 0, 30))
   in1 <- rnorm(n = n, 50, 20)
-  in2 <- in1 * runif(1, 0.5 ,1.5)
+  in2 <- in1 * runif(1, 0.5, 1.5)
   em <- "target_capacity(): output vector length != input vector length."
   expect_length(target_capacity(in1, in2), length(in1))
 })
