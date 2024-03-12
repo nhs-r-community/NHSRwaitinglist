@@ -25,6 +25,7 @@
 #' # then Target capacity = 30 + 2 * (1 + 4 * 3)/52 = 30.5 patients per week.
 #' target_capacity(30,52,3)
 target_capacity <- function(demand, target_wait, F = 1) {
+  check_class(demand, target_wait, F)
   target_cap <- demand +  2 * (1 + 4 * F) / target_wait
   return(target_cap)
 }

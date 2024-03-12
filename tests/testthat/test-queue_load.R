@@ -1,23 +1,8 @@
-# # Anticipated test from the error handling that Matt Dray is drafting
-# test_that("function catches null values and reports error", {
-#   em <- "queue_load(): no error message when function is run with no inputs."
-#   expect_error(queue_load(), em)
-# })
-#
-# # Anticipated test from the error handling that Matt Dray is drafting
-# test_that("function catches mismatched input lengths", {
-#   em <- "queue_load(): no error message when functions inputs are of different length."
-#   expect_error(queue_load(c(22,25,26), c(15, 20)), em)
-# })
-#
-# # Anticipated test from the error handling that Matt Dray is drafting
-# test_that("it returns an error if either input aren't numeric", {
-#   in1 <- Sys.Date()
-#   in2 <- 27
-#
-#   em <- "queue_load(): all inputs must be numeric."
-#   expect_error(queue_load(in1, in2), em)
-# })
+test_that("wrong input class causes an error", {
+  msg_fragment <- "must be of class"
+  expect_error(queue_load(1, "x"), msg_fragment)
+  expect_error(queue_load("x", 1), msg_fragment)
+})
 
 test_that("it returns expected result with fixed single values vs arithmetic", {
   em <- "queue_load(): arithmetic error with single value inputs."

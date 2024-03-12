@@ -1,23 +1,9 @@
-# # Anticipated test from the error handling that Matt Dray is drafting
-# test_that("function catches null values and reports error", {
-#   em <- "target_capacity(): no error message when function is run with no inputs."
-#   expect_error(target_capacity(), em)
-# })
-#
-# # Anticipated test from the error handling that Matt Dray is drafting
-# test_that("function catches mismatched input lengths", {
-#   em <- "target_capacity(): no error message when functions inputs are of different length."
-#   expect_error(target_capacity(c(22,25,26), c(10, 12)), em)
-# })
-#
-# # Anticipated test from the error handling that Matt Dray is drafting
-# test_that("it returns an error if either input aren't numeric", {
-#   in1 <- Sys.Date()
-#   in2 <- 1
-#
-#   em <- "target_capacity(): all inputs must be numeric."
-#   expect_error(target_capacity(in1, in2), em)
-# })
+test_that("wrong input class causes an error", {
+  msg_fragment <- "must be of class"
+  expect_error(target_capacity("x", 2, 3), msg_fragment)
+  expect_error(target_capacity(1, "x", 3), msg_fragment)
+  expect_error(target_capacity(1, 2, "x"), msg_fragment)
+})
 
 test_that("it returns expected result with fixed single values vs arithmetic", {
   em <- "target_capacity(): arithmetic error with single value inputs."
@@ -45,7 +31,7 @@ test_that("it returns an expected result with vector of fixed values", {
 test_that("it returns the same length output as provided on input", {
   n <- round(runif(1, 0, 30))
   in1 <- rnorm(n = n, 50, 20)
-  in2 <- in1 * runif(1, 0.5 ,1.5)
+  in2 <- in1 * runif(1, 0.5, 1.5)
   em <- "target_capacity(): output vector length != input vector length."
   expect_length(target_capacity(in1, in2), length(in1))
 })

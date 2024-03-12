@@ -1,33 +1,10 @@
-# # Anticipated test from the error handling that Matt Dray is drafting
-# test_that("function catches null values and reports error", {
-#   em <- "relief_capacity(): no error message when function is run with no inputs."
-#   expect_error(relief_capacity(), em)
-# })
-#
-# # Anticipated test from the error handling that Matt Dray is drafting
-# test_that("function catches mismatched input lengths", {
-#   em <- "relief_capacity(): no error message when functions inputs are of different length."
-#   expect_error(
-#     relief_capacity(
-#       c(30, 33, 35 )
-#       , c(1200, 800, 250)
-#       , c(390,200)
-#       , c(26, 30, 15)
-#       )
-#     , em)
-# })
-#
-# # Anticipated test from the error handling that Matt Dray is drafting
-# test_that("it returns an error if either input aren't numeric", {
-#   in1 <- Sys.Date()
-#   in2 <- 1200
-#   in3 <- 390
-#   in4 <- 26
-#
-#   em <- "relief_capacity(): all inputs must be numeric."
-#   expect_error(relief_capacity(in1, in2, in3, in4), em)
-# })
-#'
+test_that("wrong input class causes an error", {
+  msg_fragment <- "must be of class"
+  expect_error(relief_capacity("x", 2, 3, 4), msg_fragment)
+  expect_error(relief_capacity(1, "x", 3, 4), msg_fragment)
+  expect_error(relief_capacity(1, 2, "x", 4), msg_fragment)
+  expect_error(relief_capacity(1, 2, 3, "x"), msg_fragment)
+})
 
 test_that("it returns expected result with fixed single values vs arithmetic", {
   em <- "relief_capacity(): arithmetic error with single value inputs."

@@ -17,10 +17,13 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
+VignetteBuilder: knitr
+URL: https://nhs-r-community.github.io/NHSRwaitinglist/
+Config/testthat/edition: 3
+Imports: 
+    cli,
+    rlang
 Suggests: 
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
-VignetteBuilder: knitr
-URL: https://nhs-r-community.github.io/NHSRwaitinglist/
-Config/testthat/edition: 3
