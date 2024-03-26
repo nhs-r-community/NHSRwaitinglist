@@ -1,18 +1,21 @@
-#' @title Queue SIZE
+#' @title Queue size calculator
 #'
-#' @description
+#' @description Calculateds queue sizes from a waiting list
 
 #'
-#' @param waiting_list
-#' @param start_date
-#' @param end_date
+#' @param waiting_list dataframe consisting addition and removal dates
+#' @param start_date start of calculation period
+#' @param end_date end of calculation period
 #'
-#' @return
+#' @return a list of dates and queue sizes
 #' @export
 #'
 #' @examples
-#'
-#'
+#' referrals <- c.Date("2024-01-01","2024-01-04","2024-01-10","2024-01-16")
+#' removals <- c.Date("2024-01-08",NA,NA,NA)
+#' waiting_list <- data.frame("referral" = referrals ,"removal" = removals )
+#' wl_queue_size(waiting_list)
+
 
 wl_queue_size <- function(waiting_list, start_date = NULL, end_date = NULL) {
   wl <- waiting_list

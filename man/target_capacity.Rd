@@ -4,7 +4,13 @@
 \alias{target_capacity}
 \title{Target Capacity}
 \usage{
-target_capacity(demand, target_wait, F = 1)
+target_capacity(
+  demand,
+  target_wait,
+  factor = 4,
+  cv_demand = 1,
+  cv_capacity = 1
+)
 }
 \arguments{
 \item{demand}{Numeric value of rate of demand in same units as target wait - e.g. if target wait is weeks, then demand in units of patients/week.}

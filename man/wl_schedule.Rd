@@ -2,18 +2,26 @@
 % Please edit documentation in R/wl_schedule.R
 \name{wl_schedule}
 \alias{wl_schedule}
-\title{schedules removal dates on a waiting list}
+\title{A simple operation scheduler}
 \usage{
 wl_schedule(waiting_list, schedule, referral_index = 1, removal_index = 2)
 }
 \arguments{
-\item{waiting_list}{dataframe}
+\item{waiting_list}{dataframe consisting addition and removal dates}
 
-\item{schedule}{Numeric value}
+\item{schedule}{a list of dates}
 }
 \value{
-updated_list
+updated waiting list with feasible dates schedule
 }
 \description{
-schedules removal dates on a waiting list
+Takes a list of dates and schedules them to a waiting list.
+This is done in date order. I.e. earlier referrals are scheduled first.
+}
+\examples{
+referrals <- c.Date("2024-01-01","2024-01-04","2024-01-10","2024-01-16")
+removals <- c.Date("2024-01-08",NA,NA,NA)
+waiting_list <- data.frame("referral" = referrals ,"removal" = removals )
+schedule <- c.Date("2024-01-03","2024-01-05","2024-01-18")
+updated_list <- queue_scheduler(waiting_list,schedule)
 }

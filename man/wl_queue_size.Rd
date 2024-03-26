@@ -2,13 +2,26 @@
 % Please edit documentation in R/wl_queue_sizes.R
 \name{wl_queue_size}
 \alias{wl_queue_size}
-\title{Queue SIZE}
+\title{Queue size calculator}
 \usage{
 wl_queue_size(waiting_list, start_date = NULL, end_date = NULL)
 }
 \arguments{
-\item{end_date}{}
+\item{waiting_list}{dataframe consisting addition and removal dates}
+
+\item{start_date}{start of calculation period}
+
+\item{end_date}{end of calculation period}
+}
+\value{
+a list of dates and queue sizes
 }
 \description{
-Queue SIZE
+Calculateds queue sizes from a waiting list
+}
+\examples{
+referrals <- c.Date("2024-01-01","2024-01-04","2024-01-10","2024-01-16")
+removals <- c.Date("2024-01-08",NA,NA,NA)
+waiting_list <- data.frame("referral" = referrals ,"removal" = removals )
+wl_queue_size(waiting_list)
 }

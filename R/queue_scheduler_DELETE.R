@@ -6,8 +6,7 @@
 #' @param waiting_list dataframe consisting addition and removal dates
 #' @param schedule a list of dates
 #'
-#' @return updated waiting list with feasible dates schedule
-#' @export
+#' @return updated waiting list with feasible dates schedul
 #'
 #' @examples
 #' referrals <- c.Date("2024-01-01","2024-01-04","2024-01-10","2024-01-16")
@@ -16,26 +15,23 @@
 #' schedule <- c.Date("2024-01-03","2024-01-05","2024-01-18")
 #' updated_list <- queue_scheduler(waiting_list,schedule)
 
-# TO DO ALLOW:
-# schedule to be a dataframe or vector
-
-wl_schedule <- function(waiting_list, schedule, referral_index = 1, removal_index = 2) {
+queue_scheduler <- function(waiting_list, schedule) {
   # split waiters and removed
-  wl <- waiting_list[is.na(waiting_list[,removal_index]),]
-  wl_removed <- waiting_list[!(is.na(waiting_list[,removal_index])),]
+  wl <- waiting_list[is.na(waiting_list[,2]),]
+  wl_removed <- waiting_list[!(is.na(waiting_list[,2])),]
   rownames(wl) <- NULL
 
   # schedule
   i<-1
   for (op in as.list(schedule)) {
-    if ( op > wl[i,referral_index] ) {
-      wl[i,removal_index] = as.Date(op)
+    if ( op > wl[i,1] ) {
+      wl[i,2] = as.Date(op)
       i <- i+1
     }
   }
 
   # recombine to update list
   updated_list <- rbind(wl_removed,wl)
-  updated_list <- updated_list[order(updated_list[,referral_index]),]
+  updated_list <- updated_list[order(updated_list[,1]),]
   return (updated_list)
 }

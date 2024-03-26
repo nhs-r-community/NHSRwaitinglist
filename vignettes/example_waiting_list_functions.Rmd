@@ -1,0 +1,8 @@
+---
+title: "Walkthrough of waiting list functions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Walkthrough a real waiting list example}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---

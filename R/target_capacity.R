@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Calculates the target capacity to achieve a given target waiting time as a function of observed demand, target waiting time and a variability coefficient F.
-#' 
+#'
 #' Target Capacity = Demand + 2 * ( 1 + 4 * F ) / Target Wait
 #' F defaults to 1.
 #'
@@ -20,7 +20,12 @@
 #'
 #' target_capacity(30,52,3)
 #'
-target_capacity <- function(demand, target_wait, F = 1) {
-  target_cap <- demand +  2 * ( 1 + 4 * F ) / target_wait
-  return(target_cap)
-}
+# target_capacity <- function(demand, target_wait, F = 1) {
+#   target_cap <- demand +  2 * ( 1 + 4 * F ) / target_wait
+#   return (target_cap)
+# }
+
+target_capacity <- function(demand, target_wait, factor = 4, cv_demand = 1, cv_capacity = 1) {
+    target_cap <- demand + ( (cv_demand**2 + cv_capacity**2) / 2 ) * ( factor / target_wait )
+    return (target_cap)
+  }
