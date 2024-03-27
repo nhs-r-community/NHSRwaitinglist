@@ -1,6 +1,23 @@
+#' @title Simple Simulator
+#'
+#' @description Simulators
 
+#'
+#' @param start_date
+#' @param end_date
+#' @param demand
+#' @param capacity
+#'
+#' @return updated_list a new waiting list
+#' @export
+#'
+#' @examples
+#'
+#' TO DO error messages (e.g. start_date > end_date)
 
-wl_simulator <- function(start_date, end_date, demand, capacity) {
+wl_simulator <- function(start_date, end_date, demand, capacity, referral_index = 1) {
+  start_date <- as.Date(start_date)
+  end_date <- as.Date(end_date)
   number_of_days <- as.numeric(end_date)-as.numeric(start_date)
 
   total_demand <- demand*number_of_days/7
