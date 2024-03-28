@@ -1,6 +1,6 @@
 #' @title Queue size calculator
 #'
-#' @description Calculateds queue sizes from a waiting list
+#' @description Calculates queue sizes from a waiting list
 
 #'
 #' @param waiting_list dataframe consisting addition and removal dates

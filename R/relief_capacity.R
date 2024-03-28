@@ -23,7 +23,7 @@
 #'
 #' relief_capacity(30, 1200, 390, 26)
 #'
-relief_capacity <- function(demand, queue_size, target_queue_size, weeks_to_target) {
+relief_capacity <- function(demand, queue_size, target_queue_size, weeks_to_target=10) {
   rel_cap <- demand + (queue_size  -  target_queue_size) / weeks_to_target
   return(rel_cap)
 }
