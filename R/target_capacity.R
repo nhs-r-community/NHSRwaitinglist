@@ -1,29 +1,36 @@
 #' @title Target Capacity
 #'
 #' @description
-#' Calculates the target capacity to achieve a given target waiting time as a function of observed demand, target waiting time and a variability coefficient F.
+#' Applies Kingman/Marchal's Formula :
 #'
-#' Target Capacity = Demand + 2 * ( 1 + 4 * F ) / Target Wait
-#' F defaults to 1.
+#'      capacity = demand + (cvd**2 + cvc**2) / waiting_time
+#'
+#'  where
+#'      cvd           = coefficent of variation of time between arrivals
+#'      cvd           = coefficient of variation of sevice times
+#'      waiting_time  = target_wait / factor
 #'
 #' @param demand Numeric value of rate of demand in same units as target wait - e.g. if target wait is weeks, then demand in units of patients/week.
 #' @param target_wait Numeric value of number of weeks that has been set as the target within which the patient should be seen.
-#' @param F Variability coefficient, F = V/C * (D/C)^2 where C is the current number of operations per week; V is the current variance in the number of operations per week; D is the observed demand. Defaults to 1.
+#' @param factor the amount we divide the target by in the waiting list e.g. if target is 52 weeks the mean wait should be 13 for a factor of 4
+#' @param cv_demand coefficient of variation of time between arrivals
+#' @param cv_capacity coefficient of variation between removals due to operations completed
 #'
 #' @return A numeric value of target capacity required to achieve a target waiting time.
 #' @export
 #'
 #' @examples
 #'
-#' # If the target wait is 52 weeks, demand is 30 patients per week and F = 3 then
-#' # Target capacity = 30 + 2*(1+4*3)/52 = 30.5 patients per week.
+#' demand = 4 # weeks
+#' target = 52 # weeks
 #'
-#' target_capacity(30,52,3)
+#' target_capacity(demand, target_wait) # number of operations per week to have mean wait of 52/4
 #'
-# target_capacity <- function(demand, target_wait, F = 1) {
-#   target_cap <- demand +  2 * ( 1 + 4 * F ) / target_wait
-#   return (target_cap)
-# }
+#'
+#' TODO:
+#' Include a couple of standard deviations for errors in the mean demand
+
+
 
 target_capacity <- function(demand, target_wait, factor = 4, cv_demand = 1, cv_capacity = 1) {
     target_cap <- demand + ( (cv_demand**2 + cv_capacity**2) / 2 ) * ( factor / target_wait )

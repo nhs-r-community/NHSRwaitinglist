@@ -7,10 +7,14 @@
 #'
 #' Relief Capacity = Current Demand + (Queue Size - Target Queue Size)/Time Steps
 #'
+#' WARNING!: make sure units match.
+#' I.e. if demand is measured per week then time_to_target should be weeks
+#' or if demand is per day then time_to_target is per day
+#'
 #' @param demand Numeric value of rate of demand in same units as target wait - e.g. if target wait is weeks, then demand in units of patients/week.
 #' @param queue_size Numeric value of  current number of patients in queue.
 #' @param target_queue_size Numeric value of desired number of patients in queue.
-#' @param weeks_to_target Numeric value of desired number of time-steps to reach the target queue size by.
+#' @param time_to_target Numeric value of desired number of time-steps to reach the target queue size by.
 #'
 #' @return A numeric value of the required rate of capacity to achieve a target queue size in a given period of time.
 #' @export
@@ -23,7 +27,8 @@
 #'
 #' relief_capacity(30, 1200, 390, 26)
 #'
-relief_capacity <- function(demand, queue_size, target_queue_size, weeks_to_target=10) {
-  rel_cap <- demand + (queue_size  -  target_queue_size) / weeks_to_target
+
+relief_capacity <- function(demand, queue_size, target_queue_size, time_to_target=26) {
+  rel_cap <- demand + (queue_size  -  target_queue_size) / time_to_target
   return(rel_cap)
 }

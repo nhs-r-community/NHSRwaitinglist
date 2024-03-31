@@ -13,15 +13,24 @@
 #' @examples
 #'
 #' TO DO!!
+#' Check target_capacity weekly daily
+#' Error if dates are in the wrong order
+#' Calculate the number of missed operations
+#' Start date and end date calculations not working well
 
 #' MAKE CONSISTENT NOTATION
 #' default start and end date if empty
 #' make units of output weekly operations not daily
 #' mean removal too big
+#' Z score in capacity calculations
+#' mean demand and mean capacity not interrarraival and departures plesae.
 
 library(dplyr)
 
-wl_stats <- function(waiting_list, target_wait, start_date = NULL, end_date = NULL) {
+wl_stats <- function(waiting_list,
+                     target_wait=4,
+                     start_date = NULL,
+                     end_date = NULL) {
   if ( !is.null(start_date) ) {
     start_date <- as.Date(start_date)
   } else {
@@ -33,39 +42,59 @@ wl_stats <- function(waiting_list, target_wait, start_date = NULL, end_date = NU
     end_date <- max(waiting_list[,1])
   }
 
-  arrival_dates <- c(as.Date(start_date),waiting_list[,1],as.Date(end_date))
-  inter_arrival_times <- diff(arrival_dates,lags=-1)
-
   # arrival mean and variance
-  mean_arrival <- as.numeric(mean(inter_arrival_times))
-  sd_arrival <- sd(inter_arrival_times)
-  cv_arrival <- sd_arrival/mean_arrival
+  # arrival_dates <- c(as.Date(start_date),
+  #                    waiting_list[
+  #                                  which( start_date <= waiting_list[,1]
+  #                                         & waiting_list[,1] <= end_date
+  #                                         ),1
+  #                                  ],
+  #                    as.Date(end_date))
+  #
+  # inter_arrival_times <- diff(arrival_dates,lags=-1)
+  # mean_arrival <- as.numeric(mean(inter_arrival_times))
+  # sd_arrival <- sd(inter_arrival_times)
+  # cv_arrival <- sd_arrival/mean_arrival
+  # num_arrivals <- length(inter_arrival_times)
+  # demand <- 1/mean_arrival
+  # demand_weekly <- 7*demand
 
-  # removal mean and variance
-  removal_dates <- c(as.Date(start_date),waiting_list[,2],as.Date(end_date))
-  removal_dates <- sort(removal_dates[!is.na(removal_dates)])
+  referral_stats <- wl_referral_stats(waiting_list,start_date,end_date)
 
+  # # removal mean and variance
+  # removal_dates <- c(as.Date(start_date),waiting_list[,2],as.Date(end_date))
+  # removal_dates <- sort(removal_dates[!is.na(removal_dates)])
+  #
   queue_sizes <- wl_queue_size(waiting_list)
-  zero_dates <- queue_sizes[which(queue_sizes[,2]==0),1]
+  # zero_dates <- queue_sizes[which(queue_sizes[,2]==0),1]
+  #
+  # zeros_df <- data.frame("dates"=zero_dates,
+  #                        "non_zero_queue"=rep(FALSE,length(zero_dates))
+  #                        )
+  # removals_df <- data.frame("dates"=removal_dates,
+  #                           "non_zero_queue"=rep(TRUE,length(removal_dates))
+  #                           )
+  # removals_and_zeros <- rbind(zeros_df,removals_df)
+  # removals_and_zeros <- removals_and_zeros[order(removals_and_zeros[,1],
+  #                                                removals_and_zeros[,2]),
+  #                                          ]
+  # rownames(removals_and_zeros) <- NULL
+  # removals_and_zeros$lag_dates <- dplyr::lag(removals_and_zeros$dates)
+  # removals_and_zeros$diff <- as.numeric(removals_and_zeros[,1]) - as.numeric(removals_and_zeros[,3])
+  #
+  # differences <- removals_and_zeros[which(removals_and_zeros[,2] == TRUE),4]
+  # mean_removal <- as.numeric(mean(differences,na.rm=TRUE))
+  # sd_removal <- sd(differences,na.rm=TRUE)
+  # cv_removal <- sd_removal/mean_removal
+  # num_removals <- length(differences)
+  # capacity <- 1/mean_removal
+  # capacity_weekly <- 7/mean_removal
 
-  zeros_df <- data.frame("dates"=zero_dates,"non_zero_queue"=rep(FALSE,length(zero_dates)))
-  removals_df <- data.frame("dates"=removal_dates,"non_zero_queue"=rep(TRUE,length(removal_dates)))
-  removals_and_zeros <- rbind(zeros_df,removals_df)
-  removals_and_zeros <- removals_and_zeros[order(removals_and_zeros[,1], removals_and_zeros[,2]),]
-  rownames(removals_and_zeros) <- NULL
-  removals_and_zeros$lag_dates <- dplyr::lag(removals_and_zeros$dates)
-  #removals_and_zeros$lag_non_zero_queue <- dplyr::lag(removals_and_zeros$non_zero_queue)
-  removals_and_zeros$diff <- as.numeric(removals_and_zeros[,1]) - as.numeric(removals_and_zeros[,3])
 
-  differences <- removals_and_zeros[which(removals_and_zeros[,2] == TRUE),4]
-  mean_removal <- as.numeric(mean(differences,na.rm=TRUE))
-  sd_removal <- sd(differences,na.rm=TRUE)
-  cv_removal <- sd_removal/mean_removal
-
-  demand <- 1/mean_arrival
+  removal_stats <- wl_removal_stats(waiting_list,start_date,end_date)
 
   # load
-  q_load <- queue_load(1/mean_arrival,1/mean_removal)
+  q_load <- queue_load(referral_stats$demand.weekly,removal_stats$capacity.weekly)
 
   # load too big
   q_load_too_big = (q_load >= 1.)
@@ -74,7 +103,7 @@ wl_stats <- function(waiting_list, target_wait, start_date = NULL, end_date = NU
   q_size <- tail(queue_sizes,n=1)[,2]
 
   # target queue size
-  q_target <- target_queue_size(mean_arrival,target_wait)
+  q_target <- target_queue_size(referral_stats$demand.weekly,target_wait)
 
   # queue too big
   q_too_big <- ( q_size > 2*q_target )
@@ -85,17 +114,16 @@ wl_stats <- function(waiting_list, target_wait, start_date = NULL, end_date = NU
   mean_wait <- mean(wait_times)
 
   # target capacity
-  if (!q_load_too_big){
-    target_cap_daily <- target_capacity(demand, target_wait, 4, cv_arrival, cv_removal)
-    target_cap_weekly <- target_cap_daily * 7
+  if (!q_too_big){
+    target_cap <- target_capacity(referral_stats$demand.weekly, target_wait, 4, referral_stats$demand.cov, removal_stats$capacity.cov)
+    #target_cap_weekly <- target_cap_daily * 7
   } else {
-    target_cap_weekly <- NA
+    target_cap <- NA
   }
 
   # relief capacity
-  if (q_load_too_big){
-    weekly_demand <- 7*demand
-    relief_cap <- relief_capacity(weekly_demand, q_size, q_target)
+  if (q_too_big){
+    relief_cap <- relief_capacity(referral_stats$demand.weekly, q_size, q_target)
   } else {
     relief_cap <- NA
   }
@@ -104,17 +132,17 @@ wl_stats <- function(waiting_list, target_wait, start_date = NULL, end_date = NU
   pressure <- waiting_list_pressure(mean_wait, target_wait)
 
   waiting_stats <- data.frame(
-    "mean_arrival" = mean_arrival,
-    "mean_removal" = mean_removal,
+    "mean.demand" = referral_stats$demand.weekly,
+    "mean.capacity" = removal_stats$capacity.weekly,
     "load" = q_load,
     "load too big" = q_load_too_big,
     "queue_size" = q_size,
     "target_queue_size" = q_target,
     "queue too big" = q_too_big,
     "mean_wait" = mean_wait,
-    "cv_arrival" = cv_arrival,
-    "cv_removal" =  cv_removal,
-    "target capacity" = target_cap_weekly,
+    "cv_arrival" = referral_stats$demand.cov,
+    "cv_removal" =  removal_stats$capacity.cov,
+    "target capacity" = target_cap,
     "relief capacity" = relief_cap,
     "pressure" =  mean_wait * 4 / target_wait
   )

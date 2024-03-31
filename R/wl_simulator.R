@@ -15,7 +15,7 @@
 #'
 #' TO DO error messages (e.g. start_date > end_date)
 
-wl_simulator <- function(start_date, end_date, demand, capacity, referral_index = 1) {
+wl_simulator <- function(start_date, end_date, demand, capacity, waiting_list=NULL, referral_index = 1) {
   start_date <- as.Date(start_date)
   end_date <- as.Date(end_date)
   number_of_days <- as.numeric(end_date)-as.numeric(start_date)
@@ -29,12 +29,16 @@ wl_simulator <- function(start_date, end_date, demand, capacity, referral_index 
 
   referral <- referral[order(referral)]
   removal <- rep(as.Date(NA), length(referral))
-  waiting_list = data.frame(referral,removal)
+  wl_simulated <- data.frame(referral,removal)
+
+  if (!is.null(waiting_list) ){
+    wl_simulated <- wl_join(waiting_list,wl_simulated,referral_index)
+  }
 
   # create an operating schedule
   schedule <- as.Date(as.numeric(start_date)+ceiling(seq(0,number_of_days-1,1/daily_capacity)),origin="1970-01-01")
 
-  waiting_list <- wl_schedule(waiting_list,schedule)
+  wl_simulated <- wl_schedule(wl_simulated,schedule)
 
-  return (waiting_list)
+  return (wl_simulated )
 }
