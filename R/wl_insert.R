@@ -3,8 +3,10 @@
 #' @description adds new referrals (removal date is set as NA)
 #'
 #' @param waiting_list dataframe. A df of referral dates and removals
-#' @param additions character vector. A list of referral dates to add to the waiting list
-#' @param referral_index integer. The column number in the waiting_list which contains the referral dates
+#' @param additions character vector. A list of referral dates to add to the
+#'   waiting list
+#' @param referral_index integer. The column number in the waiting_list which
+#'   contains the referral dates
 #'
 #' @return dataframe. A df of the updated waiting list
 #' @export

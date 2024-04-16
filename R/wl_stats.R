@@ -1,6 +1,6 @@
 #' @title Calculate some stats about the waiting list
 #'
-#' @description A summary of all the key statistics associated with a waiting list
+#' @description A summary of all the key stats associated with a waiting list
 #'
 #' @param waiting_list dataframe. A df of referral dates and removals
 #' @param target_wait numeric. The required waiting time

@@ -2,14 +2,19 @@
 #'
 #' @description Takes a list of dates and schedules them to a waiting list,
 #' by adding a removal date to the dataframe.
-#' This is done in referral date order. I.e. earlier referrals are scheduled first (FIFO).
+#' This is done in referral date order,
+#' I.e. earlier referrals are scheduled first (FIFO).
 #'
 #' @param waiting_list dataframe. A df of referral dates and removals
-#' @param schedule vector of dates. The dates to schedule open referrals into (ie. dates of unbooked future capacity)
-#' @param referral_index integer. The column number in the waiting_list which contains the referral dates
-#' @param removal_index integer. The column number in the waiting_list which contains the removal dates
+#' @param schedule vector of dates. The dates to schedule open referrals into
+#'   (ie. dates of unbooked future capacity)
+#' @param referral_index integer. The column number in the waiting_list which
+#'   contains the referral dates
+#' @param removal_index integer. The column number in the waiting_list which
+#'   contains the removal dates
 #'
-#' @return dataframe. A df of the updated waiting list with removal dates added according to the schedule
+#' @return dataframe. A df of the updated waiting list with removal dates added
+#'   according to the schedule
 #' @export
 #'
 #' @examples
@@ -21,7 +26,11 @@
 #'
 #' # TODO ALLOW:
 #' # schedule to be a dataframe or vector
-wl_schedule <- function(waiting_list, schedule, referral_index = 1, removal_index = 2) {
+wl_schedule <- function(
+    waiting_list,
+    schedule,
+    referral_index = 1,
+    removal_index = 2) {
   # split waiters and removed
   wl <- waiting_list[is.na(waiting_list[, removal_index]), ]
   wl_removed <- waiting_list[!(is.na(waiting_list[, removal_index])), ]

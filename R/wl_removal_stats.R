@@ -6,7 +6,8 @@
 #' @param start_date date. The start date to calculate from
 #' @param end_date date. The end date to calculate to
 #'
-#' @return dataframe. A df containing number of removals, mean capacity, and the coefficient of variation of removals
+#' @return dataframe. A df containing number of removals, mean capacity,
+#'   and the coefficient of variation of removals
 #' @export
 #'
 #' @examples
@@ -14,11 +15,12 @@
 #' removals <- c.Date("2024-01-08", NA, NA, NA)
 #' waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 #' removal_stats <- wl_removal_stats(waiting_list)
-# TODO : referral <- arrival
-# debug and test
-# simplify notation
-# add detail to params above
-# arrival mean and variance
+#'
+#' # TODO : referral <- arrival
+#' # debug and test
+#' # simplify notation
+#' # add detail to params above
+#' # arrival mean and variance
 wl_removal_stats <- function(waiting_list,
                              start_date = NULL,
                              end_date = NULL) {
