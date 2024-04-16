@@ -4,14 +4,31 @@
 \alias{wl_simulator}
 \title{Simple Simulator}
 \usage{
-wl_simulator(start_date, end_date, demand, capacity)
+wl_simulator(
+  start_date,
+  end_date,
+  demand,
+  capacity,
+  waiting_list = NULL,
+  referral_index = 1
+)
 }
 \arguments{
-\item{capacity}{}
+\item{start_date}{Start date}
+
+\item{end_date}{End date}
+
+\item{demand}{Demand}
+
+\item{capacity}{Capacity}
 }
 \value{
 updated_list a new waiting list
 }
 \description{
 Simulators
+}
+\examples{
+
+TO DO error messages (e.g. start_date > end_date)
 }

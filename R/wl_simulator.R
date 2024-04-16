@@ -3,10 +3,10 @@
 #' @description Simulators
 
 #'
-#' @param start_date
-#' @param end_date
-#' @param demand
-#' @param capacity
+#' @param start_date Start date
+#' @param end_date End date
+#' @param demand Demand
+#' @param capacity Capacity
 #'
 #' @return updated_list a new waiting list
 #' @export
