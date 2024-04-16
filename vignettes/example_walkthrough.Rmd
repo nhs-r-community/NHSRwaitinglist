@@ -1,8 +1,8 @@
 ---
-title: "Walkthrough a real waiting list example"
+title: "Walkthrough of waiting list functions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Walkthrough a real waiting list example}
+  %\VignetteIndexEntry{Walkthrough of waiting list functions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -50,7 +50,7 @@ demand <- 30
 capacity <- 27
 
 # Standard deviation of number of operations per week
-std_dev_procedures <- 160
+std_dev_procedures <- 160  
 
 ```
 
@@ -118,9 +118,9 @@ If the waiting list size is over twice the target queue size, then we consider t
 weeks_until_target_acheived <- 26
 
 relief_capacity <- relief_capacity(
-  demand = demand,
-  queue_size = queue_size,
-  target_queue_size = target_queue_size,
+  demand = demand, 
+  queue_size = queue_size, 
+  target_queue_size = target_queue_size, 
   weeks_to_target = weeks_until_target_acheived
 )
 relief_capacity
@@ -151,10 +151,8 @@ Higher values represent more variability, which in turn will increase the capaci
 f_1 <- 1
 
 target_capacity_1 <- target_capacity(
-  demand = demand,
-  target_wait = waiting_time_target,
-  F = f_1
-)
+  demand = demand, 
+  target_wait = waiting_time_target)
 target_capacity_1
 ```
 
@@ -164,10 +162,8 @@ If F is `r f_1`, we can see that the capacity required is `r round(target_capaci
 f_2 <- 6.58
 
 target_capacity_2 <- target_capacity(
-  demand = demand,
-  target_wait = waiting_time_target,
-  F = f_2
-)
+  demand = demand, 
+  target_wait = waiting_time_target)
 target_capacity_2
 ```
 
@@ -190,10 +186,7 @@ Measuring waiting list pressure can give a comparative measure with which to com
 For the P4 ENT example we have been following:
 
 ```{r}
-waiting_list_pressure_p4 <- waiting_list_pressure(
-  avg_waiting_time,
-  waiting_time_target
-)
+waiting_list_pressure_p4 <- waiting_list_pressure(avg_waiting_time, waiting_time_target)
 waiting_list_pressure_p4
 ```
 
@@ -209,10 +202,7 @@ queue_size_p2 <- 220
 avg_waiting_time_p2 <- 24
 waiting_time_target_p2 <- 4
 
-waiting_list_pressure_p2 <- waiting_list_pressure(
-  avg_waiting_time_p2,
-  waiting_time_target_p2
-)
+waiting_list_pressure_p2 <- waiting_list_pressure(avg_waiting_time_p2, waiting_time_target_p2)
 waiting_list_pressure_p2
 ```
 

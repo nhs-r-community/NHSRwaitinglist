@@ -33,7 +33,10 @@ Average Waiting Time < target_wait/factor=4 The factor defaults to 4.
 Only applicable when Capacity > Demand.
 }
 \examples{
-# If demand is 30 patients per week and the target wait is 52 weeks, then the
-# Target queue size = 30 * 52 / 4 = 390 patients.
-target_queue_size(30, 52, 4)
+# If demand  is 30 patients per week and the target wait is 52 weeks, then the
+# Target queue size = 30 * 52/4 = 390 patients.
+
+target_queue_size(30,52,4)
+
+
 }

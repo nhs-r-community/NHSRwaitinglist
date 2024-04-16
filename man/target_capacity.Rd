@@ -4,7 +4,13 @@
 \alias{target_capacity}
 \title{Calculate Target Capacity}
 \usage{
-target_capacity(demand, target_wait, F = 1)
+target_capacity(
+  demand,
+  target_wait,
+  factor = 4,
+  cv_demand = 1,
+  cv_capacity = 1
+)
 }
 \arguments{
 \item{demand}{Numeric value of rate of demand in same units as target wait -
@@ -13,20 +19,17 @@ e.g. if target wait is weeks, then demand in units of patients/week.}
 \item{target_wait}{Numeric value of number of weeks that has been set as the
 target within which the patient should be seen.}
 
-\item{F}{Variability coefficient, F = V/C * (D/C)^2 where C is the current
-number of operations per week; V is the current variance in the number of
-operations per week; D is the observed demand. Defaults to 1.}
+\item{F}{Variability coefficient, F = V/C * (D/C)^2 where C is the current number of operations per week; V is the current variance in the number of operations per week; D is the observed demand. Defaults to 1.}
 }
 \value{
 A numeric value of target capacity required to achieve a target
 waiting time.
 }
 \description{
-Calculates the target capacity to achieve a given target waiting
-time as a function of observed demand, target waiting time and a variability
-coefficient F.
+Calculates the target capacity to achieve a given target waiting time as a function of observed demand, target waiting time and a variability coefficient F.
 
-Target Capacity = Demand + 2 * ( 1 + 4 * F ) / Target Wait F defaults to 1.
+Target Capacity = Demand + 2 * ( 1 + 4 * F ) / Target Wait
+F defaults to 1.
 }
 \examples{
 
