@@ -14,7 +14,7 @@
 #' removals <- c.Date("2024-01-08",NA,NA,NA)
 #' waiting_list <- data.frame("referral" = referrals ,"removal" = removals )
 #' schedule <- c.Date("2024-01-03","2024-01-05","2024-01-18")
-#' updated_list <- queue_scheduler(waiting_list,schedule)
+#' updated_list <- wl_schedule(waiting_list, schedule)
 #'
 #' # TODO ALLOW:
 #' # schedule to be a dataframe or vector

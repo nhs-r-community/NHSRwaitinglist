@@ -22,7 +22,7 @@
 #' @examples
 #'
 #' demand = 4 # weeks
-#' target = 52 # weeks
+#' target_wait = 52 # weeks
 #'
 #' target_capacity(demand, target_wait) # number of operations per week to have mean wait of 52/4
 #'
