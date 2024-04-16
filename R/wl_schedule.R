@@ -15,9 +15,9 @@
 #' waiting_list <- data.frame("referral" = referrals ,"removal" = removals )
 #' schedule <- c.Date("2024-01-03","2024-01-05","2024-01-18")
 #' updated_list <- queue_scheduler(waiting_list,schedule)
-
-# TO DO ALLOW:
-# schedule to be a dataframe or vector
+#'
+#' # TODO ALLOW:
+#' # schedule to be a dataframe or vector
 
 wl_schedule <- function(waiting_list, schedule, referral_index = 1, removal_index = 2) {
   # split waiters and removed

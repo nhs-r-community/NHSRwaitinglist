@@ -30,5 +30,5 @@ Simulators
 }
 \examples{
 
-TO DO error messages (e.g. start_date > end_date)
+#TODO error messages (e.g. start_date > end_date)
 }

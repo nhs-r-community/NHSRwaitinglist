@@ -13,7 +13,7 @@
 #'
 #' @examples
 #'
-#' TO DO error messages (e.g. start_date > end_date)
+#' #TODO error messages (e.g. start_date > end_date)
 
 wl_simulator <- function(start_date, end_date, demand, capacity, waiting_list=NULL, referral_index = 1) {
   start_date <- as.Date(start_date)

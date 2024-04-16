@@ -26,9 +26,7 @@
 #'
 #' target_capacity(demand, target_wait) # number of operations per week to have mean wait of 52/4
 #'
-#'
-#' TODO:
-#' Include a couple of standard deviations for errors in the mean demand
+#' #TODO: Include a couple of standard deviations for errors in the mean demand
 
 target_capacity <- function(demand, target_wait, factor = 4, cv_demand = 1, cv_capacity = 1) {
     check_class(demand, target_wait, factor, cv_demand, cv_capacity)

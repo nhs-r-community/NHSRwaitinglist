@@ -12,18 +12,18 @@
 #'
 #' @examples
 #'
-#' TO DO!!
-#' Check target_capacity weekly daily
-#' Error if dates are in the wrong order
-#' Calculate the number of missed operations
-#' Start date and end date calculations not working well
-
-#' MAKE CONSISTENT NOTATION
-#' default start and end date if empty
-#' make units of output weekly operations not daily
-#' mean removal too big
-#' Z score in capacity calculations
-#' mean demand and mean capacity not interrarraival and departures plesae.
+#' # TO DO!!
+#' # Check target_capacity weekly daily
+#' # Error if dates are in the wrong order
+#' # Calculate the number of missed operations
+#' # Start date and end date calculations not working well
+# 
+#' # MAKE CONSISTENT NOTATION
+#' # default start and end date if empty
+#' # make units of output weekly operations not daily
+#' # mean removal too big
+#' # Z score in capacity calculations
+#' # mean demand and mean capacity not interrarraival and departures plesae.
 
 wl_stats <- function(waiting_list,
                      target_wait=4,

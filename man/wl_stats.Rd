@@ -3,6 +3,9 @@
 \name{wl_stats}
 \alias{wl_stats}
 \title{Waiting List Statistics}
+\usage{
+wl_stats(waiting_list, target_wait = 4, start_date = NULL, end_date = NULL)
+}
 \arguments{
 \item{waiting_list}{dataframe consisting addition and removal dates}
 
@@ -16,15 +19,15 @@ A summary of all the key statistics associated with a waiting list
 }
 \examples{
 
-TO DO!!
-Check target_capacity weekly daily
-Error if dates are in the wrong order
-Calculate the number of missed operations
-Start date and end date calculations not working well
-MAKE CONSISTENT NOTATION
-default start and end date if empty
-make units of output weekly operations not daily
-mean removal too big
-Z score in capacity calculations
-mean demand and mean capacity not interrarraival and departures plesae.
+# TO DO!!
+# Check target_capacity weekly daily
+# Error if dates are in the wrong order
+# Calculate the number of missed operations
+# Start date and end date calculations not working well
+# MAKE CONSISTENT NOTATION
+# default start and end date if empty
+# make units of output weekly operations not daily
+# mean removal too big
+# Z score in capacity calculations
+# mean demand and mean capacity not interrarraival and departures plesae.
 }

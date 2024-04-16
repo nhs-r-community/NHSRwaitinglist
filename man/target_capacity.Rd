@@ -44,7 +44,5 @@ target = 52 # weeks
 
 target_capacity(demand, target_wait) # number of operations per week to have mean wait of 52/4
 
-
-TODO:
-Include a couple of standard deviations for errors in the mean demand
+#TODO: Include a couple of standard deviations for errors in the mean demand
 }
