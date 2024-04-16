@@ -6,11 +6,9 @@
 #'     called.
 #' @noRd
 check_class <- function(
-  ...,
-  .expected_class = c("numeric", "character"),
-  .call = rlang::caller_env()
-) {
-
+    ...,
+    .expected_class = c("numeric", "character"),
+    .call = rlang::caller_env()) {
   .expected_class <- match.arg(.expected_class)
 
   args <- rlang::dots_list(..., .named = TRUE)
@@ -18,8 +16,7 @@ check_class <- function(
   args_are_class <- lapply(
     args,
     function(arg) {
-      switch(
-        .expected_class,
+      switch(.expected_class,
         numeric   = is.numeric(arg),
         character = is.character(arg),
       )
@@ -29,7 +26,6 @@ check_class <- function(
   fails_names <- names(Filter(isFALSE, args_are_class))
 
   if (length(fails_names) > 0) {
-
     fails <- args[names(args) %in% fails_names]
     fails_classes <- sapply(fails, class)
 
@@ -50,5 +46,4 @@ check_class <- function(
       call = .call
     )
   }
-
 }

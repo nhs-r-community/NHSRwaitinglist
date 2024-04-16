@@ -50,8 +50,7 @@ demand <- 30
 capacity <- 27
 
 # Standard deviation of number of operations per week
-std_dev_procedures <- 160  
-
+std_dev_procedures <- 160
 ```
 
 ## Demand, capacity, and load
@@ -118,13 +117,12 @@ If the waiting list size is over twice the target queue size, then we consider t
 weeks_until_target_acheived <- 26
 
 relief_capacity <- relief_capacity(
-  demand = demand, 
-  queue_size = queue_size, 
-  target_queue_size = target_queue_size, 
+  demand = demand,
+  queue_size = queue_size,
+  target_queue_size = target_queue_size,
   time_to_target = weeks_until_target_acheived
 )
 relief_capacity
-
 ```
 
 In this example, we decide that the target should be achieved by the start of the summer, 26 weeks away. 
@@ -151,8 +149,9 @@ Higher values represent more variability, which in turn will increase the capaci
 f_1 <- 1
 
 target_capacity_1 <- target_capacity(
-  demand = demand, 
-  target_wait = waiting_time_target)
+  demand = demand,
+  target_wait = waiting_time_target
+)
 target_capacity_1
 ```
 
@@ -162,8 +161,9 @@ If F is `r f_1`, we can see that the capacity required is `r round(target_capaci
 f_2 <- 6.58
 
 target_capacity_2 <- target_capacity(
-  demand = demand, 
-  target_wait = waiting_time_target)
+  demand = demand,
+  target_wait = waiting_time_target
+)
 target_capacity_2
 ```
 

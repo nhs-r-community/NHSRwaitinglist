@@ -21,15 +21,14 @@
 #'
 #' @examples
 #'
-#' demand = 4 # weeks
-#' target_wait = 52 # weeks
+#' demand <- 4 # weeks
+#' target_wait <- 52 # weeks
 #'
 #' target_capacity(demand, target_wait) # number of operations per week to have mean wait of 52/4
 #'
-#' #TODO: Include a couple of standard deviations for errors in the mean demand
-
+#' # TODO: Include a couple of standard deviations for errors in the mean demand
 target_capacity <- function(demand, target_wait, factor = 4, cv_demand = 1, cv_capacity = 1) {
-    check_class(demand, target_wait, factor, cv_demand, cv_capacity)
-    target_cap <- demand + ( (cv_demand**2 + cv_capacity**2) / 2 ) * ( factor / target_wait )
-    return (target_cap)
-  }
+  check_class(demand, target_wait, factor, cv_demand, cv_capacity)
+  target_cap <- demand + ((cv_demand**2 + cv_capacity**2) / 2) * (factor / target_wait)
+  return(target_cap)
+}
