@@ -7,23 +7,28 @@
 wl_schedule(waiting_list, schedule, referral_index = 1, removal_index = 2)
 }
 \arguments{
-\item{waiting_list}{dataframe consisting addition and removal dates}
+\item{waiting_list}{dataframe. A df of referral dates and removals}
 
-\item{schedule}{a list of dates}
+\item{schedule}{vector of dates. The dates to schedule open referrals into (ie. dates of unbooked future capacity)}
+
+\item{referral_index}{integer. The column number in the waiting_list which contains the referral dates}
+
+\item{removal_index}{integer. The column number in the waiting_list which contains the removal dates}
 }
 \value{
-updated waiting list with feasible dates schedule
+dataframe. A df of the updated waiting list with removal dates added according to the schedule
 }
 \description{
-Takes a list of dates and schedules them to a waiting list.
-This is done in date order. I.e. earlier referrals are scheduled first.
+Takes a list of dates and schedules them to a waiting list,
+by adding a removal date to the dataframe.
+This is done in referral date order. I.e. earlier referrals are scheduled first (FIFO).
 }
 \examples{
-referrals <- c.Date("2024-01-01","2024-01-04","2024-01-10","2024-01-16")
-removals <- c.Date("2024-01-08",NA,NA,NA)
-waiting_list <- data.frame("referral" = referrals ,"removal" = removals )
-schedule <- c.Date("2024-01-03","2024-01-05","2024-01-18")
-updated_list <- wl_schedule(waiting_list, schedule)
+referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
+removals <- c.Date("2024-01-08", NA, NA, NA)
+waiting_list <- data.frame("referral" = referrals, "removal" = removals)
+schedule <- c.Date("2024-01-03", "2024-01-05", "2024-01-18")
+updated_waiting_list <- wl_schedule(waiting_list, schedule)
 
 # TODO ALLOW:
 # schedule to be a dataframe or vector

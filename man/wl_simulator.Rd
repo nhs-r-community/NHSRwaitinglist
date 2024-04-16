@@ -2,7 +2,7 @@
 % Please edit documentation in R/wl_simulator.R
 \name{wl_simulator}
 \alias{wl_simulator}
-\title{Simple Simulator}
+\title{Simple simulator to create a waiting list}
 \usage{
 wl_simulator(
   start_date,
@@ -14,21 +14,29 @@ wl_simulator(
 )
 }
 \arguments{
-\item{start_date}{Start date}
+\item{start_date}{date. The start date for the simulation}
 
-\item{end_date}{End date}
+\item{end_date}{date. The end date for the simulation}
 
-\item{demand}{Demand}
+\item{demand}{numeric. Weekly demand (ie. typical referrals per week)}
 
-\item{capacity}{Capacity}
+\item{capacity}{numeric. Weekly capacity (ie. typical removals per week)}
+
+\item{waiting_list}{integer. The number of patients on the waiting list}
+
+\item{referral_index}{integer. The column number in the waiting_list which contains the referral dates}
 }
 \value{
-updated_list a new waiting list
+dataframe. A df of simulated referrals and removals
 }
 \description{
-Simulators
+Creates a simulated waiting list comprising referral dates, and removal dates
 }
 \examples{
 
-#TODO error messages (e.g. start_date > end_date)
+over_capacity_simulation <- wl_simulator("2024-01-01", "2024-03-31", 100, 110)
+under_capacity_simulation <- wl_simulator("2024-01-01", "2024-03-31", 100, 90)
+
+#TODO 
+# error messages (e.g. start_date > end_date)
 }

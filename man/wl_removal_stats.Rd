@@ -2,25 +2,26 @@
 % Please edit documentation in R/wl_removal_stats.R
 \name{wl_removal_stats}
 \alias{wl_removal_stats}
-\title{insert waiting list additions}
+\title{Calculate some stats about removals}
 \usage{
 wl_removal_stats(waiting_list, start_date = NULL, end_date = NULL)
 }
 \arguments{
-\item{waiting_list}{a data frame of referral dates and removals}
+\item{waiting_list}{dataframe. A df of referral dates and removals}
 
-\item{additions}{a list of referral dates}
+\item{start_date}{date. The start date to calculate from}
+
+\item{end_date}{date. The end date to calculate to}
 }
 \value{
-an updated waiting list
+dataframe. A df containing number of removals, mean capacity, and the coefficient of variation of removals
 }
 \description{
-adds new referrals (removal date is set NA)
+Calculate some stats about removals
 }
 \examples{
-# referrals <- c.Date("2024-01-01","2024-01-04","2024-01-10","2024-01-16")
-# removals <- c.Date("2024-01-08",NA,NA,NA)
-# waiting_list <- data.frame("referral" = referrals ,"removal" = removals )
-# additions <- c.Date("2024-01-03","2024-01-05","2024-01-18")
-# wl_insert(waiting_list, additions)
+referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
+removals <- c.Date("2024-01-08", NA, NA, NA)
+waiting_list <- data.frame("referral" = referrals , "removal" = removals)
+removal_stats <- wl_removal_stats(waiting_list)
 }
