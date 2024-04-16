@@ -2,33 +2,28 @@
 % Please edit documentation in R/target_queue_size.R
 \name{target_queue_size}
 \alias{target_queue_size}
-\title{Calculate Target Queue Size}
+\title{Target Queue Size}
 \usage{
 target_queue_size(demand, target_wait, factor = 4)
 }
 \arguments{
-\item{demand}{Numeric value of rate of demand in same units as target wait -
-e.g. if target wait is weeks, then demand in units of patients/week.}
+\item{demand}{Numeric value of rate of demand in same units as target wait - e.g. if target wait is weeks, then demand in units of patients/week.}
 
-\item{target_wait}{Numeric value of number of weeks that has been set as the
-target within which the patient should be seen.}
+\item{target_wait}{Numeric value of number of weeks that has been set as the target within which the patient should be seen.}
 
-\item{factor}{Numeric factor used in average wait calculation - to get a
-quarter of the target use factor=4 and one sixth of the target use factor =
-6 etc. Defaults to 4.}
+\item{factor}{Numeric factor used in average wait calculation - to get a quarter of the target use factor=4 and one sixth of the target use factor = 6 etc. Defaults to 4.}
 }
 \value{
 Numeric target queue length.
 }
 \description{
-Uses Little's Law to calculate the target queue size to achieve
-a target waiting time as a function of observed demand, target wait and a
-variability factor used in the target mean waiting time calculation.
+Uses Little's Law to calculate the target queue size to achieve a target waiting time as a function of observed demand, target wait and a variability factor used in the target mean waiting time calculation.
 
 Target Queue Size = Demand * Target Wait / 4.
 
-The average wait should sit somewhere between target_wait/factor=6 <
-Average Waiting Time < target_wait/factor=4 The factor defaults to 4.
+The average wait should sit somewhere between
+target_wait/factor=6 < Average Waiting Time < target_wait/factor=4
+The factor defaults to 4.
 
 Only applicable when Capacity > Demand.
 }

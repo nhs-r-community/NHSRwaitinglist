@@ -17,7 +17,7 @@ wl_queue_size(waiting_list, start_date = NULL, end_date = NULL)
 a list of dates and queue sizes
 }
 \description{
-Calculateds queue sizes from a waiting list
+Calculates queue sizes from a waiting list
 }
 \examples{
 referrals <- c.Date("2024-01-01","2024-01-04","2024-01-10","2024-01-16")
