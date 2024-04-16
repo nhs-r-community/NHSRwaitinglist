@@ -1,16 +1,21 @@
-#' @title Waiting List Statistics
-#'
-#' @name wl_stats
+#' @title Calculate some stats about the waiting list
 #'
 #' @description A summary of all the key statistics associated with a waiting list
 #'
-#' @param waiting_list dataframe consisting addition and removal dates
-#' @param target_wait the required waiting time
+#' @param waiting_list dataframe. A df of referral dates and removals
+#' @param target_wait numeric. The required waiting time
+#' @param start_date date. The start date to calculate from
+#' @param end_date date. The end date to calculate to
 #'
-#' @return summary of key waiting list statistics
+#' @return dataframe. A df of important waiting list statistics
 #' @export
 #'
 #' @examples
+#'
+#' referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
+#' removals <- c.Date("2024-01-08", NA, NA, NA)
+#' waiting_list <- data.frame("referral" = referrals , "removal" = removals)
+#' waiting_list_stats <- wl_stats(waiting_list)
 #'
 #' # TO DO!!
 #' # Check target_capacity weekly daily

@@ -1,19 +1,24 @@
-#' @title Simple Simulator
+#' @title Simple simulator to create a waiting list
 #'
-#' @description Simulators
-
+#' @description Creates a simulated waiting list comprising referral dates, and removal dates
 #'
-#' @param start_date Start date
-#' @param end_date End date
-#' @param demand Demand
-#' @param capacity Capacity
+#' @param start_date date. The start date for the simulation
+#' @param end_date date. The end date for the simulation
+#' @param demand numeric. Weekly demand (ie. typical referrals per week)
+#' @param capacity numeric. Weekly capacity (ie. typical removals per week)
+#' @param waiting_list integer. The number of patients on the waiting list
+#' @param referral_index integer. The column number in the waiting_list which contains the referral dates
 #'
-#' @return updated_list a new waiting list
+#' @return dataframe. A df of simulated referrals and removals
 #' @export
 #'
 #' @examples
 #'
-#' #TODO error messages (e.g. start_date > end_date)
+#' over_capacity_simulation <- wl_simulator("2024-01-01", "2024-03-31", 100, 110)
+#' under_capacity_simulation <- wl_simulator("2024-01-01", "2024-03-31", 100, 90)
+#'
+#' #TODO 
+#' # error messages (e.g. start_date > end_date)
 
 wl_simulator <- function(start_date, end_date, demand, capacity, waiting_list=NULL, referral_index = 1) {
   start_date <- as.Date(start_date)

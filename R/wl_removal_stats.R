@@ -1,27 +1,24 @@
-#' @title insert waiting list additions
+#' @title Calculate some stats about removals
 #'
-#' @description adds new referrals (removal date is set NA)
-
+#' @description Calculate some stats about removals
 #'
-#' @param waiting_list a data frame of referral dates and removals
-#' @param additions a list of referral dates
+#' @param waiting_list dataframe. A df of referral dates and removals
+#' @param start_date date. The start date to calculate from
+#' @param end_date date. The end date to calculate to
 #'
-#' @return an updated waiting list
+#' @return dataframe. A df containing number of removals, mean capacity, and the coefficient of variation of removals
 #' @export
 #'
 #' @examples
-#' # referrals <- c.Date("2024-01-01","2024-01-04","2024-01-10","2024-01-16")
-#' # removals <- c.Date("2024-01-08",NA,NA,NA)
-#' # waiting_list <- data.frame("referral" = referrals ,"removal" = removals )
-#' # additions <- c.Date("2024-01-03","2024-01-05","2024-01-18")
-#' # wl_insert(waiting_list, additions)
-
+#' referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
+#' removals <- c.Date("2024-01-08", NA, NA, NA)
+#' waiting_list <- data.frame("referral" = referrals , "removal" = removals)
+#' removal_stats <- wl_removal_stats(waiting_list)
 
 # TODO : referral <- arrival
 # debug and test
 # simplify notation
-# update params above
-
+# add detail to params above
 # arrival mean and variance
 
 wl_removal_stats <- function(waiting_list,
