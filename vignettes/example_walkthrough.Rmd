@@ -121,7 +121,7 @@ relief_capacity <- relief_capacity(
   demand = demand, 
   queue_size = queue_size, 
   target_queue_size = target_queue_size, 
-  weeks_to_target = weeks_until_target_acheived
+  time_to_target = weeks_until_target_acheived
 )
 relief_capacity
 
