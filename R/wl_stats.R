@@ -25,8 +25,6 @@
 #' Z score in capacity calculations
 #' mean demand and mean capacity not interrarraival and departures plesae.
 
-library(dplyr)
-
 wl_stats <- function(waiting_list,
                      target_wait=4,
                      start_date = NULL,
