@@ -39,7 +39,7 @@ wl_schedule <- function(
   # schedule
   i <- 1
   for (op in as.list(schedule)) {
-    if (op > wl[i, referral_index] & i <= nrow(wl)) {
+    if (op > wl[i, referral_index] && i <= nrow(wl)) {
       wl[i, removal_index] <- as.Date(op)
       i <- i + 1
     }

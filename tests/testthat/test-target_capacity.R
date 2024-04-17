@@ -9,7 +9,10 @@ test_that("wrong input class causes an error", {
 
 test_that("it returns expected result with fixed single values vs arithmetic", {
   em <- "target_capacity(): arithmetic error with single value inputs."
-  expect_equal(target_capacity(30, 52, 3, 1.1, 1.2), 30 + (((1.1^2 + 1.2^2) / 2) * (3 / 52)))
+  expect_equal(
+    target_capacity(30, 52, 3, 1.1, 1.2),
+    30 + (((1.1^2 + 1.2^2) / 2) * (3 / 52))
+  )
 })
 
 test_that("it returns an expected result with fixed single values", {

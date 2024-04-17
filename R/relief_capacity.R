@@ -32,7 +32,11 @@
 #'
 #' relief_capacity(30, 1200, 390, 26)
 #'
-relief_capacity <- function(demand, queue_size, target_queue_size, time_to_target = 26) {
+relief_capacity <- function(
+    demand,
+    queue_size,
+    target_queue_size,
+    time_to_target = 26) {
   check_class(demand, queue_size, target_queue_size, time_to_target)
   rel_cap <- demand + (queue_size - target_queue_size) / time_to_target
   return(rel_cap)

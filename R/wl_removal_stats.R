@@ -56,7 +56,8 @@ wl_removal_stats <- function(waiting_list,
   ), ]
   rownames(removals_and_zeros) <- NULL
   removals_and_zeros$lag_dates <- dplyr::lag(removals_and_zeros$dates)
-  removals_and_zeros$diff <- as.numeric(removals_and_zeros[, 1]) - as.numeric(removals_and_zeros[, 3])
+  removals_and_zeros$diff <-
+    as.numeric(removals_and_zeros[, 1]) - as.numeric(removals_and_zeros[, 3])
 
   differences <- removals_and_zeros[which(removals_and_zeros[, 2] == TRUE), 4]
   mean_removal <- as.numeric(mean(differences, na.rm = TRUE))
