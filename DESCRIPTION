@@ -16,12 +16,13 @@ Description: R-package to implement the waiting list management approach describ
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 VignetteBuilder: knitr
 URL: https://nhs-r-community.github.io/NHSRwaitinglist/
 Config/testthat/edition: 3
 Imports: 
     cli,
+    dplyr,
     rlang
 Suggests: 
     knitr,
