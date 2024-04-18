@@ -13,6 +13,9 @@
     <loc>https://nhs-r-community.github.io/NHSRwaitinglist/LICENSE.html</loc>
   </url>
   <url>
+    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/articles/example_waiting_list_functions.html</loc>
+  </url>
+  <url>
     <loc>https://nhs-r-community.github.io/NHSRwaitinglist/articles/example_walkthrough.html</loc>
   </url>
   <url>
@@ -44,5 +47,29 @@
   </url>
   <url>
     <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/waiting_list_pressure.html</loc>
+  </url>
+  <url>
+    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_insert.html</loc>
+  </url>
+  <url>
+    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_join.html</loc>
+  </url>
+  <url>
+    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_queue_size.html</loc>
+  </url>
+  <url>
+    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_referral_stats.html</loc>
+  </url>
+  <url>
+    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_removal_stats.html</loc>
+  </url>
+  <url>
+    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_schedule.html</loc>
+  </url>
+  <url>
+    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_simulator.html</loc>
+  </url>
+  <url>
+    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_stats.html</loc>
   </url>
 </urlset>
