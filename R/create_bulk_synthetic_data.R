@@ -1,4 +1,15 @@
 
+#' Title
+#' @description
+#' A short description...
+#'
+#' @param bulk
+#'
+#' @return
+#' @export
+#'
+#' @examples
+
 create_bulk_synthetic_data <- function(bulk){
 result <- bulk |>
   purrr::pmap(create_waiting_list) |>
