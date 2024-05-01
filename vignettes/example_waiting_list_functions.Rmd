@@ -288,3 +288,103 @@ knitr::kable(
   align = "c"
 )
 ```
+```
+
+Now we can visualise the new queue.  
+as expected it gets larger and larger because our demand is bigger than our capacity.  
+
+```{r}
+# calculate the queue size
+queue_size <- wl_queue_size(waiting_list)
+
+# visualise the queue with a plot
+ggplot(queue_size, aes(dates, queue_size)) +
+  geom_line()
+
+```
+
+This time we will go straight to calculating the overall stats.  
+
+```{r}
+overall_stats <- wl_stats(
+  waiting_list = waiting_list,
+  target_wait = 18 # standard NHS 18wk target
+)
+
+head(overall_stats)
+```
+
+This gives us a lot of useful information.  Taking it step by step:
+
+The first 4 columns tell us whether the load is larger than 1.  If it is, we can expect the queue to continue growing indefinitely.
+
+```{r, echo=FALSE}
+knitr::kable(
+  overall_stats |> dplyr::select(
+    mean.demand,
+    mean.capacity,
+    load,
+    load.too.big
+  ), 
+  align = "c"
+)
+
+```
+
+The next columns tell us about the resulting queue size at the end of our simulation, the target size we need to plan for in order to achieve the 18 week waiting target, and a judgement about whether the queue is too large.  If the queue is too large, we need to implement some relief capacity to bring it within range before attempting to maintain the queue. 
+
+```{r, echo=FALSE}
+knitr::kable(
+  overall_stats|> dplyr::select(
+    queue_size,
+    target_queue_size,
+    queue.too.big,
+    mean_wait
+  ), 
+  align = "c"
+)
+
+```
+
+There is a column to report the actual average patient waiting time, which is `r round(overall_stats$mean_wait, 2)` weeks, compared to our target of 18 weeks. 
+
+```{r, echo=FALSE}
+knitr::kable(
+  overall_stats |> dplyr::select(mean_wait), 
+  align = "c"
+)
+
+```
+
+These two columns re-state the coefficients of variance for use in reporting.
+
+```{r, echo=FALSE}
+knitr::kable(
+  overall_stats |> dplyr::select(
+    cv_arrival,
+    cv_removal
+  ), 
+  align = "c"
+)
+```
+
+The next two columns tell us about the required capacity.  Only one will contain data.
+
+1. If the queue is not too large, "target.capacity" will report the capacity required to maintain the queue at it's target waiting time performance.
+2. If the queue is too large, "relief.capacity" will report the capacity required to bring the queue to a maintainable size within 26 weeks (6 months).  
+
+```{r, echo=FALSE}
+knitr::kable(
+  overall_stats |> dplyr::select(target.capacity, relief.capacity), 
+  align = "c"
+)
+```
+
+The final column reports the waiting list "pressure".  This will be useful later when comparing waiting lists of differing sizes, with differing targets.  It allows waiting list pressures to be compared because the waiting list with the largest number of patients waiting is not always the list with the largest problem meeting it's target.  
+
+```{r, echo=FALSE}
+knitr::kable(
+  overall_stats |> dplyr::select(pressure), 
+  align = "c"
+)
+```
