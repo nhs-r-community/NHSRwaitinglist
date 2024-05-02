@@ -1,14 +1,18 @@
 
-#' Title
+#' @Title Create Bulk Synthetic Data
+#'
 #' @description
-#' A short description...
+#' Creates a series of waiting lists, one for each row in the dataframe
+#' parameter and joins them together into one dataframe with relevant creation
+#' criteria
 #'
 #' @param bulk
 #'
-#' @return
+#' @return Dataframe of waiting lists for each specified site and specialty,
+#' opcs etc
 #' @export
 #'
-#' @examples
+#' @examples create_bulk_synthetic_data(bulk)
 
 create_bulk_synthetic_data <- function(bulk){
 result <- bulk |>

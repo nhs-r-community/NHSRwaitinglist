@@ -1,4 +1,20 @@
 
+#' @Title  Create Bulk Dataframe Sample
+#'
+#' @Description
+#' A function to create a bulk dataframe sample to test the
+#' create_bulk_synthetic_data and create_waiting_list functions
+#'
+#' @return Dataframe for use with the create_waiting_list function and
+#' create_bulk_synthetic_data to specify the sites and specialties and respective
+#' mean wait and arrival rates. This dataframe could instead be generated outside
+#' the package, using real data
+#' @export
+#'
+#' @examples create_bulk_dataframe_sample()
+#'
+#'
+#'
 create_bulk_dataframe_sample <- function(){
 bulk <- data.frame(hospital_sites=c("ABC001","DHR70","JRW20","RFW002","DHR70"),
                    specialties = c(100,110,120,130,100),
