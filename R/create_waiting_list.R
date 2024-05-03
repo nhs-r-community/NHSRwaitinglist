@@ -6,10 +6,11 @@
 #'
 #' @param n Numeric value of rate of demand in same units as target wait
 #'  - e.g. if target wait is weeks, then demand in units of patients/week.
-#' @param mean_arrival_date Numeric value of mean daily arrival rate.
+#' @param mean_arrival_rate Numeric value of mean daily arrival rate.
 #' @param mean_wait Numeric value of mean wait time for treatment/on waiting list.
 #' @param start_date Character value of date from which to start generated
 #' waiting list.
+#' @param limit_removals Defaults to TRUE
 #' @param sd Numeric value, standard deviation. Defaults to 0.
 #' @param rott Numeric value, proportion of referrals to be randomly flagged
 #' as ROTT. Defaults to 0.
