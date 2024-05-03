@@ -23,14 +23,12 @@ Config/testthat/edition: 3
 Imports: 
     cli,
     dplyr,
-    rlang
+    rlang,
+    purrr
 Suggests: 
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
-VignetteBuilder: knitr
-URL: https://nhs-r-community.github.io/NHSRwaitinglist/
-Config/testthat/edition: 3
 Depends: 
     R (>= 2.10)
 LazyData: true
