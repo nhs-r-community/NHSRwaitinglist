@@ -57,11 +57,11 @@ create_waiting_list <- function(n, mean_arrival_rate, mean_wait,
 
   #Randomly flag user defined proportion of referrals as ROTT
   test_df$rott <- FALSE
-  sample_list <- sample(1:seq_len(nrow(test_df)), nrow(test_df) * rott, replace = FALSE)
+  sample_list <- sample(seq_len(nrow(test_df)), nrow(test_df) * rott, replace = FALSE)
   test_df$rott[sample_list] <- TRUE
 
   #Add a patient ID to each referral and prepare data for return
-  test_df$pat_id <- 1:seq_len(nrow(test_df))
+  test_df$pat_id <- seq_len(nrow(test_df))
   test_df <- test_df[order(test_df$addition_date),
                      c("pat_id", "addition_date",
                        "removal_date", "wait_length", "rott")]
