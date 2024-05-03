@@ -51,13 +51,15 @@ create_waiting_list <- function(n, mean_arrival_rate, mean_wait,
   #simulate non-zero waitlist at end of simulated period.
   if (limit_removals) {
     test_df$removal_date[test_df$removal_date >
-                           (as.Date(start_date, format = "%Y-%m-%d") + n)] <- NA
+                           (as.Date(start_date, format = "%Y-%m-%d") + n)]
+    <- NA
     test_df$wait_length[is.na(test_df$removal_date)] <- NA
   }
 
   #Randomly flag user defined proportion of referrals as ROTT
   test_df$rott <- FALSE
-  sample_list <- sample(seq_len(nrow(test_df)), nrow(test_df) * rott, replace = FALSE)
+  sample_list <- sample(seq_len(nrow(test_df)), nrow(test_df) * rott,
+                        replace = FALSE)
   test_df$rott[sample_list] <- TRUE
 
   #Add a patient ID to each referral and prepare data for return
