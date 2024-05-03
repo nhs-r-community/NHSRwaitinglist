@@ -6,7 +6,7 @@
 #' create_bulk_synthetic_data and create_waiting_list functions
 #'
 #' @return Dataframe for use with the create_waiting_list function and
-#' create_bulk_synthetic_data to specify the sites and specialties and respective
+#' create_bulk_synthetic_data function to specify the sites and specialties and respective
 #' mean wait and arrival rates. This dataframe could instead be generated outside
 #' the package, using real data
 #' @export
@@ -16,9 +16,9 @@
 #'
 #'
 create_bulk_dataframe_sample <- function(){
-bulk <- data.frame(hospital_sites=c("ABC001","DHR70","JRW20","RFW002","DHR70"),
-                   specialties = c(100,110,120,130,100),
-                   opcs4_code = c("A","B","C","D","A"),
+bulk <- data.frame(hospital_site=c("ABC001","DHR70","JRW20","RFW002","DHR70"),
+                   main_spec_code = c(100,110,120,130,100),
+                   opcs4_code = c("T202","W401","F344","C866","T272"),
                    n= 366,
                    mean_arrival_rate= c(50,25,20,40,50),
                    mean_wait = c(21,20,10,30,21),
