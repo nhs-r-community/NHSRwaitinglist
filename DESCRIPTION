@@ -25,13 +25,8 @@ Imports:
     dplyr,
     rlang,
     purrr,
-    sd,
     utils,
-    rpois,
-    rnorm,
-    rexp,
-    stats,
-    tail
+    stats
 Suggests: 
     knitr,
     rmarkdown,
