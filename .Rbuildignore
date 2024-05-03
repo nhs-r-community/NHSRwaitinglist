@@ -10,4 +10,6 @@ cran-comments.md
 ^pkgdown$
 ^\.github$
 ^codecov\.yml$
+.lintr
 ^data-raw$
+

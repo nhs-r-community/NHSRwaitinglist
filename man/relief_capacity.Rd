@@ -4,7 +4,7 @@
 \alias{relief_capacity}
 \title{Relief Capacity}
 \usage{
-relief_capacity(demand, queue_size, target_queue_size, weeks_to_target)
+relief_capacity(demand, queue_size, target_queue_size, time_to_target = 26)
 }
 \arguments{
 \item{demand}{Numeric value of rate of demand in same units as target wait - e.g. if target wait is weeks, then demand in units of patients/week.}
@@ -13,7 +13,7 @@ relief_capacity(demand, queue_size, target_queue_size, weeks_to_target)
 
 \item{target_queue_size}{Numeric value of desired number of patients in queue.}
 
-\item{weeks_to_target}{Numeric value of desired number of time-steps to reach the target queue size by.}
+\item{time_to_target}{Numeric value of desired number of time-steps to reach the target queue size by.}
 }
 \value{
 A numeric value of the required rate of capacity to achieve a target queue size in a given period of time.
@@ -24,6 +24,10 @@ Calculates required relief capacity to achieve target queue size in a given peri
 Relief Capacity is required if Queue Size > 2 * Target Queue Size.
 
 Relief Capacity = Current Demand + (Queue Size - Target Queue Size)/Time Steps
+
+WARNING!: make sure units match.
+I.e. if demand is measured per week then time_to_target should be weeks
+or if demand is per day then time_to_target is per day
 }
 \examples{
 # If demand is 30 patients per week, the current queue size is 1200 and the

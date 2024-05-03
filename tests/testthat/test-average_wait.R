@@ -1,27 +1,12 @@
-# # Anticipated test from the error handling that Matt Dray is drafting
-# test_that("function catches null values and reports error", {
-#   em <- "target_wait(): no error message when function is run with no inputs."
-#   expect_error(target_wait(), em)
-# })
-#
-# # Anticipated test from the error handling that Matt Dray is drafting
-# test_that("function catches mismatched input lengths", {
-#   em <- "target_wait(): no error message when functions inputs are of different length."
-#   expect_error(target_wait(c(22,25,26), c(4, 3)), em)
-# })
-#
-# # Anticipated test from the error handling that Matt Dray is drafting
-# test_that("it returns an error if either input aren't numeric", {
-#   in1 <- Sys.Date()
-#   in2 <- 4
-#
-#   em <- "target_wait(): all inputs must be numeric."
-#   expect_error(target_wait(in1, in2), em)
-# })
+test_that("wrong input class causes an error", {
+  msg_fragment <- "must be of class"
+  expect_error(average_wait(1, "x"), msg_fragment)
+  expect_error(average_wait("x", 1), msg_fragment)
+})
 
-test_that("it returns an expected result with fixed single values, against arithmetic", {
+test_that("it returns expected result with fixed single values vs arithmetic", {
   em <- "average_wait(): arithmetic error with single value inputs."
-  expect_equal(average_wait(52, 4), 52/4)
+  expect_equal(average_wait(52, 4), 52 / 4)
 })
 
 test_that("it returns an expected result with fixed single values", {
@@ -36,19 +21,17 @@ test_that("it returns an expected result with vector of fixed values", {
   expect_equal(
     average_wait(
       c(35, 30, 52),
-      c(4,4,6)
-    )
-    , c(8.75, 7.5, 8.6666667)
+      c(4, 4, 6)
+    ),
+    c(8.75, 7.5, 8.6666667)
   )
 })
 
 
 test_that("it returns the same length output as provided on input", {
-  n <- round(runif(1, 0,30))
+  n <- round(runif(1, 0, 30))
   in1 <- rnorm(n = n, 50, 20)
   in2 <- rnorm(n = n, 4, 2)
   em <- "target_queue_size(): output vector length != input vector length."
   expect_length(average_wait(in1, in2), length(in1))
 })
-
-
