@@ -24,7 +24,14 @@ Imports:
     cli,
     dplyr,
     rlang,
-    purrr
+    purrr,
+    sd,
+    utils,
+    rpois,
+    rnorm,
+    rexp,
+    stats,
+    tail
 Suggests: 
     knitr,
     rmarkdown,
