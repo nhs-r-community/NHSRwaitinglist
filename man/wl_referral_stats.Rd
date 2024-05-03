@@ -14,7 +14,8 @@ wl_referral_stats(waiting_list, start_date = NULL, end_date = NULL)
 \item{end_date}{date. The end date to calculate to}
 }
 \value{
-dataframe. A df containing number of referrals, mean demand, and the coefficient of variation of referrals
+dataframe. A df containing number of referrals, mean demand,
+and the coefficient of variation of referrals
 }
 \description{
 Calculate some stats about referrals
@@ -22,6 +23,12 @@ Calculate some stats about referrals
 \examples{
 referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
 removals <- c.Date("2024-01-08", NA, NA, NA)
-waiting_list <- data.frame("referral" = referrals , "removal" = removals)
+waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 referral_stats <- wl_referral_stats(waiting_list)
+
+# TODO : referral <- arrival
+# debug and test
+# simplify notation
+# add detail to params above
+# arrival mean and variance
 }
