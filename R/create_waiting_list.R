@@ -51,7 +51,7 @@ create_waiting_list <- function(n, mean_arrival_rate, mean_wait,
   #simulate non-zero waitlist at end of simulated period.
   if (limit_removals) {
     test_df$removal_date[test_df$removal_date >
-                          (as.Date(start_date, format = "%Y-%m-%d") + n)] <- NA
+                           (as.Date(start_date, format = "%Y-%m-%d") + n)] <- NA
     test_df$wait_length[is.na(test_df$removal_date)] <- NA
   }
 

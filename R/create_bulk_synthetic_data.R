@@ -20,5 +20,5 @@ create_bulk_synthetic_data <- function(bulk_data) {
   result <- bulk_data |>
     purrr::pmap(create_waiting_list) |>
     dplyr::bind_rows()
-return(result)
+  return(result)
 }
