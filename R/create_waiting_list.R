@@ -15,6 +15,7 @@
 #' @param sd Numeric value, standard deviation. Defaults to 0.
 #' @param rott Numeric value, proportion of referrals to be randomly flagged
 #' as ROTT. Defaults to 0.
+#' @param ... Container for the list
 #'
 #' @return A tibble of a random generated list of patients with addition_date,
 #'  removal_date, wait_length and rott status for each patient
@@ -35,12 +36,12 @@ create_waiting_list <- function(n, mean_arrival_rate, mean_wait,
   dates <- seq.Date(from = as.Date(start_date,format="%Y-%m-%d"),
                     length.out = n,
                     by = "day")
-  counts <- pmax(0,rnorm(n, mean = mean_arrival_rate, sd = sd))
+  counts <- pmax(0,stats::rnorm(n, mean = mean_arrival_rate, sd = sd))
   referrals <- rep(dates, times = counts)
 
   #set random waiting time in days for each referral received with exponential
   #distribution rate 1/mean_waiting_time
-  values <- rexp(length(referrals), 1/mean_wait)
+  values <- stats::rexp(length(referrals), 1/mean_wait)
 
   #Create dataframe of referrals and calculate removal date
   test_df <- data.frame(addition_date = referrals, wait_length = values)

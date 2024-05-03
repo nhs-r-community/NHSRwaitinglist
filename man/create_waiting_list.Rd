@@ -23,7 +23,8 @@ create_waiting_list(
 
 \item{mean_arrival_rate}{Numeric value of mean daily arrival rate.}
 
-\item{mean_wait}{Numeric value of mean wait time for treatment/on waiting list.}
+\item{mean_wait}{Numeric value of mean wait time for treatment/on waiting
+list.}
 
 \item{start_date}{Character value of date from which to start generated
 waiting list.}
@@ -34,6 +35,8 @@ waiting list.}
 
 \item{rott}{Numeric value, proportion of referrals to be randomly flagged
 as ROTT. Defaults to 0.}
+
+\item{...}{Container for the list}
 }
 \value{
 A tibble of a random generated list of patients with addition_date,
