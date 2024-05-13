@@ -104,7 +104,7 @@ wl_stats <- function(waiting_list,
   q_load_too_big <- (q_load >= 1.)
 
   # final queue_size
-  q_size <- tail(queue_sizes, n = 1)[, 2]
+  q_size <- utils::tail(queue_sizes, n = 1)[, 2]
 
   # target queue size
   q_target <- target_queue_size(referral_stats$demand.weekly, target_wait)

@@ -9,9 +9,11 @@ wl_insert(waiting_list, additions, referral_index = 1)
 \arguments{
 \item{waiting_list}{dataframe. A df of referral dates and removals}
 
-\item{additions}{character vector. A list of referral dates to add to the waiting list}
+\item{additions}{character vector. A list of referral dates to add to the
+waiting list}
 
-\item{referral_index}{integer. The column number in the waiting_list which contains the referral dates}
+\item{referral_index}{integer. The column number in the waiting_list which
+contains the referral dates}
 }
 \value{
 dataframe. A df of the updated waiting list
@@ -20,10 +22,10 @@ dataframe. A df of the updated waiting list
 adds new referrals (removal date is set as NA)
 }
 \examples{
-referrals <- c.Date("2024-01-01","2024-01-04","2024-01-10","2024-01-16")
-removals <- c.Date("2024-01-08",NA,NA,NA)
-waiting_list <- data.frame("referral" = referrals ,"removal" = removals )
-additions <- c.Date("2024-01-03","2024-01-05","2024-01-18")
+referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
+removals <- c.Date("2024-01-08", NA, NA, NA)
+waiting_list <- data.frame("referral" = referrals, "removal" = removals)
+additions <- c.Date("2024-01-03", "2024-01-05", "2024-01-18")
 longer_waiting_list <- wl_insert(waiting_list, additions)
 
 # TODO: What if more columns

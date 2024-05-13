@@ -13,18 +13,22 @@ target_capacity(
 )
 }
 \arguments{
-\item{demand}{Numeric value of rate of demand in same units as target wait - e.g. if target wait is weeks, then demand in units of patients/week.}
+\item{demand}{Numeric value of rate of demand in same units as target wait
+e.g. if target wait is weeks, then demand in units of patients/week.}
 
-\item{target_wait}{Numeric value of number of weeks that has been set as the target within which the patient should be seen.}
+\item{target_wait}{Numeric value of number of weeks that has been set as the
+target within which the patient should be seen.}
 
-\item{factor}{the amount we divide the target by in the waiting list e.g. if target is 52 weeks the mean wait should be 13 for a factor of 4}
+\item{factor}{the amount we divide the target by in the waiting list
+e.g. if target is 52 weeks the mean wait should be 13 for a factor of 4}
 
 \item{cv_demand}{coefficient of variation of time between arrivals}
 
-\item{cv_capacity}{coefficient of variation between removals due to operations completed}
+\item{cv_capacity}{coefficient of variation between removals due to
+operations completed}
 }
 \value{
-A numeric value of target capacity required to achieve a target waiting time.
+numeric. The capacity required to achieve a target waiting time.
 }
 \description{
 Applies Kingman/Marchal's Formula :
@@ -39,10 +43,11 @@ waiting_time  = target_wait / factor
 }
 \examples{
 
-demand = 4 # weeks
-target_wait = 52 # weeks
+demand <- 4 # weeks
+target_wait <- 52 # weeks
 
-target_capacity(demand, target_wait) # number of operations per week to have mean wait of 52/4
+# number of operations per week to have mean wait of 52/4
+target_capacity(demand, target_wait)
 
-#TODO: Include a couple of standard deviations for errors in the mean demand
+# TODO: Include a couple of standard deviations for errors in the mean demand
 }
