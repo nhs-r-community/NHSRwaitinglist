@@ -15,6 +15,16 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "thom",
+      "name": "Thomas Weibel",
+      "avatar_url": "https://avatars.githubusercontent.com/u/866?v=4",
+      "profile": "http://ikhono.net",
+      "contributions": [
+        "doc",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
