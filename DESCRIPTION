@@ -23,6 +23,7 @@ Config/testthat/edition: 3
 Imports: 
     cli,
     dplyr,
+    ggplot2,
     rlang
 Suggests: 
     knitr,
