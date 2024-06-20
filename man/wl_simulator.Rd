@@ -24,19 +24,23 @@ wl_simulator(
 
 \item{waiting_list}{integer. The number of patients on the waiting list}
 
-\item{referral_index}{integer. The column number in the waiting_list which contains the referral dates}
+\item{referral_index}{integer. The column number in the waiting_list which
+contains the referral dates}
 }
 \value{
 dataframe. A df of simulated referrals and removals
 }
 \description{
-Creates a simulated waiting list comprising referral dates, and removal dates
+Creates a simulated waiting list comprising referral dates,
+and removal dates
 }
 \examples{
 
-over_capacity_simulation <- wl_simulator("2024-01-01", "2024-03-31", 100, 110)
-under_capacity_simulation <- wl_simulator("2024-01-01", "2024-03-31", 100, 90)
+over_capacity_simulation <-
+  wl_simulator("2024-01-01", "2024-03-31", 100, 110)
+under_capacity_simulation <-
+  wl_simulator("2024-01-01", "2024-03-31", 100, 90)
 
-#TODO 
+# TODO
 # error messages (e.g. start_date > end_date)
 }

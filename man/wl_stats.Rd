@@ -4,7 +4,13 @@
 \alias{wl_stats}
 \title{Calculate some stats about the waiting list}
 \usage{
-wl_stats(waiting_list, target_wait = 4, start_date = NULL, end_date = NULL)
+wl_stats(
+  waiting_list,
+  target_wait = 4,
+  categories = NULL,
+  start_date = NULL,
+  end_date = NULL
+)
 }
 \arguments{
 \item{waiting_list}{dataframe. A df of referral dates and removals}
@@ -19,13 +25,13 @@ wl_stats(waiting_list, target_wait = 4, start_date = NULL, end_date = NULL)
 dataframe. A df of important waiting list statistics
 }
 \description{
-A summary of all the key statistics associated with a waiting list
+A summary of all the key stats associated with a waiting list
 }
 \examples{
 
 referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
 removals <- c.Date("2024-01-08", NA, NA, NA)
-waiting_list <- data.frame("referral" = referrals , "removal" = removals)
+waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 waiting_list_stats <- wl_stats(waiting_list)
 
 # TO DO!!
@@ -33,6 +39,7 @@ waiting_list_stats <- wl_stats(waiting_list)
 # Error if dates are in the wrong order
 # Calculate the number of missed operations
 # Start date and end date calculations not working well
+#
 # MAKE CONSISTENT NOTATION
 # default start and end date if empty
 # make units of output weekly operations not daily
