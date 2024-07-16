@@ -1,75 +1,30 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/404.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/articles/example_waiting_list_functions.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/articles/example_walkthrough.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/index.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/average_wait.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/queue_load.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/relief_capacity.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/target_capacity.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/target_queue_size.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/waiting_list_pressure.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_insert.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_join.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_queue_size.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_referral_stats.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_removal_stats.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_schedule.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_simulator.html</loc>
-  </url>
-  <url>
-    <loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_stats.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/404.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/LICENSE-text.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/LICENSE.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/articles/example_waiting_list_functions.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/articles/example_walkthrough.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/articles/index.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/authors.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/index.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/average_wait.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/create_bulk_synthetic_data.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/create_waiting_list.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/demo_df.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/index.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/queue_load.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/relief_capacity.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/target_capacity.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/target_queue_size.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/waiting_list_pressure.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_insert.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_join.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_queue_size.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_referral_stats.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_removal_stats.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_schedule.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_simulator.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_stats.html</loc></url>
 </urlset>
+
