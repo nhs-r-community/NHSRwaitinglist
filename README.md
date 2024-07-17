@@ -1,6 +1,6 @@
 <!-- badges: start -->
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![R-CMD-check](https://github.com/nhs-r-community/NHSRwaitinglist/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nhs-r-community/NHSRwaitinglist/actions/workflows/R-CMD-check.yaml)
@@ -63,6 +63,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/ThomUK"><img src="https://avatars.githubusercontent.com/u/10871342?v=4?s=100" width="100px;" alt="Tom Smith"/><br /><sub><b>Tom Smith</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=ThomUK" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="http://matt-dray.com"><img src="https://avatars.githubusercontent.com/u/18232097?v=4?s=100" width="100px;" alt="Matt Dray"/><br /><sub><b>Matt Dray</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=matt-dray" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/kaituna"><img src="https://avatars.githubusercontent.com/u/151142766?v=4?s=100" width="100px;" alt="kaituna"/><br /><sub><b>kaituna</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=kaituna" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/chrismainey"><img src="https://avatars.githubusercontent.com/u/39626211?v=4?s=100" width="100px;" alt="Chris Mainey"/><br /><sub><b>Chris Mainey</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=chrismainey" title="Code">💻</a> <a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=chrismainey" title="Documentation">📖</a></td>
     </tr>
   </tbody>
 </table>
