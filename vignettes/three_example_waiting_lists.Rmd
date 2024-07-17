@@ -1,8 +1,8 @@
 ---
-title: "Walkthrough of waiting list functions"
+title: "Three example waiting lists"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Walkthrough a real waiting list example}
+  %\VignetteIndexEntry{Three example waiting lists}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -23,7 +23,9 @@ library(ggplot2)
 set.seed(2)
 ```
 
-This vignette is a worked example using a sample dataset similar to that which you may be working with.
+This vignette is a set of worked examples using a sample dataset similar to that which you may be working with. It also demonstrates how to use the `wl_*` family of functions, such as `wl_simulator`, `wl_queue_size`, `wl_referral_stats`, `wl_removal_stats`, and `wl_stats`.
+
+## Anatomy of a waiting list
 
 In it's purest form, a waiting list consists of the dates that individuals arrived in a queue, and the dates that they left having been seen by the service (doctor, nurse, or diagnostic test, etc).  These dates are the are waiting list additions (or arrivals, referrals), and waiting list removals (or treatments, discharges).  They correspond to demand (for arrivals), and capacity (for removals).
 
@@ -52,7 +54,7 @@ head(waiting_list, 10)
 
 Now that we have a waiting list, we should visualise it.  We can use the `wl_queue_size()` function to tell us the size of the queue at the end of each day.  We can use ggplot to make a plot of the queue size over time, and as expected it gets larger and larger because our demand is bigger than our capacity.  
 
-```{r}
+```{r, fig.height=3, fig.width=6}
 # calculate the queue size
 queue_size <- wl_queue_size(waiting_list)
 
@@ -62,7 +64,10 @@ tail(queue_size)
 
 # visualise the queue with a plot
 ggplot(queue_size, aes(dates, queue_size)) +
-  geom_line()
+  geom_line() +
+  labs(
+    title = "A growing waiting list"
+  )
 
 ```
 
@@ -206,11 +211,13 @@ The increase in capacity not only allowed processing more patients, it also chan
 Visualising the queue we can see that this time it did not grow uncontrollably, reaching a maximum size of `r max(queue_size$queue_size)` patients waiting over the same time period as the first simulation.
 It also returned to zero length several times during the simulated period.
 
-```{r}
+```{r, fig.height=3, fig.width=6}
 # visualise the queue with a plot
 ggplot(queue_size, aes(dates, queue_size)) +
-  geom_line()
-
+  geom_line() +
+  labs(
+    title = "A finely-balanced waiting list"
+  )
 ```
 
 This time we will go straight to calculating the overall stats.  
@@ -261,10 +268,13 @@ Visualising the queue, again it looks different to the previous examples. While 
 
 **NOTE** When the queue is empty, the process serving it will also be idle.  Conventional wisdom has it that at this point the process must have excess capacity, which can safely be removed.  This is **not** the case.  Returning to "Fact 2" of [Professor Neil Walton's white paper](https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1.full), "If you want to have low waiting times, then there must be a non-negligible fraction of time where services are not being used".
 
-```{r}
+```{r, fig.height=3, fig.width=6}
 # visualise the queue with a plot
 ggplot(queue_size, aes(dates, queue_size)) +
-  geom_line()
+  geom_line() +
+  labs(
+    title = "A stable waiting list"
+  )
 ```
 
 Again calculating the overall stats.  
