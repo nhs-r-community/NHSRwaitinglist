@@ -43,7 +43,7 @@ waiting_list <- wl_simulator(
   start_date = "2020-01-01",
   end_date = "2024-03-31",
   demand = 10, # simulating 10 patient arrivals per week
-  capacity = 9 # simulating 9 patients being treated per week (removed from the waiting list)
+  capacity = 9 # simulating 9 patients being treated per week
 )
 
 head(waiting_list, 10)
@@ -114,7 +114,7 @@ knitr::kable(
     mean.capacity,
     load,
     load.too.big
-  ), 
+  ),
   align = "c"
 )
 
@@ -124,12 +124,12 @@ The next columns tell us about the resulting queue size at the end of our simula
 
 ```{r, echo=FALSE}
 knitr::kable(
-  overall_stats|> dplyr::select(
+  overall_stats |> dplyr::select(
     queue_size,
     target_queue_size,
     queue.too.big,
     mean_wait
-  ), 
+  ),
   align = "c"
 )
 
@@ -139,7 +139,7 @@ There is a column to report the actual average patient waiting time, which is `r
 
 ```{r, echo=FALSE}
 knitr::kable(
-  overall_stats |> dplyr::select(mean_wait), 
+  overall_stats |> dplyr::select(mean_wait),
   align = "c"
 )
 
@@ -152,7 +152,7 @@ knitr::kable(
   overall_stats |> dplyr::select(
     cv_arrival,
     cv_removal
-  ), 
+  ),
   align = "c"
 )
 ```
@@ -164,7 +164,7 @@ The next two columns tell us about the required capacity.  Only one will contain
 
 ```{r, echo=FALSE}
 knitr::kable(
-  overall_stats |> dplyr::select(target.capacity, relief.capacity), 
+  overall_stats |> dplyr::select(target.capacity, relief.capacity),
   align = "c"
 )
 ```
@@ -173,7 +173,7 @@ The final column reports the waiting list "pressure".  This will be useful later
 
 ```{r, echo=FALSE}
 knitr::kable(
-  overall_stats |> dplyr::select(pressure), 
+  overall_stats |> dplyr::select(pressure),
   align = "c"
 )
 ```
