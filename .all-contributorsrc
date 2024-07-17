@@ -33,6 +33,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "kaituna",
+      "name": "kaituna",
+      "avatar_url": "https://avatars.githubusercontent.com/u/151142766?v=4",
+      "profile": "https://github.com/kaituna",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
