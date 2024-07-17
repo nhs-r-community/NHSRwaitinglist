@@ -53,6 +53,15 @@
         "doc",
         "test"
       ]
+    },
+    {
+      "login": "PeterSNHS",
+      "name": "PeterSNHS",
+      "avatar_url": "https://avatars.githubusercontent.com/u/67410797?v=4",
+      "profile": "https://github.com/PeterSNHS",
+      "contributions": [
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
