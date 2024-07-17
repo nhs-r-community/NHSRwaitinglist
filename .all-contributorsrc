@@ -24,6 +24,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "matt-dray",
+      "name": "Matt Dray",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18232097?v=4",
+      "profile": "http://matt-dray.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
