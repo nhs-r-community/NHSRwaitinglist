@@ -3,9 +3,10 @@ Title: R-package to implement a waiting list management approach
 Version: 0.0.0.9000
 Authors@R: c(
           person("Neil", "Walton", ,"neil.walton@durham.ac.uk", c("cre", "aut"), comment = c(ORCID ="0000-0002-5241-9765")),
-          person("Yasser", "Mustaq", ,"yasser.mushtaq@mft.nhs.uk", "aut"),
           person("Jacqueline", "Grout", ,"jacqueline.grout1@nhs.net", "aut"),
           person("Zoë", "Turner", , "zoe.turner3@nhs.net", "aut", comment = c(ORCID = "0000-0003-1033-9158")),
+          person("Matt", "Dray", , "matt.dray@nhs.net", "aut"),
+          person("Paul", "Fenton", , "paul.fenton@nca.nhs.uk", "aut"),
           person("Marcos", "Fabietti", ,"marcos.fabietti@nuh.nhs.uk", "aut"),
           person("Tom", "Smith", ,"thomas.smith5@nuh.nhs.uk", "aut"),
           person("Chris", "Mainey", ,"c.mainey1@nhs.net", "aut", comment = c(ORCID ="0000-0002-3018-6171")),
