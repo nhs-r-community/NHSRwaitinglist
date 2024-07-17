@@ -11,3 +11,5 @@ cran-comments.md
 ^\.github$
 ^codecov\.yml$
 .lintr
+^data-raw$
+

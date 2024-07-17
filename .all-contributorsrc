@@ -1,0 +1,73 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributors": [
+    {
+      "login": "jacgrout",
+      "name": "Jacqueline Grout",
+      "avatar_url": "https://avatars.githubusercontent.com/u/103451105?v=4",
+      "profile": "https://github.com/jacgrout",
+      "contributions": [
+        "ideas"
+      ]
+    },
+    {
+      "login": "ThomUK",
+      "name": "Tom Smith",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10871342?v=4",
+      "profile": "https://github.com/ThomUK",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "matt-dray",
+      "name": "Matt Dray",
+      "avatar_url": "https://avatars.githubusercontent.com/u/18232097?v=4",
+      "profile": "http://matt-dray.com",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "kaituna",
+      "name": "kaituna",
+      "avatar_url": "https://avatars.githubusercontent.com/u/151142766?v=4",
+      "profile": "https://github.com/kaituna",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "chrismainey",
+      "name": "Chris Mainey",
+      "avatar_url": "https://avatars.githubusercontent.com/u/39626211?v=4",
+      "profile": "https://github.com/chrismainey",
+      "contributions": [
+        "code",
+        "doc",
+        "test"
+      ]
+    },
+    {
+      "login": "PeterSNHS",
+      "name": "PeterSNHS",
+      "avatar_url": "https://avatars.githubusercontent.com/u/67410797?v=4",
+      "profile": "https://github.com/PeterSNHS",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "skipCi": true,
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "projectName": "NHSRwaitinglist",
+  "projectOwner": "nhs-r-community"
+}
