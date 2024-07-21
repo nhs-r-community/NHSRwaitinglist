@@ -69,7 +69,7 @@ wl_removal_stats <- function(waiting_list,
 
   removal_stats <- data.frame(
     "capacity.weekly" = capacity_weekly,
-    "capcity.daily" = capacity,
+    "capacity.daily" = capacity,
     "capacity.cov" = cv_removal,
     "removal.count" = num_removals
   )
