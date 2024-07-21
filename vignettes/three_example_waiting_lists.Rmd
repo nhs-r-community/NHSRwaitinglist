@@ -18,6 +18,7 @@ knitr::opts_chunk$set(
 ```{r setup}
 library(NHSRwaitinglist)
 library(ggplot2)
+library(dplyr, warn.conflicts = FALSE)
 
 # set a seed so that these plots are always the same
 set.seed(2)
@@ -27,7 +28,7 @@ This vignette is a set of worked examples using a sample dataset similar to that
 
 ## Anatomy of a waiting list
 
-In it's purest form, a waiting list consists of the dates that individuals arrived in a queue, and the dates that they left having been seen by the service (doctor, nurse, or diagnostic test, etc).  These dates are the are waiting list additions (or arrivals, referrals), and waiting list removals (or treatments, discharges).  They correspond to demand (for arrivals), and capacity (for removals).
+In its purest form, a waiting list consists of the dates that individuals arrived in a queue, and the dates that they left having been seen by the service (doctor, nurse, or diagnostic test, and so on).  These dates are the waiting list additions (or arrivals, referrals), and waiting list removals (or treatments, discharges).  They correspond to demand (for arrivals), and capacity (for removals).
 
 This vignette is going to simulate 3 different waiting lists: 
 
@@ -49,10 +50,9 @@ waiting_list <- wl_simulator(
 )
 
 head(waiting_list, 10)
-
 ```
 
-Now that we have a waiting list, we should visualise it.  We can use the `wl_queue_size()` function to tell us the size of the queue at the end of each day.  We can use ggplot to make a plot of the queue size over time, and as expected it gets larger and larger because our demand is bigger than our capacity.  
+Now that we have a waiting list, we should visualise it.  We can use the `wl_queue_size()` function to tell us the size of the queue at the end of each day.  We can use {ggplot} to make a plot of the queue size over time, and as expected, it gets larger and larger because our demand is bigger than our capacity.  
 
 ```{r, fig.height=3, fig.width=6}
 # calculate the queue size
@@ -68,7 +68,6 @@ ggplot(queue_size, aes(dates, queue_size)) +
   labs(
     title = "A growing waiting list"
   )
-
 ```
 
 ### Referral statistics
@@ -102,7 +101,7 @@ Finally, we can calculate a combined set of statistics to summarise the waiting 
 ```{r}
 overall_stats <- wl_stats(
   waiting_list = waiting_list,
-  target_wait = 18 # standard NHS 18wk target
+  target_wait = 18 # standard NHS 18 weeks target
 )
 
 head(overall_stats)
@@ -122,7 +121,6 @@ knitr::kable(
   ),
   align = "c"
 )
-
 ```
 
 The next columns tell us about the resulting queue size at the end of our simulation, the target size we need to plan for in order to achieve the 18 week waiting target, and a judgement about whether the queue is too large.  If the queue is too large, we need to implement some relief capacity to bring it within range before attempting to maintain the queue. 
@@ -137,7 +135,6 @@ knitr::kable(
   ),
   align = "c"
 )
-
 ```
 
 There is a column to report the actual average patient waiting time, which is `r round(overall_stats$mean_wait, 2)` weeks, compared to our target of 18 weeks. 
@@ -147,7 +144,6 @@ knitr::kable(
   overall_stats |> dplyr::select(mean_wait),
   align = "c"
 )
-
 ```
 
 These two columns re-state the coefficients of variance for use in reporting.
@@ -164,8 +160,8 @@ knitr::kable(
 
 The next two columns tell us about the required capacity.  Only one will contain data.
 
-1. If the queue is not too large, "target.capacity" will report the capacity required to maintain the queue at it's target waiting time performance.
-2. If the queue is too large, "relief.capacity" will report the capacity required to bring the queue to a maintainable size within 26 weeks (6 months).  
+1. If the queue is not too large, `"target.capacity"` will report the capacity required to maintain the queue at it's target waiting time performance.
+2. If the queue is too large, `"relief.capacity"` will report the capacity required to bring the queue to a maintainable size within 26 weeks (6 months).  
 
 ```{r, echo=FALSE}
 knitr::kable(
@@ -174,7 +170,7 @@ knitr::kable(
 )
 ```
 
-The final column reports the waiting list "pressure".  This will be useful later when comparing waiting lists of differing sizes, with differing targets.  It allows waiting list pressures to be compared because the waiting list with the largest number of patients waiting is not always the list with the largest problem meeting it's target.  
+The final column reports the waiting list `"pressure"`.  This will be useful later when comparing waiting lists of differing sizes, with differing targets.  It allows waiting list pressures to be compared because the waiting list with the largest number of patients waiting is not always the list with the largest problem meeting its target.  
 
 ```{r, echo=FALSE}
 knitr::kable(
@@ -186,7 +182,7 @@ knitr::kable(
 ## 2. A finely balanced waiting list {#two}
 [Back to top...](#)
 
-The waiting list in this section is very finely balanced. The demand remains the same as the last example, but now capacity has been increased to be slightly larger than demand.  It is not significantly larger (there is approximately 2% "spare"). 
+The waiting list in this section is very finely balanced. The demand remains the same as the last example, but now capacity has been increased to be slightly larger than demand.  It is not significantly larger (there is approximately 2% `"spare"`). 
 
 ```{r}
 waiting_list <- wl_simulator(
@@ -207,6 +203,7 @@ queue_size <- wl_queue_size(waiting_list)
 ```
 
 This time we processed `r removal_stats$removal.count` patients.  
+
 The increase in capacity not only allowed processing more patients, it also changed the shape of the queue.
 Visualising the queue we can see that this time it did not grow uncontrollably, reaching a maximum size of `r max(queue_size$queue_size)` patients waiting over the same time period as the first simulation.
 It also returned to zero length several times during the simulated period.
@@ -220,7 +217,7 @@ ggplot(queue_size, aes(dates, queue_size)) +
   )
 ```
 
-This time we will go straight to calculating the overall stats.  
+This time we will go straight to calculating the overall statistics.  
 
 ```{r}
 overall_stats <- wl_stats(
@@ -233,11 +230,11 @@ head(overall_stats)
 
 In this finely balanced example, the mean demand and mean capacity give a load very close to 1, at `r round(overall_stats$load, 4)`.  While this is less than one, it is perhaps a little too close for comfort.  
 
-We can see that the finishing queue size is `r overall_stats$queue_size`, but as discussed above the waiting list fluctuated in size, and even returned to zero a couple of times during the simulated period. It has not grown uncontrollably as in the first example.  
+We can see that the finishing queue size is `r overall_stats$queue_size`, but as discussed above, the waiting list fluctuated in size, and even returned to zero a couple of times during the simulated period. It has not grown uncontrollably as in the first example.  
 
-The mean wait is `r round(overall_stats$mean_wait, 2)`, which is less than the target of 18 weeks, but is more than a quarter of the target.  The exponential shape of waiting list distributions means that in this system we would expect more than a reasonable number of patients to be experiencing waiting times of over 18wks.
+The mean wait is `r round(overall_stats$mean_wait, 2)`, which is less than the target of 18 weeks, but is more than a quarter of the target.  The exponential shape of waiting list distributions means that in this system we would expect more than a reasonable number of patients to be experiencing waiting times of over 18 weeks.
 
-This time, we do not need relief capacity because the queue is not too big.  Instead, the package recommends a "target capacity", which we need to provide if we want to meet the 18wk standard for the right proportion of patients.  In this case it is `r round(overall_stats$target.capacity, 3)`, which is only very marginally larger than the mean capacity we have available (`r round(overall_stats$mean.capacity, 3)`).
+This time, we do not need relief capacity because the queue is not too big.  Instead, the package recommends a `"target capacity"`, which we need to provide if we want to meet the 18 week standard for the right proportion of patients.  In this case it is `r round(overall_stats$target.capacity, 3)`, which is only very marginally larger than the mean capacity we have available (`r round(overall_stats$mean.capacity, 3)`).
 
 
 ## 3. A waiting list with sufficient capacity {#three}
@@ -266,7 +263,9 @@ queue_size <- wl_queue_size(waiting_list)
 This time we processed `r removal_stats$removal.count` patients.  
 Visualising the queue, again it looks different to the previous examples. While the maximum number of patients in the queue is similar to the last example, this time the queue size has frequently dropped to zero. This is a stable queue, which is able to empty more regularly.  
 
-**NOTE** When the queue is empty, the process serving it will also be idle.  Conventional wisdom has it that at this point the process must have excess capacity, which can safely be removed.  This is **not** the case.  Returning to "Fact 2" of [Professor Neil Walton's white paper](https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1.full), "If you want to have low waiting times, then there must be a non-negligible fraction of time where services are not being used".
+**NOTE** When the queue is empty, the process serving it will also be idle.  Conventional wisdom has it that at this point the process must have excess capacity, which can safely be removed.  This is **not** the case.  Returning to "Fact 2" of [Professor Neil Walton's white paper](https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1.full), 
+
+> If you want to have low waiting times, then there must be a non-negligible fraction of time where services are not being used.
 
 ```{r, fig.height=3, fig.width=6}
 # visualise the queue with a plot
@@ -277,12 +276,12 @@ ggplot(queue_size, aes(dates, queue_size)) +
   )
 ```
 
-Again calculating the overall stats.  
+Again calculating the overall statistics.  
 
 ```{r}
 overall_stats <- wl_stats(
   waiting_list = waiting_list,
-  target_wait = 18 # standard NHS 18wk target
+  target_wait = 18 # standard NHS 18 weeks target
 )
 
 head(overall_stats)
@@ -290,12 +289,11 @@ head(overall_stats)
 
 This time the simulation has created a mean demand and capacity which is slightly lower than we asked for, but the gap between them is similar to what we wanted.  
 
-The load comes out at `r round(overall_stats$load, 3)`, which is more comfortably below one.  A still lower load would give more headroom, and may even become necessary if the variability of demand or capacity were to increase.  
+The load comes out at `r round(overall_stats$load, 3)`, which is more comfortably below one.  A still lower load would give more headroom, and may even become necessary if the variability of demand or capacity were to increase.
 
-The mean wait is `r round(overall_stats$mean_wait, 2)`, less than a week, which is very comfortably less than the target of 18 weeks.  In this system we expect the 18wk target to be met for the vast majority of patients.  
+The mean wait is `r round(overall_stats$mean_wait, 2)`, less than a week, which is very comfortably less than the target of 18 weeks.  In this system we expect the 18 weeks target to be met for the vast majority of patients.  
 
-Again, the package is recommending a "target capacity", this time of `r round(overall_stats$target.capacity, 3)`, which is a similar margin above the mean demand for this simulation (`r round(overall_stats$mean.demand, 3)`).  
-
+Again, the package is recommending a `"target capacity"`, this time of `r round(overall_stats$target.capacity, 3)`, which is a similar margin above the mean demand for this simulation (`r round(overall_stats$mean.demand, 3)`).  
 
 ## Conclusion
 [Back to top...](#)
@@ -305,12 +303,3 @@ This vignette has detailed some of the `wl_*` functions you can use to explore y
 ---
 
 END
-
-
-
-
-
-
-
-
-
