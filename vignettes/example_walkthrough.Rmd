@@ -97,7 +97,7 @@ If, as given in Fact 4 above, we want the average waiting time to be a quarter o
 > Fact 6: Target queue size is demand multiplied by target wait, divided by 4.
 
 ```{r}
-target_queue_size <- target_queue_size(demand, waiting_time_target)
+target_queue_size <- calc_target_queue_size(demand, waiting_time_target)
 target_queue_size
 
 queue_ratio <- queue_size / target_queue_size

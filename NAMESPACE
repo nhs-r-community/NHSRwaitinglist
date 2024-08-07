@@ -2,11 +2,11 @@
 
 export(calc_queue_load)
 export(calc_target_mean_wait)
+export(calc_target_queue_size)
 export(create_bulk_synthetic_data)
 export(create_waiting_list)
 export(relief_capacity)
 export(target_capacity)
-export(target_queue_size)
 export(waiting_list_pressure)
 export(wl_insert)
 export(wl_join)
