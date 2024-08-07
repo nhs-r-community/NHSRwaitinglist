@@ -148,7 +148,7 @@ Higher values represent more variability, which in turn will increase the capaci
 # set the "F" variability parameter
 f_1 <- 1
 
-target_capacity_1 <- target_capacity(
+target_capacity_1 <- calc_target_capacity(
   demand = demand,
   target_wait = waiting_time_target
 )
@@ -160,7 +160,7 @@ If F is `r f_1`, we can see that the capacity required is `r round(target_capaci
 ```{r}
 f_2 <- 6.58
 
-target_capacity_2 <- target_capacity(
+target_capacity_2 <- calc_target_capacity(
   demand = demand,
   target_wait = waiting_time_target
 )
