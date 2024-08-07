@@ -32,7 +32,7 @@
 #'
 target_queue_size <- function(demand, target_wait, factor = 4) {
   check_class(demand, target_wait, factor)
-  mean_wait <- average_wait(target_wait, factor)
-  target_queue_length <- demand * mean_wait
+  target_mean_wait <- calc_target_mean_wait(target_wait, factor)
+  target_queue_length <- demand * target_mean_wait
   return(target_queue_length)
 }

@@ -80,11 +80,11 @@ In the case of P2 customers, the target is 4 weeks.
 Thus, the mean wait of a typical patient should be under one week.
 
 ```{r}
-average_wait <- average_wait(waiting_time_target)
-average_wait
+target_mean_wait <- calc_target_mean_wait(waiting_time_target)
+target_mean_wait
 ```
 
-We see that the average wait is `r average_wait` weeks.
+We see that the target mean wait is `r target_mean_wait` weeks.
 
 ## Target queue length
 
@@ -133,7 +133,7 @@ To do this, the capacity needed is `r round(relief_capacity, 1)` procedures per 
 As discussed above if the queue size is more than double its target then capacity should be increased temporarily. 
 However, once the queue size is within an acceptable range, we can maintain the waiting time target with what is potentially a much smaller capacity allocation to the waiting list.
 
-We know the waiting time (`r average_wait` weeks) and queue size (`r target_queue_size` patients) of a waiting list operating at its target equilibrium. 
+We know the mean waiting time (`r target_mean_wait` weeks) and queue size (`r target_queue_size` patients) of a waiting list operating at its target equilibrium. 
 Now we calculate a capacity allocation that will maintain this equilibrium in the long run.
 
 > Fact 8: Target capacity formula, based on the Pollaczek-Khinchine formula. 
