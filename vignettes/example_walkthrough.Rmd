@@ -58,7 +58,7 @@ std_dev_procedures <- 160
 > Fact 1: Capacity must be larger than demand, otherwise the waiting list size will grow indefinitely.
 
 ```{r}
-load <- queue_load(demand, capacity)
+load <- calc_queue_load(demand, capacity)
 load
 ```
 

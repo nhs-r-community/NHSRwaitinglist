@@ -1,6 +1,6 @@
   |                  Function | Purpose                                                                                                               |
   |------------------:|:---------------------------------------------------|
-  |            `queue_load()` | To understand the ratio between demand and capacity.                                                                  |
+  |            `calc_queue_load()` | To understand the ratio between demand and capacity.                                                                  |
   |          `average_wait()` | To understand the average waiting time for a queue in equilibrium.                                                    |
   |     `target_queue_size()` | To understand the queue size for a queue in equilibrium.                                                              |
   |       `relief_capacity()` | To calculate the relief capacity needed to bring a very large queue under control.                                    |

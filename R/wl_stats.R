@@ -98,7 +98,7 @@ wl_stats <- function(waiting_list,
 
   # load
   q_load <-
-    queue_load(referral_stats$demand.weekly, removal_stats$capacity.weekly)
+    calc_queue_load(referral_stats$demand.weekly, removal_stats$capacity.weekly)
 
   # load too big
   q_load_too_big <- (q_load >= 1.)
