@@ -31,6 +31,6 @@ test_that("it returns the same length output as provided on input", {
   n <- round(runif(1, 0, 30))
   in1 <- rnorm(n = n, 50, 20)
   in2 <- rnorm(n = n, 30, 5)
-  em <- "target_queue_size(): output vector length != input vector length."
+  em <- "target_queue_load(): output vector length != input vector length."
   expect_length(calc_queue_load(in1, in2), length(in1))
 })
