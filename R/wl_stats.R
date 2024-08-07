@@ -136,7 +136,7 @@ wl_stats <- function(waiting_list,
   # relief capacity
   if (q_too_big) {
     relief_cap <-
-      relief_capacity(referral_stats$demand.weekly, q_size, q_target)
+      calc_relief_capacity(referral_stats$demand.weekly, q_size, q_target)
   } else {
     relief_cap <- NA
   }

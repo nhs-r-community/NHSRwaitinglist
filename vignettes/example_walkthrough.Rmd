@@ -116,7 +116,7 @@ If the waiting list size is over twice the target queue size, then we consider t
 ```{r}
 weeks_until_target_acheived <- 26
 
-relief_capacity <- relief_capacity(
+relief_capacity <- calc_relief_capacity(
   demand = demand,
   queue_size = queue_size,
   target_queue_size = target_queue_size,
