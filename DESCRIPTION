@@ -1,6 +1,6 @@
 Package: NHSRwaitinglist
 Title: R-package to implement a waiting list management approach
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: c(
           person("Neil", "Walton", ,"neil.walton@durham.ac.uk", c("cre", "aut"), comment = c(ORCID ="0000-0002-5241-9765")),
           person("Jacqueline", "Grout", ,"jacqueline.grout1@nhs.net", "aut"),
