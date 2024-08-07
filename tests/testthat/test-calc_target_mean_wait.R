@@ -17,7 +17,8 @@ test_that("it returns an expected result with fixed single values", {
 
 
 test_that("it returns an expected result with vector of fixed values", {
-  em <- "calc_target_mean_wait(): aritmetic error with vector of values as inputs."
+  em <- "calc_target_mean_wait():
+  aritmetic error with vector of values as inputs."
   expect_equal(
     calc_target_mean_wait(
       c(35, 30, 52),

@@ -123,11 +123,11 @@ wl_stats <- function(waiting_list,
   # target capacity
   if (!q_too_big) {
     target_cap <- calc_target_capacity(
-                                  referral_stats$demand.weekly,
-                                  target_wait,
-                                  4,
-                                  referral_stats$demand.cov,
-                                  removal_stats$capacity.cov)
+                                       referral_stats$demand.weekly,
+                                       target_wait,
+                                       4,
+                                       referral_stats$demand.cov,
+                                       removal_stats$capacity.cov)
     # target_cap_weekly <- target_cap_daily * 7
   } else {
     target_cap <- NA

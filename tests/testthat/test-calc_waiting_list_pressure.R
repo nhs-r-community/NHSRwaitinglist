@@ -5,17 +5,20 @@ test_that("wrong input class causes an error", {
 })
 
 test_that("it returns expected result with fixed single values vs arithmetic", {
-  em <- "calc_waiting_list_pressure(): arithmetic error with single value inputs."
+  em <- "calc_waiting_list_pressure():
+  arithmetic error with single value inputs."
   expect_equal(calc_waiting_list_pressure(63, 52), 2 * 63 / 52)
 })
 
 test_that("it returns an expected result with fixed single values", {
-  em <- "calc_waiting_list_pressure(): arithmetic error with single value inputs."
+  em <- "calc_waiting_list_pressure():
+  arithmetic error with single value inputs."
   expect_equal(calc_waiting_list_pressure(63, 52), 2.42307692)
 })
 
 test_that("it returns an expected result with vector of fixed values", {
-  em <- "calc_waiting_list_pressure(): arithmetic error with vector of input values."
+  em <- "calc_waiting_list_pressure():
+  arithmetic error with vector of input values."
   expect_equal(
     calc_waiting_list_pressure(
       c(63, 42, 55),
@@ -30,6 +33,7 @@ test_that("it returns the same length output as provided on input", {
   n <- round(runif(1, 0, 30))
   in1 <- rnorm(n = n, 50, 20)
   in2 <- in1 * (1.2 + runif(1, 0, 1.5))
-  em <- "calc_waiting_list_pressure(): output vector length != input vector length."
+  em <- "calc_waiting_list_pressure():
+  output vector length != input vector length."
   expect_length(calc_waiting_list_pressure(in1, in2), length(in1))
 })

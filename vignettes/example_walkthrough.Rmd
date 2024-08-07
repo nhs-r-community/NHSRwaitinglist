@@ -188,8 +188,8 @@ For the P4 ENT example we have been following:
 ```{r}
 waiting_list_pressure_p4 <-
   calc_waiting_list_pressure(
-                        avg_waiting_time,
-                        waiting_time_target)
+                             avg_waiting_time,
+                             waiting_time_target)
 waiting_list_pressure_p4
 ```
 
@@ -207,8 +207,8 @@ waiting_time_target_p2 <- 4
 
 waiting_list_pressure_p2 <-
   calc_waiting_list_pressure(
-                        avg_waiting_time_p2,
-                        waiting_time_target_p2)
+                             avg_waiting_time_p2,
+                             waiting_time_target_p2)
 waiting_list_pressure_p2
 ```
 
