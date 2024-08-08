@@ -11,6 +11,9 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+
+# set a seed so that the waiting list example is consistent
+set.seed(2)
 ```
 
 # NHSRwaitinglist
@@ -42,6 +45,41 @@ You can install the current version of {name of package} from GitHub with:
 ```r
 # install.packages("remotes")
 remotes::install_github("nhs-r-community/NHSRwaitinglist", build_vignettes = TRUE)
+
+```
+
+## Getting Started
+
+There is a minimal example below.  To look in more detail at the functions within the package and some more ways of using them, it is a good idea to review the first two vignettes:
+
+1. The [example walkthrough](https://nhs-r-community.github.io/NHSRwaitinglist/articles/example_walkthrough.html) vignette takes a step-by-step walk through the white paper, using the six core functions in this package.  
+2. The [three example waiting lists](https://nhs-r-community.github.io/NHSRwaitinglist/articles/three_example_waiting_lists.html) vignette simulates three closely related waiting lists, and uses package functions to explore some of their characteristics.  
+
+At it's most basic, the package can be used to simulate a waiting list (a dataframe of waiting list addition dates and removal dates), and then compute some important statistics.  Of course, if you already have waiting list data ready to analyse, you can skip the simulation step...
+
+```{r}
+# load the package
+library(NHSRwaitinglist)
+
+# simulate a waiting list
+waiting_list <- wl_simulator(
+  start_date = "2020-01-01",
+  end_date = "2024-03-31",
+  demand = 10, # simulating 10 patient arrivals per week
+  capacity = 10.2 # simulating 10.2 patients being treated per week
+)
+
+# compute some waiting list statistics
+overall_stats <- wl_stats(
+  waiting_list = waiting_list,
+  target_wait = 18 # standard NHS 18wk target
+)
+
+# review the minimal dataset needed to define a waiting list (first 5 rows only)
+knitr::kable(head(waiting_list, 5))
+
+# review the waiting list statistics
+knitr::kable(overall_stats)
 
 ```
 
