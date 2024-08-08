@@ -16,16 +16,21 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 coverage](https://codecov.io/gh/nhs-r-community/NHSRwaitinglist/branch/main/graph/badge.svg)](https://app.codecov.io/gh/nhs-r-community/NHSRwaitinglist?branch=main)
 <!-- badges: end -->
 
-An R-package to implement the waiting list management approach described
-in the paper [Understanding Waiting Lists
+{NHSRwaitinglist} is an R package implementing the waiting list
+management approach described in the paper [Understanding Waiting Lists
 Pressures](https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1)
-by Fong et al.
+by Fong et al. The methodology is presented by Neil Walton, Professor in
+Operations Management at Durham University Business School. The package
+is being contributed to by members of the [NHS-R
+Community](https://nhsrcommunity.com/), with the aim of making it
+simpler for NHS analysts to adopt these methods for the analysis of
+their own waiting lists.
 
 ## Explanatory Videos
 
 These videos explain more about the Operations Management methodologies
-which are encapsulated by the {NHSRwaitinglist} package. Click through
-to view them on YouTube.
+which are encapsulated by the package. Click through to view them on
+YouTube.
 
 |                                                        Detailed presentation of method                                                         |                                                               Recap of method, and presentation of this package                                                               |
 |:----------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
@@ -34,7 +39,7 @@ to view them on YouTube.
 
 ## Installation
 
-You can install the current version of {name of package} from GitHub
+You can install the current version of {NHSRwaitinglist} from GitHub
 with:
 
 ``` r
