@@ -28,11 +28,11 @@
 #' # If demand is 30 patients per week and the target wait is 52 weeks, then the
 #' # Target queue size = 30 * 52/4 = 390 patients.
 #'
-#' target_queue_size(30, 52, 4)
+#' calc_target_queue_size(30, 52, 4)
 #'
-target_queue_size <- function(demand, target_wait, factor = 4) {
+calc_target_queue_size <- function(demand, target_wait, factor = 4) {
   check_class(demand, target_wait, factor)
-  mean_wait <- average_wait(target_wait, factor)
-  target_queue_length <- demand * mean_wait
+  target_mean_wait <- calc_target_mean_wait(target_wait, factor)
+  target_queue_length <- demand * target_mean_wait
   return(target_queue_length)
 }
