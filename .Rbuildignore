@@ -13,3 +13,5 @@ cran-comments.md
 .lintr
 ^data-raw$
 
+^README\.Rmd$
+.all-contributorsrc
