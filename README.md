@@ -14,6 +14,14 @@
 
 An R-package to implement the waiting list management approach described in the paper [Understanding Waiting Lists Pressures](https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1) by Fong et al.
 
+## Explanatory Videos
+
+These videos explain more about the Operations Management methodologies which are encapsulated by the {NHSRwaitinglist} package.  
+
+Detailed presentation of method | Recap of method, and presentation of this package
+:---:|:---:
+[![Thumbnail for link to MAN huddle video](man/figures/NHSRwaitinglist_MAN_huddle_thumbnail.jpg)](https://www.youtube.com/watch?v=NWthhW5Fgls) | [![Thumbnail for link to Health and Care Analytics Conference E-lab video](man/figures/NHSRwaitinglist_HACA_elab_thumbnail.jpg)](https://www.youtube.com/watch?v=3peqTEl_ZAQ)
+Midlands Analyst Network Huddle, Nov 2023 | Health and Care Analytics Conference e-lab, Jul 2024
 
 # Installation 
 
