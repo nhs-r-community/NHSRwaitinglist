@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">NHSRwaitinglist</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -84,32 +84,32 @@ el al.</a>, and <a href="https://www.youtube.com/watch?v=NWthhW5Fgls" class="ext
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="right"><code><a href="../reference/queue_load.html">queue_load()</a></code></td>
+<td align="right"><code><a href="../reference/calc_queue_load.html">calc_queue_load()</a></code></td>
 <td align="left">To understand the ratio between demand and
 capacity.</td>
 </tr>
 <tr class="even">
-<td align="right"><code><a href="../reference/average_wait.html">average_wait()</a></code></td>
+<td align="right"><code><a href="../reference/calc_target_mean_wait.html">calc_target_mean_wait()</a></code></td>
 <td align="left">To understand the average waiting time for a queue in
 equilibrium.</td>
 </tr>
 <tr class="odd">
-<td align="right"><code><a href="../reference/target_queue_size.html">target_queue_size()</a></code></td>
+<td align="right"><code><a href="../reference/calc_target_queue_size.html">calc_target_queue_size()</a></code></td>
 <td align="left">To understand the queue size for a queue in
 equilibrium.</td>
 </tr>
 <tr class="even">
-<td align="right"><code><a href="../reference/relief_capacity.html">relief_capacity()</a></code></td>
+<td align="right"><code><a href="../reference/calc_relief_capacity.html">calc_relief_capacity()</a></code></td>
 <td align="left">To calculate the relief capacity needed to bring a very
 large queue under control.</td>
 </tr>
 <tr class="odd">
-<td align="right"><code><a href="../reference/target_capacity.html">target_capacity()</a></code></td>
+<td align="right"><code><a href="../reference/calc_target_capacity.html">calc_target_capacity()</a></code></td>
 <td align="left">To understand the capacity required to keep a queue in
 equilibrium, depending on how much variability it experiences.</td>
 </tr>
 <tr class="even">
-<td align="right"><code><a href="../reference/waiting_list_pressure.html">waiting_list_pressure()</a></code></td>
+<td align="right"><code><a href="../reference/calc_waiting_list_pressure.html">calc_waiting_list_pressure()</a></code></td>
 <td align="left">A pressure measure, which can be used to compare
 multiple waiting lists for planning purposes.</td>
 </tr>
@@ -150,7 +150,7 @@ paper.</p>
 list size will grow indefinitely.</p>
 </blockquote>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">load</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/queue_load.html">queue_load</a></span><span class="op">(</span><span class="va">demand</span>, <span class="va">capacity</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">load</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_queue_load.html">calc_queue_load</a></span><span class="op">(</span><span class="va">demand</span>, <span class="va">capacity</span><span class="op">)</span></span>
 <span><span class="va">load</span></span>
 <span><span class="co">#&gt; [1] 1.111111</span></span></code></pre></div>
 <p>We see that the load is 1.11, which is greater than 1. The queue will
@@ -181,10 +181,10 @@ between 9 and 13 weeks. In the case of P2 customers, the target is 4
 weeks. Thus, the mean wait of a typical patient should be under one
 week.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">average_wait</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/average_wait.html">average_wait</a></span><span class="op">(</span><span class="va">waiting_time_target</span><span class="op">)</span></span>
-<span><span class="va">average_wait</span></span>
+<code class="sourceCode R"><span><span class="va">target_mean_wait</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_target_mean_wait.html">calc_target_mean_wait</a></span><span class="op">(</span><span class="va">waiting_time_target</span><span class="op">)</span></span>
+<span><span class="va">target_mean_wait</span></span>
 <span><span class="co">#&gt; [1] 13</span></span></code></pre></div>
-<p>We see that the average wait is 13 weeks.</p>
+<p>We see that the target mean wait is 13 weeks.</p>
 </div>
 <div class="section level2">
 <h2 id="target-queue-length">Target queue length<a class="anchor" aria-label="anchor" href="#target-queue-length"></a>
@@ -204,7 +204,7 @@ a quarter of the target, then Little’s Law leads to fact 6.</p>
 divided by 4.</p>
 </blockquote>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">target_queue_size</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/target_queue_size.html">target_queue_size</a></span><span class="op">(</span><span class="va">demand</span>, <span class="va">waiting_time_target</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">target_queue_size</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_target_queue_size.html">calc_target_queue_size</a></span><span class="op">(</span><span class="va">demand</span>, <span class="va">waiting_time_target</span><span class="op">)</span></span>
 <span><span class="va">target_queue_size</span></span>
 <span><span class="co">#&gt; [1] 390</span></span>
 <span></span>
@@ -229,7 +229,7 @@ down, and apply the necessary relief capacity.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">weeks_until_target_acheived</span> <span class="op">&lt;-</span> <span class="fl">26</span></span>
 <span></span>
-<span><span class="va">relief_capacity</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/relief_capacity.html">relief_capacity</a></span><span class="op">(</span></span>
+<span><span class="va">relief_capacity</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_relief_capacity.html">calc_relief_capacity</a></span><span class="op">(</span></span>
 <span>  demand <span class="op">=</span> <span class="va">demand</span>,</span>
 <span>  queue_size <span class="op">=</span> <span class="va">queue_size</span>,</span>
 <span>  target_queue_size <span class="op">=</span> <span class="va">target_queue_size</span>,</span>
@@ -250,10 +250,10 @@ then capacity should be increased temporarily. However, once the queue
 size is within an acceptable range, we can maintain the waiting time
 target with what is potentially a much smaller capacity allocation to
 the waiting list.</p>
-<p>We know the waiting time (13 weeks) and queue size (390 patients) of
-a waiting list operating at its target equilibrium. Now we calculate a
-capacity allocation that will maintain this equilibrium in the long
-run.</p>
+<p>We know the mean waiting time (13 weeks) and queue size (390
+patients) of a waiting list operating at its target equilibrium. Now we
+calculate a capacity allocation that will maintain this equilibrium in
+the long run.</p>
 <blockquote>
 <p>Fact 8: Target capacity formula, based on the Pollaczek-Khinchine
 formula. The target capacity depends on demand, plus an additional
@@ -268,7 +268,7 @@ capacity required to maintain equilibrium.</p>
 <code class="sourceCode R"><span><span class="co"># set the "F" variability parameter</span></span>
 <span><span class="va">f_1</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
 <span></span>
-<span><span class="va">target_capacity_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/target_capacity.html">target_capacity</a></span><span class="op">(</span></span>
+<span><span class="va">target_capacity_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_target_capacity.html">calc_target_capacity</a></span><span class="op">(</span></span>
 <span>  demand <span class="op">=</span> <span class="va">demand</span>,</span>
 <span>  target_wait <span class="op">=</span> <span class="va">waiting_time_target</span></span>
 <span><span class="op">)</span></span>
@@ -279,7 +279,7 @@ more than the demand.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f_2</span> <span class="op">&lt;-</span> <span class="fl">6.58</span></span>
 <span></span>
-<span><span class="va">target_capacity_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/target_capacity.html">target_capacity</a></span><span class="op">(</span></span>
+<span><span class="va">target_capacity_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_target_capacity.html">calc_target_capacity</a></span><span class="op">(</span></span>
 <span>  demand <span class="op">=</span> <span class="va">demand</span>,</span>
 <span>  target_wait <span class="op">=</span> <span class="va">waiting_time_target</span></span>
 <span><span class="op">)</span></span>
@@ -310,9 +310,9 @@ decisions.</p>
 <p>For the P4 ENT example we have been following:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">waiting_list_pressure_p4</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="../reference/waiting_list_pressure.html">waiting_list_pressure</a></span><span class="op">(</span></span>
-<span>                        <span class="va">avg_waiting_time</span>,</span>
-<span>                        <span class="va">waiting_time_target</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/calc_waiting_list_pressure.html">calc_waiting_list_pressure</a></span><span class="op">(</span></span>
+<span>                             <span class="va">avg_waiting_time</span>,</span>
+<span>                             <span class="va">waiting_time_target</span><span class="op">)</span></span>
 <span><span class="va">waiting_list_pressure_p4</span></span>
 <span><span class="co">#&gt; [1] 2.423077</span></span></code></pre></div>
 <p>The queue size is large, with 1200 patients waiting. The waiting time
@@ -328,9 +328,9 @@ weeks during the example.</p>
 <span><span class="va">waiting_time_target_p2</span> <span class="op">&lt;-</span> <span class="fl">4</span></span>
 <span></span>
 <span><span class="va">waiting_list_pressure_p2</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="../reference/waiting_list_pressure.html">waiting_list_pressure</a></span><span class="op">(</span></span>
-<span>                        <span class="va">avg_waiting_time_p2</span>,</span>
-<span>                        <span class="va">waiting_time_target_p2</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/calc_waiting_list_pressure.html">calc_waiting_list_pressure</a></span><span class="op">(</span></span>
+<span>                             <span class="va">avg_waiting_time_p2</span>,</span>
+<span>                             <span class="va">waiting_time_target_p2</span><span class="op">)</span></span>
 <span><span class="va">waiting_list_pressure_p2</span></span>
 <span><span class="co">#&gt; [1] 12</span></span></code></pre></div>
 <p>The queue size is smaller, with 220 patients waiting. The waiting
@@ -356,32 +356,32 @@ this package. In chronological order of application they were:</p>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="right"><code><a href="../reference/queue_load.html">queue_load()</a></code></td>
+<td align="right"><code><a href="../reference/calc_queue_load.html">calc_queue_load()</a></code></td>
 <td align="left">To understand the ratio between demand and
 capacity.</td>
 </tr>
 <tr class="even">
-<td align="right"><code><a href="../reference/average_wait.html">average_wait()</a></code></td>
+<td align="right"><code><a href="../reference/calc_target_mean_wait.html">calc_target_mean_wait()</a></code></td>
 <td align="left">To understand the average waiting time for a queue in
 equilibrium.</td>
 </tr>
 <tr class="odd">
-<td align="right"><code><a href="../reference/target_queue_size.html">target_queue_size()</a></code></td>
+<td align="right"><code><a href="../reference/calc_target_queue_size.html">calc_target_queue_size()</a></code></td>
 <td align="left">To understand the queue size for a queue in
 equilibrium.</td>
 </tr>
 <tr class="even">
-<td align="right"><code><a href="../reference/relief_capacity.html">relief_capacity()</a></code></td>
+<td align="right"><code><a href="../reference/calc_relief_capacity.html">calc_relief_capacity()</a></code></td>
 <td align="left">To calculate the relief capacity needed to bring a very
 large queue under control.</td>
 </tr>
 <tr class="odd">
-<td align="right"><code><a href="../reference/target_capacity.html">target_capacity()</a></code></td>
+<td align="right"><code><a href="../reference/calc_target_capacity.html">calc_target_capacity()</a></code></td>
 <td align="left">To understand the capacity required to keep a queue in
 equilibrium, depending on how much variability it experiences.</td>
 </tr>
 <tr class="even">
-<td align="right"><code><a href="../reference/waiting_list_pressure.html">waiting_list_pressure()</a></code></td>
+<td align="right"><code><a href="../reference/calc_waiting_list_pressure.html">calc_waiting_list_pressure()</a></code></td>
 <td align="left">A pressure measure, which can be used to compare
 multiple waiting lists for planning purposes.</td>
 </tr>
