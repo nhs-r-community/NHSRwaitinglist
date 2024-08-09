@@ -3,7 +3,6 @@
 ^\.Rproj\.user$
 ^\.Rprofile$
 ^CODE_OF_CONDUCT\.md$
-README.Rmd
 cran-comments.md
 ^_pkgdown\.yml$
 ^docs$
