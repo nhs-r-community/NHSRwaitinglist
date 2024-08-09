@@ -51,32 +51,164 @@
   </div>
 </nav><div class="container template-home">
 <div class="row">
-  <main id="main" class="col-md-9">
-<!-- badges: end -->
-<div class="section level1">
-<div class="page-header"><h1 id="nhsrwaitinglist-">NHSRwaitinglist <a alt="NHS-R Community's logo" href="https://nhsrcommunity.com/" class="external-link"><img src="https://nhs-r-community.github.io/assets/logo/nhsr-logo.png" align="right" height="80"></a>
-<a class="anchor" aria-label="anchor" href="#nhsrwaitinglist-"></a>
+  <main id="main" class="col-md-9"><div class="section level1">
+<div class="page-header"><h1 id="nhsrwaitinglist">NHSRwaitinglist<a class="anchor" aria-label="anchor" href="#nhsrwaitinglist"></a>
 </h1></div>
-<p>An R-package to implement the waiting list management approach described in the paper <a href="https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1" class="external-link">Understanding Waiting Lists Pressures</a> by Fong et al.</p>
+<p><a alt="NHS-R Community's logo" href="https://nhsrcommunity.com/" class="external-link"><img src="https://nhs-r-community.github.io/assets/logo/nhsr-logo.png" align="right" height="80"></a></p>
+<!-- badges: start -->
+
+<p>{NHSRwaitinglist} is an R package implementing the waiting list management approach described in the paper <a href="https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1" class="external-link">Understanding Waiting Lists Pressures</a> by Fong et al. The methodology is presented by Neil Walton, Professor in Operations Management at Durham University Business School. The package is being contributed to by members of the <a href="https://nhsrcommunity.com/" class="external-link">NHS-R Community</a>, with the aim of making it simpler for NHS analysts to adopt these methods for the analysis of their own waiting lists.</p>
+<div class="section level2">
+<h2 id="explanatory-videos">Explanatory Videos<a class="anchor" aria-label="anchor" href="#explanatory-videos"></a>
+</h2>
+<p>These videos explain more about the Operations Management methodologies which are encapsulated by the package. Click through to view them on YouTube.</p>
+<table class="table">
+<colgroup>
+<col width="45%">
+<col width="54%">
+</colgroup>
+<thead><tr class="header">
+<th align="center">Detailed presentation of method</th>
+<th align="center">Recap of method, and presentation of this package</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center"><a href="https://www.youtube.com/watch?v=NWthhW5Fgls" class="external-link"><img src="reference/figures/NHSRwaitinglist_MAN_huddle_thumbnail.jpg" alt="Thumbnail for link to MAN huddle video"></a></td>
+<td align="center"><a href="https://www.youtube.com/watch?v=3peqTEl_ZAQ" class="external-link"><img src="reference/figures/NHSRwaitinglist_HACA_elab_thumbnail.jpg" alt="Thumbnail for link to Health and Care Analytics Conference E-lab video"></a></td>
+</tr>
+<tr class="even">
+<td align="center">Midlands Analyst Network Huddle, Nov 2023</td>
+<td align="center">Health and Care Analytics Conference e-lab, Jul 2024</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="section level1">
-<h1 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
-</h1>
-<p>You can install the current version of {name of package} from GitHub with:</p>
-<p>```{r}</p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p>You can install the current version of {NHSRwaitinglist} from GitHub as below.<br>
+If you have not installed from GitHub before, you may first need to create and store a “Personal Access Token” (PAT) to grant access to your account, for example by following the <a href="https://usethis.r-lib.org/articles/git-credentials.html#get-a-personal-access-token-pat" class="external-link">{usethis} guide</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># install.packages("remotes")</span></span>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"nhs-r-community/NHSRwaitinglist"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level1">
-<h1 id="installpackagesremotes">install.packages(“remotes”)<a class="anchor" aria-label="anchor" href="#installpackagesremotes"></a>
-</h1>
-<p>remotes::install_github(“nhs-r-community/NHSRwaitinglist”, build_vignettes = TRUE)</p>
-<p>```</p>
+<div class="section level2">
+<h2 id="getting-started">Getting Started<a class="anchor" aria-label="anchor" href="#getting-started"></a>
+</h2>
+<p>There is a minimal example below. To look in more detail at the functions within the package and some more ways of using them, it is a good idea to review the first two vignettes:</p>
+<ol style="list-style-type: decimal">
+<li>The <a href="https://nhs-r-community.github.io/NHSRwaitinglist/articles/example_walkthrough.html">example walkthrough</a> vignette takes a step-by-step walk through the white paper, using the six core functions in this package.<br>
+</li>
+<li>The <a href="https://nhs-r-community.github.io/NHSRwaitinglist/articles/three_example_waiting_lists.html">three example waiting lists</a> vignette simulates three closely related waiting lists, and uses package functions to explore some of their characteristics.</li>
+</ol>
+<p>At its most basic, the package can be used to simulate a waiting list (a dataframe of waiting list addition dates and removal dates), and then compute some important statistics. Of course, if you already have waiting list data ready to analyse, you can skip the simulation step in the code below.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># load the package</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nhs-r-community.github.io/NHSRwaitinglist/">NHSRwaitinglist</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># simulate a waiting list</span></span>
+<span><span class="va">waiting_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/wl_simulator.html">wl_simulator</a></span><span class="op">(</span></span>
+<span>  start_date <span class="op">=</span> <span class="st">"2020-01-01"</span>,</span>
+<span>  end_date <span class="op">=</span> <span class="st">"2024-03-31"</span>,</span>
+<span>  demand <span class="op">=</span> <span class="fl">10</span>, <span class="co"># simulating 10 patient arrivals per week</span></span>
+<span>  capacity <span class="op">=</span> <span class="fl">10.2</span> <span class="co"># simulating 10.2 patients being treated per week</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># compute some waiting list statistics</span></span>
+<span><span class="va">overall_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/wl_stats.html">wl_stats</a></span><span class="op">(</span></span>
+<span>  waiting_list <span class="op">=</span> <span class="va">waiting_list</span>,</span>
+<span>  target_wait <span class="op">=</span> <span class="fl">18</span> <span class="co"># standard NHS 18wk target</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># review the minimal dataset needed to define a waiting list (first 5 rows only)</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">waiting_list</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">referral</th>
+<th align="left">removal</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">2020-01-02</td>
+<td align="left">2020-01-03</td>
+</tr>
+<tr class="even">
+<td align="left">2020-01-03</td>
+<td align="left">2020-01-04</td>
+</tr>
+<tr class="odd">
+<td align="left">2020-01-04</td>
+<td align="left">2020-01-05</td>
+</tr>
+<tr class="even">
+<td align="left">2020-01-04</td>
+<td align="left">2020-01-06</td>
+</tr>
+<tr class="odd">
+<td align="left">2020-01-06</td>
+<td align="left">2020-01-07</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># review the waiting list statistics</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">overall_stats</span><span class="op">)</span></span></code></pre></div>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="7%">
+<col width="8%">
+<col width="6%">
+<col width="7%">
+<col width="6%">
+<col width="10%">
+<col width="8%">
+<col width="6%">
+<col width="6%">
+<col width="6%">
+<col width="9%">
+<col width="9%">
+<col width="5%">
+</colgroup>
+<thead><tr class="header">
+<th align="right">mean.demand</th>
+<th align="right">mean.capacity</th>
+<th align="right">load</th>
+<th align="left">load.too.big</th>
+<th align="right">queue_size</th>
+<th align="right">target_queue_size</th>
+<th align="left">queue.too.big</th>
+<th align="right">mean_wait</th>
+<th align="right">cv_arrival</th>
+<th align="right">cv_removal</th>
+<th align="right">target.capacity</th>
+<th align="left">relief.capacity</th>
+<th align="right">pressure</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="right">9.818065</td>
+<td align="right">10.08167</td>
+<td align="right">0.9738527</td>
+<td align="left">FALSE</td>
+<td align="right">5</td>
+<td align="right">44.18129</td>
+<td align="left">FALSE</td>
+<td align="right">1.8</td>
+<td align="right">1.131775</td>
+<td align="right">0.7001389</td>
+<td align="right">10.01485</td>
+<td align="left">NA</td>
+<td align="right">0.4</td>
+</tr></tbody>
+</table>
+</div>
 <div class="section level2">
 <h2 id="contributing">Contributing<a class="anchor" aria-label="anchor" href="#contributing"></a>
 </h2>
 <p>If you want to learn more about this project, please join the discussion at the <a href="https://nhsrway.nhsrcommunity.com/community-handbook.html#slack" class="external-link">NHS-R Community Slack</a> group and the specific channel #managing-waiting-lists.</p>
 <p>Please see our <a href="https://tools.nhsrcommunity.com/contribution.html" class="external-link">guidance on how to contribute</a>.</p>
 <p>This project is released with a Contributor <a href="./CODE_OF_CONDUCT.html">Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
-<p>The simplest way to contribute is to raise an issue detailing the feature or functionality you would like to see added, or any unexpected behaviour or bugs you have experienced.</p>
+<p>The simplest way to contribute is to <a href="https://github.com/nhs-r-community/NHSRwaitinglist/issues" class="external-link">raise an issue</a> detailing the feature or functionality you would like to see added, or any unexpected behaviour or bugs you have experienced.</p>
 <div class="section level3">
 <h3 id="pull-request-workflow">Pull-Request workflow<a class="anchor" aria-label="anchor" href="#pull-request-workflow"></a>
 </h3>
@@ -123,7 +255,6 @@
 <!-- markdownlint-restore --><!-- prettier-ignore-end --><!-- ALL-CONTRIBUTORS-LIST:END --><p>This project follows the <a href="https://github.com/all-contributors/all-contributors" class="external-link">all-contributors</a> specification. Contributions of any kind welcome!</p>
 </div>
 </div>
-
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
