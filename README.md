@@ -39,8 +39,12 @@ YouTube.
 
 ## Installation
 
-You can install the current version of {NHSRwaitinglist} from GitHub
-with:
+You can install the current version of {NHSRwaitinglist} from GitHub as
+below.  
+If you have not installed from GitHub before, you may first need to
+create and store a “Personal Access Token” (PAT) to grant access to your
+account, for example by following the [{usethis}
+guide](https://usethis.r-lib.org/articles/git-credentials.html#get-a-personal-access-token-pat).
 
 ``` r
 # install.packages("remotes")
@@ -62,10 +66,11 @@ good idea to review the first two vignettes:
     vignette simulates three closely related waiting lists, and uses
     package functions to explore some of their characteristics.
 
-At it’s most basic, the package can be used to simulate a waiting list
-(a dataframe of waiting list addition dates and removal dates), and then
+At its most basic, the package can be used to simulate a waiting list (a
+dataframe of waiting list addition dates and removal dates), and then
 compute some important statistics. Of course, if you already have
-waiting list data ready to analyse, you can skip the simulation step…
+waiting list data ready to analyse, you can skip the simulation step in
+the code below.
 
 ``` r
 # load the package
@@ -121,9 +126,10 @@ This project is released with a Contributor [Code of
 Conduct](./CODE_OF_CONDUCT.md). By contributing to this project, you
 agree to abide by its terms.
 
-The simplest way to contribute is to raise an issue detailing the
-feature or functionality you would like to see added, or any unexpected
-behaviour or bugs you have experienced.
+The simplest way to contribute is to [raise an
+issue](https://github.com/nhs-r-community/NHSRwaitinglist/issues)
+detailing the feature or functionality you would like to see added, or
+any unexpected behaviour or bugs you have experienced.
 
 ### Pull-Request workflow
 
