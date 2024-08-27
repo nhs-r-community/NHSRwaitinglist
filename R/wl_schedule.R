@@ -41,8 +41,8 @@ wl_schedule <- function(
     removal_index = NA,
     withdrawal_index = NA) {
 
-  if( !is.na(withdrawal_index) ){
-    withdrawals = TRUE
+  if( is.na(withdrawal_index) ){
+    withdrawals = FALSE
   }
 
   # guess withdraw, referral and removal index if not given
@@ -83,7 +83,6 @@ wl_schedule <- function(
 
     for ( i in 1:length(schedule) ){
       for ( j in 1:nrow(wl) ){
-        cat(i,j,"\n")
         if ( schedule[i] > wl[j, referral_index]
              && is.na(wl[j,removal_index]) ){
           if ( !is.na(wl[j,withdrawal_index])){

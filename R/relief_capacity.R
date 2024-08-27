@@ -41,8 +41,10 @@ relief_capacity <- function(
     cv_demand = 0) {
   check_class(demand, queue_size, target_queue_size, time_to_target)
   # Add two standard deviations to demand if it is estimated
-  if(num_referrals > 0 & 2*demand*cv_demand / sqrt(num_referrals) < 1){
+  if(num_referrals > 0 ){
+    if (2*demand*cv_demand / sqrt(num_referrals) < 1){
     demand <- demand  / (1- 2*demand*cv_demand / sqrt(num_referrals) )
+    }
   }
   # Calculate the relief capaity
   rel_cap <- demand + (queue_size - target_queue_size) / time_to_target

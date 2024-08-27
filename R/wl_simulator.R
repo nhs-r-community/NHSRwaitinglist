@@ -29,7 +29,8 @@ wl_simulator <- function(
     demand,
     capacity,
     waiting_list = NULL,
-    referral_index = 1) {
+    referral_index = 1,
+    withdrawal_prob = NA) {
   start_date <- as.Date(start_date)
   end_date <- as.Date(end_date)
   number_of_days <- as.numeric(end_date) - as.numeric(start_date)
@@ -46,7 +47,17 @@ wl_simulator <- function(
 
   referral <- referral[order(referral)]
   removal <- rep(as.Date(NA), length(referral))
-  wl_simulated <- data.frame(referral, removal)
+
+  if (is.na(withdrawal_prob)){
+    wl_simulated <- data.frame("referral" = referral,
+                               "removal" = removal)
+  } else {
+    withdrawal <- referrals + rgeom(length(referrals),prob = withdrawal_prob)
+    wl_simulated <- data.frame("referral" = referral,
+                               "removal" = removal,
+                               "withdrawal" = withdrawal)
+  }
+  # YOU ARE HERE!!!
 
   if (!is.null(waiting_list)) {
     wl_simulated <- wl_join(waiting_list, wl_simulated, referral_index)
