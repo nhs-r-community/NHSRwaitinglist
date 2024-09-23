@@ -24,13 +24,22 @@
 #' # TODO
 #' # error messages (e.g. start_date > end_date)
 wl_simulator <- function(
-    start_date,
-    end_date,
+    start_date = NULL,
+    end_date = NULL,
     demand,
     capacity,
     waiting_list = NULL,
     referral_index = 1,
     withdrawal_prob = NA) {
+
+  if (is.null(start_date)){
+    start_date = Sys.Date()
+  }
+
+  if(is.null(end_date)){
+    end_date = start_date+100
+  }
+
   start_date <- as.Date(start_date)
   end_date <- as.Date(end_date)
   number_of_days <- as.numeric(end_date) - as.numeric(start_date)

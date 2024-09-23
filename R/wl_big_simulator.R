@@ -29,7 +29,9 @@ wl_simulator <- function(
     demand,
     capacity,
     waiting_list = NULL,
-    referral_index = 1) {
+    referral_index = 1
+    ) {
+
   start_date <- as.Date(start_date)
   end_date <- as.Date(end_date)
   number_of_days <- as.numeric(end_date) - as.numeric(start_date)
