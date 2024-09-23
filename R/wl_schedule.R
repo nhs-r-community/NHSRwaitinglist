@@ -41,25 +41,23 @@ wl_schedule <- function(
     removal_index = NA,
     withdrawal_index = NA) {
 
-  if( is.na(withdrawal_index) ){
+  # guess withdraw, referral and removal index if not given
+  if( is.na(withdrawal_index)
+     && "Withdrawal" %in% colnames(waiting_list) ){
+    withdrawals = TRUE
+    withdrawal_index <- which(colnames(waiting_list) == "Withdrawal")
+  } else {
     withdrawals = FALSE
   }
 
-  # guess withdraw, referral and removal index if not given
-  if( is.na(withdrawal_index)
-     && "withdrawal" %in% colnames(waiting_list) ){
-    withdrawals = TRUE
-    withdrawal_index <- which(colnames(waiting_list) == "withdrawal")
-  }
-
   if( is.na(referral_index)
-      && "referral" %in% colnames(waiting_list) ){
-    referral_index <- which(colnames(waiting_list) == "referral")
+      && "Referral" %in% colnames(waiting_list) ){
+    referral_index <- which(colnames(waiting_list) == "Referral")
   }
 
   if( is.na(removal_index)
-      && "removal" %in% colnames(waiting_list) ){
-    removal_index <- which(colnames(waiting_list) == "removal")
+      && "Removal" %in% colnames(waiting_list) ){
+    removal_index <- which(colnames(waiting_list) == "Removal")
   }
 
   # split waiters and removed
@@ -80,18 +78,17 @@ wl_schedule <- function(
 
   # schedule checking for withdrawals
   if(withdrawals){
-
     for ( i in 1:length(schedule) ){
       for ( j in 1:nrow(wl) ){
         if ( schedule[i] > wl[j, referral_index]
              && is.na(wl[j,removal_index]) ){
           if ( !is.na(wl[j,withdrawal_index])){
             if ( schedule[i] < wl[j, withdrawal_index]) {
-                wl[j,removal_index] <- schedule[i]
+                wl[j,removal_index] <- as.Date(schedule[i])
               break
             }
           } else {
-            wl[j,removal_index] <- schedule[i]
+            wl[j,removal_index] <- as.Date(schedule[i])
             break
           }
         }
@@ -100,12 +97,10 @@ wl_schedule <- function(
 
     # update removals that were because withdrawn
     for ( j in 1:nrow(wl) ){
-      if(is.na(wl[j,removal_index])
-         && !is.na(wl[j,withdrawal_index]) ) {
-        wl[j,removal_index] <- wl[j,withdrawal_index]
+      if(!is.na(wl[j,removal_index])) {
+        wl[j,withdrawal_index] <- NA
       }
     }
-
   }
 
 
