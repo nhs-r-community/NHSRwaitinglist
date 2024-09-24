@@ -75,6 +75,9 @@ wl_simulator <- function(
     }
   }
   if(detailed_sim){
+    if (is.na(withdrawal_prob)){
+      withdrawal_prob <-0.1
+    }
     withdrawal <- referral + rgeom(length(referral),prob = withdrawal_prob)+1
     withdrawal[withdrawal>end_date] <- NA
     wl_simulated <- sim_patients(length(referral),start_date)

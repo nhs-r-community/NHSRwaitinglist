@@ -1,6 +1,15 @@
-
-library(randomNames)
-load(file="./data/OPCS4.Rda")
+#' @title Generator of NHS patients
+#'
+#' @description
+#'
+#' @param n_rows Number of rows/patients to generate
+#' @param start_date Start date (needed to generate patient ages)
+#'
+#' @return dataframe. Empty waiting list.
+#' @export
+#' @import randomNames
+#' @examples
+#' sim_patients(100,"2024-09-21")
 
 
 sim_patients <- function(
@@ -15,11 +24,11 @@ sim_patients <- function(
   # get proceedures
   OPS <- OPCS4[(OPCS4$selectable=="Y") & (!is.na(OPCS4$name_4digit)),]
   ran <- OPS[sample(nrow(OPS),n_rows,replace=TRUE),]
-  proceedures <- ran[c("code_4digit","name_4digit")]
+  proceedures <- ran[c("code_1digit","name_1digit","code_4digit","name_4digit")]
 
   # get names consultants and NHS numbers (length actually too short)
-  names <- randomNames(n_rows)
-  consultant <- randomNames(n_rows)
+  names <- randomNames::randomNames(n_rows)
+  consultant <- randomNames::randomNames(n_rows)
   NHS_number <- sample.int(1e+8,n_rows, replace=TRUE)
 
   # get semi-realistic ages (from gov.uk)
@@ -44,6 +53,8 @@ sim_patients <- function(
     Name = names,
     Birth_Date = dobs,
     NHS_number = NHS_number,
+    Specialty_code = proceedures$code_1digit,
+    Specialty = proceedures$name_1digit,
     OPCS = proceedures$code_4digit,
     Proceedure = proceedures$name_4digit,
     Consultant = consultant
@@ -51,24 +62,5 @@ sim_patients <- function(
 
   return(waiting_list)
 
-  # realized_demand = 10
-  # referral <-sample(seq(as.Date(start_date),
-  #                       as.Date(end_date),
-  #                       by = "day"),
-  #                   realized_demand,
-  #                   replace = TRUE)
-  #
-  # referral <- referral[order(referral)]
-  #
-  # waiting_list$Referral <- referral
-  #
-  # withdrawal <- referral +
-  #               rgeom(length(referral), prob = withdrawal_prob) + 1
-  # withdrawal[withdrawal > end_date] <- NA
-  # waiting_list$Withdrawal <- withdrawal
-  #
-  # schedule <-
-  #   as.Date(as.numeric(start_date) +
-  #             ceiling(seq(0, number_of_days - 1, 10)), origin = "1970-01-01")
 
 }
