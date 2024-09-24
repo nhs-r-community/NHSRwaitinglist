@@ -24,13 +24,21 @@
 #' # TODO
 #' # error messages (e.g. start_date > end_date)
 wl_simulator <- function(
-    start_date,
-    end_date,
+    start_date = NULL,
+    end_date = NULL,
     demand,
     capacity,
     waiting_list = NULL,
-    referral_index = 1
-    ) {
+    referral_index = 1,
+    withdrawal_prob = NA) {
+
+  if (is.null(start_date)){
+    start_date = Sys.Date()
+  }
+
+  if(is.null(end_date)){
+    end_date = start_date+100
+  }
 
   start_date <- as.Date(start_date)
   end_date <- as.Date(end_date)
@@ -43,12 +51,22 @@ wl_simulator <- function(
   realized_demand <- rpois(1, total_demand)
   referral <-
     sample(
-      seq(as.Date(start_date), as.Date(end_date), by = "day"),
-      realized_demand, replace = TRUE)
+           seq(as.Date(start_date), as.Date(end_date), by = "day"),
+           realized_demand, replace = TRUE)
 
   referral <- referral[order(referral)]
   removal <- rep(as.Date(NA), length(referral))
-  wl_simulated <- data.frame(referral, removal)
+
+  if (is.na(withdrawal_prob)){
+    wl_simulated <- data.frame("referral" = referral,
+                               "removal" = removal)
+  } else {
+    withdrawal <- referrals + rgeom(length(referrals),prob = withdrawal_prob)
+    wl_simulated <- data.frame("referral" = referral,
+                               "removal" = removal,
+                               "withdrawal" = withdrawal)
+  }
+  # YOU ARE HERE!!!
 
   if (!is.null(waiting_list)) {
     wl_simulated <- wl_join(waiting_list, wl_simulated, referral_index)
@@ -57,9 +75,9 @@ wl_simulator <- function(
   # create an operating schedule
   schedule <-
     as.Date(
-      as.numeric(start_date) +
-        ceiling(seq(0, number_of_days - 1, 1 / daily_capacity)),
-      origin = "1970-01-01")
+            as.numeric(start_date) +
+              ceiling(seq(0, number_of_days - 1, 1 / daily_capacity)),
+            origin = "1970-01-01")
 
   wl_simulated <- wl_schedule(wl_simulated, schedule)
 
