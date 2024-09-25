@@ -30,7 +30,7 @@
 #' # Z score in capacity calculations
 #' # mean demand and mean capacity not interrarraival and departures plesae.
 
-wl_stats <- function(waiting_list,
+wl_stats_categories <- function(waiting_list,
                      target_wait = 4,
                      categories = NULL,
                      start_date = NULL,
@@ -93,7 +93,8 @@ wl_stats <- function(waiting_list,
                                     4,
                                     referral_stats$demand.cov,
                                     removal_stats$capacity.cov)
-      # target_cap_weekly <- target_cap_daily * 7
+
+    # target_cap_weekly <- target_cap_daily * 7
     } else {
       target_cap <- NA
     }
@@ -126,7 +127,7 @@ wl_stats <- function(waiting_list,
       "pressure" = pressure
     )
 
-  return(waiting_stats)
+    return(waiting_stats)
 
   }
 }
