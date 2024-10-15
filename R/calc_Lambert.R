@@ -11,7 +11,7 @@
 #' @examples
 #'
 #'
-Lambert <- function(x){
+calc_Lambert <- function(x){
   # use lower-bound x=W(xe^x) > W(x+x^2) for x > 0 and solve y = x + x^2
   # and x=W(xe^x) > W(ex^2) for x> 0 and solve y = e x^2
 

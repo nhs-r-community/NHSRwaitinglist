@@ -15,7 +15,7 @@
 #'
 
 
-target_capacity_from_target_probability <- function(demand,target_prob,target_wait){
+calc_target_capacity_from_target_probability <- function(demand,target_prob,target_wait){
   cap = Lambert((demand*target_wait/target_prob) * exp(demand*target_wait) ) / target_wait
   return(cap)
 }
