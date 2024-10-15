@@ -13,6 +13,9 @@ calc_target_capacity_from_target_probability(demand, target_prob, target_wait)
 
 \item{target_wait}{date. The start date to calculate from}
 }
+\value{
+numeric
+}
 \description{
-target_capacity_from_target_probability
+calculates a target capacity from a target probability#'
 }

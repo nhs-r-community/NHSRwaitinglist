@@ -1,15 +1,10 @@
-#' @title Lambert
-#'
-#' @description
-#'
+
+#' Lambert
 #'
 #' @param x
 #'
-#' @return
+#' @return numeric
 #' @export
-#'
-#' @examples
-#'
 #'
 calc_Lambert <- function(x){
   # use lower-bound x=W(xe^x) > W(x+x^2) for x > 0 and solve y = x + x^2

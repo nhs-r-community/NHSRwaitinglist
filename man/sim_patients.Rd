@@ -15,7 +15,7 @@ sim_patients(n_rows = 10, start_date = NULL)
 dataframe. Empty waiting list.
 }
 \description{
-Generator of NHS patients
+Generates simulated NHS patients
 }
 \examples{
 sim_patients(100,"2024-09-21")

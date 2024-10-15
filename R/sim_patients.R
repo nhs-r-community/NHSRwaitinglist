@@ -1,6 +1,6 @@
 #' @title Generator of NHS patients
 #'
-#' @description
+#' @description Generates simulated NHS patients
 #'
 #' @param n_rows Number of rows/patients to generate
 #' @param start_date Start date (needed to generate patient ages)
@@ -10,8 +10,6 @@
 #' @import randomNames
 #' @examples
 #' sim_patients(100,"2024-09-21")
-
-
 sim_patients <- function(
     n_rows = 10,
     start_date = NULL

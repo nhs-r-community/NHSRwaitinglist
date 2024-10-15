@@ -9,6 +9,9 @@ calc_Lambert(x)
 \arguments{
 \item{x}{}
 }
+\value{
+numeric
+}
 \description{
 Lambert
 }
