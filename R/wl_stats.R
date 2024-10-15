@@ -59,18 +59,18 @@ wl_stats <- function(waiting_list,
     referral_stats <- wl_referral_stats(waiting_list, start_date, end_date)
 
     queue_sizes <- wl_queue_size(waiting_list)
-
-    removal_stats <- wl_removal_stats(waiting_list, start_date, end_date)
-
+    
     # load
     q_load <-
       calc_queue_load(referral_stats$demand.weekly, removal_stats$capacity.weekly)
+
+    removal_stats <- wl_removal_stats(waiting_list, start_date, end_date)
 
     # load too big
     q_load_too_big <- (q_load >= 1.)
 
     # final queue_size
-    q_size <- tail(queue_sizes, n = 1)[, 2]
+    q_size <- utils::tail(queue_sizes, n = 1)[, 2]
 
     # target queue size
     q_target <- calc_target_queue_size(referral_stats$demand.weekly, target_wait)
@@ -86,28 +86,31 @@ wl_stats <- function(waiting_list,
     wait_times <- as.numeric(end_date) - as.numeric(waiting_patients[, 1])
     mean_wait <- mean(wait_times)
 
-    # target capacity
-    if (!q_too_big) {
-      target_cap <- calc_target_capacity(referral_stats$demand.weekly,
-                                    target_wait,
-                                    4,
-                                    referral_stats$demand.cov,
-                                    removal_stats$capacity.cov)
-      # target_cap_weekly <- target_cap_daily * 7
-    } else {
-      target_cap <- NA
-    }
+  # target capacity
+  if (!q_too_big) {
+    target_cap <- calc_target_capacity(
+                                       referral_stats$demand.weekly,
+                                       target_wait,
+                                       4,
+                                       referral_stats$demand.cov,
+                                       removal_stats$capacity.cov)
+    # target_cap_weekly <- target_cap_daily * 7
+  } else {
+    target_cap <- NA
+  }
 
-    # relief capacity
-    if (q_too_big) {
-      relief_cap <-
-        calc_relief_capacity(referral_stats$demand.weekly, q_size, q_target)
-    } else {
-      relief_cap <- NA
-    }
+  # relief capacity
+  if (q_too_big) {
+    relief_cap <-
+      calc_relief_capacity(referral_stats$demand.weekly, q_size, q_target)
+  } else {
+    relief_cap <- NA
+  }
 
-    # pressure
-    pressure <- calc_waiting_list_pressure(mean_wait, target_wait)
+  # pressure
+  # pressure <- calc_waiting_list_pressure(mean_wait, target_wait)
+  # TODO: talk to Neil about using *2 (in this function),
+  # or *4 in the formula below
 
     waiting_stats <- data.frame(
       "mean.demand" = referral_stats$demand.weekly,

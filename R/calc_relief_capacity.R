@@ -30,7 +30,7 @@
 #'
 #' # Relief Capacity = 30 + (1200 - 390)/26 = 61.15 patients per week.
 #'
-#' relief_capacity(30, 1200, 390, 26)
+#' calc_relief_capacity(30, 1200, 390, 26)
 #'
 calc_relief_capacity <- function(
     demand,

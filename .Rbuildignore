@@ -3,7 +3,6 @@
 ^\.Rproj\.user$
 ^\.Rprofile$
 ^CODE_OF_CONDUCT\.md$
-README.Rmd
 cran-comments.md
 ^_pkgdown\.yml$
 ^docs$
@@ -11,3 +10,7 @@ cran-comments.md
 ^\.github$
 ^codecov\.yml$
 .lintr
+^data-raw$
+
+^README\.Rmd$
+.all-contributorsrc

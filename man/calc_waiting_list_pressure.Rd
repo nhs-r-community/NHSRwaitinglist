@@ -25,5 +25,5 @@ miss its target. The waiting list pressure is calculated as follows:
 pressure = 2 * mean_wait / target_wait.
 }
 \examples{
-waiting_list_pressure(63, 52)
+calc_waiting_list_pressure(63, 52)
 }

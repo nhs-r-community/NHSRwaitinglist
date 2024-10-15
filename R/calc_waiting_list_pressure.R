@@ -17,7 +17,7 @@
 #' @export
 #'
 #' @examples
-#' waiting_list_pressure(63, 52)
+#' calc_waiting_list_pressure(63, 52)
 calc_waiting_list_pressure <- function(mean_wait, target_wait) {
   check_class(mean_wait, target_wait)
   wait_pressure <- 2 * mean_wait / target_wait

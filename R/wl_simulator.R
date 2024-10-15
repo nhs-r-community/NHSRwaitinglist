@@ -48,8 +48,7 @@ wl_simulator <- function(
   daily_capacity <- capacity / 7
 
   # allowing for fluctuations in predicted demand give a arrival list
-  realized_demand <- rpois(1, total_demand)
-
+  realized_demand <- stats::rpois(1, total_demand)
   referral <-
     sample(
       seq(as.Date(start_date), as.Date(end_date), by = "day"),
