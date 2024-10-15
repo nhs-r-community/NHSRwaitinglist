@@ -108,7 +108,7 @@ wl_stats <- function(waiting_list,
   }
 
   # pressure
-  # pressure <- calc_waiting_list_pressure(mean_wait, target_wait)
+  pressure <- calc_waiting_list_pressure(mean_wait, target_wait)
   # TODO: talk to Neil about using *2 (in this function),
   # or *4 in the formula below
 
