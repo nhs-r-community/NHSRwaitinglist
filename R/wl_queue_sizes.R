@@ -34,15 +34,23 @@ wl_queue_size <- function(waiting_list, start_date = NULL, end_date = NULL) {
   queues[which(queues[, 1] %in% arrival_counts[, 1]), 2] <- arrival_counts[, 2]
   queues$cummul_arrivals <- cumsum(queues[, 2])
 
-  departure_counts <- data.frame(
-    table(wl[which((start_date <= wl[, 2]) & (wl[, 2] <= end_date)), 2])
-  )
-  queues$departures <- rep(0, length(dates))
-  queues[which(queues[, 1] %in% departure_counts[, 1]), 4] <-
-    departure_counts[, 2]
-  queues$cummul_departures <- cumsum(queues[, 4])
+  departures <- wl[which((start_date <= wl[, 2]) & (wl[, 2] <= end_date)), 2]
+  if(length(departures>0))
+  {
+    departure_counts <- data.frame(
+      table(wl[which((start_date <= wl[, 2]) & (wl[, 2] <= end_date)), 2])
+    )
+    queues$departures <- rep(0, length(dates))
+    queues[which(queues[, 1] %in% departure_counts[, 1]), 4] <-
+      departure_counts[, 2]
+    queues$cummul_departures <- cumsum(queues[, 4])
 
-  queues$queue_size <- queues$cummul_arrivals - queues$cummul_departures
+    queues$queue_size <- queues$cummul_arrivals - queues$cummul_departures
+  } else {
+    queues$departures <- rep(0, length(dates))
+    queues$cummul_departures <- rep(0, length(dates))
+    queues$queue_size <- queues$cummul_arrivals
+  }
 
   return(queues[, c(1, 6)])
 }

@@ -21,13 +21,31 @@
 #' # TODO: What if more columns
 #' # Check column types
 wl_insert <- function(waiting_list, additions, referral_index = 1) {
-  new_rows <- data.frame(
-    "referral" = additions,
-    "removal" = rep(as.Date(NA), length(additions))
-  )
+
+  # create new rows depending if is a dataframe or a list
+  if( is.data.frame(additions) ){
+
+    new_rows <- data.frame(matrix(ncol = ncol(waiting_list), nrow = 0))
+    colnames(new_rows) <- c(colnames(waiting_list))
+    new_rows[ nrow(new_rows) + nrow(additions) , ] <- NA
+
+    for (name in colnames(additions)) {
+      if ( name %in% colnames(waiting_list) ){
+        new_rows[[name]] <- additions[[name]]
+      }
+    }
+
+  } else {
+    new_rows <- data.frame(matrix(ncol = ncol(waiting_list), nrow = 0))
+    colnames(new_rows) <- c(colnames(waiting_list))
+    new_rows[ nrow(new_rows) + length(additions) , ] <- NA
+    new_rows[,referral_index] <- additions
+  }
 
   # recombine to update list
   updated_list <- rbind(waiting_list, new_rows)
   updated_list <- updated_list[order(updated_list[, referral_index]), ]
+
   return(updated_list)
 }
+

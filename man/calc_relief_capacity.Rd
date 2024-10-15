@@ -8,7 +8,9 @@ calc_relief_capacity(
   demand,
   queue_size,
   target_queue_size,
-  time_to_target = 26
+  time_to_target = 26,
+  num_referrals = 0,
+  cv_demand = 0
 )
 }
 \arguments{

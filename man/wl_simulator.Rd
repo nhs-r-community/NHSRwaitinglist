@@ -5,12 +5,14 @@
 \title{Simple simulator to create a waiting list}
 \usage{
 wl_simulator(
-  start_date,
-  end_date,
-  demand,
-  capacity,
+  start_date = NULL,
+  end_date = NULL,
+  demand = 10,
+  capacity = 11,
   waiting_list = NULL,
-  referral_index = 1
+  referral_index = 1,
+  withdrawal_prob = NA,
+  detailed_sim = FALSE
 )
 }
 \arguments{

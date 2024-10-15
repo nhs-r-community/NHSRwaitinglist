@@ -19,6 +19,7 @@
 #' @param cv_demand coefficient of variation of time between arrivals
 #' @param cv_capacity coefficient of variation between removals due to
 #'   operations completed
+#' @param num_referrals TODO ask Neil
 #'
 #' @return numeric. The capacity required to achieve a target waiting time.
 #' @export
@@ -32,13 +33,21 @@
 #' calc_target_capacity(demand, target_wait)
 #'
 #' # TODO: Include a couple of standard deviations for errors in the mean demand
+#' # TODO: ask Neil what num_referrals is, and include in roxygen docblock
 calc_target_capacity <- function(
     demand,
     target_wait,
     factor = 4,
     cv_demand = 1,
-    cv_capacity = 1) {
-  check_class(demand, target_wait, factor, cv_demand, cv_capacity)
+    cv_capacity = 1,
+    num_referrals = 0) {
+
+  check_class(demand, target_wait, factor, cv_demand, cv_capacity, num_referrals)
+  # Add two standard deviations to demand if it is estimated
+  if(num_referrals > 0 & 2*demand*cv_demand / sqrt(num_referrals) < 1){
+    demand <- demand  / (1- 2*demand*cv_demand / sqrt(num_referrals) )
+  }
+  # Calculate the relief capacity
   target_cap <-
     demand + ((cv_demand**2 + cv_capacity**2) / 2) * (factor / target_wait)
   return(target_cap)

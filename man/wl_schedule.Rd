@@ -4,7 +4,13 @@
 \alias{wl_schedule}
 \title{A simple operation scheduler}
 \usage{
-wl_schedule(waiting_list, schedule, referral_index = 1, removal_index = 2)
+wl_schedule(
+  waiting_list,
+  schedule,
+  referral_index = NA,
+  removal_index = NA,
+  withdrawal_index = NA
+)
 }
 \arguments{
 \item{waiting_list}{dataframe. A df of referral dates and removals}
@@ -32,6 +38,14 @@ I.e. earlier referrals are scheduled first (FIFO).
 referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
 removals <- c.Date("2024-01-08", NA, NA, NA)
 waiting_list <- data.frame("referral" = referrals, "removal" = removals)
+schedule <- c.Date("2024-01-03", "2024-01-05", "2024-01-18")
+updated_waiting_list <- wl_schedule(waiting_list, schedule)
+
+# Or if there are withdrawals from the list too:
+referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
+removals <- c.Date("2024-01-08", NA, NA, NA)
+withdrawal <- c.Date(NA,NA,"2024-01-14",NA)
+waiting_list <- data.frame("referral" = referrals, "removal" = removals, "withdrawal" = withdrawal)
 schedule <- c.Date("2024-01-03", "2024-01-05", "2024-01-18")
 updated_waiting_list <- wl_schedule(waiting_list, schedule)
 

@@ -9,7 +9,8 @@ calc_target_capacity(
   target_wait,
   factor = 4,
   cv_demand = 1,
-  cv_capacity = 1
+  cv_capacity = 1,
+  num_referrals = 0
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ e.g. if target is 52 weeks the mean wait should be 13 for a factor of 4}
 
 \item{cv_capacity}{coefficient of variation between removals due to
 operations completed}
+
+\item{num_referrals}{TODO ask Neil}
 }
 \value{
 numeric. The capacity required to achieve a target waiting time.
@@ -50,4 +53,5 @@ target_wait <- 52 # weeks
 calc_target_capacity(demand, target_wait)
 
 # TODO: Include a couple of standard deviations for errors in the mean demand
+# TODO: ask Neil what num_referrals is, and include in roxygen docblock
 }
