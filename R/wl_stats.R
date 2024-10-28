@@ -29,6 +29,7 @@
 #' # mean removal too big
 #' # Z score in capacity calculations
 #' # mean demand and mean capacity not interrarraival and departures plesae.
+
 wl_stats <- function(waiting_list,
                      target_wait = 4,
                      categories = NULL,
@@ -54,14 +55,16 @@ wl_stats <- function(waiting_list,
     return(waiting_stats)
   } else {
 
+
     referral_stats <- wl_referral_stats(waiting_list, start_date, end_date)
+
     queue_sizes <- wl_queue_size(waiting_list)
+
+    removal_stats <- wl_removal_stats(waiting_list, start_date, end_date)
 
     # load
     q_load <-
       calc_queue_load(referral_stats$demand.weekly, removal_stats$capacity.weekly)
-
-    removal_stats <- wl_removal_stats(waiting_list, start_date, end_date)
 
     # load too big
     q_load_too_big <- (q_load >= 1.)
