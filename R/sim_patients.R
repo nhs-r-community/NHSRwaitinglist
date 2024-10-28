@@ -41,6 +41,7 @@ sim_patients <- function(
                   sample.int(4,n_rows, replace = TRUE) -1)
   days <- sample.int(365,n_rows, replace = TRUE) -1
   dobs <- as.Date(as.numeric(start_date)-years-days)
+  target_wait <- sample(c(7,28,84,365),size=n_rows,replace=TRUE,prob=c(0.05,0.2,0.25,0.5))
 
   # referral, removal, withdrawal columns
   referral <- c(rep(NA,n_rows))
@@ -51,6 +52,7 @@ sim_patients <- function(
     Referral = referral,
     Removal = removal,
     Withdrawal = withdrawal,
+    Target_wait = target_wait,
     Name = names,
     Birth_Date = dobs,
     NHS_number = NHS_number,
