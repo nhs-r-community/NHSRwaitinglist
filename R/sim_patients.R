@@ -10,6 +10,23 @@
 #' @import randomNames
 #' @examples
 #' sim_patients(100,"2024-09-21")
+#'
+#'
+#'
+
+calc_Priority_to_Target(priority){
+  if (priority == 1){
+    return(7)
+  } else if (priority == 2) {
+    return(28)
+  } else if (priority == 3) {
+    return(84)
+  } else {
+    return(365)
+  }
+
+}
+
 sim_patients <- function(
     n_rows = 10,
     start_date = NULL
@@ -41,7 +58,8 @@ sim_patients <- function(
                   sample.int(4,n_rows, replace = TRUE) -1)
   days <- sample.int(365,n_rows, replace = TRUE) -1
   dobs <- as.Date(as.numeric(start_date)-years-days)
-  target_wait <- sample(c(7,28,84,365),size=n_rows,replace=TRUE,prob=c(0.05,0.2,0.25,0.5))
+  Priority <- sample(c(1,2,3,4),size=n_rows,replace=TRUE,prob=c(0.05,0.2,0.25,0.5))
+  Target_Wait <-
 
   # referral, removal, withdrawal columns
   referral <- c(rep(NA,n_rows))
@@ -67,3 +85,4 @@ sim_patients <- function(
 
 
 }
+
