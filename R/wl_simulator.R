@@ -12,6 +12,8 @@
 #'   contains the referral dates
 #'
 #' @return dataframe. A df of simulated referrals and removals
+#'
+#' @import dplyr
 #' @export
 #'
 #' @examples
