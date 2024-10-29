@@ -20,9 +20,7 @@
 #'
 #' # TODO: What if more columns
 #' # Check column types
-wl_insert <- function(waiting_list, additions, referral_colname = NULL) {
-
-
+wl_insert <- function(waiting_list, additions, referral_index = 1) {
 
   new_rows <- data.frame(
     "referral" = additions,

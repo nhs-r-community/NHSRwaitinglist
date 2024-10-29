@@ -23,23 +23,24 @@
 #' # arrival mean and variance
 wl_referral_stats <- function(waiting_list,
                               start_date = NULL,
-                              end_date = NULL) {
+                              end_date = NULL,
+                              referral_index = 1) {
   if (!is.null(start_date)) {
     start_date <- as.Date(start_date)
   } else {
-    start_date <- min(waiting_list[, 1])
+    start_date <- min(waiting_list[, referral_index ])
   }
   if (!is.null(end_date)) {
     end_date <- as.Date(end_date)
   } else {
-    end_date <- max(waiting_list[, 1])
+    end_date <- max(waiting_list[, referral_index ])
   }
 
   arrival_dates <- c(
     as.Date(start_date),
     waiting_list[
-      which(start_date <= waiting_list[, 1] &
-              waiting_list[, 1] <= end_date), 1
+      which(start_date <= waiting_list[, referral_index ] &
+              waiting_list[, referral_index ] <= end_date), referral_index
     ],
     as.Date(end_date)
   )

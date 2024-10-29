@@ -23,19 +23,21 @@
 #' # arrival mean and variance
 wl_removal_stats <- function(waiting_list,
                              start_date = NULL,
-                             end_date = NULL) {
+                             end_date = NULL,
+                             referral_index = 1,
+                             removal_index = 2) {
   if (!is.null(start_date)) {
     start_date <- as.Date(start_date)
   } else {
-    start_date <- min(waiting_list[, 1])
+    start_date <- min(waiting_list[, referral_index])
   }
   if (!is.null(end_date)) {
     end_date <- as.Date(end_date)
   } else {
-    end_date <- max(waiting_list[, 1])
+    end_date <- max(waiting_list[, referral_index])
   }
 
-  removal_dates <- c(as.Date(start_date), waiting_list[, 2], as.Date(end_date))
+  removal_dates <- c(as.Date(start_date), waiting_list[, removal_index ], as.Date(end_date))
   removal_dates <- sort(removal_dates[!is.na(removal_dates)])
 
   queue_sizes <- wl_queue_size(waiting_list)

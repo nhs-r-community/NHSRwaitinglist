@@ -36,7 +36,7 @@ calc_index <- function(waiting_list,
       return(index)
     }
 
-    for ( guess in guesses) {
+    for ( guess in guesses ) {
 
       if ( is.character(guess) ){
         index <-  which(colnames(waiting_list)==guess)

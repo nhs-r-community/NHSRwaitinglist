@@ -35,15 +35,19 @@ wl_stats <- function(waiting_list,
                      categories = NULL,
                      start_date = NULL,
                      end_date = NULL) {
+
+  referral_index <- calc_index(waiting_list,type="referral")
+  removal_index <- calc_index(waiting_list,type="removal")
+
   if (!is.null(start_date)) {
     start_date <- as.Date(start_date)
   } else {
-    start_date <- min(waiting_list[, 1])
+    start_date <- min(waiting_list[, referral_index])
   }
   if (!is.null(end_date)) {
     end_date <- as.Date(end_date)
   } else {
-    end_date <- max(waiting_list[, 1])
+    end_date <- max(waiting_list[, referral_index])
   }
 
   if (!is.null(categories)){
@@ -56,9 +60,20 @@ wl_stats <- function(waiting_list,
   } else {
 
 
-    referral_stats <- wl_referral_stats(waiting_list, start_date, end_date)
-    queue_sizes <- wl_queue_size(waiting_list)
-    removal_stats <- wl_removal_stats(waiting_list, start_date, end_date)
+    referral_stats <- wl_referral_stats(waiting_list,
+                                        start_date,
+                                        end_date,
+                                        referral_index)
+    queue_sizes <- wl_queue_size(waiting_list,
+                                 start_date,
+                                 end_date,
+                                 referral_index,
+                                 removal_index)
+    removal_stats <- wl_removal_stats(waiting_list,
+                                      start_date,
+                                      end_date,
+                                      referral_index,
+                                      removal_index)
 
     # load
     q_load <-
@@ -78,10 +93,11 @@ wl_stats <- function(waiting_list,
 
     # mean wait
     waiting_patients <-
-      waiting_list[which((waiting_list[, 2] > end_date |
-                            is.na(waiting_list[, 2]) &
-                            waiting_list[, 1] <= end_date)), ]
-    wait_times <- as.numeric(end_date) - as.numeric(waiting_patients[, 1])
+      waiting_list[which((waiting_list[, removal_index] > end_date |
+                            is.na(waiting_list[, removal_index]) &
+                            waiting_list[, referral_index] <= end_date)), ]
+    wait_times <-
+      as.numeric(end_date) - as.numeric(waiting_patients[, referral_index])
     mean_wait <- mean(wait_times)
 
     # target capacity
@@ -107,8 +123,6 @@ wl_stats <- function(waiting_list,
 
     # pressure
     pressure <- calc_waiting_list_pressure(mean_wait, target_wait)
-    # TODO: talk to Neil about using *2 (in this function),
-    # or *4 in the formula below
 
     waiting_stats <- data.frame(
       "mean.demand" = referral_stats$demand.weekly,
