@@ -31,7 +31,9 @@ calc_index <- function(waiting_list,
       guesses <- c("removal","Removal",2)
     } else if ( type == "withdrawal") {
       guesses <- c("withdrawal","Withdrawal",3)
-    } else {
+    } else if ( type == "target") {
+      guesses <- c("target","Target_wait",NULL)
+    }else {
       index <- 1
       return(index)
     }

@@ -36,8 +36,14 @@ wl_stats <- function(waiting_list,
                      start_date = NULL,
                      end_date = NULL) {
 
+  # get indices and set target wait if possible and get dates
   referral_index <- calc_index(waiting_list,type="referral")
   removal_index <- calc_index(waiting_list,type="removal")
+  target_index <- calc_index(waiting_list,type="target")
+
+  if (!is.null(target_index)){
+    target_wait <- waiting_list[1,target_index]
+  }
 
   if (!is.null(start_date)) {
     start_date <- as.Date(start_date)
@@ -49,6 +55,7 @@ wl_stats <- function(waiting_list,
   } else {
     end_date <- max(waiting_list[, referral_index])
   }
+
 
   if (!is.null(categories)){
     waiting_stats <-

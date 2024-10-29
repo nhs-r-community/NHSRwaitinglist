@@ -58,7 +58,7 @@ sim_patients <- function(
   days <- sample.int(365,n_rows, replace = TRUE) -1
   dobs <- as.Date(as.numeric(start_date)-years-days)
   priority <- sample(c(1,2,3,4),size=n_rows,replace=TRUE,prob=c(0.05,0.2,0.25,0.5))
-  target_wait <- sapply(Priority, calc_Priority_to_Target)
+  target_wait <- sapply(priority, calc_Priority_to_Target)
 
   # referral, removal, withdrawal columns
   referral <- c(rep(NA,n_rows))
