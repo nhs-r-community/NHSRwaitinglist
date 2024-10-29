@@ -32,6 +32,8 @@
 #'
 #' calc_relief_capacity(30, 1200, 390, 26)
 #'
+#'
+#'
 calc_relief_capacity <- function(
     demand,
     queue_size,

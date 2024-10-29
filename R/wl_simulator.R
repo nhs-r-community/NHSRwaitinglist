@@ -8,7 +8,6 @@
 #' @param demand numeric. Weekly demand (ie. typical referrals per week)
 #' @param capacity numeric. Weekly capacity (ie. typical removals per week)
 #' @param waiting_list integer. The number of patients on the waiting list
-#' @param referral_index integer. The column number in the waiting_list which
 #'   contains the referral dates
 #'
 #' @return dataframe. A df of simulated referrals and removals
@@ -31,7 +30,6 @@ wl_simulator <- function(
     demand=10,
     capacity=11,
     waiting_list = NULL,
-    referral_index = 1,
     withdrawal_prob = NA,
     detailed_sim = FALSE) {
 

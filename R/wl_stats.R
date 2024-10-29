@@ -57,9 +57,7 @@ wl_stats <- function(waiting_list,
 
 
     referral_stats <- wl_referral_stats(waiting_list, start_date, end_date)
-
     queue_sizes <- wl_queue_size(waiting_list)
-
     removal_stats <- wl_removal_stats(waiting_list, start_date, end_date)
 
     # load
