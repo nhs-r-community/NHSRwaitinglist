@@ -31,7 +31,7 @@
 #' # number of operations per week to have mean wait of 52/4
 #' calc_target_capacity(demand, target_wait)
 #'
-#' # TODO: Include a couple of standard deviations for errors in the mean demand
+
 calc_target_capacity <- function(
     demand,
     target_wait,

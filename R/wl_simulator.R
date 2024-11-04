@@ -22,8 +22,7 @@
 #' under_capacity_simulation <-
 #'   wl_simulator("2024-01-01", "2024-03-31", 100, 90)
 #'
-#' # TODO
-#' # error messages (e.g. start_date > end_date)
+
 wl_simulator <- function(
     start_date=NULL,
     end_date=NULL,

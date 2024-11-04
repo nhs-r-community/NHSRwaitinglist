@@ -8,7 +8,9 @@ calc_relief_capacity(
   demand,
   queue_size,
   target_queue_size,
-  time_to_target = 26
+  time_to_target = 26,
+  num_referrals = 0,
+  cv_demand = 0
 )
 }
 \arguments{
@@ -47,5 +49,6 @@ or if demand is per day then time_to_target is per day
 # Relief Capacity = 30 + (1200 - 390)/26 = 61.15 patients per week.
 
 calc_relief_capacity(30, 1200, 390, 26)
+
 
 }

@@ -16,11 +16,7 @@
 #' waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 #' removal_stats <- wl_removal_stats(waiting_list)
 #'
-#' # TODO : referral <- arrival
-#' # debug and test
-#' # simplify notation
-#' # add detail to params above
-#' # arrival mean and variance
+
 wl_removal_stats <- function(waiting_list,
                              start_date = NULL,
                              end_date = NULL,

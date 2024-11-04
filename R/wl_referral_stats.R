@@ -5,6 +5,7 @@
 #' @param waiting_list dataframe. A df of referral dates and removals
 #' @param start_date date. The start date to calculate from
 #' @param end_date date. The end date to calculate to
+#' @param referral_index the column index of referrals
 #'
 #' @return dataframe. A df containing number of referrals, mean demand,
 #'   and the coefficient of variation of referrals
@@ -16,11 +17,6 @@
 #' waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 #' referral_stats <- wl_referral_stats(waiting_list)
 #'
-#' # TODO : referral <- arrival
-#' # debug and test
-#' # simplify notation
-#' # add detail to params above
-#' # arrival mean and variance
 wl_referral_stats <- function(waiting_list,
                               start_date = NULL,
                               end_date = NULL,

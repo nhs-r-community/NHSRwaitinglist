@@ -28,6 +28,4 @@ waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 additions <- c.Date("2024-01-03", "2024-01-05", "2024-01-18")
 longer_waiting_list <- wl_insert(waiting_list, additions)
 
-# TODO: What if more columns
-# Check column types
 }

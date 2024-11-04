@@ -1,27 +1,26 @@
 #' @title Calculate Column Indices
 #'
-#' @description Help function to get column indicies
+#' @description Internal Helper function to get column indicies for referrals,
+#'  removals, and withdrawals
 #'
+#' @param waiting_list a dataframe containing the waitinglist
 #' @param colname string giving the column name
-#' @param type if colname null write referal, withdrawal, removal to guess the index
+#' @param type if colname, write referral, withdrawal, removal to guess the index
 #'
 #' @return index
-#' @export
 #'
-#' @examples
-#'
-#'
-
 
 calc_index <- function(waiting_list,
                        colname = NULL,
-                        type = NULL){
+                       type = NULL){
 
+  # get column index if name given
   if( !is.null(colname) ){
     index <-  which(colnames(waiting_list)==colname)
     return(index)
   } else {
 
+    # if name not give guess the name or index based on type
     if (is.null(type)) {
       index <- 1
       return(index)
@@ -33,13 +32,14 @@ calc_index <- function(waiting_list,
       guesses <- c("withdrawal","Withdrawal",3)
     } else if ( type == "target") {
       guesses <- c("target","Target_wait",NULL)
-    }else {
+    } else {
+      warning("Waiting list index not found")
       index <- 1
       return(index)
     }
 
+    # implement guess and return index given
     for ( guess in guesses ) {
-
       if ( is.character(guess) ){
         index <-  which(colnames(waiting_list)==guess)
       } else {

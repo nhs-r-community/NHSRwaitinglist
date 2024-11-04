@@ -17,33 +17,17 @@
 #' waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 #' waiting_list_stats <- wl_stats(waiting_list)
 #'
-#' # TO DO!!
-#' # Check target_capacity weekly daily
-#' # Error if dates are in the wrong order
-#' # Calculate the number of missed operations
-#' # Start date and end date calculations not working well
-#' #
-#' # MAKE CONSISTENT NOTATION
-#' # default start and end date if empty
-#' # make units of output weekly operations not daily
-#' # mean removal too big
-#' # Z score in capacity calculations
-#' # mean demand and mean capacity not interrarraival and departures plesae.
 
 wl_stats <- function(waiting_list,
                      target_wait = 4,
                      categories = NULL,
                      start_date = NULL,
-                     end_date = NULL) {
+                     end_date = NULL,
+                     target_index = NULL) {
 
   # get indices and set target wait if possible and get dates
   referral_index <- calc_index(waiting_list,type="referral")
   removal_index <- calc_index(waiting_list,type="removal")
-  target_index <- calc_index(waiting_list,type="target")
-
-  if (!is.null(target_index)){
-    target_wait <- waiting_list[1,target_index]
-  }
 
   if (!is.null(start_date)) {
     start_date <- as.Date(start_date)
@@ -55,6 +39,13 @@ wl_stats <- function(waiting_list,
   } else {
     end_date <- max(waiting_list[, referral_index])
   }
+
+  if (!is.null(target_index)){
+    target_wait <- waiting_list[1,target_index]
+  }
+
+
+  target_index <- calc_index(waiting_list,type="target")
 
 
   if (!is.null(categories)){

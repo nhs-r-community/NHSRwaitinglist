@@ -14,17 +14,7 @@
 #'
 #'
 
-calc_Priority_to_Target <- function(priority){
-  if (priority == 1){
-    return(7)
-  } else if (priority == 2) {
-    return(28)
-  } else if (priority == 3) {
-    return(84)
-  } else {
-    return(365)
-  }
-}
+
 
 sim_patients <- function(
     n_rows = 10,
@@ -58,7 +48,7 @@ sim_patients <- function(
   days <- sample.int(365,n_rows, replace = TRUE) -1
   dobs <- as.Date(as.numeric(start_date)-years-days)
   priority <- sample(c(1,2,3,4),size=n_rows,replace=TRUE,prob=c(0.05,0.2,0.25,0.5))
-  target_wait <- sapply(priority, calc_Priority_to_Target)
+  target_wait <- sapply(priority, calc_priority_to_target)
 
   # referral, removal, withdrawal columns
   referral <- c(rep(NA,n_rows))

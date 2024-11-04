@@ -4,7 +4,13 @@
 \alias{wl_removal_stats}
 \title{Calculate some stats about removals}
 \usage{
-wl_removal_stats(waiting_list, start_date = NULL, end_date = NULL)
+wl_removal_stats(
+  waiting_list,
+  start_date = NULL,
+  end_date = NULL,
+  referral_index = 1,
+  removal_index = 2
+)
 }
 \arguments{
 \item{waiting_list}{dataframe. A df of referral dates and removals}
@@ -26,9 +32,4 @@ removals <- c.Date("2024-01-08", NA, NA, NA)
 waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 removal_stats <- wl_removal_stats(waiting_list)
 
-# TODO : referral <- arrival
-# debug and test
-# simplify notation
-# add detail to params above
-# arrival mean and variance
 }

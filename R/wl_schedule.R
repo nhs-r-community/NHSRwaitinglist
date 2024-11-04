@@ -24,8 +24,7 @@
 #' schedule <- c.Date("2024-01-03", "2024-01-05", "2024-01-18")
 #' updated_waiting_list <- wl_schedule(waiting_list, schedule)
 #'
-#' # TODO ALLOW:
-#' # schedule to be a dataframe or vector
+
 wl_schedule <- function(
     waiting_list,
     schedule,
