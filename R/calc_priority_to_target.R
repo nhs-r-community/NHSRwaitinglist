@@ -6,6 +6,8 @@
 #'
 #' @return number of days
 #'
+#' @export
+#'
 
 calc_priority_to_target <- function(priority){
   if (priority == 1){

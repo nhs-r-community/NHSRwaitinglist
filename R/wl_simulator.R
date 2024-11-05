@@ -84,13 +84,11 @@ wl_simulator <- function(
   }
 
   # create an operating schedule
-  schedule <-
-    as.Date(
-      as.numeric(start_date) +
-        ceiling(seq(0, number_of_days - 1, 1 / daily_capacity)),
-      origin = "1970-01-01")
+  if (daily_capacity >0){
+    schedule <- sim_schedule(number_of_days,start_date,daily_capacity)
 
-  wl_simulated <- wl_schedule(wl_simulated, schedule)
+    wl_simulated <- wl_schedule(wl_simulated, schedule)
+  }
 
   return(wl_simulated)
 }

@@ -3,30 +3,20 @@
 \docType{data}
 \name{OPCS4}
 \alias{OPCS4}
-\title{Arabidopsis QTL data on gravitropism}
+\title{OPCS4 data}
 \format{
-An object of class \code{"cross"}; see \code{\link[qtl:read.cross]{qtl::read.cross()}}.
+An object of class \code{data.frame} with 12279 rows and 9 columns.
 }
 \source{
-Mouse Phenome Database, \url{https://phenome.jax.org/projects/Moore1b}
+https://biobank.ndph.ox.ac.uk/ukb/coding.cgi?id=240
 }
 \usage{
 data(OPCS4)
 }
 \description{
-Data from a QTL experiment on gravitropism in
-Arabidopsis, with data on 162 recombinant inbred lines (Ler x
-Cvi). The outcome is the root tip angle (in degrees) at two-minute
-increments over eight hours.
+OPCS4 data
 }
 \examples{
 data(OPCS4)
-}
-\references{
-Moore CR, Johnson LS, Kwak I-Y, Livny M, Broman KW,
-Spalding EP (2013) High-throughput computer vision introduces the
-time axis to a quantitative trait map of a plant growth
-response. Genetics 195:1077-1086
-(\href{https://pubmed.ncbi.nlm.nih.gov/23979570/}{PubMed})
 }
 \keyword{datasets}
