@@ -7,8 +7,7 @@
 #' @param daily_capacity Number of paitents per day
 #'
 #' @return dataframe. Empty waiting list.
-#' @export
-#' sim_patients(100,"2024-09-21")
+#' @export sim_schedule
 #'
 
 sim_schedule <- function(

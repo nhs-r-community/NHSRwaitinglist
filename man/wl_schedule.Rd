@@ -4,7 +4,13 @@
 \alias{wl_schedule}
 \title{A simple operation scheduler}
 \usage{
-wl_schedule(waiting_list, schedule, referral_index = 1, removal_index = 2)
+wl_schedule(
+  waiting_list,
+  schedule,
+  referral_index = 1,
+  removal_index = 2,
+  unscheduled = FALSE
+)
 }
 \arguments{
 \item{waiting_list}{dataframe. A df of referral dates and removals}

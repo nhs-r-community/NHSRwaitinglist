@@ -6,10 +6,10 @@
 #' @param start_date Start date (needed to generate patient ages)
 #'
 #' @return dataframe. Empty waiting list.
-#' @export
+#' @export sim_patients
 #' @import randomNames
 #' @examples
-#' sim_patients(100,"2024-09-21")
+#'
 #'
 #'
 #'

@@ -17,9 +17,3 @@ dataframe. Empty waiting list.
 \description{
 Generates simulated NHS patients
 }
-\examples{
-sim_patients(100,"2024-09-21")
-
-
-
-}
