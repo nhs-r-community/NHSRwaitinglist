@@ -1,5 +1,11 @@
-
+# Your todo list
 TODO.txt
+calc_Lambert.R
+calc_tail_prob.R
+
+
+# mac stuff
+.DS_Store
 
 # History files
 .Rhistory

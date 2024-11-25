@@ -21,5 +21,5 @@ parameter and joins them together into one dataframe with relevant creation
 criteria
 }
 \examples{
-create_bulk_synthetic_data(demo_df)
+create_bulk_synthetic_data(demographic_data)
 }

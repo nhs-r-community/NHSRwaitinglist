@@ -10,9 +10,7 @@
 #' @import randomNames
 #' @examples
 #'
-#'
-#'
-#'
+
 
 
 

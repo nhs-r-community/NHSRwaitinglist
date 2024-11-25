@@ -14,7 +14,7 @@
 #' opcs etc
 #' @export
 #'
-#' @examples create_bulk_synthetic_data(demo_df)
+#' @examples create_bulk_synthetic_data(demographic_data)
 
 create_bulk_synthetic_data <- function(bulk_data) {
   result <- bulk_data |>
