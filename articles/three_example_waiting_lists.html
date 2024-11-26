@@ -8,8 +8,8 @@
 <title>Three example waiting lists • NHSRwaitinglist</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.4.2/css/all.min.css" rel="stylesheet">
-<link href="../deps/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Three example waiting lists">
 </head>
 <body>
@@ -112,7 +112,7 @@ we should expect a queue to form.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">waiting_list</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span><span class="co">#&gt;      referral    removal</span></span>
+<span><span class="co">#&gt;      Referral    Removal</span></span>
 <span><span class="co">#&gt; 1  2020-01-02 2020-01-03</span></span>
 <span><span class="co">#&gt; 2  2020-01-03 2020-01-04</span></span>
 <span><span class="co">#&gt; 3  2020-01-04 2020-01-05</span></span>
@@ -207,12 +207,12 @@ standard non-cancer referral.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">overall_stats</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   mean.demand mean.capacity     load load.too.big queue_size target_queue_size</span></span>
-<span><span class="co">#&gt; 1    9.818065             9 1.090896         TRUE        185          44.18129</span></span>
-<span><span class="co">#&gt;   queue.too.big mean_wait cv_arrival cv_removal target.capacity relief.capacity</span></span>
-<span><span class="co">#&gt; 1          TRUE  64.63784   1.131775  0.5362099              NA        15.23417</span></span>
-<span><span class="co">#&gt;   pressure</span></span>
-<span><span class="co">#&gt; 1 14.36396</span></span></code></pre></div>
+<span><span class="co">#&gt;   mean.demand mean.capacity     load load.too.big count.demand queue_size</span></span>
+<span><span class="co">#&gt; 1    9.818065             9 1.090896         TRUE         2174        185</span></span>
+<span><span class="co">#&gt;   target_queue_size queue.too.big mean_wait cv_arrival cv_removal</span></span>
+<span><span class="co">#&gt; 1          44.18129          TRUE  64.63784   1.131775  0.5362099</span></span>
+<span><span class="co">#&gt;   target.capacity relief.capacity pressure</span></span>
+<span><span class="co">#&gt; 1              NA        15.23417 7.181982</span></span></code></pre></div>
 <p>This gives us a lot of useful information. Taking it step by
 step:</p>
 <p>The first 4 columns tell us whether the load is larger than 1. If it
@@ -304,7 +304,7 @@ target.</p>
 <th align="center">pressure</th>
 </tr></thead>
 <tbody><tr class="odd">
-<td align="center">14.36396</td>
+<td align="center">7.181982</td>
 </tr></tbody>
 </table>
 </div>
@@ -361,12 +361,12 @@ statistics.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">overall_stats</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   mean.demand mean.capacity      load load.too.big queue_size target_queue_size</span></span>
-<span><span class="co">#&gt; 1    10.10458      10.13399 0.9970985        FALSE         22          45.47063</span></span>
-<span><span class="co">#&gt;   queue.too.big mean_wait cv_arrival cv_removal target.capacity relief.capacity</span></span>
-<span><span class="co">#&gt; 1         FALSE  6.863636   1.153809   0.690155        10.30543              NA</span></span>
-<span><span class="co">#&gt;   pressure</span></span>
-<span><span class="co">#&gt; 1 1.525253</span></span></code></pre></div>
+<span><span class="co">#&gt;   mean.demand mean.capacity      load load.too.big count.demand queue_size</span></span>
+<span><span class="co">#&gt; 1    10.10458      10.13399 0.9970985        FALSE         2236         22</span></span>
+<span><span class="co">#&gt;   target_queue_size queue.too.big mean_wait cv_arrival cv_removal</span></span>
+<span><span class="co">#&gt; 1          45.47063         FALSE  6.863636   1.153809   0.690155</span></span>
+<span><span class="co">#&gt;   target.capacity relief.capacity  pressure</span></span>
+<span><span class="co">#&gt; 1        10.30543              NA 0.7626263</span></span></code></pre></div>
 <p>In this finely balanced example, the mean demand and mean capacity
 give a load very close to 1, at 0.9971. While this is less than one, it
 is perhaps a little too close for comfort.</p>
@@ -444,12 +444,12 @@ non-negligible fraction of time where services are not being used.</p>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">overall_stats</span><span class="op">)</span></span>
-<span><span class="co">#&gt;   mean.demand mean.capacity      load load.too.big queue_size target_queue_size</span></span>
-<span><span class="co">#&gt; 1    9.698904      10.13793 0.9566946        FALSE          7          43.64507</span></span>
-<span><span class="co">#&gt;   queue.too.big mean_wait cv_arrival cv_removal target.capacity relief.capacity</span></span>
-<span><span class="co">#&gt; 1         FALSE 0.8571429   1.173034  0.7245002        9.910116              NA</span></span>
-<span><span class="co">#&gt;    pressure</span></span>
-<span><span class="co">#&gt; 1 0.1904762</span></span></code></pre></div>
+<span><span class="co">#&gt;   mean.demand mean.capacity      load load.too.big count.demand queue_size</span></span>
+<span><span class="co">#&gt; 1    9.698904      10.13793 0.9566946        FALSE         2149          7</span></span>
+<span><span class="co">#&gt;   target_queue_size queue.too.big mean_wait cv_arrival cv_removal</span></span>
+<span><span class="co">#&gt; 1          43.64507         FALSE 0.8571429   1.173034  0.7245002</span></span>
+<span><span class="co">#&gt;   target.capacity relief.capacity  pressure</span></span>
+<span><span class="co">#&gt; 1        9.910116              NA 0.0952381</span></span></code></pre></div>
 <p>This time the simulation has created a mean demand and capacity which
 is slightly lower than we asked for, but the gap between them is similar
 to what we wanted.</p>
@@ -485,7 +485,7 @@ effect on the behaviour of a waiting list.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
 </div>
 
     </footer>
