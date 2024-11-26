@@ -5,12 +5,13 @@
 \title{Simple simulator to create a waiting list}
 \usage{
 wl_simulator(
-  start_date,
-  end_date,
-  demand,
-  capacity,
+  start_date = NULL,
+  end_date = NULL,
+  demand = 10,
+  capacity = 11,
   waiting_list = NULL,
-  referral_index = 1
+  withdrawal_prob = NA,
+  detailed_sim = FALSE
 )
 }
 \arguments{
@@ -22,9 +23,7 @@ wl_simulator(
 
 \item{capacity}{numeric. Weekly capacity (ie. typical removals per week)}
 
-\item{waiting_list}{integer. The number of patients on the waiting list}
-
-\item{referral_index}{integer. The column number in the waiting_list which
+\item{waiting_list}{integer. The number of patients on the waiting list
 contains the referral dates}
 }
 \value{
@@ -41,6 +40,4 @@ over_capacity_simulation <-
 under_capacity_simulation <-
   wl_simulator("2024-01-01", "2024-03-31", 100, 90)
 
-# TODO
-# error messages (e.g. start_date > end_date)
 }

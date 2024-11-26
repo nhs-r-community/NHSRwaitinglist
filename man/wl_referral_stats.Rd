@@ -4,7 +4,12 @@
 \alias{wl_referral_stats}
 \title{Calculate some stats about referrals}
 \usage{
-wl_referral_stats(waiting_list, start_date = NULL, end_date = NULL)
+wl_referral_stats(
+  waiting_list,
+  start_date = NULL,
+  end_date = NULL,
+  referral_index = 1
+)
 }
 \arguments{
 \item{waiting_list}{dataframe. A df of referral dates and removals}
@@ -12,6 +17,8 @@ wl_referral_stats(waiting_list, start_date = NULL, end_date = NULL)
 \item{start_date}{date. The start date to calculate from}
 
 \item{end_date}{date. The end date to calculate to}
+
+\item{referral_index}{the column index of referrals}
 }
 \value{
 dataframe. A df containing number of referrals, mean demand,
@@ -26,9 +33,4 @@ removals <- c.Date("2024-01-08", NA, NA, NA)
 waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 referral_stats <- wl_referral_stats(waiting_list)
 
-# TODO : referral <- arrival
-# debug and test
-# simplify notation
-# add detail to params above
-# arrival mean and variance
 }

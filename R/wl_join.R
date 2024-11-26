@@ -20,9 +20,13 @@
 #' # removals <- c.Date("2024-01-09",NA,"2024-01-19",NA)
 #' # wl_2 <- data.frame("referral" = referrals ,"removal" = removals )
 #' # wl_join(wl_1,wl_2)
+#'
+#'
+
 wl_join <- function(wl_1, wl_2, referral_index = 1) {
   # combine and sort to update list
   updated_list <- rbind(wl_1, wl_2)
   updated_list <- updated_list[order(updated_list[, referral_index]), ]
+  rownames(updated_list) <- NULL
   return(updated_list)
 }

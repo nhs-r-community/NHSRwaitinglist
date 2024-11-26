@@ -32,12 +32,23 @@
 #'
 #' calc_relief_capacity(30, 1200, 390, 26)
 #'
+#'
+
 calc_relief_capacity <- function(
     demand,
     queue_size,
     target_queue_size,
-    time_to_target = 26) {
+    time_to_target = 26,
+    num_referrals = 0,
+    cv_demand = 0) {
   check_class(demand, queue_size, target_queue_size, time_to_target)
+  # Add two standard deviations to demand if it is estimated
+  if(num_referrals > 0 ){
+    if (2*demand*cv_demand / sqrt(num_referrals) < 1){
+      demand <- demand  / (1- 2*demand*cv_demand / sqrt(num_referrals) )
+    }
+  }
+  # Calculate the relief capacity
   rel_cap <- demand + (queue_size - target_queue_size) / time_to_target
   return(rel_cap)
 }

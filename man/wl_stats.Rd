@@ -4,7 +4,14 @@
 \alias{wl_stats}
 \title{Calculate some stats about the waiting list}
 \usage{
-wl_stats(waiting_list, target_wait = 4, start_date = NULL, end_date = NULL)
+wl_stats(
+  waiting_list,
+  target_wait = 4,
+  categories = NULL,
+  start_date = NULL,
+  end_date = NULL,
+  target_index = NULL
+)
 }
 \arguments{
 \item{waiting_list}{dataframe. A df of referral dates and removals}
@@ -28,16 +35,4 @@ removals <- c.Date("2024-01-08", NA, NA, NA)
 waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 waiting_list_stats <- wl_stats(waiting_list)
 
-# TO DO!!
-# Check target_capacity weekly daily
-# Error if dates are in the wrong order
-# Calculate the number of missed operations
-# Start date and end date calculations not working well
-#
-# MAKE CONSISTENT NOTATION
-# default start and end date if empty
-# make units of output weekly operations not daily
-# mean removal too big
-# Z score in capacity calculations
-# mean demand and mean capacity not interrarraival and departures plesae.
 }
