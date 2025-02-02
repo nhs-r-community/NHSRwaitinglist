@@ -4,11 +4,13 @@
 #'
 #' @usage data(demographic_data)
 #'
-#' @format
+#' @format Data frame with 9 columns
+#' \describe{
+#' \item{hospital_site}{ODS hosptial site code}
+#' \item{...}{Others to do with file is updated}
+#'}
 #'
 #' @keywords datasets
-#'
-#' @references
 #'
 #'
 #' @examples

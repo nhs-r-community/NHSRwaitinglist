@@ -9,7 +9,7 @@
 #' @export sim_patients
 #' @import randomNames
 #' @examples
-#'
+#' sim_patients()
 
 
 

@@ -5,7 +5,12 @@
 \alias{OPCS4}
 \title{OPCS4 data}
 \format{
-An object of class \code{data.frame} with 12279 rows and 9 columns.
+Data frame with 9 columns
+\describe{
+\item{code_1digit}{The firt digit of the OPCS4 code, or 'chapter'}
+\item{name_1digit}{The name/group of 'chapter' of the OPCS4 code}
+\item{...}{Others to do with file is updated}
+}
 }
 \source{
 https://biobank.ndph.ox.ac.uk/ukb/coding.cgi?id=240
