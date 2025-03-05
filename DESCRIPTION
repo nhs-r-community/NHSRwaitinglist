@@ -25,7 +25,6 @@ Imports:
     cli,
     dplyr,
     rlang,
-    purrr,
     utils,
     stats,
     randomNames

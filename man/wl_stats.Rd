@@ -14,16 +14,20 @@ wl_stats(
 )
 }
 \arguments{
-\item{waiting_list}{dataframe. A df of referral dates and removals}
+\item{waiting_list}{data.frame. A df of referral dates and removals}
 
 \item{target_wait}{numeric. The required waiting time}
+
+\item{categories}{TO ADD}
 
 \item{start_date}{date. The start date to calculate from}
 
 \item{end_date}{date. The end date to calculate to}
+
+\item{target_index}{TO ADD}
 }
 \value{
-dataframe. A df of important waiting list statistics
+data.frame. A df of important waiting list statistics
 }
 \description{
 A summary of all the key stats associated with a waiting list

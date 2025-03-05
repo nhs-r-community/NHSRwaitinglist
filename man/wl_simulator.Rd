@@ -25,9 +25,13 @@ wl_simulator(
 
 \item{waiting_list}{integer. The number of patients on the waiting list
 contains the referral dates}
+
+\item{withdrawal_prob}{TO ADD,}
+
+\item{detailed_sim}{TO ADD}
 }
 \value{
-dataframe. A df of simulated referrals and removals
+data.frame. A df of simulated referrals and removals
 }
 \description{
 Creates a simulated waiting list comprising referral dates,

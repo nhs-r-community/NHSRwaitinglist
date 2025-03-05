@@ -13,11 +13,15 @@ wl_queue_size(
 )
 }
 \arguments{
-\item{waiting_list}{dataframe consisting addition and removal dates}
+\item{waiting_list}{data.frame consisting addition and removal dates}
 
 \item{start_date}{start of calculation period}
 
 \item{end_date}{end of calculation period}
+
+\item{referral_index}{TO ADD}
+
+\item{removal_index}{TO ADD}
 }
 \value{
 a list of dates and queue sizes

@@ -5,15 +5,16 @@
 #' This is done in referral date order,
 #' I.e. earlier referrals are scheduled first (FIFO).
 #'
-#' @param waiting_list dataframe. A df of referral dates and removals
+#' @param waiting_list data.frame. A df of referral dates and removals
 #' @param schedule vector of dates. The dates to schedule open referrals into
 #'   (ie. dates of unbooked future capacity)
 #' @param referral_index integer. The column number in the waiting_list which
 #'   contains the referral dates
 #' @param removal_index integer. The column number in the waiting_list which
 #'   contains the removal dates
+#' @param unscheduled TO ADD
 #'
-#' @return dataframe. A df of the updated waiting list with removal dates added
+#' @return data.frame. A df of the updated waiting list with removal dates added
 #'   according to the schedule
 #' @export
 #'

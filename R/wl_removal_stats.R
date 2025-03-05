@@ -2,9 +2,11 @@
 #'
 #' @description Calculate some stats about removals
 #'
-#' @param waiting_list dataframe. A df of referral dates and removals
+#' @param waiting_list data.frame. A df of referral dates and removals
 #' @param start_date date. The start date to calculate from
 #' @param end_date date. The end date to calculate to
+#' @param referral_index TO ADD
+#' @param removal_index TO ADD
 #'
 #' @return dataframe. A df containing number of removals, mean capacity,
 #'   and the coefficient of variation of removals
