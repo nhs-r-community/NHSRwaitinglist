@@ -18,9 +18,7 @@
 #' additions <- c.Date("2024-01-03", "2024-01-05", "2024-01-18")
 #' longer_waiting_list <- wl_insert(waiting_list, additions)
 #'
-
 wl_insert <- function(waiting_list, additions, referral_index = 1) {
-
   new_rows <- data.frame(
     "referral" = additions,
     "removal" = rep(as.Date(NA), length(additions))

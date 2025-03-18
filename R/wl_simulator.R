@@ -26,22 +26,21 @@
 #' under_capacity_simulation <-
 #'   wl_simulator("2024-01-01", "2024-03-31", 100, 90)
 #'
-
 wl_simulator <- function(
-    start_date=NULL,
-    end_date=NULL,
-    demand=10,
-    capacity=11,
-    waiting_list = NULL,
-    withdrawal_prob = NA,
-    detailed_sim = FALSE) {
-
+  start_date = NULL,
+  end_date = NULL,
+  demand = 10,
+  capacity = 11,
+  waiting_list = NULL,
+  withdrawal_prob = NA,
+  detailed_sim = FALSE
+) {
   # Fix Start and End Dates
-  if (is.null(start_date)){
-    start_date = Sys.Date()
+  if (is.null(start_date)) {
+    start_date <- Sys.Date()
   }
-  if (is.null(end_date)){
-    end_date = start_date + 31
+  if (is.null(end_date)) {
+    end_date <- start_date + 31
   }
   start_date <- as.Date(start_date)
   end_date <- as.Date(end_date)
@@ -55,41 +54,47 @@ wl_simulator <- function(
   referral <-
     sample(
       seq(as.Date(start_date), as.Date(end_date), by = "day"),
-      realized_demand, replace = TRUE)
+      realized_demand,
+      replace = TRUE
+    )
 
   referral <- referral[order(referral)]
   removal <- rep(as.Date(NA), length(referral))
 
-  if (!detailed_sim){
-    if (is.na(withdrawal_prob)){
-      wl_simulated <- data.frame("Referral" = referral,
-                                 "Removal" = removal)
+  if (!detailed_sim) {
+    if (is.na(withdrawal_prob)) {
+      wl_simulated <- data.frame(
+        "Referral" = referral,
+        "Removal" = removal
+      )
     } else {
-      withdrawal <- referral + rgeom(length(referral),prob = withdrawal_prob)+1
-      withdrawal[withdrawal>end_date] <- NA
-      wl_simulated <- data.frame("Referral" = referral,
-                                 "Removal" = removal,
-                                 "Withdrawal" = withdrawal)
+      withdrawal <- referral + rgeom(length(referral), prob = withdrawal_prob) + 1
+      withdrawal[withdrawal > end_date] <- NA
+      wl_simulated <- data.frame(
+        "Referral" = referral,
+        "Removal" = removal,
+        "Withdrawal" = withdrawal
+      )
     }
 
     if (!is.null(waiting_list)) {
       wl_simulated <- wl_join(waiting_list, wl_simulated)
     }
   }
-  if(detailed_sim){
-    if (is.na(withdrawal_prob)){
-      withdrawal_prob <-0.1
+  if (detailed_sim) {
+    if (is.na(withdrawal_prob)) {
+      withdrawal_prob <- 0.1
     }
-    withdrawal <- referral + rgeom(length(referral),prob = withdrawal_prob)+1
-    withdrawal[withdrawal>end_date] <- NA
-    wl_simulated <- sim_patients(length(referral),start_date)
+    withdrawal <- referral + rgeom(length(referral), prob = withdrawal_prob) + 1
+    withdrawal[withdrawal > end_date] <- NA
+    wl_simulated <- sim_patients(length(referral), start_date)
     wl_simulated$Referral <- referral
     wl_simulated$Withdrawal <- withdrawal
   }
 
   # create an operating schedule
-  if (daily_capacity >0){
-    schedule <- sim_schedule(number_of_days,start_date,daily_capacity)
+  if (daily_capacity > 0) {
+    schedule <- sim_schedule(number_of_days, start_date, daily_capacity)
 
     wl_simulated <- wl_schedule(wl_simulated, schedule)
   }

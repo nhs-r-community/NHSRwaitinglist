@@ -11,22 +11,20 @@
 #'
 
 sim_schedule <- function(
-    n_rows = 10,
-    start_date = NULL,
-    daily_capacity = 1) {
-
-  if (is.null(start_date)){
-    start_date = Sys.Date()
+  n_rows = 10,
+  start_date = NULL,
+  daily_capacity = 1
+) {
+  if (is.null(start_date)) {
+    start_date <- Sys.Date()
   }
 
   schedule <-
     as.Date(
       as.numeric(start_date) +
         ceiling(seq(0, n_rows - 1, 1 / daily_capacity)),
-      origin = "1970-01-01")
+      origin = "1970-01-01"
+    )
 
   return(schedule)
-
 }
-
-

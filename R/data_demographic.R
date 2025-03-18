@@ -8,11 +8,13 @@
 #' \describe{
 #' \item{hospital_site}{ODS hosptial site code}
 #' \item{...}{Others to do with file is updated}
-#'}
+#' }
 #'
 #' @keywords datasets
 #'
 #'
 #' @examples
-#' \dontrun{data(demographic_data)}
+#' \dontrun{
+#' data(demographic_data)
+#' }
 "demographic_data"

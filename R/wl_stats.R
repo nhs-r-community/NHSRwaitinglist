@@ -20,17 +20,15 @@
 #' waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 #' waiting_list_stats <- wl_stats(waiting_list)
 #'
-
 wl_stats <- function(waiting_list,
                      target_wait = 4,
                      categories = NULL,
                      start_date = NULL,
                      end_date = NULL,
                      target_index = NULL) {
-
   # get indices and set target wait if possible and get dates
-  referral_index <- calc_index(waiting_list,type="referral")
-  removal_index <- calc_index(waiting_list,type="removal")
+  referral_index <- calc_index(waiting_list, type = "referral")
+  removal_index <- calc_index(waiting_list, type = "removal")
 
   if (!is.null(start_date)) {
     start_date <- as.Date(start_date)
@@ -43,38 +41,42 @@ wl_stats <- function(waiting_list,
     end_date <- max(waiting_list[, referral_index])
   }
 
-  if (!is.null(target_index)){
-    target_wait <- waiting_list[1,target_index]
+  if (!is.null(target_index)) {
+    target_wait <- waiting_list[1, target_index]
   }
 
 
-  target_index <- calc_index(waiting_list,type="target")
+  target_index <- calc_index(waiting_list, type = "target")
 
 
-  if (!is.null(categories)){
+  if (!is.null(categories)) {
     waiting_stats <-
       waiting_list %>%
-      split(.[,c(categories)]) %>% # think this . is cause of no visible bindings note.
+      split(.[, c(categories)]) %>% # think this . is cause of no visible bindings note.
       lapply(function(x) wl_stats(data.frame(x))) %>%
       bind_rows(.id = "column_label")
     return(waiting_stats)
   } else {
-
-
-    referral_stats <- wl_referral_stats(waiting_list,
-                                        start_date,
-                                        end_date,
-                                        referral_index)
-    queue_sizes <- wl_queue_size(waiting_list,
-                                 start_date,
-                                 end_date,
-                                 referral_index,
-                                 removal_index)
-    removal_stats <- wl_removal_stats(waiting_list,
-                                      start_date,
-                                      end_date,
-                                      referral_index,
-                                      removal_index)
+    referral_stats <- wl_referral_stats(
+      waiting_list,
+      start_date,
+      end_date,
+      referral_index
+    )
+    queue_sizes <- wl_queue_size(
+      waiting_list,
+      start_date,
+      end_date,
+      referral_index,
+      removal_index
+    )
+    removal_stats <- wl_removal_stats(
+      waiting_list,
+      start_date,
+      end_date,
+      referral_index,
+      removal_index
+    )
 
     # load
     q_load <-
@@ -95,8 +97,8 @@ wl_stats <- function(waiting_list,
     # mean wait
     waiting_patients <-
       waiting_list[which((waiting_list[, removal_index] > end_date |
-                            is.na(waiting_list[, removal_index]) &
-                            waiting_list[, referral_index] <= end_date)), ]
+        is.na(waiting_list[, removal_index]) &
+          waiting_list[, referral_index] <= end_date)), ]
     wait_times <-
       as.numeric(end_date) - as.numeric(waiting_patients[, referral_index])
     mean_wait <- mean(wait_times)
@@ -108,7 +110,8 @@ wl_stats <- function(waiting_list,
         target_wait,
         4,
         referral_stats$demand.cov,
-        removal_stats$capacity.cov)
+        removal_stats$capacity.cov
+      )
       # target_cap_weekly <- target_cap_daily * 7
     } else {
       target_cap <- NA
@@ -143,6 +146,5 @@ wl_stats <- function(waiting_list,
     )
 
     return(waiting_stats)
-
   }
 }

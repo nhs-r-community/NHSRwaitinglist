@@ -9,8 +9,8 @@
 #' @export
 #'
 
-calc_priority_to_target <- function(priority){
-  if (priority == 1){
+calc_priority_to_target <- function(priority) {
+  if (priority == 1) {
     return(7)
   } else if (priority == 2) {
     return(28)
