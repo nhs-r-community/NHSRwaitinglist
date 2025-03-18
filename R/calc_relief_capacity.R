@@ -19,6 +19,8 @@
 #'   in queue.
 #' @param time_to_target Numeric value of desired number of time-steps to reach
 #'   the target queue size by.
+#' @param num_referrals Numeric value of the number of referrals per time step.
+#' @param cv_demand To be completed
 #'
 #' @return A numeric value of the required rate of capacity to achieve a target
 #'   queue size in a given period of time.

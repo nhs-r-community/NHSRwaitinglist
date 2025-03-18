@@ -3,9 +3,11 @@
 #' @description Calculates queue sizes from a waiting list
 
 #'
-#' @param waiting_list dataframe consisting addition and removal dates
+#' @param waiting_list data.frame consisting addition and removal dates
 #' @param start_date start of calculation period
 #' @param end_date end of calculation period
+#' @param referral_index TO ADD
+#' @param removal_index TO ADD
 #'
 #' @return a list of dates and queue sizes
 #' @export

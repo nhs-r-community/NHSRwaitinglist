@@ -9,10 +9,14 @@
 #' @param capacity numeric. Weekly capacity (ie. typical removals per week)
 #' @param waiting_list integer. The number of patients on the waiting list
 #'   contains the referral dates
+#' @param withdrawal_prob TO ADD,
+#' @param detailed_sim TO ADD
 #'
-#' @return dataframe. A df of simulated referrals and removals
+#'
+#' @return data.frame. A df of simulated referrals and removals
 #'
 #' @import dplyr
+#' @importFrom stats rgeom
 #' @export
 #'
 #' @examples

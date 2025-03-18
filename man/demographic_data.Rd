@@ -5,7 +5,11 @@
 \alias{demographic_data}
 \title{demographic data}
 \format{
-An object of class \code{data.frame} with 5 rows and 9 columns.
+Data frame with 9 columns
+\describe{
+\item{hospital_site}{ODS hosptial site code}
+\item{...}{Others to do with file is updated}
+}
 }
 \usage{
 data(demographic_data)

@@ -2,12 +2,15 @@
 #'
 #' @description A summary of all the key stats associated with a waiting list
 #'
-#' @param waiting_list dataframe. A df of referral dates and removals
+#' @param waiting_list data.frame. A df of referral dates and removals
 #' @param target_wait numeric. The required waiting time
+#' @param categories TO ADD
 #' @param start_date date. The start date to calculate from
 #' @param end_date date. The end date to calculate to
+#' @param target_index TO ADD
 #'
-#' @return dataframe. A df of important waiting list statistics
+#' @return data.frame. A df of important waiting list statistics
+
 #' @export
 #'
 #' @examples
@@ -51,7 +54,7 @@ wl_stats <- function(waiting_list,
   if (!is.null(categories)){
     waiting_stats <-
       waiting_list %>%
-      split(.[,c(categories)]) %>%
+      split(.[,c(categories)]) %>% # think this . is cause of no visible bindings note.
       lapply(function(x) wl_stats(data.frame(x))) %>%
       bind_rows(.id = "column_label")
     return(waiting_stats)

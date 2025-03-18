@@ -13,11 +13,15 @@ wl_removal_stats(
 )
 }
 \arguments{
-\item{waiting_list}{dataframe. A df of referral dates and removals}
+\item{waiting_list}{data.frame. A df of referral dates and removals}
 
 \item{start_date}{date. The start date to calculate from}
 
 \item{end_date}{date. The end date to calculate to}
+
+\item{referral_index}{TO ADD}
+
+\item{removal_index}{TO ADD}
 }
 \value{
 dataframe. A df containing number of removals, mean capacity,

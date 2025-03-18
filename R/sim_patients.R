@@ -9,7 +9,7 @@
 #' @export sim_patients
 #' @import randomNames
 #' @examples
-#'
+#' sim_patients()
 
 
 
@@ -25,7 +25,7 @@ sim_patients <- function(
   if (!exists("OPCS4")){
     load(file='./data/OPCS4.rda')
   }
-
+  OPCS4 <- OPCS4
   # get proceedures
   OPS <- OPCS4[(OPCS4$selectable=="Y") & (!is.na(OPCS4$name_4digit)),]
   ran <- OPS[sample(nrow(OPS),n_rows,replace=TRUE),]
