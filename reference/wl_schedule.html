@@ -13,7 +13,7 @@ I.e. earlier referrals are scheduled first (FIFO)."></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">NHSRwaitinglist</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,7 +65,7 @@ I.e. earlier referrals are scheduled first (FIFO).</p>
 
 
 <dl><dt id="arg-waiting-list">waiting_list<a class="anchor" aria-label="anchor" href="#arg-waiting-list"></a></dt>
-<dd><p>dataframe. A df of referral dates and removals</p></dd>
+<dd><p>data.frame. A df of referral dates and removals</p></dd>
 
 
 <dt id="arg-schedule">schedule<a class="anchor" aria-label="anchor" href="#arg-schedule"></a></dt>
@@ -82,10 +82,14 @@ contains the referral dates</p></dd>
 <dd><p>integer. The column number in the waiting_list which
 contains the removal dates</p></dd>
 
+
+<dt id="arg-unscheduled">unscheduled<a class="anchor" aria-label="anchor" href="#arg-unscheduled"></a></dt>
+<dd><p>TO ADD</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>dataframe. A df of the updated waiting list with removal dates added
+    <p>data.frame. A df of the updated waiting list with removal dates added
 according to the schedule</p>
     </div>
 

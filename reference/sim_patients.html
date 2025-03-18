@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">NHSRwaitinglist</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9002</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,6 +62,66 @@
     <p>dataframe. Empty waiting list.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">sim_patients</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Referral Removal Withdrawal Priority Target_wait                 Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        NA    &lt;NA&gt;         NA        4         365      Wheeler, Cierra</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        NA    &lt;NA&gt;         NA        2          28       Johnson, Jalen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        NA    &lt;NA&gt;         NA        1           7       el-Mian, Hamza</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        NA    &lt;NA&gt;         NA        4         365 Maldonado, Francesco</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        NA    &lt;NA&gt;         NA        4         365       Wesley, Kaylah</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        NA    &lt;NA&gt;         NA        4         365       Xiong, Joachim</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7        NA    &lt;NA&gt;         NA        4         365    al-Muhammed, Huda</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8        NA    &lt;NA&gt;         NA        4         365       Rivera, Monica</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9        NA    &lt;NA&gt;         NA        1           7       Reece, Sabrina</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10       NA    &lt;NA&gt;         NA        1           7       Macias, Monica</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Birth_Date NHS_number Specialty_code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2019-05-29   18261270              Z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1974-09-06   54583776              B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1988-02-03   29667426              N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2024-01-27   16295646              V</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1981-06-30    1818720              X</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1979-01-15   76107722              N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1972-09-01   83179572              C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1979-08-29   16168471              B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1947-10-31   90652366              Z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1986-06-20   17733190              Z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                          Specialty OPCS</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  Subsidiary Classification of Sites of Operation Z562</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                      Endocrine System and Breast B092</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                              Male Genital Organs N159</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4              Bones and Joints of Skull and Spine V528</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                         Miscellaneous Operations X842</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                              Male Genital Organs N201</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                              Eye C331</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                      Endocrine System and Breast B098</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  Subsidiary Classification of Sites of Operation Z033</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 Subsidiary Classification of Sites of Operation Z792</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                       Proceedure</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                            Z56.2 Thenar muscle</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                    B09.2 Excision of sublingual thyroid tissue</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                     N15.9 Unspecified operations on epididymis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  V52.8 Other specified other operations on intervertebral disc</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                        X84.2 Pulmonary surfactant drugs Band 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                     N20.1 Excision of lesion of spermatic cord</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7             C33.1 Resection of medial rectus muscle of eye NEC</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8    B09.8 Other specified operations on aberrant thyroid tissue</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                                   Z03.3 Oculomotor nerve (iii)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                                               Z79.2 Os calcis</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>               Consultant</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1       Roberts, Michael</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       Nguyen, Benjamin</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   Alvarado Jr, Diamond</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4     Barcelona, Shyloah</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        Goodger, Kaylee</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         Runnels, Laura</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Lemus-Salazar, Kaylee</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8            Le, Brandon</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9     Buczynski, Timothy</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10         Basnet, Kevin</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
