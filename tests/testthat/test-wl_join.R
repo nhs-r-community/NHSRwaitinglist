@@ -20,21 +20,26 @@ wl3_sorted <-
   )
 
 test_that("it joins two waiting list data.frames correctly", {
+  em <- "wl_join(): list with inserts returns wrong class"
+  expect_s3_class(wl_join(wl1, wl2), "data.frame")
+})
+
+test_that("it joins two waiting list data.frames correctly", {
   em <- "wl_join(): joined lists not of expected length (columns)."
-  expect_length(NHSRwaitinglist::wl_join(wl1, wl2), 2)
+  expect_length(wl_join(wl1, wl2), 2)
 })
 
 test_that("it joins two waiting list data.frames correctly", {
   em <- "wl_join(): joined lists not of expected length (rows)."
-  expect_equal(nrow(NHSRwaitinglist::wl_join(wl1, wl2)), 4)
+  expect_equal(nrow(wl_join(wl1, wl2)), 4)
 })
 
 test_that("it joins two waiting list data.frames correctly", {
   em <- "wl_join(): list is sorted, so doesnt match unsorted list."
-  expect_false(isTRUE(all.equal(NHSRwaitinglist::wl_join(wl1, wl2), wl3)))
+  expect_false(isTRUE(all.equal(wl_join(wl1, wl2), wl3)))
 })
 
 test_that("it joins two waiting list data.frames correctly", {
   em <- "wl_join(): expected result for test data including sorting."
-  expect_identical(NHSRwaitinglist::wl_join(wl1, wl2), wl3_sorted)
+  expect_identical(wl_join(wl1, wl2), wl3_sorted)
 })
