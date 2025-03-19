@@ -2,7 +2,7 @@
 #'
 #' @docType data
 #'
-#' @usage data(OPCS4)
+#' @usage data(opcs4)
 #'
 #' @format Data frame with 9 columns
 #'  \describe{
@@ -18,6 +18,6 @@
 #'
 #' @examples
 #' \dontrun{
-#' data(OPCS4)
+#' data(opcs4)
 #' }
-"OPCS4"
+"opcs4"
