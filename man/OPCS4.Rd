@@ -22,6 +22,8 @@ data(OPCS4)
 OPCS4 data
 }
 \examples{
-\dontrun{data(OPCS4)}
+\dontrun{
+data(OPCS4)
+}
 }
 \keyword{datasets}

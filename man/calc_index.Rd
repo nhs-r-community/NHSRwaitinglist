@@ -7,16 +7,17 @@
 calc_index(waiting_list, colname = NULL, type = NULL)
 }
 \arguments{
-\item{waiting_list}{a dataframe containing the waitinglist}
+\item{waiting_list}{a data.frame containing the waiting list}
 
 \item{colname}{string giving the column name}
 
-\item{type}{if colname, write referral, withdrawal, removal to guess the index}
+\item{type}{if colname, write referral, withdrawal,
+removal to guess the index}
 }
 \value{
 index
 }
 \description{
-Internal Helper function to get column indicies for referrals,
+Internal Helper function to get column indices for referrals,
 removals, and withdrawals
 }
