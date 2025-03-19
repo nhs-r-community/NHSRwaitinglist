@@ -40,12 +40,16 @@ wl_queue_size <- function(waiting_list,
   queues[which(queues[, 1] %in% arrival_counts[, 1]), 2] <- arrival_counts[, 2]
   queues$cummul_arrivals <- cumsum(queues[, 2])
 
-  departures <- wl[which((start_date <= wl[, removal_index]) & (wl[, removal_index] <= end_date)), removal_index]
-  if(length(departures>0))
-  {
-    departure_counts <- data.frame(
-      table(wl[which((start_date <= wl[, removal_index]) & (wl[, removal_index] <= end_date)), removal_index])
-    )
+  departures <-
+    wl[which((start_date <= wl[, removal_index]) &
+               (wl[, removal_index] <= end_date)), removal_index]
+  if (length(departures > 0)) {
+    departure_counts <-
+      data.frame(
+        table(wl[which((start_date <= wl[, removal_index]) &
+                         (wl[, removal_index] <= end_date)), removal_index])
+      )
+
     queues$departures <- rep(0, length(dates))
     queues[which(queues[, 1] %in% departure_counts[, 1]), 4] <-
       departure_counts[, 2]

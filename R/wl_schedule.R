@@ -25,21 +25,20 @@
 #' schedule <- c.Date("2024-01-03", "2024-01-05", "2024-01-18")
 #' updated_waiting_list <- wl_schedule(waiting_list, schedule)
 #'
-
 wl_schedule <- function(
-    waiting_list,
-    schedule,
-    referral_index = 1,
-    removal_index = 2,
-    unscheduled = FALSE) {
-
+  waiting_list,
+  schedule,
+  referral_index = 1,
+  removal_index = 2,
+  unscheduled = FALSE
+) {
   # split waiters and removed
   wl <- waiting_list[is.na(waiting_list[, removal_index]), ]
   wl_removed <- waiting_list[!(is.na(waiting_list[, removal_index])), ]
   rownames(wl) <- NULL
 
   # schedule
-  if (!unscheduled){
+  if (!unscheduled) {
     i <- 1
     for (op in as.list(schedule)) {
       if (op > wl[i, referral_index] && i <= nrow(wl)) {
@@ -52,10 +51,11 @@ wl_schedule <- function(
     updated_list <- rbind(wl_removed, wl)
     updated_list <- updated_list[order(updated_list[, referral_index]), ]
     return(updated_list)
-
   } else {
-    scheduled <- data.frame(schedule  = schedule,
-                            scheduled = rep(0, length(schedule)))
+    scheduled <- data.frame(
+      schedule = schedule,
+      scheduled = rep(0, length(schedule))
+    )
     i <- 1
     j <- 0
     for (op in as.list(schedule)) {
@@ -63,7 +63,7 @@ wl_schedule <- function(
       if (op > wl[i, referral_index] && i <= nrow(wl)) {
         wl[i, removal_index] <- as.Date(op)
         i <- i + 1
-        scheduled[j,2] <- 1
+        scheduled[j, 2] <- 1
       }
     }
 
@@ -72,9 +72,8 @@ wl_schedule <- function(
     updated_list <- updated_list[order(updated_list[, referral_index]), ]
 
 
-    #scheduled[scheduled$scheduled = 1, 1]
+    # scheduled[scheduled$scheduled = 1, 1]
 
-    return(list (updated_list,scheduled))
+    return(list(updated_list, scheduled))
   }
-
 }

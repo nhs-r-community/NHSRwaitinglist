@@ -20,9 +20,9 @@
 #' # removed (capacity) this results in a queue load of 1.11 (30/27).
 #' calc_queue_load(30, 27)
 #'
-
 calc_queue_load <- function(demand, capacity) {
   check_class(demand, capacity)
   load <- demand / capacity
-  return(load)
+
+  load
 }

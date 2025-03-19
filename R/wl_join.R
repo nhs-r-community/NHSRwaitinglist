@@ -21,8 +21,6 @@
 #' # wl_2 <- data.frame("referral" = referrals ,"removal" = removals )
 #' # wl_join(wl_1,wl_2)
 #'
-#'
-
 wl_join <- function(wl_1, wl_2, referral_index = 1) {
   # combine and sort to update list
   updated_list <- rbind(wl_1, wl_2)

@@ -13,5 +13,5 @@ calc_priority_to_target(priority)
 number of days
 }
 \description{
-Internal Helper function number of days from prioirty code
+Internal Helper function number of days from priority code
 }

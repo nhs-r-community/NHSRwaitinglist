@@ -21,5 +21,6 @@
 calc_waiting_list_pressure <- function(mean_wait, target_wait) {
   check_class(mean_wait, target_wait)
   wait_pressure <- 2 * mean_wait / target_wait
-  return(wait_pressure)
+
+  wait_pressure
 }

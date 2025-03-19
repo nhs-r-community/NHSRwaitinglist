@@ -24,19 +24,19 @@ wl_referral_stats <- function(waiting_list,
   if (!is.null(start_date)) {
     start_date <- as.Date(start_date)
   } else {
-    start_date <- min(waiting_list[, referral_index ])
+    start_date <- min(waiting_list[, referral_index])
   }
   if (!is.null(end_date)) {
     end_date <- as.Date(end_date)
   } else {
-    end_date <- max(waiting_list[, referral_index ])
+    end_date <- max(waiting_list[, referral_index])
   }
 
   arrival_dates <- c(
     as.Date(start_date),
     waiting_list[
-      which(start_date <= waiting_list[, referral_index ] &
-              waiting_list[, referral_index ] <= end_date), referral_index
+      which(start_date <= waiting_list[, referral_index] &
+              waiting_list[, referral_index] <= end_date), referral_index
     ],
     as.Date(end_date)
   )

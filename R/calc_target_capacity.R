@@ -31,13 +31,13 @@
 #' # number of operations per week to have mean wait of 52/4
 #' calc_target_capacity(demand, target_wait)
 #'
-
 calc_target_capacity <- function(
-    demand,
-    target_wait,
-    factor = 4,
-    cv_demand = 1,
-    cv_capacity = 1) {
+  demand,
+  target_wait,
+  factor = 4,
+  cv_demand = 1,
+  cv_capacity = 1
+) {
   check_class(demand, target_wait, factor, cv_demand, cv_capacity)
   target_cap <-
     demand + ((cv_demand**2 + cv_capacity**2) / 2) * (factor / target_wait)

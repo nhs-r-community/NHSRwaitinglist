@@ -30,5 +30,4 @@ Take two waiting list and sorting in date order
 # wl_2 <- data.frame("referral" = referrals ,"removal" = removals )
 # wl_join(wl_1,wl_2)
 
-
 }

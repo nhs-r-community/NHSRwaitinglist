@@ -2,7 +2,7 @@
 #'
 #' @docType data
 #'
-#' @usage data(OPCS4)
+#' @usage data(opcs4)
 #'
 #' @format Data frame with 9 columns
 #'  \describe{
@@ -17,5 +17,7 @@
 #' @source https://biobank.ndph.ox.ac.uk/ukb/coding.cgi?id=240
 #'
 #' @examples
-#' \dontrun{data(OPCS4)}
-"OPCS4"
+#' \dontrun{
+#' data(opcs4)
+#' }
+"opcs4"

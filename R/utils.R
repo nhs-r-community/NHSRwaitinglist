@@ -6,9 +6,10 @@
 #'     called.
 #' @noRd
 check_class <- function(
-    ...,
-    .expected_class = c("numeric", "character"),
-    .call = rlang::caller_env()) {
+  ...,
+  .expected_class = c("numeric", "character"),
+  .call = rlang::caller_env()
+) {
   .expected_class <- match.arg(.expected_class)
 
   args <- rlang::dots_list(..., .named = TRUE)
