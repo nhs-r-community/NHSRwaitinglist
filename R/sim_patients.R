@@ -17,10 +17,10 @@ sim_patients <- function(
   if (is.null(start_date)) {
     start_date <- Sys.Date()
   }
-  if (!exists("OPCS4")) {
-    load(file = "./data/OPCS4.rda")
+  if (!exists("opcs4")) {
+    load(file = "./data/opcs4.rda")
   }
-  opcs4 <- OPCS4
+  opcs4 <- opcs4
   # get proceedures
   ops <- opcs4[(opcs4$selectable == "Y") & (!is.na(opcs4$name_4digit)), ]
   ran <- ops[sample(nrow(ops), n_rows, replace = TRUE), ]
