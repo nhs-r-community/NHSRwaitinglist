@@ -61,7 +61,7 @@ wl_test3 <-
       "2025-03-19",
       "2025-03-20", "2025-03-22"
     ),
-    addition_date = c(
+    Referral = c(
       "2025-03-19",
       "2025-03-20", "2025-03-20"
     ),
@@ -92,6 +92,11 @@ test_that("calc_index calculates correct index", {
   expect_equal(result, 3)
 
   # Test with specified non-default column, giving the type
-  result <- calc_index(wl_test3, colname = "removal_date", type = withdrawal)
+  result <- calc_index(wl_test3, colname = "removal_date", type = "withdrawal")
   expect_equal(result, 2)
+
+  # Test guessing
+  result <- calc_index(wl_test3, colname = "Referral", type = "referral")
+  expect_equal(result, 3)
+
 })
