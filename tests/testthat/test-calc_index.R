@@ -57,11 +57,11 @@ wl_test3 <-
       8L,
       9L, 10L
     ),
-    removal_date = c(
+    outs = c(
       "2025-03-19",
       "2025-03-20", "2025-03-22"
     ),
-    Referral = c(
+    ins = c(
       "2025-03-19",
       "2025-03-20", "2025-03-20"
     ),
@@ -70,7 +70,8 @@ wl_test3 <-
       0.130485113710165,
       2.40855464339256
     ),
-    rott = c(FALSE, FALSE, FALSE)
+    rott = c(FALSE, FALSE, TRUE),
+    tg = c(18,18,18)
   )
 
 
@@ -92,11 +93,20 @@ test_that("calc_index calculates correct index", {
   expect_equal(result, 3)
 
   # Test with specified non-default column, giving the type
-  result <- calc_index(wl_test3, colname = "removal_date", type = "withdrawal")
+  result <- calc_index(wl_test3, colname = "outs", type = "withdrawal")
   expect_equal(result, 2)
 
   # Test guessing
-  result <- calc_index(wl_test3, colname = "Referral", type = "referral")
+  result <- calc_index(wl_test3, colname = "ins", type = "referral")
   expect_equal(result, 3)
+
+  result <- calc_index(wl_test3, colname = "tg", type = "target")
+  expect_equal(result, 6)
+
+  result <- calc_index(wl_test3, colname = "rott", type = "witdrawal")
+  expect_equal(result, 5)
+
+  result <- calc_index(wl_test3, colname = "outs", type = "removal")
+  expect_equal(result, 2)
 
 })
