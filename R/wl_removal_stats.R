@@ -34,7 +34,8 @@ wl_removal_stats <- function(waiting_list,
     end_date <- max(waiting_list[, referral_index])
   }
 
-  removal_dates <- c(as.Date(start_date), waiting_list[, removal_index], as.Date(end_date))
+  removal_dates <-
+    c(as.Date(start_date), waiting_list[, removal_index], as.Date(end_date))
   removal_dates <- sort(removal_dates[!is.na(removal_dates)])
 
   queue_sizes <- wl_queue_size(waiting_list)

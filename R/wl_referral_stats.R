@@ -36,7 +36,7 @@ wl_referral_stats <- function(waiting_list,
     as.Date(start_date),
     waiting_list[
       which(start_date <= waiting_list[, referral_index] &
-        waiting_list[, referral_index] <= end_date), referral_index
+              waiting_list[, referral_index] <= end_date), referral_index
     ],
     as.Date(end_date)
   )

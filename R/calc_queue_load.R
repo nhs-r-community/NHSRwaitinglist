@@ -23,5 +23,6 @@
 calc_queue_load <- function(demand, capacity) {
   check_class(demand, capacity)
   load <- demand / capacity
-  return(load)
+
+  load
 }

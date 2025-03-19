@@ -68,7 +68,8 @@ wl_simulator <- function(
         "Removal" = removal
       )
     } else {
-      withdrawal <- referral + rgeom(length(referral), prob = withdrawal_prob) + 1
+      withdrawal <-
+        referral + rgeom(length(referral), prob = withdrawal_prob) + 1
       withdrawal[withdrawal > end_date] <- NA
       wl_simulated <- data.frame(
         "Referral" = referral,

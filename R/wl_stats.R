@@ -26,6 +26,8 @@ wl_stats <- function(waiting_list,
                      start_date = NULL,
                      end_date = NULL,
                      target_index = NULL) {
+  . <- NULL # solve binding errors on pacakge build, but not used as a variable.
+
   # get indices and set target wait if possible and get dates
   referral_index <- calc_index(waiting_list, type = "referral")
   removal_index <- calc_index(waiting_list, type = "removal")
@@ -52,7 +54,7 @@ wl_stats <- function(waiting_list,
   if (!is.null(categories)) {
     waiting_stats <-
       waiting_list %>%
-      split(.[, c(categories)]) %>% # think this . is cause of no visible bindings note.
+      split(.[, c(categories)]) %>% #this is cause of no visible bindings note.
       lapply(function(x) wl_stats(data.frame(x))) %>%
       bind_rows(.id = "column_label")
     return(waiting_stats)
@@ -80,7 +82,8 @@ wl_stats <- function(waiting_list,
 
     # load
     q_load <-
-      calc_queue_load(referral_stats$demand.weekly, removal_stats$capacity.weekly)
+      calc_queue_load(referral_stats$demand.weekly
+                      , removal_stats$capacity.weekly)
 
     # load too big
     q_load_too_big <- (q_load >= 1.)
@@ -89,16 +92,17 @@ wl_stats <- function(waiting_list,
     q_size <- utils::tail(queue_sizes, n = 1)[, 2]
 
     # target queue size
-    q_target <- calc_target_queue_size(referral_stats$demand.weekly, target_wait)
+    q_target <-
+      calc_target_queue_size(referral_stats$demand.weekly, target_wait)
 
     # queue too big
     q_too_big <- (q_size > 2 * q_target)
 
     # mean wait
     waiting_patients <-
-      waiting_list[which((waiting_list[, removal_index] > end_date |
-        is.na(waiting_list[, removal_index]) &
-          waiting_list[, referral_index] <= end_date)), ]
+      waiting_list[which((waiting_list[, removal_index] >
+                            end_date | is.na(waiting_list[, removal_index]) &
+                            waiting_list[, referral_index] <= end_date)), ]
     wait_times <-
       as.numeric(end_date) - as.numeric(waiting_patients[, referral_index])
     mean_wait <- mean(wait_times)
