@@ -311,8 +311,9 @@ decisions.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">waiting_list_pressure_p4</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/calc_waiting_list_pressure.html">calc_waiting_list_pressure</a></span><span class="op">(</span></span>
-<span>                             <span class="va">avg_waiting_time</span>,</span>
-<span>                             <span class="va">waiting_time_target</span><span class="op">)</span></span>
+<span>    <span class="va">avg_waiting_time</span>,</span>
+<span>    <span class="va">waiting_time_target</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="va">waiting_list_pressure_p4</span></span>
 <span><span class="co">#&gt; [1] 2.423077</span></span></code></pre></div>
 <p>The queue size is large, with 1200 patients waiting. The waiting time
@@ -329,8 +330,9 @@ weeks during the example.</p>
 <span></span>
 <span><span class="va">waiting_list_pressure_p2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/calc_waiting_list_pressure.html">calc_waiting_list_pressure</a></span><span class="op">(</span></span>
-<span>                             <span class="va">avg_waiting_time_p2</span>,</span>
-<span>                             <span class="va">waiting_time_target_p2</span><span class="op">)</span></span>
+<span>    <span class="va">avg_waiting_time_p2</span>,</span>
+<span>    <span class="va">waiting_time_target_p2</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="va">waiting_list_pressure_p2</span></span>
 <span><span class="co">#&gt; [1] 12</span></span></code></pre></div>
 <p>The queue size is smaller, with 220 patients waiting. The waiting
