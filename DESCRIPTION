@@ -12,7 +12,7 @@ Authors@R: c(
           person("Chris", "Mainey", ,"c.mainey1@nhs.net", "aut", comment = c(ORCID ="0000-0002-3018-6171")),
           person("NHS-R community", email = "nhs.rcommunity@nhs.net", role = "cph")
           )
-Maintainer: Tom Smith <thomas.smith5@nuh.nhs.uk>
+Maintainer: Tom Smith <thomas.smith103@nhs.net>
 Description: R-package to implement the waiting list management approach described in this paper by Fong et al 2022.
 License: MIT + file LICENSE
 Encoding: UTF-8
