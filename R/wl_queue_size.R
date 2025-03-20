@@ -22,6 +22,15 @@ wl_queue_size <- function(waiting_list,
                           end_date = NULL,
                           referral_index = 1,
                           removal_index = 2) {
+
+  if (missing(waiting_list)) {
+    stop("No waiting list supplied")
+  } else {
+    if (nrow(waiting_list) == 0) {
+      stop("No rows in supplied waiting list")
+    }
+  }
+
   wl <- waiting_list
 
   if (is.null(start_date)) {
