@@ -31,7 +31,7 @@ wl_test2 <-
       "2025-03-19",
       "2025-03-19"
     ),
-    removal_date = c(
+    removal = c(
       "2025-03-19",
       "2025-03-19", "2025-03-22",
       "2025-03-23",
@@ -57,11 +57,11 @@ wl_test3 <-
       8L,
       9L, 10L
     ),
-    outs = c(
+    removal = c(
       "2025-03-19",
       "2025-03-20", "2025-03-22"
     ),
-    ins = c(
+    referral = c(
       "2025-03-19",
       "2025-03-20", "2025-03-20"
     ),
@@ -70,43 +70,53 @@ wl_test3 <-
       0.130485113710165,
       2.40855464339256
     ),
-    rott = c(FALSE, FALSE, TRUE),
-    tg = c(18, 18, 18)
+    withdrawal = c(FALSE, FALSE, TRUE),
+    target = c(18, 18, 18)
   )
 
 
 test_that("calc_index calculates correct index", {
   # expect warning/error if miswired
-  expect_warning(calc_index(wl_test2, type = "removals"))
+  expect_warning(calc_index(wl_test, type = "removals"))
 
   # Test default
-  result <- calc_index(wl_test)
+  result <- NHSRwaitinglist:::calc_index(wl_test)
   expect_equal(result, 1)
 
 
-  result <- calc_index(wl_test2, colname = "waiting_list")
+  result <- NHSRwaitinglist:::calc_index(wl_test, colname = "waiting_list")
   expect_vector(result)
   expect_equal(result, as.vector(as.numeric()))
 
   # Test with specified non-default column
-  result <- calc_index(wl_test2, colname = "removal_date")
-  expect_equal(result, 3)
+  # result <- NHSRwaitinglist:::calc_index(wl_test2, colname = "removal_date")
+  # expect_equal(result, 3)
 
   # Test with specified non-default column, giving the type
-  result <- calc_index(wl_test3, colname = "outs", type = "withdrawal")
-  expect_equal(result, 2)
-
-  # Test guessing
-  result <- calc_index(wl_test3, colname = "ins", type = "referral")
+  result <- calc_index(wl_test2, colname = "removal"
+                       , type = "removal_date")
   expect_equal(result, 3)
 
-  result <- calc_index(wl_test3, colname = "tg", type = "target")
+  # Test guessing
+  expect_warning(calc_index(wl_test3, #colname = "ins"
+                            , type = "targets")
+                 , label = "Waiting list index not found")
+
+  result <- calc_index(wl_test3, #colname = "ins"
+                       , type = "referral")
+  expect_equal(result, 3)
+
+  result <- calc_index(wl_test3,
+                       # colname = "tg"
+                       , type = "target")
   expect_equal(result, 6)
 
-  result <- calc_index(wl_test3, colname = "rott", type = "witdrawal")
+  result <- calc_index(wl_test3#, colname = "rott"
+                       , type = "withdrawal")
   expect_equal(result, 5)
 
-  result <- calc_index(wl_test3, colname = "outs", type = "removal")
+  result <- calc_index(wl_test3#, colname = "outs"
+                       , type = "removal")
   expect_equal(result, 2)
 
 })
