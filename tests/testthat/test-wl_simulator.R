@@ -30,13 +30,15 @@ test_that("wl_simulator handles withdrawal_prob correctly", {
 
 # Test for simulation with `detailed_sim = TRUE`
 test_that("wl_simulator works with detailed_sim = TRUE", {
-  result <- wl_simulator("2024-01-01", "2024-03-31", demand = 100, capacity = 110, detailed_sim = TRUE)
-  expect_true("Withdrawal" %in% colnames(result))  # Ensure withdrawal column exists
+  result <- wl_simulator("2024-01-01", "2024-03-31", demand = 100
+                         , capacity = 110, detailed_sim = TRUE)
+  expect_true("Withdrawal" %in% colnames(result))  # Withdrawal column exists
 })
 
 # Test for behavior when `waiting_list` is provided
 test_that("wl_simulator incorporates waiting_list correctly", {
-  result <- wl_simulator("2024-01-01", "2024-03-31", demand = 100, capacity = 110, waiting_list = 50)
+  result <- wl_simulator("2024-01-01", "2024-03-31"
+                         , demand = 100, capacity = 110, waiting_list = 50)
   expect_true(nrow(result) >= 50)  # Ensure waiting_list is incorporated
 })
 
@@ -48,6 +50,7 @@ test_that("wl_simulator handles zero demand gracefully", {
 
 # Test for behavior with missing `withdrawal_prob`
 test_that("wl_simulator works when withdrawal_prob is missing", {
-  result <- wl_simulator("2024-01-01", "2024-03-31", demand = 100, capacity = 110)
-  expect_false("Withdrawal" %in% colnames(result))  # No withdrawal column should exist
+  result <- wl_simulator("2024-01-01", "2024-03-31"
+                         , demand = 100, capacity = 110)
+  expect_false("Withdrawal" %in% colnames(result))  # No withdrawal column
 })
