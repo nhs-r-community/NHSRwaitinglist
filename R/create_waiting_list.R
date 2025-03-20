@@ -26,8 +26,7 @@
 create_waiting_list <- function(n, mean_arrival_rate, mean_wait,
                                 start_date = Sys.Date(), limit_removals = TRUE,
                                 sd = 0, rott = 0, ...) {
-
-  if(!n>0){
+  if (! n > 0) {
     stop("Invalid rate (n) value supplied")
   }
 

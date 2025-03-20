@@ -28,35 +28,30 @@ test_that("create_waiting_list handles zero n", {
 })
 
 # Test for correct behaviour when limit_removals is TRUE
-test_that("create_waiting_list with limit_removals suppresses
-          removal dates beyond the period", {
-            result <- create_waiting_list(10, 50, 21, "2024-01-01"
-                                          , limit_removals = TRUE)
-            expect_true(all
-                        (is.na
-                          (result$removal_date[result$removal_date >
-                                                 as.Date("2024-01-01") + 10]
-                          )
-                        )
-            )
-          }
-)
+test_that("create_waiting_list suppresses removal dates beyond the period", {
+  result <- create_waiting_list(10, 50, 21, "2024-01-01"
+                                , limit_removals = TRUE)
+  expect_true(
+    all(
+      is.na(
+        result$removal_date[result$removal_date > as.Date("2024-01-01") + 10]
+      )
+    )
+  )
+})
 
 # Test for correct behaviour when limit_removals is FALSE
-test_that("create_waiting_list without limit_removals does
-          not suppress removal dates", {
-            result <- create_waiting_list(10, 50, 21, "2024-01-01"
-                                          , limit_removals = FALSE)
-            expect_true(all(!is.na(result$removal_date)))
-          })
+test_that("create_waiting_list does not suppress removal dates", {
+  result <- create_waiting_list(10, 50, 21, "2024-01-01"
+                                , limit_removals = FALSE)
+  expect_true(all(!is.na(result$removal_date)))
+})
 
 # Test for correct assignment of the 'rott' flag
 test_that("create_waiting_list assigns 'rott' flag correctly", {
   result <- create_waiting_list(10, 50, 21, "2024-01-01", rott = 0.2)
-  rott_count <- sum(as.numeric(result$rott==TRUE))
-  expect_equal(rott_count
-               , round(500 * 0.2)
-  ) # 20% of 10 referrals should be flagged
+  rott_count <- sum(as.numeric(result$rott == TRUE))
+  expect_equal(rott_count, round(500 * 0.2)) # 20% of 500 should be flagged
 })
 
 # Test for different values of sd
