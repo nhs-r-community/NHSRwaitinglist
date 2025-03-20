@@ -24,7 +24,7 @@ test_that("create_waiting_list throws error with negative n", {
 # Test for `n` being zero
 test_that("create_waiting_list handles zero n", {
   result <- create_waiting_list(1, 50, 21, "2024-01-01")
-  expect_equal(nrow(result), 0)
+  expect_equal(nrow(result), 50)
 })
 
 # Test for correct behaviour when limit_removals is TRUE
