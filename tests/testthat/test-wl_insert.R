@@ -40,11 +40,6 @@ test_that("inserting to list returns right output", {
 })
 
 test_that("inserting to list returns right output", {
-  em <- "wl_insert(): list is sorted, so doesn't match unsorted list."
-  expect_false(isTRUE(all.equal(wl_insert(wl1, additions), expected_out)))
-})
-
-test_that("inserting to list returns right output", {
   em <- "wl_insert(): expected result for test data including sorting."
   expect_identical(wl_insert(wl1, additions), expected_out)
 })
