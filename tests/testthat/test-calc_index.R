@@ -71,7 +71,7 @@ wl_test3 <-
       2.40855464339256
     ),
     rott = c(FALSE, FALSE, TRUE),
-    tg = c(18,18,18)
+    tg = c(18, 18, 18)
   )
 
 
