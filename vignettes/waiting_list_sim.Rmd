@@ -1,0 +1,32 @@
+---
+title: "Simulating waiting lists"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{waiting_list_sim}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(NHSRwaitinglist)
+```
+
+# Introduction
+When working with waiting lists, we may start with trying to understand current burdens, demand, capacity, load etc.  If we have a planning dimension to our work, we may also want to as 'what if....' or 'how long until...' questions about our waiting list.  The following vignette acts as an example, where we are are modelling a waiting list for a given medical speciality, which might have the flow: GP referral to outpatients, to surgery, using the common NHS waiting time standard of 18 weeks. 
+
+We will imagine a couple of scenarios:
+1. where we need to bring a waiting list down into control,
+1. where our waiting list can afford to grow (e.g. we want to contain capacity, such as reducing independent sector activity)
+1. and looking how our list will change with predicted population/referral growth.
+
+
+# 
+
+# 1. Bringing down a waiting list
