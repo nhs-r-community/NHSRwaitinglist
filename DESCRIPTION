@@ -1,19 +1,19 @@
 Package: NHSRwaitinglist
-Title: R-Package to Implement a Waiting List Management Approach
+Title: R-Package to Implement a Waiting List Management using queuing theory
 Version: 0.0.0.9002
 Authors@R: c(
-          person("Neil", "Walton", ,"neil.walton@durham.ac.uk", c("cre", "aut"), comment = c(ORCID ="0000-0002-5241-9765")),
-          person("Jacqueline", "Grout", ,"jacqueline.grout1@nhs.net", "aut"),
-          person("Zoë", "Turner", , "zoe.turner3@nhs.net", "aut", comment = c(ORCID = "0000-0003-1033-9158")),
+          person("Neil", "Walton", ,"neil.walton@durham.ac.uk", "aut", comment = c(ORCID ="0000-0002-5241-9765")),
+          person("Jacqueline", "Grout", ,"jacqueline.grout1@nhs.net", "ctb"),
+          person("Zoë", "Turner", , "zoe.turner3@nhs.net", "ctb", comment = c(ORCID = "0000-0003-1033-9158")),
           person("Matt", "Dray", , "matt.dray@nhs.net", "aut"),
-          person("Paul", "Fenton", , "paul.fenton@nca.nhs.uk", "aut"),
-          person("Marcos", "Fabietti", ,"marcos.fabietti@nuh.nhs.uk", "aut"),
+          person("Paul", "Fenton", , "paul.fenton@nca.nhs.uk", "ctb"),
+          person("Peter", "Shakeshaft", , "peter.shakeshaft1@nhs.net", "ctb"),
           person("Tom", "Smith", ,"thomas.smith5@nuh.nhs.uk", "aut"),
-          person("Chris", "Mainey", ,"c.mainey1@nhs.net", "aut", comment = c(ORCID ="0000-0002-3018-6171")),
+          person("Chris", "Mainey", ,"c.mainey1@nhs.net", c("cre","aut"), comment = c(ORCID ="0000-0002-3018-6171")),
           person("NHS-R community", email = "nhs.rcommunity@nhs.net", role = "cph")
           )
-Maintainer: Tom Smith <thomas.smith103@nhs.net>
-Description: R-package to implement the waiting list management approach described in this paper by Fong et al 2022.
+Maintainer: Chris Mainey <c.mainey1@nhs.net>
+Description: R-package to implement the waiting list management approach described in Fong et al. 2022.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
