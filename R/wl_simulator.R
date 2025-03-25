@@ -3,14 +3,13 @@
 #' @description Creates a simulated waiting list comprising referral dates,
 #' and removal dates
 #'
-#' @param start_date date. The start date for the simulation
-#' @param end_date date. The end date for the simulation
-#' @param demand numeric. Weekly demand (ie. typical referrals per week)
-#' @param capacity numeric. Weekly capacity (ie. typical removals per week)
-#' @param waiting_list integer. The number of patients on the waiting list
-#'   contains the referral dates
-#' @param withdrawal_prob TO ADD,
-#' @param detailed_sim TO ADD
+#' @param start_date date. The start date for the simulation.
+#' @param end_date date. The end date for the simulation.
+#' @param demand numeric. Weekly demand (i.e., typical referrals per week).
+#' @param capacity numeric. Weekly capacity (i.e., typical removals per week).
+#' @param waiting_list integer. The number of patients on the waiting list.
+#' @param withdrawal_prob numeric. The probability of a patient withdrawing from the waiting list.
+#' @param detailed_sim logical. If TRUE, the simulation will provide detailed output.
 #'
 #'
 #' @return data.frame. A df of simulated referrals and removals
