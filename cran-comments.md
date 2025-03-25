@@ -1,6 +1,6 @@
 ## Release summary
 
-This is the first release of a package implementing R funcitons associated with waiting list managment, aimed 
+This is the first release of a package implementing R functions associated with waiting list management, aimed 
 at the UK's National Health Service (NHS), and this package is a collaborative effort from the
 NHS-R Community.  This package support a preprint tutorial paper and series of webinars, with paper available
 at https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1.full.
