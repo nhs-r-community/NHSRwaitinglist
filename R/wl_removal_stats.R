@@ -5,8 +5,8 @@
 #' @param waiting_list data.frame. A df of referral dates and removals
 #' @param start_date date. The start date to calculate from
 #' @param end_date date. The end date to calculate to
-#' @param referral_index An index indicating the referral column in waiting_list.
-#' @param removal_index An index indicating the removal column in waiting_list.
+#' @param referral_index int. Index of the referral column in waiting_list.
+#' @param removal_index int. Index of the removal column in waiting_list.
 #'
 #' @return dataframe. A df containing number of removals, mean capacity,
 #'   and the coefficient of variation of removals

@@ -19,9 +19,9 @@ wl_removal_stats(
 
 \item{end_date}{date. The end date to calculate to}
 
-\item{referral_index}{TO ADD}
+\item{referral_index}{An index indicating the referral column in waiting_list.}
 
-\item{removal_index}{TO ADD}
+\item{removal_index}{An index indicating the removal column in waiting_list.}
 }
 \value{
 dataframe. A df containing number of removals, mean capacity,

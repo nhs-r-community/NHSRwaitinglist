@@ -8,8 +8,8 @@
 #' @param demand numeric. Weekly demand (i.e., typical referrals per week).
 #' @param capacity numeric. Weekly capacity (i.e., typical removals per week).
 #' @param waiting_list integer. The number of patients on the waiting list.
-#' @param withdrawal_prob numeric. The probability of a patient withdrawing from the waiting list.
-#' @param detailed_sim logical. If TRUE, the simulation will provide detailed output.
+#' @param withdrawal_prob numeric. Probability of a patient withdrawing.
+#' @param detailed_sim logical. If TRUE, simulation provides detailed output.
 #'
 #'
 #' @return data.frame. A df of simulated referrals and removals
