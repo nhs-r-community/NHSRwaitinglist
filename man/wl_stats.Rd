@@ -4,27 +4,16 @@
 \alias{wl_stats}
 \title{Calculate some stats about the waiting list}
 \usage{
-wl_stats(
-  waiting_list,
-  target_wait = 4,
-  categories = NULL,
-  start_date = NULL,
-  end_date = NULL,
-  target_index = NULL
-)
+wl_stats(waiting_list, target_wait = 4, start_date = NULL, end_date = NULL)
 }
 \arguments{
 \item{waiting_list}{data.frame. A df of referral dates and removals}
 
 \item{target_wait}{numeric. The required waiting time}
 
-\item{categories}{TO ADD}
-
 \item{start_date}{date. The start date to calculate from}
 
 \item{end_date}{date. The end date to calculate to}
-
-\item{target_index}{TO ADD}
 }
 \value{
 data.frame. A df of important waiting list statistics

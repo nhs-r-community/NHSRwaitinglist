@@ -4,10 +4,8 @@
 #'
 #' @param waiting_list data.frame. A df of referral dates and removals
 #' @param target_wait numeric. The required waiting time
-#' @param categories TO ADD
 #' @param start_date date. The start date to calculate from
 #' @param end_date date. The end date to calculate to
-#' @param target_index TO ADD
 #'
 #' @return data.frame. A df of important waiting list statistics
 
@@ -22,10 +20,8 @@
 #'
 wl_stats <- function(waiting_list,
                      target_wait = 4,
-                     categories = NULL,
                      start_date = NULL,
-                     end_date = NULL,
-                     target_index = NULL) {
+                     end_date = NULL) {
   . <- NULL # solve binding errors on pacakge build, but not used as a variable.
 
   # get indices and set target wait if possible and get dates
@@ -43,22 +39,7 @@ wl_stats <- function(waiting_list,
     end_date <- max(waiting_list[, referral_index])
   }
 
-  if (!is.null(target_index)) {
-    target_wait <- waiting_list[1, target_index]
-  }
 
-
-  target_index <- calc_index(waiting_list, type = "target")
-
-
-  if (!is.null(categories)) {
-    waiting_stats <-
-      waiting_list %>%
-      split(.[, c(categories)]) %>% #this is cause of no visible bindings note.
-      lapply(function(x) wl_stats(data.frame(x))) %>%
-      bind_rows(.id = "column_label")
-    return(waiting_stats)
-  } else {
     referral_stats <- wl_referral_stats(
       waiting_list,
       start_date,
@@ -150,5 +131,5 @@ wl_stats <- function(waiting_list,
     )
 
     return(waiting_stats)
-  }
+
 }
