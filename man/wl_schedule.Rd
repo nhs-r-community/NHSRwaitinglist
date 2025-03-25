@@ -24,12 +24,13 @@ contains the referral dates}
 \item{removal_index}{integer. The column number in the waiting_list which
 contains the removal dates}
 
-\item{unscheduled}{logical. If TRUE, returns a list of scheduled and unscheduled proceedures
+\item{unscheduled}{logical.
+If TRUE, returns a list of scheduled and unscheduled proceedures
 If FALSE, only returns the updated waiting list}
 }
 \value{
-data.frame. A df of the updated waiting list with removal dates added
-according to the schedule
+data.frame. A df of the updated waiting list with removal dates
+added according to the schedule
 }
 \description{
 Takes a list of dates and schedules them to a waiting list,

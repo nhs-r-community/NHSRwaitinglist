@@ -25,9 +25,9 @@ wl_simulator(
 
 \item{waiting_list}{integer. The number of patients on the waiting list.}
 
-\item{withdrawal_prob}{numeric. The probability of a patient withdrawing from the waiting list.}
+\item{withdrawal_prob}{numeric. Probability of a patient withdrawing.}
 
-\item{detailed_sim}{logical. If TRUE, the simulation will provide detailed output.}
+\item{detailed_sim}{logical. If TRUE, simulation provides detailed output.}
 }
 \value{
 data.frame. A df of simulated referrals and removals
