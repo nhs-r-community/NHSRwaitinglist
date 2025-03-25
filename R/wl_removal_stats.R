@@ -5,8 +5,8 @@
 #' @param waiting_list data.frame. A df of referral dates and removals
 #' @param start_date date. The start date to calculate from
 #' @param end_date date. The end date to calculate to
-#' @param referral_index TO ADD
-#' @param removal_index TO ADD
+#' @param referral_index int. Index of the referral column in waiting_list.
+#' @param removal_index int. Index of the removal column in waiting_list.
 #'
 #' @return dataframe. A df containing number of removals, mean capacity,
 #'   and the coefficient of variation of removals
@@ -23,19 +23,20 @@ wl_removal_stats <- function(waiting_list,
                              end_date = NULL,
                              referral_index = 1,
                              removal_index = 2) {
+
   if (!is.null(start_date)) {
     start_date <- as.Date(start_date)
   } else {
     start_date <- min(waiting_list[, referral_index])
   }
+
   if (!is.null(end_date)) {
     end_date <- as.Date(end_date)
   } else {
     end_date <- max(waiting_list[, referral_index])
   }
 
-  removal_dates <-
-    c(as.Date(start_date), waiting_list[, removal_index], as.Date(end_date))
+  removal_dates <- waiting_list[, removal_index]
   removal_dates <- sort(removal_dates[!is.na(removal_dates)])
 
   queue_sizes <- wl_queue_size(waiting_list)
@@ -54,14 +55,22 @@ wl_removal_stats <- function(waiting_list,
     removals_and_zeros[, 1],
     removals_and_zeros[, 2]
   ), ]
+
   rownames(removals_and_zeros) <- NULL
   removals_and_zeros$lag_dates <- dplyr::lag(removals_and_zeros$dates)
+  if (is.na(removals_and_zeros[1, ]$lag_dates)) {
+    removals_and_zeros[1, ]$lag_dates <- start_date
+  }
+
   removals_and_zeros$diff <-
     as.numeric(removals_and_zeros[, 1]) - as.numeric(removals_and_zeros[, 3])
-
   differences <- removals_and_zeros[which(removals_and_zeros[, 2] == TRUE), 4]
   mean_removal <- as.numeric(mean(differences, na.rm = TRUE))
-  sd_removal <- stats::sd(differences, na.rm = TRUE)
+  sd_removal <- if (length(differences) <= 1) {
+    0.
+  } else {
+    stats::sd(differences, na.rm = TRUE)
+  }
   cv_removal <- sd_removal / mean_removal
   num_removals <- length(differences)
   capacity <- 1 / mean_removal

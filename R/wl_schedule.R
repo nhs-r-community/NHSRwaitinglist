@@ -12,10 +12,11 @@
 #'   contains the referral dates
 #' @param removal_index integer. The column number in the waiting_list which
 #'   contains the removal dates
-#' @param unscheduled TO ADD
-#'
-#' @return data.frame. A df of the updated waiting list with removal dates added
-#'   according to the schedule
+#' @param unscheduled logical.
+#'  If TRUE, returns a list of scheduled and unscheduled proceedures
+#'  If FALSE, only returns the updated waiting list
+#' @return data.frame. A df of the updated waiting list with removal dates
+#'  added according to the schedule
 #' @export
 #'
 #' @examples
