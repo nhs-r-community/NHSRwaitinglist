@@ -6,8 +6,8 @@
 #' @param waiting_list data.frame consisting addition and removal dates
 #' @param start_date start of calculation period
 #' @param end_date end of calculation period
-#' @param referral_index TO ADD
-#' @param removal_index TO ADD
+#' @param referral_index the index of referrals in waiting_list
+#' @param removal_index the index of removals in waiting_list
 #'
 #' @return a list of dates and queue sizes
 #' @export
