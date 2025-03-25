@@ -186,8 +186,8 @@ function to calculate these.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">removal_stats</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   capacity.weekly capacity.daily capacity.cov removal.count</span></span>
-<span><span class="co">#&gt; 1               9       1.285714    0.5362099          1990</span></span></code></pre></div>
-<p>Now we can see that 1990 patients were treated and removed from our
+<span><span class="co">#&gt; 1        9.001294       1.285899    0.5363836          1988</span></span></code></pre></div>
+<p>Now we can see that 1988 patients were treated and removed from our
 simulated waiting list, at an average rate of 9 per week, or 1.29 per
 day. Very close to the 9 patients a week we set up using
 <code><a href="../reference/wl_simulator.html">wl_simulator()</a></code>. The final statistic of interest is the
@@ -208,9 +208,9 @@ standard non-cancer referral.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">overall_stats</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   mean.demand mean.capacity     load load.too.big count.demand queue_size</span></span>
-<span><span class="co">#&gt; 1    9.818065             9 1.090896         TRUE         2174        185</span></span>
+<span><span class="co">#&gt; 1    9.818065      9.001294 1.090739         TRUE         2174        185</span></span>
 <span><span class="co">#&gt;   target_queue_size queue.too.big mean_wait cv_arrival cv_removal</span></span>
-<span><span class="co">#&gt; 1          44.18129          TRUE  64.63784   1.131775  0.5362099</span></span>
+<span><span class="co">#&gt; 1          44.18129          TRUE  64.63784   1.131775  0.5363836</span></span>
 <span><span class="co">#&gt;   target.capacity relief.capacity pressure</span></span>
 <span><span class="co">#&gt; 1              NA        15.23417 7.181982</span></span></code></pre></div>
 <p>This gives us a lot of useful information. Taking it step by
@@ -226,8 +226,8 @@ is, we can expect the queue to continue growing indefinitely.</p>
 </tr></thead>
 <tbody><tr class="odd">
 <td align="center">9.818065</td>
-<td align="center">9</td>
-<td align="center">1.090896</td>
+<td align="center">9.001294</td>
+<td align="center">1.090739</td>
 <td align="center">TRUE</td>
 </tr></tbody>
 </table>
@@ -270,7 +270,7 @@ reporting.</p>
 </tr></thead>
 <tbody><tr class="odd">
 <td align="center">1.131775</td>
-<td align="center">0.5362099</td>
+<td align="center">0.5363836</td>
 </tr></tbody>
 </table>
 <p>The next two columns tell us about the required capacity. Only one
@@ -333,11 +333,11 @@ larger (there is approximately 2% <code>"spare"</code>).</p>
 <span><span class="va">removal_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wl_removal_stats.html">wl_removal_stats</a></span><span class="op">(</span><span class="va">waiting_list</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">removal_stats</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   capacity.weekly capacity.daily capacity.cov removal.count</span></span>
-<span><span class="co">#&gt; 1        10.13399       1.447712     0.690155          2216</span></span>
+<span><span class="co">#&gt; 1        10.12941       1.447059    0.6896719          2214</span></span>
 <span></span>
 <span><span class="co"># calculate the queue size</span></span>
 <span><span class="va">queue_size</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wl_queue_size.html">wl_queue_size</a></span><span class="op">(</span><span class="va">waiting_list</span><span class="op">)</span></span></code></pre></div>
-<p>This time we processed 2216 patients.</p>
+<p>This time we processed 2214 patients.</p>
 <p>The increase in capacity not only allowed processing more patients,
 it also changed the shape of the queue. Visualising the queue we can see
 that this time it did not grow uncontrollably, reaching a maximum size
@@ -362,13 +362,13 @@ statistics.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">overall_stats</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   mean.demand mean.capacity      load load.too.big count.demand queue_size</span></span>
-<span><span class="co">#&gt; 1    10.10458      10.13399 0.9970985        FALSE         2236         22</span></span>
+<span><span class="co">#&gt; 1    10.10458      10.12941 0.9975489        FALSE         2236         22</span></span>
 <span><span class="co">#&gt;   target_queue_size queue.too.big mean_wait cv_arrival cv_removal</span></span>
-<span><span class="co">#&gt; 1          45.47063         FALSE  6.863636   1.153809   0.690155</span></span>
+<span><span class="co">#&gt; 1          45.47063         FALSE  6.863636   1.153809  0.6896719</span></span>
 <span><span class="co">#&gt;   target.capacity relief.capacity  pressure</span></span>
-<span><span class="co">#&gt; 1        10.30543              NA 0.7626263</span></span></code></pre></div>
+<span><span class="co">#&gt; 1        10.30535              NA 0.7626263</span></span></code></pre></div>
 <p>In this finely balanced example, the mean demand and mean capacity
-give a load very close to 1, at 0.9971. While this is less than one, it
+give a load very close to 1, at 0.9975. While this is less than one, it
 is perhaps a little too close for comfort.</p>
 <p>We can see that the finishing queue size is 22, but as discussed
 above, the waiting list fluctuated in size, and even returned to zero a
@@ -384,7 +384,7 @@ too big. Instead, the package recommends a
 <code>"target capacity"</code>, which we need to provide if we want to
 meet the 18 week standard for the right proportion of patients. In this
 case it is 10.305, which is only very marginally larger than the mean
-capacity we have available (10.134).</p>
+capacity we have available (10.129).</p>
 </div>
 <div class="section level2">
 <h2 id="three">3. A waiting list with sufficient capacity<a class="anchor" aria-label="anchor" href="#three"></a>
@@ -410,11 +410,11 @@ from 10.2 to 10.3 patients per week.</p>
 <span><span class="va">removal_stats</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wl_removal_stats.html">wl_removal_stats</a></span><span class="op">(</span><span class="va">waiting_list</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">removal_stats</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   capacity.weekly capacity.daily capacity.cov removal.count</span></span>
-<span><span class="co">#&gt; 1        10.13793       1.448276    0.7245002          2143</span></span>
+<span><span class="co">#&gt; 1        10.14005       1.448579    0.7247564          2141</span></span>
 <span></span>
 <span><span class="co"># calculate the queue size</span></span>
 <span><span class="va">queue_size</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wl_queue_size.html">wl_queue_size</a></span><span class="op">(</span><span class="va">waiting_list</span><span class="op">)</span></span></code></pre></div>
-<p>This time we processed 2143 patients.<br>
+<p>This time we processed 2141 patients.<br>
 Visualising the queue, again it looks different to the previous
 examples. While the maximum number of patients in the queue is similar
 to the last example, this time the queue size has frequently dropped to
@@ -445,15 +445,15 @@ non-negligible fraction of time where services are not being used.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">overall_stats</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   mean.demand mean.capacity      load load.too.big count.demand queue_size</span></span>
-<span><span class="co">#&gt; 1    9.698904      10.13793 0.9566946        FALSE         2149          7</span></span>
+<span><span class="co">#&gt; 1    9.698904      10.14005 0.9564943        FALSE         2149          7</span></span>
 <span><span class="co">#&gt;   target_queue_size queue.too.big mean_wait cv_arrival cv_removal</span></span>
-<span><span class="co">#&gt; 1          43.64507         FALSE 0.8571429   1.173034  0.7245002</span></span>
+<span><span class="co">#&gt; 1          43.64507         FALSE 0.8571429   1.173034  0.7247564</span></span>
 <span><span class="co">#&gt;   target.capacity relief.capacity  pressure</span></span>
-<span><span class="co">#&gt; 1        9.910116              NA 0.0952381</span></span></code></pre></div>
+<span><span class="co">#&gt; 1        9.910157              NA 0.0952381</span></span></code></pre></div>
 <p>This time the simulation has created a mean demand and capacity which
 is slightly lower than we asked for, but the gap between them is similar
 to what we wanted.</p>
-<p>The load comes out at 0.957, which is more comfortably below one. A
+<p>The load comes out at 0.956, which is more comfortably below one. A
 still lower load would give more headroom, and may even become necessary
 if the variability of demand or capacity were to increase.</p>
 <p>The mean wait is 0.86, less than a week, which is very comfortably
