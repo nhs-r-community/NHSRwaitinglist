@@ -66,7 +66,11 @@ wl_removal_stats <- function(waiting_list,
     as.numeric(removals_and_zeros[, 1]) - as.numeric(removals_and_zeros[, 3])
   differences <- removals_and_zeros[which(removals_and_zeros[, 2] == TRUE), 4]
   mean_removal <- as.numeric(mean(differences, na.rm = TRUE))
-  sd_removal <- if (length(differences) <= 1) 0. else stats::sd(differences, na.rm = TRUE)
+  sd_removal <- if (length(differences) <= 1) {
+    0.
+  } else {
+    stats::sd(differences, na.rm = TRUE)
+  }
   cv_removal <- sd_removal / mean_removal
   num_removals <- length(differences)
   capacity <- 1 / mean_removal

@@ -23,6 +23,7 @@ wl_stats <- function(waiting_list,
                      start_date = NULL,
                      end_date = NULL) {
   . <- NULL # solve binding errors on pacakge build, but not used as a variable.
+  . <- NULL
 
   # get indices and set target wait if possible and get dates
   referral_index <- calc_index(waiting_list, type = "referral")
