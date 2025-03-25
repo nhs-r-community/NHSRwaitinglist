@@ -34,7 +34,7 @@ test_that("wl_removal_stats uses the correct default start_date and end_date", {
   waiting_list <- data.frame(referral = referrals, removal = removals)
 
   result <- wl_removal_stats(waiting_list)
-  expect_equal(result$capacity.daily, 1/7)
+  expect_equal(result$capacity.daily, 1 / 7)
   expect_equal(result$capacity.weekly, 1) # Capacity should be computed based
   # on the removal date difference
 })
