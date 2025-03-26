@@ -8,7 +8,7 @@ Authors@R: c(
           person("Matt", "Dray", , "matt.dray@nhs.net", "aut"),
           person("Paul", "Fenton", , "paul.fenton@nca.nhs.uk", "ctb"),
           person("Peter", "Shakeshaft", , "peter.shakeshaft1@nhs.net", "ctb"),
-          person("Tom", "Smith", ,"thomas.smith5@nuh.nhs.uk", "aut"),
+          person("Tom", "Smith", ,"thomas.smith103@nhs.net", "aut"),
           person("Chris", "Mainey", ,"c.mainey1@nhs.net", c("cre","aut"), comment = c(ORCID ="0000-0002-3018-6171")),
           person("NHS-R community", email = "nhs.rcommunity@nhs.net", role = "cph")
           )
