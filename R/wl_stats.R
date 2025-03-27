@@ -113,19 +113,19 @@ wl_stats <- function(waiting_list,
   pressure <- calc_waiting_list_pressure(mean_wait, target_wait)
 
   waiting_stats <- data.frame(
-    "mean.demand" = referral_stats$demand.weekly,
-    "mean.capacity" = removal_stats$capacity.weekly,
+    "mean_demand" = referral_stats$demand.weekly,
+    "mean_capacity" = removal_stats$capacity.weekly,
     "load" = q_load,
-    "load too big" = q_load_too_big,
-    "count demand" = referral_stats$demand.count,
+    "load_too_big" = q_load_too_big,
+    "count_demand" = referral_stats$demand.count,
     "queue_size" = q_size,
     "target_queue_size" = q_target,
-    "queue too big" = q_too_big,
+    "queue_too_big" = q_too_big,
     "mean_wait" = mean_wait,
     "cv_arrival" = referral_stats$demand.cov,
     "cv_removal" = removal_stats$capacity.cov,
-    "target capacity" = target_cap,
-    "relief capacity" = relief_cap,
+    "target_capacity" = target_cap,
+    "relief_capacity" = relief_cap,
     "pressure" = pressure
   )
 
