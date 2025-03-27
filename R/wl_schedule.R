@@ -1,19 +1,20 @@
 #' @title A simple operation scheduler
 #'
 #' @description Takes a list of dates and schedules them to a waiting list,
-#' by adding a removal date to the dataframe.
+#' by adding a removal date to the data.frame.
 #' This is done in referral date order,
 #' I.e. earlier referrals are scheduled first (FIFO).
 #'
 #' @param waiting_list data.frame. A df of referral dates and removals
-#' @param schedule vector of dates. The dates to schedule open referrals into
+#' @param schedule vector of dates. Should be formatted as year-month-date, e.g.
+#' "2024-04-01".  The dates to schedule open referrals into
 #'   (i.e. dates of unbooked future capacity)
 #' @param referral_index integer. The column number in the waiting_list which
 #'   contains the referral dates
 #' @param removal_index integer. The column number in the waiting_list which
 #'   contains the removal dates
 #' @param unscheduled logical.
-#'  If TRUE, returns a list of scheduled and unscheduled proceedures
+#'  If TRUE, returns a list of scheduled and unscheduled procedures
 #'  If FALSE, only returns the updated waiting list
 #' @return data.frame. A df of the updated waiting list with removal dates
 #'  added according to the schedule
@@ -33,6 +34,26 @@ wl_schedule <- function(
   removal_index = 2,
   unscheduled = FALSE
 ) {
+
+
+  # Error handle
+  if (class(waiting_list) != "data.frame") {
+    stop("waiting list should be supplied as a data.frame")
+  }
+
+  if (nrow(waiting_list) == 0) {
+    stop("No data rows in waiting list")
+  }
+
+  if (missing(waiting_list)) {
+    stop("No waiting list supplied")
+  }
+
+  if (class(schedule) != "Date") {
+    stop("Schedule vector is not formatted as dates")
+  }
+
+
   # split waiters and removed
   wl <- waiting_list[is.na(waiting_list[, removal_index]), ]
   wl_removed <- waiting_list[!(is.na(waiting_list[, removal_index])), ]
@@ -43,10 +64,14 @@ wl_schedule <- function(
     i <- 1
     for (op in as.list(schedule)) {
       if (op > wl[i, referral_index] && i <= nrow(wl)) {
-        wl[i, removal_index] <- as.Date(op)
+        wl[i, removal_index] <- op
         i <- i + 1
       }
     }
+
+    # Ensure date format
+    #wl$Removal <- as.Date(wl$Removal)
+    wl[, removal_index] <- as.Date(wl[, removal_index])
 
     # recombine to update list
     updated_list <- rbind(wl_removed, wl)
@@ -62,16 +87,21 @@ wl_schedule <- function(
     for (op in as.list(schedule)) {
       j <- j + 1
       if (op > wl[i, referral_index] && i <= nrow(wl)) {
-        wl[i, removal_index] <- as.Date(op)
+        wl[i, removal_index] <- op
         i <- i + 1
         scheduled[j, 2] <- 1
       }
     }
 
+
+
+    # Ensure date format
+    #wl$Removal <- as.Date(wl$Removal)
+    wl[, removal_index] <- as.Date(wl[, removal_index])
+
     # recombine to update list
     updated_list <- rbind(wl_removed, wl)
     updated_list <- updated_list[order(updated_list[, referral_index]), ]
-
 
     # scheduled[scheduled$scheduled = 1, 1]
 

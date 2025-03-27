@@ -81,10 +81,10 @@ wl_removal_stats <- function(waiting_list,
   capacity_weekly <- 7 / mean_removal
 
   removal_stats <- data.frame(
-    "capacity.weekly" = capacity_weekly,
-    "capacity.daily" = capacity,
-    "capacity.cov" = cv_removal,
-    "removal.count" = num_removals
+    "capacity_weekly" = capacity_weekly,
+    "capacity_daily" = capacity,
+    "capacity_cov" = cv_removal,
+    "removal_count" = num_removals
   )
 
   return(removal_stats)
