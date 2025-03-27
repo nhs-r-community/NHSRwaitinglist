@@ -1,8 +1,8 @@
 Package: NHSRwaitinglist
 Title: R-Package to Implement a Waiting List Management Using Queuing Theory
-Version: 0.0.0.9002
+Version: 0.1.0
 Authors@R: c(
-          person("Neil", "Walton", ,"neil.walton@durham.ac.uk", c("cre","aut"), comment = c(ORCID ="0000-0002-5241-9765")),
+          person("Neil", "Walton", ,"neil.walton@durham.ac.uk", "aut", comment = c(ORCID ="0000-0002-5241-9765")),
           person("Jacqueline", "Grout", ,"jacqueline.grout1@nhs.net", "ctb"),
           person("Zoë", "Turner", , "zoe.turner3@nhs.net", "ctb", comment = c(ORCID = "0000-0003-1033-9158")),
           person("Matt", "Dray", , "matt.dray@nhs.net", "aut"),
