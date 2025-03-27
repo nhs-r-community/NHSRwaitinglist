@@ -76,8 +76,8 @@ wl_stats <- function(waiting_list,
 
   # load
   q_load <-
-    calc_queue_load(referral_stats$demand.weekly
-                    , removal_stats$capacity.weekly)
+    calc_queue_load(referral_stats$demand_weekly
+                    , removal_stats$capacity_weekly)
 
   # load too big
   q_load_too_big <- (q_load >= 1.)
@@ -87,7 +87,7 @@ wl_stats <- function(waiting_list,
 
   # target queue size
   q_target <-
-    calc_target_queue_size(referral_stats$demand.weekly, target_wait)
+    calc_target_queue_size(referral_stats$demand_weekly, target_wait)
 
   # queue too big
   q_too_big <- (q_size > 2 * q_target)
@@ -104,11 +104,11 @@ wl_stats <- function(waiting_list,
   # target capacity
   if (!q_too_big) {
     target_cap <- calc_target_capacity(
-      referral_stats$demand.weekly,
+      referral_stats$demand_weekly,
       target_wait,
       4,
-      referral_stats$demand.cov,
-      removal_stats$capacity.cov
+      referral_stats$demand_cov,
+      removal_stats$capacity_cov
     )
     # target_cap_weekly <- target_cap_daily * 7
   } else {
@@ -118,7 +118,7 @@ wl_stats <- function(waiting_list,
   # relief capacity
   if (q_too_big) {
     relief_cap <-
-      calc_relief_capacity(referral_stats$demand.weekly, q_size, q_target)
+      calc_relief_capacity(referral_stats$demand_weekly, q_size, q_target)
   } else {
     relief_cap <- NA
   }
@@ -127,17 +127,17 @@ wl_stats <- function(waiting_list,
   pressure <- calc_waiting_list_pressure(mean_wait, target_wait)
 
   waiting_stats <- data.frame(
-    "mean_demand" = referral_stats$demand.weekly,
-    "mean_capacity" = removal_stats$capacity.weekly,
+    "mean_demand" = referral_stats$demand_weekly,
+    "mean_capacity" = removal_stats$capacity_weekly,
     "load" = q_load,
     "load_too_big" = q_load_too_big,
-    "count_demand" = referral_stats$demand.count,
+    "count_demand" = referral_stats$demand_count,
     "queue_size" = q_size,
     "target_queue_size" = q_target,
     "queue_too_big" = q_too_big,
     "mean_wait" = mean_wait,
-    "cv_arrival" = referral_stats$demand.cov,
-    "cv_removal" = removal_stats$capacity.cov,
+    "cv_arrival" = referral_stats$demand_cov,
+    "cv_removal" = removal_stats$capacity_cov,
     "target_capacity" = target_cap,
     "relief_capacity" = relief_cap,
     "pressure" = pressure

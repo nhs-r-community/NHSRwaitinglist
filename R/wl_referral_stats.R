@@ -51,10 +51,10 @@ wl_referral_stats <- function(waiting_list,
 
 
   referral_stats <- data.frame(
-    "demand.weekly" = demand_weekly,
-    "demand.daily" = demand,
-    "demand.cov" = cv_arrival,
-    "demand.count" = num_arrivals
+    "demand_weekly" = demand_weekly,
+    "demand_daily" = demand,
+    "demand_cov" = cv_arrival,
+    "demand_count" = num_arrivals
   )
 
   return(referral_stats)

@@ -4,7 +4,8 @@ test_that("wl_stats calculates correctly for valid input", {
   removals <- as.Date(c("2024-01-08", NA, NA, NA))
   waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 
-  result <- wl_stats(waiting_list, target_wait = 4, start_date = "2024-01-01", end_date = "2024-01-16")
+  result <- wl_stats(waiting_list, target_wait = 4, start_date = "2024-01-01"
+                     , end_date = "2024-01-16")
 
   # Check that the result is a data frame
   expect_s3_class(result, "data.frame")

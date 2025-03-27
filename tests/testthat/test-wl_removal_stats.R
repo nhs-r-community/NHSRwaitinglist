@@ -7,10 +7,10 @@ test_that("wl_removal_stats returns a dataframe with correct columns", {
 
   result <- wl_removal_stats(waiting_list)
   expect_s3_class(result, "data.frame")
-  expect_true("capacity.weekly" %in% colnames(result))
-  expect_true("capacity.daily" %in% colnames(result))
-  expect_true("capacity.cov" %in% colnames(result))
-  expect_true("removal.count" %in% colnames(result))
+  expect_true("capacity_weekly" %in% colnames(result))
+  expect_true("capacity_daily" %in% colnames(result))
+  expect_true("capacity_cov" %in% colnames(result))
+  expect_true("removal_count" %in% colnames(result))
 })
 
 # Test for calculation of removal statistics
@@ -21,10 +21,10 @@ test_that("wl_removal_stats computes removal statistics correctly", {
   waiting_list <- data.frame(referral = referrals, removal = removals)
 
   result <- wl_removal_stats(waiting_list)
-  expect_equal(result$removal.count, 1)  # Only one removal in this case
-  expect_true(result$capacity.weekly > 0)
-  expect_true(result$capacity.daily > 0)
-  expect_true(result$capacity.cov >= 0)  # Coefficient of variation non-negative
+  expect_equal(result$removal_count, 1)  # Only one removal in this case
+  expect_true(result$capacity_weekly > 0)
+  expect_true(result$capacity_daily > 0)
+  expect_true(result$capacity_cov >= 0)  # Coefficient of variation non-negative
 })
 
 # Test for handling missing `start_date` and `end_date`
@@ -34,8 +34,8 @@ test_that("wl_removal_stats uses the correct default start_date and end_date", {
   waiting_list <- data.frame(referral = referrals, removal = removals)
 
   result <- wl_removal_stats(waiting_list)
-  expect_equal(result$capacity.daily, 1 / 7)
-  expect_equal(result$capacity.weekly, 1) # Capacity should be computed based
+  expect_equal(result$capacity_daily, 1 / 7)
+  expect_equal(result$capacity_weekly, 1) # Capacity should be computed based
   # on the removal date difference
 })
 
@@ -47,8 +47,8 @@ test_that("wl_removal_stats handles missing removals gracefully", {
   waiting_list <- data.frame(referral = referrals, removal = removals)
 
   result <- wl_removal_stats(waiting_list)
-  expect_equal(result$removal.count, 0)  # No removals should result in count 0
-  expect_equal(result$capacity.weekly, NaN)  # No removals should not allow
+  expect_equal(result$removal_count, 0)  # No removals should result in count 0
+  expect_equal(result$capacity_weekly, NaN)  # No removals should not allow
   # capacity calculation
 })
 
@@ -60,7 +60,7 @@ test_that("wl_removal_stats handles custom start_date and end_date correctly", {
 
   result <- wl_removal_stats(waiting_list, start_date = "2024-01-02"
                              , end_date = "2024-01-10")
-  expect_equal(result$removal.count, 1)  # Only one removal
+  expect_equal(result$removal_count, 1)  # Only one removal
 })
 
 # Test for correct behaviour with edge case of an empty waiting list
