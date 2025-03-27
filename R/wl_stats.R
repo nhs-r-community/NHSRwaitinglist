@@ -23,6 +23,20 @@ wl_stats <- function(waiting_list,
                      start_date = NULL,
                      end_date = NULL) {
 
+  # Error handle
+  if (class(waiting_list) != "data.frame") {
+    stop("waiting list should be supplied as a data.frame")
+  }
+
+  if (nrow(waiting_list) == 0) {
+    stop("No data rows in waiting list")
+  }
+
+  if (missing(waiting_list)) {
+    stop("No waiting list supplied")
+  }
+
+
   # get indices and set target wait if possible and get dates
   referral_index <- calc_index(waiting_list, type = "referral")
   removal_index <- calc_index(waiting_list, type = "removal")
