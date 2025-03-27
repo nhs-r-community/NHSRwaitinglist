@@ -16,7 +16,7 @@ wl_schedule(
 \item{waiting_list}{data.frame. A df of referral dates and removals}
 
 \item{schedule}{vector of dates. The dates to schedule open referrals into
-(ie. dates of unbooked future capacity)}
+(i.e. dates of unbooked future capacity)}
 
 \item{referral_index}{integer. The column number in the waiting_list which
 contains the referral dates}

@@ -6,8 +6,8 @@
 #'      capacity = demand + (cvd**2 + cvc**2) / waiting_time
 #'
 #'  where
-#'      cvd           = coefficent of variation of time between arrivals
-#'      cvd           = coefficient of variation of sevice times
+#'      cvd           = coefficient of variation of time between arrivals
+#'      cvd           = coefficient of variation of service times
 #'      waiting_time  = target_wait / factor
 #'
 #' @param demand Numeric value of rate of demand in same units as target wait

@@ -21,7 +21,7 @@ sim_patients <- function(
     load(file = "./data/opcs4.rda")
   }
   opcs4 <- opcs4
-  # get proceedures
+  # get procedures
   ops <- opcs4[(opcs4$selectable == "Y") & (!is.na(opcs4$name_4digit)), ]
   ran <- ops[sample(nrow(ops), n_rows, replace = TRUE), ]
   proceedures <-

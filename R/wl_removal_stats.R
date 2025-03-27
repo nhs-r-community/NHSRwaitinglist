@@ -24,6 +24,10 @@ wl_removal_stats <- function(waiting_list,
                              referral_index = 1,
                              removal_index = 2) {
 
+  if (nrow(waiting_list) == 0) {
+    stop("Waiting list contains no rows")
+  }
+
   if (!is.null(start_date)) {
     start_date <- as.Date(start_date)
   } else {

@@ -137,7 +137,7 @@ We know the mean waiting time (`r target_mean_wait` weeks) and queue size (`r ta
 Now we calculate a capacity allocation that will maintain this equilibrium in the long run.
 
 > Fact 8: Target capacity formula, based on the Pollaczek-Khinchine formula. 
-The target capacity depends on demand, plus an additional capacity which is based on serice variability, and the waiting time target.
+The target capacity depends on demand, plus an additional capacity which is based on service variability, and the waiting time target.
 
 The parameter "F" depends on the variability of the service. 
 If we do not know F, we can assume F = 1. 
