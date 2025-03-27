@@ -7,7 +7,7 @@
 #'
 #' @param waiting_list data.frame. A df of referral dates and removals
 #' @param schedule vector of dates. The dates to schedule open referrals into
-#'   (ie. dates of unbooked future capacity)
+#'   (i.e. dates of unbooked future capacity)
 #' @param referral_index integer. The column number in the waiting_list which
 #'   contains the referral dates
 #' @param removal_index integer. The column number in the waiting_list which

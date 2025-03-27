@@ -4,9 +4,9 @@
 #'
 #' @param n_rows Number of rows/patients to generate
 #' @param start_date Start date (needed to generate patient ages)
-#' @param daily_capacity Number of paitents per day
+#' @param daily_capacity Number of patients per day
 #'
-#' @return dataframe. Empty waiting list.
+#' @return data.frame. Empty waiting list.
 #' @export sim_schedule
 #'
 

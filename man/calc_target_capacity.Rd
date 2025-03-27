@@ -37,8 +37,8 @@ Applies Kingman/Marchal's Formula :
 }\if{html}{\out{</div>}}
 
 where
-cvd           = coefficent of variation of time between arrivals
-cvd           = coefficient of variation of sevice times
+cvd           = coefficient of variation of time between arrivals
+cvd           = coefficient of variation of service times
 waiting_time  = target_wait / factor
 }
 \examples{

@@ -6,7 +6,7 @@
 #'
 #' @format Data frame with 9 columns
 #' \describe{
-#' \item{hospital_site}{ODS hosptial site code}
+#' \item{hospital_site}{ODS hospital site code}
 #' \item{...}{Others to do with file is updated}
 #' }
 #'
