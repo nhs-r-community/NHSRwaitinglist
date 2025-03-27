@@ -1,9 +1,9 @@
 # Test 1: Valid scheduling without unscheduled flag (unscheduled = FALSE)
-test_that("wl_schedule schedules referrals correctly
-          when unscheduled = FALSE", {
+test_that("schedules referrals correctly  when unscheduled = FALSE", {
   referrals <- as.Date(c("2024-01-01", "2024-01-04", "2024-01-10"))
   removals <- c(NA, NA, NA)
-  waiting_list <- data.frame("referral" = referrals, "removal" = removals)
+  waiting_list <- data.frame("referral" = referrals
+                             , "removal" = removals)
   schedule <- as.Date(c("2024-01-03", "2024-01-05"))
 
   result <- wl_schedule(waiting_list, schedule, unscheduled = FALSE)
@@ -11,14 +11,16 @@ test_that("wl_schedule schedules referrals correctly
   expect_s3_class(result, "data.frame")
   expect_equal(sum(!is.na(result$removal)), 2)  # Two scheduled
   expect_equal(nrow(result), 3)  # Same number of rows
+
 })
 
 # Test 2: Handling unscheduled flag set to TRUE
-test_that("wl_schedule returns scheduled and unscheduled lists
-          when unscheduled = TRUE", {
+test_that("eturns scheduled and unscheduled lists when unscheduled = TRUE", {
+
   referrals <- as.Date(c("2024-01-01", "2024-01-04", "2024-01-10"))
   removals <- c(NA, NA, NA)
-  waiting_list <- data.frame("referral" = referrals, "removal" = removals)
+  waiting_list <- data.frame("referral" = referrals
+                             , "removal" = removals)
   schedule <- as.Date(c("2024-01-03", "2024-01-05"))
 
   result <- wl_schedule(waiting_list, schedule, unscheduled = TRUE)
@@ -48,7 +50,7 @@ test_that("wl_schedule throws error for invalid schedule input", {
   invalid_schedule <- c("invalid", "date")
 
   expect_error(wl_schedule(waiting_list, invalid_schedule)
-  , "Schedule vector is not formatted as dates")
+               , "Schedule vector is not formatted as dates")
 })
 
 # Test 5: Patients scheduled appropriately

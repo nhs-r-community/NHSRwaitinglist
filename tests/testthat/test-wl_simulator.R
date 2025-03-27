@@ -46,7 +46,7 @@ test_that("wl_simulator incorporates waiting_list correctly", {
 test_that("wl_simulator handles zero demand gracefully", {
   expect_error(wl_simulator("2024-01-01", "2024-03-31"
                             , demand = 0, capacity = 110)
-  , "No data rows in waiting list")
+               , "No data rows in waiting list")
 
 })
 

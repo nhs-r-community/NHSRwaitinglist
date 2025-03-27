@@ -60,4 +60,3 @@ test_that("wl_stats returns correct stats for a specific date range", {
 
   expect_equal(result$mean_wait, 3)
 })
-
