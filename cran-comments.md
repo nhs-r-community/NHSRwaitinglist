@@ -23,13 +23,17 @@ Package includes:
   * Ubuntu 24.04.4 LTS, R 4.3.3
   * Ubuntu 24.04.4 LTS, R 4.3.3
 
-* r-hub v2 via GitHub actions:
-  * Ubuntu Linux 22.04.4 LTS, R-release, GCC
-  * Mac OS-arm x 14.4.1 23E224, R 4.3.3
-  * Mac OS-arm x 14.4.1 23E224, R-devel 2024-04-12
-  * Fedora Linux, R-devel 2024-04-12, clang, gfortran
-  * Windows Server 2022, R-devel 2024-04-12, 64 bit
-
+* r-hub v2 via GitHub actions: 
+  * Results at: https://github.com/chrismainey/NHSRwaitinglist/actions/runs/14106475687
+  * "Ubuntu-clang" 24.04.2 LTS, R-devel 2025-03-26 r88060
+  * "Ubuntu-next" 24.04.2 LTS,  R version 4.5.0 alpha (2025-03-25 r88054)
+  * "linux (R-devel)"" Ubuntu 24.04.2 LTS,  R Under development (unstable) (2025-03-26 r88060)
+  * "intel" Ubuntu 24.04.2 LTS, R Under development (unstable) (2025-03-26 r88060)
+  * "mkl"  Ubuntu 24.04.2 LTS,  Under development (unstable) (2025-03-26 r88060)
+  * "rchk" Ubuntu 24.04.2 LTS,  Under development (unstable) (2025-03-26 r88060)  -  failed, unable to load post-test artifacts
+  * "macos" Mac OS x 13.7.4 22H420, R Under development (unstable) (2025-03-25 r88054)
+  * "windows" Windows Server x64 2022 Datacentre, 10.0.20348, R Under development (unstable) (2025-03-26 r88060 ucrt)
+  
 ## R CMD check results
 There were no ERRORs, WARNINGs or NOTES.
 
