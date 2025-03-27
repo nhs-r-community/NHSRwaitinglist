@@ -20,7 +20,7 @@ Package includes:
   * Mac OS x 14.7.4 23H420, R 4.4.3
   * Windows Server x64 2022 Datacentre, 10.0.20348, R 4.4.3
   * Ubuntu 24.04.2 LTS, R-devel 2025-03-25
-  * Ubuntu 24.04.4 LTS, R 4.3.3
+  * Ubuntu 24.04.4 LTS, R 4.4.3
   * Ubuntu 24.04.4 LTS, R 4.3.3
 
 * r-hub v2 via GitHub actions: 
