@@ -1,6 +1,7 @@
 # Test 1: Valid data input with all fields filled
 test_that("wl_stats calculates correctly for valid input", {
-  referrals <- as.Date(c("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16"))
+  referrals <- as.Date(c("2024-01-01", "2024-01-04"
+                         , "2024-01-10", "2024-01-16"))
   removals <- as.Date(c("2024-01-08", NA, NA, NA))
   waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 
@@ -10,7 +11,7 @@ test_that("wl_stats calculates correctly for valid input", {
   # Check that the result is a data frame
   expect_s3_class(result, "data.frame")
 
-  # Check that specific columns exist in the result (you should replace with actual column names)
+  # Check that columns exist in the result
   expect_true("queue_size" %in% colnames(result))
   expect_true("target_queue_size" %in% colnames(result))
   expect_true("queue_too_big" %in% colnames(result))
