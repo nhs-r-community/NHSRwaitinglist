@@ -31,7 +31,7 @@ Package includes:
   * Ubuntu 24.04.4 LTS, R 4.3.3
 
 * r-hub v2 via GitHub actions: 
-  * Results at: https://github.com/chrismainey/NHSRwaitinglist/actions/runs/14106475687
+  * Results at: https://github.com/chrismainey/NHSRwaitinglist/actions/runs/14132060324
   * "Ubuntu-clang" 24.04.2 LTS, R-devel 2025-03-26 r88060
   * "Ubuntu-next" 24.04.2 LTS,  R version 4.5.0 alpha (2025-03-25 r88054)
   * "linux (R-devel)"" Ubuntu 24.04.2 LTS,  R Under development (unstable) (2025-03-26 r88060)
