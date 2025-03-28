@@ -8,8 +8,9 @@
 #' @param end_date date. The end date to calculate to
 #'
 #' @return data.frame. A df of important waiting list statistics
-
+#'
 #' @export
+#'
 #'
 #' @examples
 #'
@@ -24,9 +25,10 @@ wl_stats <- function(waiting_list,
                      end_date = NULL) {
 
   # Error handle
-  if (class(waiting_list) != "data.frame") {
+  if (!methods::is(waiting_list, "data.frame")) {
     stop("waiting list should be supplied as a data.frame")
   }
+
 
   if (nrow(waiting_list) == 0) {
     stop("No data rows in waiting list")
