@@ -32,10 +32,10 @@ These videos explain more about the Operations Management methodologies
 which are encapsulated by the package. Click through to view them on
 YouTube.
 
-|                                                        Detailed presentation of method                                                         |                                                               Recap of method, and presentation of this package                                                               |
-|:----------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Detailed presentation of method | Recap of method, and presentation of this package |
+|:--:|:--:|
 | [![Thumbnail for link to MAN huddle video](man/figures/NHSRwaitinglist_MAN_huddle_thumbnail.jpg)](https://www.youtube.com/watch?v=NWthhW5Fgls) | [![Thumbnail for link to Health and Care Analytics Conference E-lab video](man/figures/NHSRwaitinglist_HACA_elab_thumbnail.jpg)](https://www.youtube.com/watch?v=3peqTEl_ZAQ) |
-|                                                   Midlands Analyst Network Huddle, Nov 2023                                                    |                                                             Health and Care Analytics Conference e-lab, Jul 2024                                                              |
+| Midlands Analyst Network Huddle, Nov 2023 | Health and Care Analytics Conference e-lab, Jul 2024 |
 
 ## Installation
 
@@ -94,7 +94,7 @@ overall_stats <- wl_stats(
 knitr::kable(head(waiting_list, 5))
 ```
 
-| referral   | removal    |
+| Referral   | Removal    |
 |:-----------|:-----------|
 | 2020-01-02 | 2020-01-03 |
 | 2020-01-03 | 2020-01-04 |
@@ -108,9 +108,9 @@ knitr::kable(head(waiting_list, 5))
 knitr::kable(overall_stats)
 ```
 
-| mean.demand | mean.capacity |      load | load.too.big | queue_size | target_queue_size | queue.too.big | mean_wait | cv_arrival | cv_removal | target.capacity | relief.capacity | pressure |
-|------------:|--------------:|----------:|:-------------|-----------:|------------------:|:--------------|----------:|-----------:|-----------:|----------------:|:----------------|---------:|
-|    9.818065 |      10.08167 | 0.9738527 | FALSE        |          5 |          44.18129 | FALSE         |       1.8 |   1.131775 |  0.7001389 |        10.01485 | NA              |      0.4 |
+| mean_demand | mean_capacity | load | load_too_big | count_demand | queue_size | target_queue_size | queue_too_big | mean_wait | cv_arrival | cv_removal | target_capacity | relief_capacity | pressure |
+|---:|---:|---:|:---|---:|---:|---:|:---|---:|---:|---:|---:|:---|---:|
+| 9.818065 | 10.08372 | 0.9736549 | FALSE | 2174 | 5 | 44.18129 | FALSE | 1.8 | 1.131775 | 0.7003787 | 10.01489 | NA | 0.2 |
 
 ## Contributing
 

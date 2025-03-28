@@ -20,6 +20,7 @@
 #'  added according to the schedule
 #' @export
 #'
+#'
 #' @examples
 #' referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
 #' removals <- c.Date("2024-01-08", NA, NA, NA)
@@ -37,7 +38,7 @@ wl_schedule <- function(
 
 
   # Error handle
-  if (class(waiting_list) != "data.frame") {
+  if (!methods::is(waiting_list, "data.frame")) {
     stop("waiting list should be supplied as a data.frame")
   }
 
@@ -49,7 +50,7 @@ wl_schedule <- function(
     stop("No waiting list supplied")
   }
 
-  if (class(schedule) != "Date") {
+  if (!methods::is(schedule, "Date")) {
     stop("Schedule vector is not formatted as dates")
   }
 
