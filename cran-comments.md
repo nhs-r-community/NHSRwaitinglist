@@ -1,7 +1,7 @@
 ## Release summary
 
 This is the first release of a package implementing R functions associated with waiting list management, aimed 
-at the UK's National Health Service (NHS), and this package is a collaborative effort from the
+at the UK's National Health Service (NHS). This package is a collaborative effort from the
 NHS-R Community.  This package support a preprint tutorial paper and series of webinars, with paper available
 at https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1.full.
 
@@ -9,7 +9,7 @@ Package includes:
 * Functions applying queuing theory methods to waiting list inputs.
 * Calculations for target values for managing lists.
 * Functions for simulating waiting list.
-* Functions to allow scheduling and prioritisation
+* Functions to allow scheduling and prioritisation.
 
 ## Test environments
 * local windows 10 Enterprise, 22H2, R 4.4.3
