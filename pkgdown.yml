@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   example_walkthrough: example_walkthrough.html
   three_example_waiting_lists: three_example_waiting_lists.html
-last_built: 2025-03-31T08:33Z
+last_built: 2025-03-31T10:55Z
 urls:
   reference: https://nhs-r-community.github.io/NHSRwaitinglist/reference
   article: https://nhs-r-community.github.io/NHSRwaitinglist/articles
