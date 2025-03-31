@@ -123,8 +123,8 @@ Please see our [guidance on how to
 contribute](https://tools.nhsrcommunity.com/contribution.html).
 
 This project is released with a Contributor [Code of
-Conduct](./CODE_OF_CONDUCT.md). By contributing to this project, you
-agree to abide by its terms.
+Conduct](https://github.com/nhs-r-community/NHSRwaitinglist/blob/main/CODE_OF_CONDUCT.md).
+By contributing to this project, you agree to abide by its terms.
 
 The simplest way to contribute is to [raise an
 issue](https://github.com/nhs-r-community/NHSRwaitinglist/issues)
@@ -168,7 +168,7 @@ Grout</b></sub></a><br /><a href="#ideas-jacgrout" title="Ideas, Planning, & Fee
 Smith</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=ThomUK" title="Code">💻</a>
 </td>
 <td align="center" valign="top" width="14.28%">
-<a href="http://matt-dray.com"><img src="https://avatars.githubusercontent.com/u/18232097?v=4?s=100" width="100px;" alt="Matt Dray"/><br /><sub><b>Matt
+<a href="https://matt-dray.com/"><img src="https://avatars.githubusercontent.com/u/18232097?v=4?s=100" width="100px;" alt="Matt Dray"/><br /><sub><b>Matt
 Dray</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=matt-dray" title="Code">💻</a>
 </td>
 <td align="center" valign="top" width="14.28%">
