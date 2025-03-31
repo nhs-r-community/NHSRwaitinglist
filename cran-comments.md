@@ -1,6 +1,6 @@
 ## Release summary
 
-This is the second submission, for a first release of a package implementing R functions associated with waiting list management, aimed 
+This is the fourth submission, for a first release of a package implementing R functions associated with waiting list management, aimed 
 at the UK's National Health Service (NHS). This package is a collaborative effort from the
 NHS-R Community.  This package support a preprint tutorial paper and series of webinars, with paper available
 at https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1.full.
@@ -11,10 +11,10 @@ Package includes:
 * Functions for simulating waiting list.
 * Functions to allow scheduling and prioritisation.
 
-### Fixes based on pretest results:
+### Fixes based on pretest results, and email from CRAN team:
 * No fix to spelling as 'Fong et al.' is correct
-* Web link check and updated to https and README rebuild
-* No change to code of conduct link, as it is relevant to GitHub repo
+* Web link check and updated to https://www and README rebuilt
+* Code of conduct link now fully qualified
 * if() checks of class updated to use methods::is()
 
 
