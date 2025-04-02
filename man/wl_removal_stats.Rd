@@ -24,7 +24,7 @@ wl_removal_stats(
 \item{removal_index}{int. Index of the removal column in waiting_list.}
 }
 \value{
-dataframe. A df containing number of removals, mean capacity,
+data.frame. A df containing number of removals, mean capacity,
 and the coefficient of variation of removals
 }
 \description{

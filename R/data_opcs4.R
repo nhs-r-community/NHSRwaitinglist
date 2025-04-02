@@ -17,7 +17,7 @@
 #' @source https://biobank.ndph.ox.ac.uk/ukb/coding.cgi?id=240
 #'
 #' @examples
-#' \dontrun{
+#'
 #' data(opcs4)
-#' }
+#'
 "opcs4"

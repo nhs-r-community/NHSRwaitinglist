@@ -1,6 +1,7 @@
 ## Release summary
 
-This is the fourth submission, for a first release of a package implementing R functions associated with waiting list management, aimed 
+This is the resubmission, after comments from Benni Altmann.
+This a first release of a package implementing R functions associated with waiting list management, aimed 
 at the UK's National Health Service (NHS). This package is a collaborative effort from the
 NHS-R Community.  This package support a preprint tutorial paper and series of webinars, with paper available
 at https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1.full.
@@ -12,10 +13,11 @@ Package includes:
 * Functions to allow scheduling and prioritisation.
 
 ### Fixes based on pretest results, and email from CRAN team:
-* No fix to spelling as 'Fong et al.' is correct
-* Web link check and updated to https://www and README rebuilt
-* Code of conduct link now fully qualified
-* if() checks of class updated to use methods::is()
+* Altered Title and Description in DESCRIPTION to follow guidance/comments
+* Added brackets around year in reference.
+* Uncommented examples in wl_join()
+* Removed all \dontnotrun() tags
+* Added noRd tag to two internal functions
 
 
 ## Test environments
@@ -31,7 +33,7 @@ Package includes:
   * Ubuntu 24.04.4 LTS, R 4.3.3
 
 * r-hub v2 via GitHub actions: 
-  * Results at: https://github.com/chrismainey/NHSRwaitinglist/actions/runs/14132060324
+  * Results at: https://github.com/chrismainey/NHSRwaitinglist/actions/runs/14217992826
   * "Ubuntu-clang" 24.04.2 LTS, R-devel 2025-03-26 r88060
   * "Ubuntu-next" 24.04.2 LTS,  R version 4.5.0 alpha (2025-03-25 r88054)
   * "linux (R-devel)"" Ubuntu 24.04.2 LTS,  R Under development (unstable) (2025-03-26 r88060)
@@ -42,7 +44,8 @@ Package includes:
   * "windows" Windows Server x64 2022 Datacentre, 10.0.20348, R Under development (unstable) (2025-03-26 r88060 ucrt)
   
 ## R CMD check results
-There were no ERRORs, WARNINGs or NOTES.
+There were no ERRORs, WARNINGs.
+A number of builds report NOTE of potential misspelling in DESCRIPTION for Fong, et, al, and NHS.  All are correct.
 
 ## Downstream dependencies
 There are currently no downstream dependencies for this package to my knowledge.

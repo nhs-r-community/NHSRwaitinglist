@@ -18,8 +18,8 @@ data(demographic_data)
 demographic data
 }
 \examples{
-\dontrun{
+
 data(demographic_data)
-}
+
 }
 \keyword{datasets}

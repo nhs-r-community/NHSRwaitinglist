@@ -2,12 +2,12 @@
 #'
 #' @description Calculate some stats about referrals
 #'
-#' @param waiting_list dataframe. A df of referral dates and removals
+#' @param waiting_list data.frame. A df of referral dates and removals
 #' @param start_date date. The start date to calculate from
 #' @param end_date date. The end date to calculate to
 #' @param referral_index the column index of referrals
 #'
-#' @return dataframe. A df containing number of referrals, mean demand,
+#' @return data.frame. A df containing number of referrals, mean demand,
 #'   and the coefficient of variation of referrals
 #' @export
 #'

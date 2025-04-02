@@ -14,7 +14,7 @@
 #'
 #'
 #' @examples
-#' \dontrun{
+#'
 #' data(demographic_data)
-#' }
+#'
 "demographic_data"
