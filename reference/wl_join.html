@@ -70,14 +70,23 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># referrals &lt;- c.Date("2024-01-01","2024-01-04","2024-01-10","2024-01-16")</span></span></span>
-<span class="r-in"><span><span class="co"># removals &lt;- c.Date("2024-01-08",NA,NA,NA)</span></span></span>
-<span class="r-in"><span><span class="co"># wl_1 &lt;- data.frame("referral" = referrals ,"removal" = removals )</span></span></span>
+<span class="r-in"><span><span class="va">referrals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Dates.html" class="external-link">c.Date</a></span><span class="op">(</span><span class="st">"2024-01-01"</span>,<span class="st">"2024-01-04"</span>,<span class="st">"2024-01-10"</span>,<span class="st">"2024-01-16"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">removals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Dates.html" class="external-link">c.Date</a></span><span class="op">(</span><span class="st">"2024-01-08"</span>,<span class="cn">NA</span>,<span class="cn">NA</span>,<span class="cn">NA</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">wl_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="st">"referral"</span> <span class="op">=</span> <span class="va">referrals</span> ,<span class="st">"removal"</span> <span class="op">=</span> <span class="va">removals</span> <span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># referrals &lt;- c.Date("2024-01-04","2024-01-05","2024-01-16","2024-01-25")</span></span></span>
-<span class="r-in"><span><span class="co"># removals &lt;- c.Date("2024-01-09",NA,"2024-01-19",NA)</span></span></span>
-<span class="r-in"><span><span class="co"># wl_2 &lt;- data.frame("referral" = referrals ,"removal" = removals )</span></span></span>
-<span class="r-in"><span><span class="co"># wl_join(wl_1,wl_2)</span></span></span>
+<span class="r-in"><span><span class="va">referrals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Dates.html" class="external-link">c.Date</a></span><span class="op">(</span><span class="st">"2024-01-04"</span>,<span class="st">"2024-01-05"</span>,<span class="st">"2024-01-16"</span>,<span class="st">"2024-01-25"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">removals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Dates.html" class="external-link">c.Date</a></span><span class="op">(</span><span class="st">"2024-01-09"</span>,<span class="cn">NA</span>,<span class="st">"2024-01-19"</span>,<span class="cn">NA</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">wl_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="st">"referral"</span> <span class="op">=</span> <span class="va">referrals</span> ,<span class="st">"removal"</span> <span class="op">=</span> <span class="va">removals</span> <span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">wl_join</span><span class="op">(</span><span class="va">wl_1</span>,<span class="va">wl_2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     referral    removal</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 2024-01-01 2024-01-08</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2 2024-01-04       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 2024-01-04 2024-01-09</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 2024-01-05       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5 2024-01-10       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6 2024-01-16       &lt;NA&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7 2024-01-16 2024-01-19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8 2024-01-25       &lt;NA&gt;</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
