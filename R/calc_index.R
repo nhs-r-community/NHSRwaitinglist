@@ -9,7 +9,7 @@
 #' removal to guess the index
 #'
 #' @return index
-#'
+#' @noRd
 
 calc_index <- function(waiting_list,
                        colname = NULL,

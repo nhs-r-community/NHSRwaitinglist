@@ -12,7 +12,7 @@ sim_patients(n_rows = 10, start_date = NULL)
 \item{start_date}{Start date (needed to generate patient ages)}
 }
 \value{
-dataframe. Empty waiting list.
+data.frame. Empty waiting list.
 }
 \description{
 Generates simulated NHS patients

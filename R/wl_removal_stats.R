@@ -8,7 +8,7 @@
 #' @param referral_index int. Index of the referral column in waiting_list.
 #' @param removal_index int. Index of the removal column in waiting_list.
 #'
-#' @return dataframe. A df containing number of removals, mean capacity,
+#' @return data.frame. A df containing number of removals, mean capacity,
 #'   and the coefficient of variation of removals
 #' @export
 #'

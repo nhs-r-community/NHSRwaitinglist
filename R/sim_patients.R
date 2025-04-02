@@ -5,7 +5,7 @@
 #' @param n_rows Number of rows/patients to generate
 #' @param start_date Start date (needed to generate patient ages)
 #'
-#' @return dataframe. Empty waiting list.
+#' @return data.frame. Empty waiting list.
 #' @export sim_patients
 #' @import randomNames
 #' @examples

@@ -12,7 +12,7 @@ wl_referral_stats(
 )
 }
 \arguments{
-\item{waiting_list}{dataframe. A df of referral dates and removals}
+\item{waiting_list}{data.frame. A df of referral dates and removals}
 
 \item{start_date}{date. The start date to calculate from}
 
@@ -21,7 +21,7 @@ wl_referral_stats(
 \item{referral_index}{the column index of referrals}
 }
 \value{
-dataframe. A df containing number of referrals, mean demand,
+data.frame. A df containing number of referrals, mean demand,
 and the coefficient of variation of referrals
 }
 \description{
