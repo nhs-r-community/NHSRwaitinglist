@@ -20,9 +20,9 @@ coverage](https://codecov.io/gh/nhs-r-community/NHSRwaitinglist/branch/main/grap
 {NHSRwaitinglist} is an R package implementing the waiting list
 management approach described in the paper [Understanding Waiting Lists
 Pressures](https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1)
-by Fong et al. The methodology is presented by Neil Walton, Professor in
-Operations Management at Durham University Business School. The package
-is being contributed to by members of the [NHS-R
+by Fong et al (2022). The methodology is presented by Neil Walton,
+Professor in Operations Management at Durham University Business School.
+The package is being contributed to by members of the [NHS-R
 Community](https://nhsrcommunity.com/), with the aim of making it
 simpler for NHS analysts to adopt these methods for the analysis of
 their own waiting lists.
