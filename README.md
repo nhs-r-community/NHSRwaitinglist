@@ -14,6 +14,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![R-CMD-check](https://github.com/nhs-r-community/NHSRwaitinglist/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nhs-r-community/NHSRwaitinglist/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/nhs-r-community/NHSRwaitinglist/branch/main/graph/badge.svg)](https://app.codecov.io/gh/nhs-r-community/NHSRwaitinglist?branch=main)
+[![downloads](https://cranlogs.r-pkg.org/badges/grand-total/NHSRwaitinglist)](https://cran.r-project.org/package=NHSRwaitinglist)
 <!-- badges: end -->
 
 {NHSRwaitinglist} is an R package implementing the waiting list
