@@ -14,14 +14,15 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![R-CMD-check](https://github.com/nhs-r-community/NHSRwaitinglist/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/nhs-r-community/NHSRwaitinglist/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/nhs-r-community/NHSRwaitinglist/branch/main/graph/badge.svg)](https://app.codecov.io/gh/nhs-r-community/NHSRwaitinglist?branch=main)
+[![downloads](https://cranlogs.r-pkg.org/badges/grand-total/NHSRwaitinglist)](https://cran.r-project.org/package=NHSRwaitinglist)
 <!-- badges: end -->
 
 {NHSRwaitinglist} is an R package implementing the waiting list
 management approach described in the paper [Understanding Waiting Lists
 Pressures](https://www.medrxiv.org/content/10.1101/2022.08.23.22279117v1)
-by Fong et al. The methodology is presented by Neil Walton, Professor in
-Operations Management at Durham University Business School. The package
-is being contributed to by members of the [NHS-R
+by Fong et al (2022). The methodology is presented by Neil Walton,
+Professor in Operations Management at Durham University Business School.
+The package is being contributed to by members of the [NHS-R
 Community](https://nhsrcommunity.com/), with the aim of making it
 simpler for NHS analysts to adopt these methods for the analysis of
 their own waiting lists.
@@ -32,10 +33,10 @@ These videos explain more about the Operations Management methodologies
 which are encapsulated by the package. Click through to view them on
 YouTube.
 
-|                                                        Detailed presentation of method                                                         |                                                               Recap of method, and presentation of this package                                                               |
-|:----------------------------------------------------------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Detailed presentation of method | Recap of method, and presentation of this package |
+|:--:|:--:|
 | [![Thumbnail for link to MAN huddle video](man/figures/NHSRwaitinglist_MAN_huddle_thumbnail.jpg)](https://www.youtube.com/watch?v=NWthhW5Fgls) | [![Thumbnail for link to Health and Care Analytics Conference E-lab video](man/figures/NHSRwaitinglist_HACA_elab_thumbnail.jpg)](https://www.youtube.com/watch?v=3peqTEl_ZAQ) |
-|                                                   Midlands Analyst Network Huddle, Nov 2023                                                    |                                                             Health and Care Analytics Conference e-lab, Jul 2024                                                              |
+| Midlands Analyst Network Huddle, Nov 2023 | Health and Care Analytics Conference e-lab, Jul 2024 |
 
 ## Installation
 
@@ -94,7 +95,7 @@ overall_stats <- wl_stats(
 knitr::kable(head(waiting_list, 5))
 ```
 
-| referral   | removal    |
+| Referral   | Removal    |
 |:-----------|:-----------|
 | 2020-01-02 | 2020-01-03 |
 | 2020-01-03 | 2020-01-04 |
@@ -108,9 +109,9 @@ knitr::kable(head(waiting_list, 5))
 knitr::kable(overall_stats)
 ```
 
-| mean.demand | mean.capacity |      load | load.too.big | queue_size | target_queue_size | queue.too.big | mean_wait | cv_arrival | cv_removal | target.capacity | relief.capacity | pressure |
-|------------:|--------------:|----------:|:-------------|-----------:|------------------:|:--------------|----------:|-----------:|-----------:|----------------:|:----------------|---------:|
-|    9.818065 |      10.08167 | 0.9738527 | FALSE        |          5 |          44.18129 | FALSE         |       1.8 |   1.131775 |  0.7001389 |        10.01485 | NA              |      0.4 |
+| mean_demand | mean_capacity | load | load_too_big | count_demand | queue_size | target_queue_size | queue_too_big | mean_wait | cv_arrival | cv_removal | target_capacity | relief_capacity | pressure |
+|---:|---:|---:|:---|---:|---:|---:|:---|---:|---:|---:|---:|:---|---:|
+| 9.818065 | 10.08372 | 0.9736549 | FALSE | 2174 | 5 | 44.18129 | FALSE | 1.8 | 1.131775 | 0.7003787 | 10.01489 | NA | 0.2 |
 
 ## Contributing
 
@@ -123,8 +124,8 @@ Please see our [guidance on how to
 contribute](https://tools.nhsrcommunity.com/contribution.html).
 
 This project is released with a Contributor [Code of
-Conduct](./CODE_OF_CONDUCT.md). By contributing to this project, you
-agree to abide by its terms.
+Conduct](https://github.com/nhs-r-community/NHSRwaitinglist/blob/main/CODE_OF_CONDUCT.md).
+By contributing to this project, you agree to abide by its terms.
 
 The simplest way to contribute is to [raise an
 issue](https://github.com/nhs-r-community/NHSRwaitinglist/issues)
@@ -168,7 +169,7 @@ Grout</b></sub></a><br /><a href="#ideas-jacgrout" title="Ideas, Planning, & Fee
 Smith</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=ThomUK" title="Code">💻</a>
 </td>
 <td align="center" valign="top" width="14.28%">
-<a href="http://matt-dray.com"><img src="https://avatars.githubusercontent.com/u/18232097?v=4?s=100" width="100px;" alt="Matt Dray"/><br /><sub><b>Matt
+<a href="https://www.matt-dray.com/"><img src="https://avatars.githubusercontent.com/u/18232097?v=4?s=100" width="100px;" alt="Matt Dray"/><br /><sub><b>Matt
 Dray</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=matt-dray" title="Code">💻</a>
 </td>
 <td align="center" valign="top" width="14.28%">

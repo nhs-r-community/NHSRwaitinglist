@@ -11,10 +11,10 @@ sim_schedule(n_rows = 10, start_date = NULL, daily_capacity = 1)
 
 \item{start_date}{Start date (needed to generate patient ages)}
 
-\item{daily_capacity}{Number of paitents per day}
+\item{daily_capacity}{Number of patients per day}
 }
 \value{
-dataframe. Empty waiting list.
+data.frame. Empty waiting list.
 }
 \description{
 Generates a list if dates in a given range

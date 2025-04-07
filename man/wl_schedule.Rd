@@ -15,8 +15,9 @@ wl_schedule(
 \arguments{
 \item{waiting_list}{data.frame. A df of referral dates and removals}
 
-\item{schedule}{vector of dates. The dates to schedule open referrals into
-(ie. dates of unbooked future capacity)}
+\item{schedule}{vector of dates. Should be formatted as year-month-date, e.g.
+"2024-04-01".  The dates to schedule open referrals into
+(i.e. dates of unbooked future capacity)}
 
 \item{referral_index}{integer. The column number in the waiting_list which
 contains the referral dates}
@@ -24,15 +25,17 @@ contains the referral dates}
 \item{removal_index}{integer. The column number in the waiting_list which
 contains the removal dates}
 
-\item{unscheduled}{TO ADD}
+\item{unscheduled}{logical.
+If TRUE, returns a list of scheduled and unscheduled procedures
+If FALSE, only returns the updated waiting list}
 }
 \value{
-data.frame. A df of the updated waiting list with removal dates added
-according to the schedule
+data.frame. A df of the updated waiting list with removal dates
+added according to the schedule
 }
 \description{
 Takes a list of dates and schedules them to a waiting list,
-by adding a removal date to the dataframe.
+by adding a removal date to the data.frame.
 This is done in referral date order,
 I.e. earlier referrals are scheduled first (FIFO).
 }

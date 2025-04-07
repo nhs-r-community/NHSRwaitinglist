@@ -11,7 +11,7 @@ cran-comments.md
 ^codecov\.yml$
 .lintr
 ^data-raw$
-
 ^README\.Rmd$
 .all-contributorsrc
 OPCS4.csv
+^CRAN-SUBMISSION$

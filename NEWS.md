@@ -1,3 +1,3 @@
-# NHSRwaitinglist (v0.1)
+# NHSRwaitinglist 0.1
 
 * Initial CRAN submission.

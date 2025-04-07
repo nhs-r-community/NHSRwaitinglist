@@ -15,20 +15,19 @@ wl_simulator(
 )
 }
 \arguments{
-\item{start_date}{date. The start date for the simulation}
+\item{start_date}{date. The start date for the simulation.}
 
-\item{end_date}{date. The end date for the simulation}
+\item{end_date}{date. The end date for the simulation.}
 
-\item{demand}{numeric. Weekly demand (ie. typical referrals per week)}
+\item{demand}{numeric. Weekly demand (i.e., typical referrals per week).}
 
-\item{capacity}{numeric. Weekly capacity (ie. typical removals per week)}
+\item{capacity}{numeric. Weekly capacity (i.e., typical removals per week).}
 
-\item{waiting_list}{integer. The number of patients on the waiting list
-contains the referral dates}
+\item{waiting_list}{integer. The number of patients on the waiting list.}
 
-\item{withdrawal_prob}{TO ADD,}
+\item{withdrawal_prob}{numeric. Probability of a patient withdrawing.}
 
-\item{detailed_sim}{TO ADD}
+\item{detailed_sim}{logical. If TRUE, simulation provides detailed output.}
 }
 \value{
 data.frame. A df of simulated referrals and removals

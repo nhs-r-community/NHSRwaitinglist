@@ -19,9 +19,9 @@ wl_queue_size(
 
 \item{end_date}{end of calculation period}
 
-\item{referral_index}{TO ADD}
+\item{referral_index}{the index of referrals in waiting_list}
 
-\item{removal_index}{TO ADD}
+\item{removal_index}{the index of removals in waiting_list}
 }
 \value{
 a list of dates and queue sizes

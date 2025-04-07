@@ -1,6 +1,6 @@
 Package: NHSRwaitinglist
-Title: R-Package to Implement a Waiting List Management using queuing theory
-Version: 0.0.0.9002
+Title: Waiting List Metrics Using Queuing Theory
+Version: 0.1.9999
 Authors@R: c(
           person("Neil", "Walton", ,"neil.walton@durham.ac.uk", "aut", comment = c(ORCID ="0000-0002-5241-9765")),
           person("Jacqueline", "Grout", ,"jacqueline.grout1@nhs.net", "ctb"),
@@ -8,12 +8,12 @@ Authors@R: c(
           person("Matt", "Dray", , "matt.dray@nhs.net", "aut"),
           person("Paul", "Fenton", , "paul.fenton@nca.nhs.uk", "ctb"),
           person("Peter", "Shakeshaft", , "peter.shakeshaft1@nhs.net", "ctb"),
-          person("Tom", "Smith", ,"thomas.smith5@nuh.nhs.uk", "aut"),
+          person("Tom", "Smith", ,"thomas.smith103@nhs.net", "aut"),
           person("Chris", "Mainey", ,"c.mainey1@nhs.net", c("cre","aut"), comment = c(ORCID ="0000-0002-3018-6171")),
           person("NHS-R community", email = "nhs.rcommunity@nhs.net", role = "cph")
           )
 Maintainer: Chris Mainey <c.mainey1@nhs.net>
-Description: R-package to implement the waiting list management approach described in Fong et al. 2022.
+Description: Waiting list management using queuing theory to analyse, predict and manage queues, based on the approach described in Fong et al. (2022) <doi:10.1101/2022.08.23.22279117>.  Aimed at UK National Health Service (NHS) applications, waiting list summary statistics, target-value calculations, waiting list simulation, and scheduling functions are included.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -27,7 +27,8 @@ Imports:
     rlang,
     utils,
     stats,
-    randomNames
+    randomNames,
+    methods
 Suggests: 
     ggplot2,
     knitr,
