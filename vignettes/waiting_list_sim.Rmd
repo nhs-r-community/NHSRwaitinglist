@@ -11,8 +11,8 @@ vignette: >
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.height = 4,
-  fig.width = 6
+  fig.height = 5,
+  fig.width = 8
 )
 ```
 
@@ -20,6 +20,7 @@ knitr::opts_chunk$set(
 library(NHSRwaitinglist)
 library(ggplot2)
 
+# set up a theme for our charts
 theme_set(
   theme_minimal() +
     theme(
@@ -38,7 +39,7 @@ The following vignette acts as an example, where we are are modelling a waiting 
 * the clinician in the clinic lists the patient for surgery (entering the waiting list)
 * Once the patient has receive their surgery, they leave the waiting list. We will consider this against an 18 week standard for waiting times. 
 
-### Sceanrios
+### Scenarios
 
 We will imagine three scenarios below, where we want to simulate into the future:
 
