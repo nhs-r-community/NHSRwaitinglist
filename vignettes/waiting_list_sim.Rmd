@@ -82,6 +82,7 @@ Let's imagine our service is already running with a waiting list of 840.  There 
 
 In the example below we simulate the current waiting list based on knowing that there are 840 on it, and 20 more referrals than removals per week (difference in demand and capacity): this means it will add 20 to the waiting list each week.
 If we divide that 840 on the waiting list by 20, we get 42 1weeks.  
+
 __We therefore need to run the simulation for 42 weeks, with the stated demand and capacity, to generate a waiting list of 840).__ 
 
 _Remember that this is simulation, so it is stochastic.  Any two runs will not be identical, but will lead to 840 on list on average._
@@ -190,29 +191,29 @@ ggplot(combine_queue, aes(y = queue_size, x = dates)) +
            , y = target_queue1, vjust = 1.2
            , hjust = 1.2, colour = "#440154FF") +
   labs(y = "Queue Size", x = "Date"
-       , title = "Simulated waiting list after raising capacity")
+       , title = "Simulation reduction in waiting list using demand or capacity")
   
 ```
-The simulation above suggests that, maintaining the extra clinic until the end of the year (31st December), would return the waiting list to just below the sustainable target.
+The simulation above suggests that either maintaining the extra clinic until the end of the year (increased capacity) or reducing the referrals (reduced demand), would return the waiting list to just below the sustainable target.
 
 
 # 2. Our waiting list can afford to grow
 [Back to top...](#)
 
-On the surface, we might assume that growing a waiting list is always a bad thing.  When dealing with a health economy, we must consider the ['opportunity cost'](https://en.wikipedia.org/wiki/Opportunity_cost): what benefits we forgo by using our resources in one place rather than another.  This could mean that, we increase a waiting list, within an acceptable limit and release resources/staff/funding to be used elsewhere.
+On the surface, we might assume that growing a waiting list is always a bad thing.  When dealing with a health economy, we must consider the ['opportunity cost'](https://en.wikipedia.org/wiki/Opportunity_cost): what benefits we forgo by using our resources in one place rather than another.  This could mean that we increase a waiting list, within an acceptable limit, and release resources/staff/funding to be used elsewhere. So our task here is to work out how large the waiting list can grow, and set a time period to do it over.
 
 In this scenario, we will consider a system with 50 referrals per week, 50 capacity per week, and a current waiting list of 82.  We have a queue load of 1, so baring natural fluctuation, we would not expect our queue to grow or reduce.
-We, again, have the same target of 92% within 18 weeks (as per example 1).  This means our target average waiting time would be `r target_mean_wait`.  We will
+We, again, have the same target of 92% within 18 weeks (as per example 1).  This means our target average waiting time would be `r round(target_mean_wait, 2)`. 
 
 Let's first calculate our target queue length:
 
 ```{r target2}
-target_queue2 <- calc_target_queue_size(demand = 50
-                                        , target_wait = 18, factor = qt92)
+target_queue2 <- 
+  calc_target_queue_size(demand = 50, target_wait = 18, factor = qt92)
 target_queue2
 ```
 
-Our current waiting list is 82, with a target of: `r target_queue2`.  This means we can afford to let our queue size increase to `r target_queue2 - 82`.
+Our current waiting list is 82, with a target of: `r round(target_queue2,2)`.  This means we can afford to let our queue size increase to `r round(target_queue2 - 82,2)`.
 
 If we are willing to let our waiting list grow over the next 6 months, this equates to:
 
@@ -225,10 +226,10 @@ queue_growth / weeks_to_grow
 
 ```
 
-We can then assume that we can reduce capacity by `r queue_growth / weeks_to_grow` per week, and allow the queue to grow.
-If this number is a decimal, it is sensible to make the conservative rounding choice that leads to the lower queue growth.  In this case it is to `floor()` the growth to `r floor(queue_growth / weeks_to_grow)`.
+We can then assume a reduced capacity by `r round(queue_growth / weeks_to_grow,2)` per week, and allow the queue to grow.
+In general, if this number is a decimal it is sensible to make the conservative rounding choice that leads to the lower queue growth.  In this case it is to `floor()` the growth to `r floor(queue_growth / weeks_to_grow)`.
 
-We can then verify it using simulation, following the steps in example 1.: set up the waiting list, then simulate with our parameters:
+We can then verify this using simulation, following the steps in example 1.: set up the waiting list, then simulate with our parameters, then plot:
 
 ```{r example_2}
 current_wl2 <- data.frame(Referral = rep(as.Date("2024-03-31"), current_queue)
@@ -270,8 +271,8 @@ We will do our range calculations for the sustainable lists, assuming a slightly
 target_mean_wait3 <- calc_target_mean_wait(18, qexp(0.95))
 target_mean_wait3
 
-target_queue3 <- calc_target_queue_size(demand = 100, 
-                                        target_wait = 18, factor = qexp(0.95))
+target_queue3 <- 
+  calc_target_queue_size(demand = 100, target_wait = 18, factor = qexp(0.95))
 target_queue3
 ```
 
@@ -299,17 +300,16 @@ ctrl_tbl
 We also need to update target queue size.  We could do this by setting based on the current demand, the yearly demand or by the anticipated demand at the last period.  Here, we will take the second approach, but this requires a calculation for each row.
 
 ```{r target_queue_size_dynamic}
-ctrl_tbl$target_queue_size <- calc_target_queue_size(demand = ctrl_tbl$demand
-                                                     , target_wait = 18
-                                                     , factor = qexp(0.95))
+ctrl_tbl$target_queue_size <- 
+  calc_target_queue_size(demand = ctrl_tbl$demand
+                         , target_wait = 18
+                         , factor = qexp(0.95))
 ```
 
 ```{r setup_wl_3}
-current_wl3 <- 
+current_wl3 <-
   data.frame(Referral = rep(as.Date("2024-03-31"), 500)
-             , Removal = rep(as.Date(NA), 500)
-             )
-
+             , Removal = rep(as.Date(NA), 500))
 ```
 
 
@@ -428,4 +428,6 @@ ggplot(mc_agg, aes(y = mean_q, x = dates)) +
        , subtitle = "Average WL over 50 runs, with 95% confidence interval")
 ```
 
-The averaging has led to a straighter line for the trend and we have a range of uncertainty around the projection. Alternatively we could present the 25th - 75% percentile range.  This type of Monte Carlo process can be applied to various situation by building your simulation into a function, repeatedly executing it (which could be in parallel), results are collected and summary data calculated.
+The averaging has led to a straighter line for the trend and we have a range of uncertainty around the projection. Alternatively we could present the 25th - 75% percentile range.  
+
+This type of Monte Carlo process can be applied to various situation by building your simulation into a function, repeatedly executing that function (which could be in parallel), collected the results calculating summary statistics.
