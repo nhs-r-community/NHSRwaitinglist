@@ -332,7 +332,7 @@ ggplot(queue_over_time, aes(y = queue_size, x = dates)) +
             )
   )+
   annotate("text", label = "Target queue size", x = ctrl_tbl$start_date[5]
-           , y = ctrl_tbl$target_queue_size[5], vjust = 1.2, hjust = 0, colour = "#A69D75FF") +
+           , y = ctrl_tbl$target_queue_size[5], vjust = 1.2, hjust = 0.2, colour = "#A69D75FF") +
   geom_vline(xintercept = as.Date("2026-04-01"), colour = "red") +
   annotate("text", label = "20% demand\nreduction", x = as.Date("2026-04-01")
            , y = 200, hjust = 1.1, colour = "red") +
@@ -391,7 +391,7 @@ ggplot(mc_agg, aes(y = mean_q, x = dates)) +
   geom_ribbon(aes(ymin = lower_95CI, ymax = upper_95CI)
               , alpha = 0.5, linetype = "dotted") +
   geom_hline(yintercept = target_queue1, colour = "#440154FF") +
-  annotate("text", label = "Target queue size", x = as.Date("2024-03-31")
+  annotate("text", label = "Target queue size", x = as.Date("2024-02-01")
            , y = target_queue1, vjust = -1, colour = "#440154FF") +
   labs(y = "Queue Size", x = "Date"
        , title = "Simulated waiting list after raising capacity"
