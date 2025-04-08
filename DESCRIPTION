@@ -10,7 +10,7 @@ Authors@R: c(
           person("Peter", "Shakeshaft", , "peter.shakeshaft1@nhs.net", "ctb"),
           person("Tom", "Smith", ,"thomas.smith103@nhs.net", "aut"),
           person("Chris", "Mainey", ,"c.mainey1@nhs.net", c("cre","aut"), comment = c(ORCID ="0000-0002-3018-6171")),
-          person("Mohammed", "Mohammed", , "m.mohammed2@nhs.net", "ctb")
+          person("Mohammed", "Mohammed", , "m.mohammed2@nhs.net", "ctb"),
           person("NHS-R community", email = "nhs.rcommunity@nhs.net", role = "cph")
           )
 Maintainer: Chris Mainey <c.mainey1@nhs.net>
