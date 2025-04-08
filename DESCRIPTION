@@ -39,3 +39,4 @@ Suggests:
 Depends: 
     R (>= 3.5.0)
 LazyData: true
+Language: en-GB
