@@ -47,7 +47,7 @@ We will imagine three scenarios where we want to use simulation to project our w
 
 1. where we need to bring a high waiting list down into control
 2. where our waiting list can afford to grow (e.g. we want to constrain capacity, such as sub-contracted care at other organisations)
-3. how our list will change with predicted population/referral growth and a service change
+3. how our list will change with referral growth and a service change
 
 
 __Please remember that the examples here are simulations.  They will vary due to chance each time they are run, and that is their strength.  Do not expect to get exactly the same result when repeating; expect to get the same average results.__
@@ -268,7 +268,7 @@ ggplot(raised_wl, aes(y = queue_size, x = dates)) +
 ```
 
 
-# 3. How our list will change with predicted population/referral growth
+# 3. How our list will change with referral growth / service change
 
 This more complex example, and we will make two assumptions over a 5-year modelling period:
 
@@ -289,7 +289,7 @@ target_queue3 <-
 target_queue3
 ```
 
-In this case ours sustainable waiting list is `r target_queue3`, but this is only true at the start of the period. Given our growth and change assumptions, we need to construct a control table that maps these values out to power the simulation.  This is worked out below in R, but users may find it easier to build in a spreadsheet application.
+In this case ours sustainable waiting list is `r round(target_queue3,2)`, but this is only true at the start of the period. Given our growth and change assumptions, we need to construct a control table that maps these values out to power the simulation.  This is worked out below in R, but users may find it easier to build in a spreadsheet application.
 
 ```{r control_table}
 ctrl_tbl <- data.frame(
@@ -361,6 +361,7 @@ queue_over_time <-  wl_queue_size(sim3_period5)
 ```
 
 We can now plot and see what our list looks like.  Key points to note are:
+
 * The target queue size is calculated at each `start_date`, i.e. 1st April, and the way the lines are draw connects this points with a straight line.
 * Depending on the variation in the simulation, the waiting list peaks above the sustainable target value in 2025/26, before the demand reduction pulls this list back down to a sustainable size.
 * We have a case for releasing some capacity from late 2026 onwards, as our list is of a sustainable size.
