@@ -34,14 +34,16 @@ When working with waiting lists, we may start with trying to understand current 
 
 The following vignette acts as an example, where we are are modelling a waiting list for a UK NHS hospital for a surgical speciality.  The process might have the flow such as: 
 
-* a patient presents to General Practise (GP)
-* a GP refers the patient a hospital 'outpatients clinic'
+* a patient presents to General Practice (GP)
+* a GP refers the patient a hospital 'outpatients' clinic
 * the clinician in the clinic lists the patient for surgery (entering the waiting list)
-* Once the patient has receive their surgery, they leave the waiting list. We will consider this against an 18 week standard for waiting times. 
+* Once the patient has receive their surgery, they leave the waiting list. 
+
+We will consider this against an 18 week standard for waiting times. 
 
 ### Scenarios
 
-We will imagine three scenarios below, where we want to simulate into the future:
+We will imagine three scenarios where we want to use simulation to project our waiting list into the future:
 
 1. where we need to bring a high waiting list down into control
 2. where our waiting list can afford to grow (e.g. we want to constrain capacity, such as sub-contracted care at other organisations)
@@ -77,13 +79,22 @@ This makes our target average wait `r round(target_mean_wait, 2)` weeks, and thi
 [Back to top...](#)
 
 For our first scenario, we will assume the service received 100 weekly referrals and has a weekly capacity of 80 appointments.  We describe this balance between demand and capacity as the 'Load', which is the ratio between demand and capacity: 100/80= 1.25.  If the Load is greater than 1, then the waiting list will grow, and if it is less than 1 the waiting list will reduce.
-Let's imagine our service is already running with a waiting list of 840.  There are few ways to set this up, including supplying a real waiting list, simulate/generate it using the properties of the list, or we can manually dump a load of open pathways into the start of the simulation.  
+
+Let's imagine our service is already running with a waiting list of 840.  
+
+```{r queue_pressure}
+queue1_pressue <- calc_queue_load()
+queue1_pressue
+```
+
+
+For simulation purposes, we need to set up the current waiting list before we can run the simulation of the future state.  There are few ways to set this up, including supplying a real waiting list, simulate/generate it using the properties of the list, or we can manually dump a load of open pathways into the start of the simulation.  
 
 
 In the example below we simulate the current waiting list based on knowing that there are 840 on it, and 20 more referrals than removals per week (difference in demand and capacity): this means it will add 20 to the waiting list each week.
-If we divide that 840 on the waiting list by 20, we get 42 1weeks.  
+If we divide that 840 on the waiting list by 20, we get 42 weeks.  
 
-__We therefore need to run the simulation for 42 weeks, with the stated demand and capacity, to generate a waiting list of 840).__ 
+__We therefore need to run the simulation for 42 weeks, with the stated demand and capacity, to generate a waiting list of 840.__ 
 
 _Remember that this is simulation, so it is stochastic.  Any two runs will not be identical, but will lead to 840 on list on average._
 
@@ -121,7 +132,7 @@ wl_queue_size(current_wl1)
 
 ## What is the target for this service?
 
-If we are governing our resources well, we want to allow a sustainable queue as this allows patients to be flexibly scheduled whilst still meeting our targets.  All capacity comes at a cost to the system, so we are seeking a balance between demand and capacity with a sustainable waiting list.
+If we are governing our resources well, we want to allow a sustainable queue as this allows patients to be flexibly scheduled whilst still meeting our targets.  All capacity comes at a cost to the system, so we are seeking a balance between demand and capacity, with a sustainable waiting list where people are seen within a given target time.
 
 So our question is: what is the sustainable queue size for delivering 92% at 18 weeks, given 100 weekly demand?
 
@@ -136,10 +147,11 @@ We have a target queue size of `r round(target_queue1, 2)`, and currently runnin
 ## Options for management
 
 There are two ways to bring a waiting list like this down:
+
 1. Raise the capacity ("more flowing out")
 2. Reduce the demand ("fewer flowing in")
 
-### Raising capacity
+### 1. Raising capacity
 
 Let's imagine we are able to put an additional clinic in place that offers 25 more slots per week, taking our waiting list pressure down. We need to remember to include our waiting list into the simulation function, so it does not start from zero.  We will run the simulation for one year then plot the waiting list.
 
@@ -156,7 +168,7 @@ raised_capacity_queue <- wl_queue_size(raised_capacity_wl)
 tail(raised_capacity_queue)
 ```
 
-### Reducing demand
+### 2. Reducing demand
 
 Instead of raising capacity, let's imagine we have put in new referral guidance that reduces the number of referrals coming in to the system, resulting in 5 fewer referrals per week. Again, we need to remember to include our waiting list into the simulation function, so it does not start from zero.  We will run the simulation for one year then plot the waiting list.
 
@@ -199,10 +211,10 @@ The simulation above suggests that either maintaining the extra clinic until the
 # 2. Our waiting list can afford to grow
 [Back to top...](#)
 
-On the surface, we might assume that growing a waiting list is always a bad thing.  When dealing with a health economy, we must consider the ['opportunity cost'](https://en.wikipedia.org/wiki/Opportunity_cost): what benefits we forgo by using our resources in one place rather than another.  This could mean that we increase a waiting list, within an acceptable limit, and release resources/staff/funding to be used elsewhere. So our task here is to work out how large the waiting list can grow, and set a time period to do it over.
+On the surface, we might assume that growing a waiting list is always a bad thing.  When dealing with a health economy, we must consider the ['opportunity cost'](https://en.wikipedia.org/wiki/Opportunity_cost): what benefits we forgo by using our resources in one place rather than another.  When applied to a large, complex health economy, this might mean we increase a waiting list, within an acceptable limit, in order to release resources/staff/funding to be used elsewhere. So our task here is to work out how large the waiting list can grow whilst still meeting target, setting a time period to do it over, then reducing capacity accordingly.
 
-In this scenario, we will consider a system with 50 referrals per week, 50 capacity per week, and a current waiting list of 82.  We have a queue load of 1, so baring natural fluctuation, we would not expect our queue to grow or reduce.
-We, again, have the same target of 92% within 18 weeks (as per example 1).  This means our target average waiting time would be `r round(target_mean_wait, 2)`. 
+In this scenario, we will consider a system with 50 referrals per week, 50 capacity per week, and a current waiting list of 82.  We have a queue load of 1 so, baring natural fluctuation, we would not expect our queue to grow or reduce.
+We have the same target as in scenario 1.: 92% within 18 weeks.  This means our target average waiting time would be `r round(target_mean_wait, 2)`. 
 
 Let's first calculate our target queue length:
 
@@ -228,7 +240,7 @@ queue_growth / weeks_to_grow
 We can then assume a reduced capacity by `r round(queue_growth / weeks_to_grow,2)` per week, and allow the queue to grow.
 In general, if this number is a decimal it is sensible to make the conservative rounding choice that leads to the lower queue growth.  In this case it is to `floor()` the growth to `r floor(queue_growth / weeks_to_grow)`.
 
-We can then verify this using simulation, following the steps in example 1.: set up the waiting list, then simulate with our parameters, then plot:
+We can then verify this using simulation, following the steps in example 1.: set up the waiting list, simulate with our parameters, then plot:
 
 ```{r example_2}
 current_wl2 <-
@@ -260,12 +272,12 @@ ggplot(raised_wl, aes(y = queue_size, x = dates)) +
 
 This more complex example, and we will make two assumptions over a 5-year modelling period:
 
-1. That referrals will grow 5% per year
+1. Referrals will grow 5% per year
 2. In year 3, a service change will come into place that removes 20% of the referrals.
 
 To simulate this, we will need to set up our data inputs to reflect the assumptions.
 We will set up a scenario starting with 100 referrals per week, 100 capacity per week, and a waiting list of 500.
-We will do our range calculations for the sustainable lists, assuming a slightly different target from the first 2 examples: 95% should be seen within 18 weeks.
+We will do our range calculations for the sustainable list size, assuming a slightly different target from the first 2 examples: 95% should be seen within 18 weeks.
 
 ```{r target3}
 # Target mean wait for 95% at 18 weeks
