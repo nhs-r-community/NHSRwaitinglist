@@ -7,7 +7,39 @@
 #' @param start_date date. The start date to calculate from
 #' @param end_date date. The end date to calculate to
 #'
-#' @return data.frame. A df of important waiting list statistics
+#' @return A data.frame of key waiting list summary statistics based on queueing
+#'   theory:
+#'
+#' \describe{
+#'   \item{mean_demand}{Numeric. Mean number of additions to the waiting list
+#'     per week.}
+#'   \item{mean_capacity}{Numeric. Mean number of removals from the waiting list
+#'     per week.}
+#'   \item{load}{Numeric. Ratio between demand and capacity.}
+#'   \item{load_too_big}{Logical. Whether the load is greater than or equal to 1
+#'     i.e. whether the waiting list is unstable and expected to grow.}
+#'   \item{count_demand}{Numeric. Total demand (i.e. referrals) over the full
+#'     time period.}
+#'   \item{queue_size}{Numeric. Number of patients on the waiting list at the
+#'     end of the time period.}
+#'   \item{target_queue_size}{Numeric. Size of waiting list required for the
+#'     average wait time to be a quarter of the \code{target_wait}.}
+#'   \item{queue_too_big}{Logical. Whether \code{queue_size} is more than twice
+#'     the \code{target_queue_size}.}
+#'   \item{mean_wait}{Numeric. Mean waiting time in weeks.}
+#'   \item{cv_arrival}{Numeric. Coefficient of variation in time between
+#'     additions to the waiting list.}
+#'   \item{cv_removal}{Numeric. Coefficient of variation in time between
+#'     removals from the waiting list.}
+#'   \item{target_capacity}{Numeric. The weekly capacity required to maintain
+#'     the waiting list at its target equilibrium, assuming the target queue
+#'       size has been reached.}
+#'   \item{relief_capacity}{Numeric. If \code{queue_too_big} is \code{TRUE},
+#'     the weekly capacity required to reduce the queue to the target size in
+#'     26 weeks. Otherwise \code{NA}.}
+#'   \item{pressure}{Numeric. A measure of pressure on the system, defined as
+#'     \code{2 × mean_wait / target_wait}.}
+#' }
 #'
 #' @export
 #'
