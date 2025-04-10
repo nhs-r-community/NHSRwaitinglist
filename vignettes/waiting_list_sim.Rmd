@@ -82,12 +82,6 @@ For our first scenario, we will assume the service received 100 weekly referrals
 
 Let's imagine our service is already running with a waiting list of 840.  
 
-```{r queue_pressure}
-queue1_pressue <- calc_queue_load()
-queue1_pressue
-```
-
-
 For simulation purposes, we need to set up the current waiting list before we can run the simulation of the future state.  There are few ways to set this up, including supplying a real waiting list, simulate/generate it using the properties of the list, or we can manually dump a load of open pathways into the start of the simulation.  
 
 
