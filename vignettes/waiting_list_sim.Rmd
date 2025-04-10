@@ -362,9 +362,11 @@ queue_over_time <-  wl_queue_size(sim3_period5)
 
 We can now plot and see what our list looks like.  Key points to note are:
 
-* The target queue size is calculated at each `start_date`, i.e. 1st April, and the way the lines are draw connects this points with a straight line.
-* Depending on the variation in the simulation, the waiting list peaks above the sustainable target value in 2025/26, before the demand reduction pulls this list back down to a sustainable size.
-* We have a case for releasing some capacity from late 2026 onwards, as our list is of a sustainable size.
++ The target queue size is calculated at each `start_date`, i.e. 1st April, and the way the lines are draw connects this points with a straight line.
+
++ Depending on the variation in the simulation, the waiting list peaks above the sustainable target value in 2025/26, before the demand reduction pulls this list back down to a sustainable size.
+
++ We have a case for releasing some capacity from late 2026 onwards, as our list is of a sustainable size.
 
 ```{r plot3}
 ggplot(queue_over_time, aes(y = queue_size, x = dates)) +
