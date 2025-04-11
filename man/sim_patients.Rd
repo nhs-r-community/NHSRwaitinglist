@@ -12,7 +12,31 @@ sim_patients(n_rows = 10, start_date = NULL)
 \item{start_date}{Start date (needed to generate patient ages)}
 }
 \value{
-data.frame. Empty waiting list.
+A data.frame representing an empty waiting list with the following columns:
+
+\describe{
+\item{Referral}{Logical. Referral date; all values are \code{NA}.}
+\item{Removal}{Date. Removal date; all values are \code{NA}.}
+\item{Withdrawal}{Logical. Indicates if the patient withdrew before
+treatment; all values are \code{NA}.}
+\item{Priority}{Numeric. Generated Waiting list priority level,
+from 1 (most urgent) to 4 (least urgent).}
+\item{Target_wait}{Numeric. Target number of days the patient should wait
+at the assigned priority level e.g. 28 at priority 2.}
+\item{Name}{Character. Randomly generated patient name in the format
+\code{"Last, First"}.}
+\item{Birth_Date}{Date. Generated patient date of birth, using a
+semi-realistic age distribution.}
+\item{NHS_number}{Integer. Generated patient number up to 1,000,000.}
+\item{Specialty_code}{Character. One-digit code for the specialty of the
+selected procedure.}
+\item{Specialty}{Character. Name of the specialty for the selected
+procedure.}
+\item{OPCS}{Character. OPCS-4 code of the randomly selected procedure.}
+\item{Proceedure}{Character. Name of the randomly selected procedure.}
+\item{Consultant}{Character. Randomly generated consultant name in the
+format \code{"Last, First"}.}
+}
 }
 \description{
 Generates simulated NHS patients
