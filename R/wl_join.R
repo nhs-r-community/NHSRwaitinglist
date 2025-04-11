@@ -7,7 +7,11 @@
 #' @param wl_2 a waiting list: dataframe consisting addition and removal dates
 #' @param referral_index the column index where referrals are listed
 #'
-#' @return updated_list a new waiting list
+#' @return A data.frame representing the combined waiting list, created by
+#'   joining \code{wl_1} and \code{wl_2}. The result is sorted by the referral
+#'   date column specified by \code{referral_index}. The column structure is
+#'   preserved from the input data frames.
+#'
 #' @export
 #'
 #' @examples

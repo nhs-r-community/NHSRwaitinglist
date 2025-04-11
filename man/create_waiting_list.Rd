@@ -39,8 +39,23 @@ as ROTT. Defaults to 0.}
 \item{...}{Container for the list}
 }
 \value{
-A tibble of a random generated list of patients with addition_date,
-removal_date, wait_length and rott status for each patient
+A tibble with randomly generated patient records and the following
+columns:
+
+\describe{
+\item{pat_id}{Integer. Unique identifier for the patient.}
+\item{addition_date}{Date. The date the patient was added to the waiting
+list.}
+\item{removal_date}{Date. The date the patient was removed from the
+waiting list.}
+\item{wait_length}{Numeric. Number of days between the addition and
+removal dates.}
+\item{rott}{Logical. Whether the removal was for
+reasons other than treatment (ROTT).}
+}
+Additional columns may be included if supplied via \code{...},
+where named vectors (e.g., patient-level variables) of compatible length
+are merged into the output tibble.
 }
 \description{
 Creates a waiting list using the parameters specified

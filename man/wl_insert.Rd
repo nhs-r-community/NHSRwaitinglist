@@ -16,7 +16,15 @@ waiting list}
 contains the referral dates}
 }
 \value{
-dataframe. A df of the updated waiting list
+A \code{data.frame} representing the updated waiting list
+with additional referrals dates, with columns:
+
+\describe{
+\item{referral}{Date. The updated referral dates, with new values from
+\code{additions} appended to the existing data.}
+\item{removal}{Date. The removal date for each patient. Newly added
+rows have \code{NA} in this column.}
+}
 }
 \description{
 adds new referrals (removal date is set as NA)

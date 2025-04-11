@@ -30,8 +30,22 @@ If TRUE, returns a list of scheduled and unscheduled procedures
 If FALSE, only returns the updated waiting list}
 }
 \value{
-data.frame. A df of the updated waiting list with removal dates
-added according to the schedule
+The updated waiting list with removal dates assigned based on
+the given schedule, either as a single \code{data.frame} (default) or as
+part of a list (if \code{unscheduled = TRUE}).
+
+If \code{unscheduled = TRUE}, returns a \code{list} with two data frames:
+\enumerate{
+\item A \code{data.frame}. The updated waiting list with scheduled removals.
+\item A \code{data.frame} showing which slots were used, with columns:
+
+\describe{
+\item{schedule}{Date. The available dates from the input
+\code{schedule}.}
+\item{scheduled}{Numeric. \code{1} if the slot was used to schedule a
+patient, \code{0} if not.}
+}
+}
 }
 \description{
 Takes a list of dates and schedules them to a waiting list,

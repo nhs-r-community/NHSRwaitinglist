@@ -14,7 +14,9 @@ sim_schedule(n_rows = 10, start_date = NULL, daily_capacity = 1)
 \item{daily_capacity}{Number of patients per day}
 }
 \value{
-data.frame. Empty waiting list.
+A vector of \code{Date} values representing scheduled procedure
+dates. The length of the vector is equal to \code{n_rows}, and the dates
+are spaced according to the specified \code{daily_capacity}.
 }
 \description{
 Generates a list if dates in a given range
