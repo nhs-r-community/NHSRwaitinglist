@@ -12,7 +12,8 @@ sim_patients(n_rows = 10, start_date = NULL)
 \item{start_date}{Start date (needed to generate patient ages)}
 }
 \value{
-A data.frame representing an empty waiting list with the following columns:
+A data.frame representing an empty waiting list with the
+following columns:
 
 \describe{
 \item{Referral}{Logical. Referral date; all values are \code{NA}.}

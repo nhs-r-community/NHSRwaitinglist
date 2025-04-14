@@ -30,8 +30,10 @@ the specified date range. If \code{start_date} and/or \code{end_date} are
 the input data.frame. The returned data.frame has the following columns:
 
 \describe{
-\item{dates}{Date. Each date within the computed range, starting from the first referral.}
-\item{queue_size}{Numeric. Number of patients on the waiting list on that date.}
+\item{dates}{Date. Each date within the computed range, starting from the
+first referral.}
+\item{queue_size}{Numeric. Number of patients on the waiting list
+on that date.}
 }
 }
 \description{

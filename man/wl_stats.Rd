@@ -25,8 +25,8 @@ per week.}
 \item{mean_capacity}{Numeric. Mean number of removals from the waiting list
 per week.}
 \item{load}{Numeric. Ratio between demand and capacity.}
-\item{load_too_big}{Logical. Whether the load is greater than or equal to 1,
-indicating whether the waiting list is unstable and expected to grow.}
+\item{load_too_big}{Logical. Whether the load is greater than or equal to
+1, indicating whether the waiting list is unstable and expected to grow.}
 \item{count_demand}{Numeric. Total demand (i.e., number of referrals) over
 the full time period.}
 \item{queue_size}{Numeric. Number of patients on the waiting list at the

@@ -12,10 +12,14 @@
 #'   removals/capacity:
 #'
 #' \describe{
-#'   \item{capacity_weekly}{Numeric. Mean number of removals from the waiting list per week.}
-#'   \item{capacity_daily}{Numeric. Mean number of removals from the waiting list per day.}
-#'   \item{capacity_cov}{Numeric. Coefficient of variation in the time between removals from the waiting list.}
-#'   \item{removal_count}{Numeric. Total number of removals from the waiting list over the full time period.}
+#'   \item{capacity_weekly}{Numeric. Mean number of removals from the waiting
+#'     list per week.}
+#'   \item{capacity_daily}{Numeric. Mean number of removals from the waiting
+#'     list per day.}
+#'   \item{capacity_cov}{Numeric. Coefficient of variation in the time between
+#'     removals from the waiting list.}
+#'   \item{removal_count}{Numeric. Total number of removals from the waiting
+#'     list over the full time period.}
 #' }
 #'
 #' @export

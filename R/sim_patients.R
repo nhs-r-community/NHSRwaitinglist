@@ -5,7 +5,8 @@
 #' @param n_rows Number of rows/patients to generate
 #' @param start_date Start date (needed to generate patient ages)
 #'
-#'@return A data.frame representing an empty waiting list with the following columns:
+#'@return A data.frame representing an empty waiting list with the
+#'  following columns:
 #'
 #' \describe{
 #'   \item{Referral}{Logical. Referral date; all values are \code{NA}.}

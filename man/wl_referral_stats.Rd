@@ -25,9 +25,12 @@ A data.frame with the following summary statistics on
 referrals/demand:
 
 \describe{
-\item{demand_weekly}{Numeric. Mean number of additions to the waiting list per week.}
-\item{demand_daily}{Numeric. Mean number of additions to the waiting list per day.}
-\item{demand_cov}{Numeric. Coefficient of variation in the time between additions to the waiting list.}
+\item{demand_weekly}{Numeric. Mean number of additions to the waiting list
+per week.}
+\item{demand_daily}{Numeric. Mean number of additions to the waiting list
+per day.}
+\item{demand_cov}{Numeric. Coefficient of variation in the time between
+additions to the waiting list.}
 \item{demand_count}{Numeric. Total demand over the full time period.}
 }
 }
