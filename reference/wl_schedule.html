@@ -93,9 +93,22 @@ If FALSE, only returns the updated waiting list</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>data.frame. A df of the updated waiting list with removal dates
-added according to the schedule</p>
-    </div>
+    <p>The updated waiting list with removal dates assigned based on
+the given schedule, either as a single <code>data.frame</code> (default) or as
+part of a list (if <code>unscheduled = TRUE</code>).</p>
+<p>If <code>unscheduled = TRUE</code>, returns a <code>list</code> with two data frames:</p><ol><li><p>A <code>data.frame</code>. The updated waiting list with scheduled removals.</p></li>
+<li><p>A <code>data.frame</code> showing which slots were used, with columns:</p>
+<dl><dt>schedule</dt>
+<dd><p>Date. The available dates from the input
+<code>schedule</code>.</p></dd>
+
+<dt>scheduled</dt>
+<dd><p>Numeric. <code>1</code> if the slot was used to schedule a
+patient, <code>0</code> if not.</p></dd>
+
+
+</dl></li>
+</ol></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

@@ -78,8 +78,20 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>a list of dates and queue sizes</p>
-    </div>
+    <p>A data.frame containing the size of the waiting list for each day in
+the specified date range. If <code>start_date</code> and/or <code>end_date</code> are
+<code>NULL</code>, the function uses the earliest and latest referral dates in
+the input data.frame. The returned data.frame has the following columns:</p>
+<dl><dt>dates</dt>
+<dd><p>Date. Each date within the computed range, starting from the
+first referral.</p></dd>
+
+<dt>queue_size</dt>
+<dd><p>Numeric. Number of patients on the waiting list
+on that date.</p></dd>
+
+
+</dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

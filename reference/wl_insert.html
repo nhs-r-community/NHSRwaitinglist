@@ -66,8 +66,18 @@ contains the referral dates</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>dataframe. A df of the updated waiting list</p>
-    </div>
+    <p>A <code>data.frame</code> representing the updated waiting list
+with additional referrals dates, with columns:</p>
+<dl><dt>referral</dt>
+<dd><p>Date. The updated referral dates, with new values from
+<code>additions</code> appended to the existing data.</p></dd>
+
+<dt>removal</dt>
+<dd><p>Date. The removal date for each patient. Newly added
+rows have <code>NA</code> in this column.</p></dd>
+
+
+</dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

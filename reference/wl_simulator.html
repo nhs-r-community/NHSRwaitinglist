@@ -91,8 +91,34 @@ and removal dates</p>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>data.frame. A df of simulated referrals and removals</p>
-    </div>
+    <p>A <code>data.frame</code> simulating a waiting list, with columns:</p>
+<dl><dt>Referral</dt>
+<dd><p>Date. The date each patient was added to the waiting list.</p></dd>
+
+<dt>Removal</dt>
+<dd><p>Date. The date each patient was removed from the waiting
+list (may be <code>NA</code> if unscheduled).</p></dd>
+
+
+If <code>detailed_sim = TRUE</code>: returns a more detailed
+data.frame with the following additional
+fields:
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

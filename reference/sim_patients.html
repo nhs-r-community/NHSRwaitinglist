@@ -60,8 +60,56 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>data.frame. Empty waiting list.</p>
-    </div>
+    <p>A data.frame representing an empty waiting list with the
+following columns:</p>
+<dl><dt>Referral</dt>
+<dd><p>Logical. Referral date; all values are <code>NA</code>.</p></dd>
+
+<dt>Removal</dt>
+<dd><p>Date. Removal date; all values are <code>NA</code>.</p></dd>
+
+<dt>Withdrawal</dt>
+<dd><p>Logical. Patient withdrawal date; all values are
+<code>NA</code></p></dd>
+
+<dt>Priority</dt>
+<dd><p>Numeric. Waiting list priority level, from 1
+(most urgent) to 4 (least urgent).</p></dd>
+
+<dt>Target_wait</dt>
+<dd><p>Numeric. Target number of days the patient should
+wait at the assigned priority level (e.g., 28 days for priority 2)</p></dd>
+
+<dt>Name</dt>
+<dd><p>Character. Patient name in the format
+<code>"Last, First"</code>.</p></dd>
+
+<dt>Birth_Date</dt>
+<dd><p>Date. Date of birth.</p></dd>
+
+<dt>NHS_number</dt>
+<dd><p>Integer. Patient identifier, up to 100,000,000.</p></dd>
+
+<dt>Specialty_code</dt>
+<dd><p>Character. One-letter code representing the
+specialty of the procedure.</p></dd>
+
+<dt>Specialty</dt>
+<dd><p>Character. Full name of the specialty associated with
+the procedure.</p></dd>
+
+<dt>OPCS</dt>
+<dd><p>Character. OPCS-4 code of the selected procedure.</p></dd>
+
+<dt>Proceedure</dt>
+<dd><p>Character. Name of the selected procedure.</p></dd>
+
+<dt>Consultant</dt>
+<dd><p>Character. Consultant name in the format
+<code>"Last, First"</code>.</p></dd>
+
+
+</dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
@@ -78,16 +126,16 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9        NA    &lt;NA&gt;         NA        1           7       Reece, Sabrina</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10       NA    &lt;NA&gt;         NA        1           7       Macias, Monica</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Birth_Date NHS_number Specialty_code</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2019-06-16   18261270              Z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1974-09-24   54583776              B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1988-02-21   29667426              N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2024-02-14   16295646              V</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1981-07-18    1818720              X</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1979-02-02   76107722              N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1972-09-19   83179572              C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1979-09-16   16168471              B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1947-11-18   90652366              Z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1986-07-08   17733190              Z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2019-06-26   18261270              Z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1974-10-04   54583776              B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1988-03-02   29667426              N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2024-02-24   16295646              V</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1981-07-28    1818720              X</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1979-02-12   76107722              N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1972-09-29   83179572              C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1979-09-26   16168471              B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1947-11-28   90652366              Z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1986-07-18   17733190              Z</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                          Specialty OPCS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  Subsidiary Classification of Sites of Operation Z562</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                      Endocrine System and Breast B092</span>

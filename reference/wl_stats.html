@@ -68,8 +68,72 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>data.frame. A df of important waiting list statistics</p>
-    </div>
+    <p>A data.frame of key waiting list summary statistics based on
+queueing theory:</p>
+<dl><dt>mean_demand</dt>
+<dd><p>Numeric. Mean number of additions to the waiting list
+per week.</p></dd>
+
+<dt>mean_capacity</dt>
+<dd><p>Numeric. Mean number of removals from the waiting list
+per week.</p></dd>
+
+<dt>load</dt>
+<dd><p>Numeric. Ratio between demand and capacity.</p></dd>
+
+<dt>load_too_big</dt>
+<dd><p>Logical. Whether the load is greater than or equal to
+1, indicating whether the waiting list is unstable and expected to grow.</p></dd>
+
+<dt>count_demand</dt>
+<dd><p>Numeric. Total demand (i.e., number of referrals) over
+the full time period.</p></dd>
+
+<dt>queue_size</dt>
+<dd><p>Numeric. Number of patients on the waiting list at the
+end of the time period.</p></dd>
+
+<dt>target_queue_size</dt>
+<dd><p>Numeric. The recommended size of the waiting list
+to achieve approximately 98.2% of patients being treated within their
+target wait time. This is based on Little’s Law, assuming the system
+is in equilibrium, with the average waiting time set to one-quarter of
+the <code>target_wait</code>.</p></dd>
+
+<dt>queue_too_big</dt>
+<dd><p>Logical. Whether <code>queue_size</code> is more than twice
+the <code>target_queue_size</code>. A value of <code>TRUE</code> indicates the queue
+is at risk of missing its targets.</p></dd>
+
+<dt>mean_wait</dt>
+<dd><p>Numeric. Mean waiting time in weeks.</p></dd>
+
+<dt>cv_arrival</dt>
+<dd><p>Numeric. Coefficient of variation in the time between
+additions to the waiting list.</p></dd>
+
+<dt>cv_removal</dt>
+<dd><p>Numeric. Coefficient of variation in the time between
+removals from the waiting list.</p></dd>
+
+<dt>target_capacity</dt>
+<dd><p>Numeric. The weekly treatment capacity required to
+maintain the waiting list at its target equilibrium, assuming the target
+queue size has been reached.</p></dd>
+
+<dt>relief_capacity</dt>
+<dd><p>Numeric. The temporary weekly capacity required to
+reduce the waiting list to its <code>target_queue_size</code> within 26 weeks,
+assuming current demand remains steady. Calculated only if
+<code>queue_too_big</code> is <code>TRUE</code>; otherwise returns <code>NA</code>.</p></dd>
+
+<dt>pressure</dt>
+<dd><p>Numeric. A measure of pressure on the system, defined as
+<code>2 × mean_wait / target_wait</code>. Values greater than 1 suggest the
+system is unlikely to meet its waiting time targets.</p></dd>
+
+
+</dl></div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>

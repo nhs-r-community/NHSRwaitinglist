@@ -97,8 +97,31 @@ as ROTT. Defaults to 0.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A tibble of a random generated list of patients with addition_date,
-removal_date, wait_length and rott status for each patient</p>
+    <p>A tibble with randomly generated patient records and the following
+columns:</p>
+<dl><dt>pat_id</dt>
+<dd><p>Integer. Unique identifier for the patient.</p></dd>
+
+<dt>addition_date</dt>
+<dd><p>Date. The date the patient was added to the waiting
+list.</p></dd>
+
+<dt>removal_date</dt>
+<dd><p>Date. The date the patient was removed from the
+waiting list.</p></dd>
+
+<dt>wait_length</dt>
+<dd><p>Numeric. Number of days between the addition and
+removal dates.</p></dd>
+
+<dt>rott</dt>
+<dd><p>Logical. Whether the removal was for
+reasons other than treatment (ROTT).</p></dd>
+
+
+</dl><p>Additional columns may be included if supplied via <code>...</code>,
+where named vectors (e.g., patient-level variables) of compatible length
+are merged into the output tibble.</p>
     </div>
 
     <div class="section level2">
