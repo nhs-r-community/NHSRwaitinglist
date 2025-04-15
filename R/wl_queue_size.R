@@ -9,7 +9,17 @@
 #' @param referral_index the index of referrals in waiting_list
 #' @param removal_index the index of removals in waiting_list
 #'
-#' @return a list of dates and queue sizes
+#' @return A data.frame containing the size of the waiting list for each day in
+#'   the specified date range. If \code{start_date} and/or \code{end_date} are
+#'   \code{NULL}, the function uses the earliest and latest referral dates in
+#'   the input data.frame. The returned data.frame has the following columns:
+#'
+#' \describe{
+#'   \item{dates}{Date. Each date within the computed range, starting from the
+#'     first referral.}
+#'   \item{queue_size}{Numeric. Number of patients on the waiting list
+#'     on that date.}
+#' }
 #' @export
 #'
 #' @examples

@@ -24,7 +24,17 @@ wl_queue_size(
 \item{removal_index}{the index of removals in waiting_list}
 }
 \value{
-a list of dates and queue sizes
+A data.frame containing the size of the waiting list for each day in
+the specified date range. If \code{start_date} and/or \code{end_date} are
+\code{NULL}, the function uses the earliest and latest referral dates in
+the input data.frame. The returned data.frame has the following columns:
+
+\describe{
+\item{dates}{Date. Each date within the computed range, starting from the
+first referral.}
+\item{queue_size}{Numeric. Number of patients on the waiting list
+on that date.}
+}
 }
 \description{
 Calculates queue sizes from a waiting list

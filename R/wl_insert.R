@@ -8,7 +8,15 @@
 #' @param referral_index integer. The column number in the waiting_list which
 #'   contains the referral dates
 #'
-#' @return dataframe. A df of the updated waiting list
+#' @return A \code{data.frame} representing the updated waiting list
+#'   with additional referrals dates, with columns:
+#'
+#' \describe{
+#'   \item{referral}{Date. The updated referral dates, with new values from
+#'     \code{additions} appended to the existing data.}
+#'   \item{removal}{Date. The removal date for each patient. Newly added
+#'     rows have \code{NA} in this column.}
+#' }
 #' @export
 #'
 #' @examples

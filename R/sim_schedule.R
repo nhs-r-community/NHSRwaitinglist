@@ -6,7 +6,10 @@
 #' @param start_date Start date (needed to generate patient ages)
 #' @param daily_capacity Number of patients per day
 #'
-#' @return data.frame. Empty waiting list.
+#' @return A vector of \code{Date} values representing scheduled procedure
+#'   dates. The length of the vector is equal to \code{n_rows}, and the dates
+#'   are spaced according to the specified \code{daily_capacity}.
+#'
 #' @export sim_schedule
 #'
 

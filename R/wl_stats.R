@@ -7,7 +7,45 @@
 #' @param start_date date. The start date to calculate from
 #' @param end_date date. The end date to calculate to
 #'
-#' @return data.frame. A df of important waiting list statistics
+#' @return A data.frame of key waiting list summary statistics based on
+#'   queueing theory:
+#'
+#' \describe{
+#'   \item{mean_demand}{Numeric. Mean number of additions to the waiting list
+#'     per week.}
+#'   \item{mean_capacity}{Numeric. Mean number of removals from the waiting list
+#'     per week.}
+#'   \item{load}{Numeric. Ratio between demand and capacity.}
+#'   \item{load_too_big}{Logical. Whether the load is greater than or equal to
+#'     1, indicating whether the waiting list is unstable and expected to grow.}
+#'   \item{count_demand}{Numeric. Total demand (i.e., number of referrals) over
+#'     the full time period.}
+#'   \item{queue_size}{Numeric. Number of patients on the waiting list at the
+#'     end of the time period.}
+#'   \item{target_queue_size}{Numeric. The recommended size of the waiting list
+#'     to achieve approximately 98.2% of patients being treated within their
+#'     target wait time. This is based on Little’s Law, assuming the system
+#'     is in equilibrium, with the average waiting time set to one-quarter of
+#'     the \code{target_wait}.}
+#'   \item{queue_too_big}{Logical. Whether \code{queue_size} is more than twice
+#'     the \code{target_queue_size}. A value of \code{TRUE} indicates the queue
+#'     is at risk of missing its targets.}
+#'   \item{mean_wait}{Numeric. Mean waiting time in weeks.}
+#'   \item{cv_arrival}{Numeric. Coefficient of variation in the time between
+#'     additions to the waiting list.}
+#'   \item{cv_removal}{Numeric. Coefficient of variation in the time between
+#'     removals from the waiting list.}
+#'   \item{target_capacity}{Numeric. The weekly treatment capacity required to
+#'     maintain the waiting list at its target equilibrium, assuming the target
+#'     queue size has been reached.}
+#'   \item{relief_capacity}{Numeric. The temporary weekly capacity required to
+#'     reduce the waiting list to its \code{target_queue_size} within 26 weeks,
+#'     assuming current demand remains steady. Calculated only if
+#'     \code{queue_too_big} is \code{TRUE}; otherwise returns \code{NA}.}
+#'   \item{pressure}{Numeric. A measure of pressure on the system, defined as
+#'     \code{2 × mean_wait / target_wait}. Values greater than 1 suggest the
+#'     system is unlikely to meet its waiting time targets.}
+#' }
 #'
 #' @export
 #'
