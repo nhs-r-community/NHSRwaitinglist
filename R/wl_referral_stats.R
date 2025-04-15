@@ -7,8 +7,19 @@
 #' @param end_date date. The end date to calculate to
 #' @param referral_index the column index of referrals
 #'
-#' @return data.frame. A df containing number of referrals, mean demand,
-#'   and the coefficient of variation of referrals
+#' @return A data.frame with the following summary statistics on
+#'   referrals/demand:
+#'
+#' \describe{
+#'   \item{demand_weekly}{Numeric. Mean number of additions to the waiting list
+#'     per week.}
+#'   \item{demand_daily}{Numeric. Mean number of additions to the waiting list
+#'     per day.}
+#'   \item{demand_cov}{Numeric. Coefficient of variation in the time between
+#'     additions to the waiting list.}
+#'   \item{demand_count}{Numeric. Total demand over the full time period.}
+#' }
+#'
 #' @export
 #'
 #' @examples

@@ -24,8 +24,19 @@ wl_removal_stats(
 \item{removal_index}{int. Index of the removal column in waiting_list.}
 }
 \value{
-data.frame. A df containing number of removals, mean capacity,
-and the coefficient of variation of removals
+A data.frame with the following summary statistics on
+removals/capacity:
+
+\describe{
+\item{capacity_weekly}{Numeric. Mean number of removals from the waiting
+list per week.}
+\item{capacity_daily}{Numeric. Mean number of removals from the waiting
+list per day.}
+\item{capacity_cov}{Numeric. Coefficient of variation in the time between
+removals from the waiting list.}
+\item{removal_count}{Numeric. Total number of removals from the waiting
+list over the full time period.}
+}
 }
 \description{
 Calculate some stats about removals
