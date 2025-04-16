@@ -443,7 +443,7 @@ We can now produce a similar plot to the one in section 1, but using the average
 
 ```{r montecarlo_3}
 ggplot(mc_bind, aes(x = dates)) +
-  geom_line(aes(y = queue_size, group = i), alpha = 0.5, col="grey") +
+  geom_line(aes(y = queue_size, group = i), alpha = 0.5, col = "grey") +
   geom_ribbon(aes(y = mean_q, ymin = lower_95CI, ymax = upper_95CI)
               , alpha = 0.5, data = mc_agg, fill = "red") +
   geom_line(aes(y = mean_q), data = mc_agg, col = "black") +
