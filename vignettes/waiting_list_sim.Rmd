@@ -50,9 +50,12 @@ We will imagine three scenarios where we want to use simulation to project our w
 3. how our list will change with referral growth and a service change
 
 
+The final example will demonstrate averaging over repeated simulation, and estimating uncertainty, using Monte Carlo methods.
+
+
+
 __Please remember that the examples here are simulations.  They will vary due to chance each time they are run, and that is their strength.  Do not expect to get exactly the same result when repeating; expect to get the same average results.__
 
-The final example will discuss estimating uncertainty in these simulations through Monte Carlo methods.
 
 
 # Set-up
@@ -397,19 +400,25 @@ Using example 1., we can repeatedly run it in several ways. This method wraps th
 
 ```{r montecarlo_1}
 sim_func <- function() {
+  i <<- i + 1L # manually add an iterator
   sim <- wl_simulator(start_date = as.Date("2023-04-01"),
                       end_date = as.Date("2024-03-31"),
                       demand = 100,
                       capacity = 105,
                       waiting_list = current_wl1)
-  wl_queue_size(sim)
+  cbind(wl_queue_size(sim), i)
 }
+
+# initialise iterator
+i <- 0L
 
 raised_capacity_wl_mc <-
   replicate(50, sim_func(), simplify = FALSE)
 ```
 
-The replicate function above runs the simulation 50 times, and returns a list of the 50 replicates.  We then need to reformat this list and chose how we will average over the events.  In the example below, I pull it into a single table then aggregate by average values per day.  This will not always be the right approach, but it depends on your question.  In this case, it helps give a more robust estimate of the average effects and allows us to put percentile or confidence interval ranges around them.
+The replicate function above runs the simulation 50 times, and returns a list of the 50 replicates. In reality, we would run it many more times than this, but 50 keeps this vignette's build time to a minimum and leads to wider more visible confidence interval in the chart below.
+
+We then need to take our output, reformat the list, and chose how we will average over the events.  In the example below, I pull it into a single table then aggregate by average values per day.  This will not always be the right approach, but it depends on your question.  In this case, it helps give a more robust estimate of the average effects and allows us to put point-wise percentile range or confidence interval around them, using the daily means of the simulation.  Alternatives might be to fit linear or non-linear models across the range and use the confidence intervals / bands from this approach, as demonstrated in [this vignette](https://cran.r-project.org/web/packages/nlraa/vignettes/Confidence-Bands.html) from the `nlraa` package.
 
 ```{r montecarlo_2}
 mc_bind <- do.call("rbind", raised_capacity_wl_mc)
@@ -420,10 +429,8 @@ mc_agg <-
     , FUN = \(x) {
       c(mean_q = mean(x),
         median_q = median(x),
-        lower_95CI = mean(x) -
-          (qnorm(0.975) * (sd(x) / sqrt(length(x)))),
-        upper_95CI = mean(x) +
-          (qnorm(0.975) * (sd(x) / sqrt(length(x)))),
+        lower_95CI = mean(x) -  (1.96 * (sd(x) / sqrt(length(x)))),
+        upper_95CI = mean(x) +  (1.96 * (sd(x) / sqrt(length(x)))),
         q_25 = quantile(x, .025, names = FALSE),
         q_75 = quantile(x, .975, names = FALSE))
     }
@@ -435,10 +442,11 @@ mc_agg <- data.frame(dates = as.Date(mc_agg$dates), unlist(mc_agg$queue_size))
 We can now produce a similar plot to the one in section 1, but using the average value and 95% confidence interval.
 
 ```{r montecarlo_3}
-ggplot(mc_agg, aes(y = mean_q, x = dates)) +
-  geom_line() +
-  geom_ribbon(aes(ymin = lower_95CI, ymax = upper_95CI)
-              , alpha = 0.5, linetype = "dotted") +
+ggplot(mc_bind, aes(x = dates)) +
+  geom_line(aes(y = queue_size, group = i), alpha = 0.5, col="grey") +
+  geom_ribbon(aes(y = mean_q, ymin = lower_95CI, ymax = upper_95CI)
+              , alpha = 0.5, data = mc_agg, fill = "red") +
+  geom_line(aes(y = mean_q), data = mc_agg, col = "black") +
   geom_hline(yintercept = target_queue1, colour = "#440154FF") +
   annotate("text", label = "Target queue size", x = as.Date("2024-02-01")
            , y = target_queue1, vjust = -1, colour = "#440154FF") +
