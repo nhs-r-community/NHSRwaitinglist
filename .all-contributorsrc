@@ -85,6 +85,15 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "video",
+      "name": "video",
+      "avatar_url": "https://avatars.githubusercontent.com/u/10547?v=4",
+      "profile": "https://github.com/video",
+      "contributions": [
+        "video"
+      ]
     }
   ],
   "contributorsPerLine": 7,
