@@ -74,6 +74,17 @@
         "code",
         "doc"
       ]
+    },
+    {
+      "login": "davidfoord1",
+      "name": "David Foord",
+      "avatar_url": "https://avatars.githubusercontent.com/u/140633967?v=4",
+      "profile": "https://github.com/davidfoord1",
+      "contributions": [
+        "bug",
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
