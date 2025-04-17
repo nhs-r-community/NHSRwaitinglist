@@ -19,7 +19,7 @@
 #'     wait at the assigned priority level (e.g., 28 days for priority 2)}
 #'   \item{Name}{Character. Patient name in the format
 #'     \code{"Last, First"}.}
-#'   \item{Birth_Date}{Date. Date of birth.}
+#'   \item{Birth_date}{Date. Date of birth.}
 #'   \item{NHS_number}{Integer. Patient identifier, up to 100,000,000.}
 #'   \item{Specialty_code}{Character. One-letter code representing the
 #'     specialty of the procedure.}
@@ -88,7 +88,7 @@ sim_patients <- function(
     Priority = priority,
     Target_wait = target_wait,
     Name = names,
-    Birth_Date = dobs,
+    Birth_date = dobs,
     NHS_number = nhs_number,
     Specialty_code = procedures$code_1digit,
     Specialty = procedures$name_1digit,
