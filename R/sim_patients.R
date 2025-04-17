@@ -9,9 +9,9 @@
 #'  following columns:
 #'
 #' \describe{
-#'   \item{Referral}{Logical. Referral date; all values are \code{NA}.}
+#'   \item{Referral}{Date. Referral date; all values are \code{NA}.}
 #'   \item{Removal}{Date. Removal date; all values are \code{NA}.}
-#'   \item{Withdrawal}{Logical. Patient withdrawal date; all values are
+#'   \item{Withdrawal}{Date. Patient withdrawal date; all values are
 #'     \code{NA}}
 #'   \item{Priority}{Numeric. Waiting list priority level, from 1
 #'     (most urgent) to 4 (least urgent).}
@@ -19,14 +19,14 @@
 #'     wait at the assigned priority level (e.g., 28 days for priority 2)}
 #'   \item{Name}{Character. Patient name in the format
 #'     \code{"Last, First"}.}
-#'   \item{Birth_Date}{Date. Date of birth.}
+#'   \item{Birth_date}{Date. Date of birth.}
 #'   \item{NHS_number}{Integer. Patient identifier, up to 100,000,000.}
 #'   \item{Specialty_code}{Character. One-letter code representing the
 #'     specialty of the procedure.}
 #'   \item{Specialty}{Character. Full name of the specialty associated with
 #'     the procedure.}
 #'   \item{OPCS}{Character. OPCS-4 code of the selected procedure.}
-#'   \item{Proceedure}{Character. Name of the selected procedure.}
+#'   \item{Procedure}{Character. Name of the selected procedure.}
 #'   \item{Consultant}{Character. Consultant name in the format
 #'     \code{"Last, First"}.}
 #'  }
@@ -49,7 +49,7 @@ sim_patients <- function(
   # get procedures
   ops <- opcs4[(opcs4$selectable == "Y") & (!is.na(opcs4$name_4digit)), ]
   ran <- ops[sample(nrow(ops), n_rows, replace = TRUE), ]
-  proceedures <-
+  procedures <-
     ran[c("code_1digit", "name_1digit", "code_4digit", "name_4digit")]
 
   # get names consultants and NHS numbers (length actually too short)
@@ -77,23 +77,21 @@ sim_patients <- function(
   target_wait <- sapply(priority, calc_priority_to_target)
 
   # referral, removal, withdrawal columns
-  referral <- c(rep(NA, n_rows))
-  removal <- as.Date(c(rep(NA, n_rows)))
-  withdrawal <- c(rep(NA, n_rows))
+  empty_date_vector <- as.Date(rep(NA, n_rows))
 
   waiting_list <- data.frame(
-    Referral = referral,
-    Removal = removal,
-    Withdrawal = withdrawal,
+    Referral = empty_date_vector,
+    Removal = empty_date_vector,
+    Withdrawal = empty_date_vector,
     Priority = priority,
     Target_wait = target_wait,
     Name = names,
-    Birth_Date = dobs,
+    Birth_date = dobs,
     NHS_number = nhs_number,
-    Specialty_code = proceedures$code_1digit,
-    Specialty = proceedures$name_1digit,
-    OPCS = proceedures$code_4digit,
-    Proceedure = proceedures$name_4digit,
+    Specialty_code = procedures$code_1digit,
+    Specialty = procedures$name_1digit,
+    OPCS = procedures$code_4digit,
+    Procedure = procedures$name_4digit,
     Consultant = consultant
   )
 

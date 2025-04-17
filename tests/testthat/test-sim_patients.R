@@ -9,16 +9,16 @@ test_that("sim_patients returns the correct columns", {
   result <- sim_patients(n_rows = 10)
   expected_columns <- c("Referral", "Removal", "Withdrawal", "Priority"
                         , "Target_wait", "Name",
-                        "Birth_Date", "NHS_number", "Specialty_code",
+                        "Birth_date", "NHS_number", "Specialty_code",
                         "Specialty", "OPCS",
-                        "Proceedure", "Consultant")
+                        "Procedure", "Consultant")
   expect_true(all(expected_columns %in% colnames(result)))
 })
 
 # Test for handling missing start_date (default to current date)
 test_that("sim_patients handles missing start_date by using Sys.Date()", {
   result <- sim_patients(n_rows = 5)
-  expect_s3_class(result$Birth_Date, "Date")  # Check if birth_date is assigned
+  expect_s3_class(result$Birth_date, "Date")  # Check if birth_date is assigned
 })
 
 # Test if priority values are within the expected range (1-4)
