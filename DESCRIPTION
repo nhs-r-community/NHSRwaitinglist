@@ -8,8 +8,10 @@ Authors@R: c(
           person("Matt", "Dray", , "matt.dray@nhs.net", "aut"),
           person("Paul", "Fenton", , "paul.fenton@nca.nhs.uk", "ctb"),
           person("Peter", "Shakeshaft", , "peter.shakeshaft1@nhs.net", "ctb"),
+          person("David", "Foord", , "david.foord1@nhs.net", "ctb"),
           person("Tom", "Smith", ,"thomas.smith103@nhs.net", "aut"),
           person("Chris", "Mainey", ,"c.mainey1@nhs.net", c("cre","aut"), comment = c(ORCID ="0000-0002-3018-6171")),
+          person("Mohammed", "Mohammed", , "m.mohammed2@nhs.net", "ctb"),
           person("NHS-R community", email = "nhs.rcommunity@nhs.net", role = "cph")
           )
 Maintainer: Chris Mainey <c.mainey1@nhs.net>
@@ -19,7 +21,8 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
 VignetteBuilder: knitr
-URL: https://nhs-r-community.github.io/NHSRwaitinglist/
+URL: https://nhs-r-community.github.io/NHSRwaitinglist/, https://github.com/nhs-r-community/NHSRwaitinglist
+BugReports: https://github.com/nhs-r-community/NHSRwaitinglist/issues
 Config/testthat/edition: 3
 Imports: 
     cli,
@@ -37,3 +40,4 @@ Suggests:
 Depends: 
     R (>= 3.5.0)
 LazyData: true
+Language: en-GB
