@@ -169,6 +169,7 @@ key](https://allcontributors.org/docs/en/emoji-key)):
     </tr>
     <tr>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/davidfoord1"><img src="https://avatars.githubusercontent.com/u/140633967?v=4?s=100" width="100px;" alt="David Foord"/><br /><sub><b>David Foord</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/issues?q=author%3Adavidfoord1" title="Bug reports">🐛</a> <a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=davidfoord1" title="Code">💻</a> <a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=davidfoord1" title="Documentation">📖</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/video"><img src="https://avatars.githubusercontent.com/u/10547?v=4?s=100" width="100px;" alt="video"/><br /><sub><b>video</b></sub></a><br /><a href="#video-video" title="Videos">📹</a></td>
     </tr>
   </tbody>
 </table>
