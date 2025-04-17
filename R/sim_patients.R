@@ -26,7 +26,7 @@
 #'   \item{Specialty}{Character. Full name of the specialty associated with
 #'     the procedure.}
 #'   \item{OPCS}{Character. OPCS-4 code of the selected procedure.}
-#'   \item{Proceedure}{Character. Name of the selected procedure.}
+#'   \item{Procedure}{Character. Name of the selected procedure.}
 #'   \item{Consultant}{Character. Consultant name in the format
 #'     \code{"Last, First"}.}
 #'  }
@@ -49,7 +49,7 @@ sim_patients <- function(
   # get procedures
   ops <- opcs4[(opcs4$selectable == "Y") & (!is.na(opcs4$name_4digit)), ]
   ran <- ops[sample(nrow(ops), n_rows, replace = TRUE), ]
-  proceedures <-
+  procedures <-
     ran[c("code_1digit", "name_1digit", "code_4digit", "name_4digit")]
 
   # get names consultants and NHS numbers (length actually too short)
@@ -90,10 +90,10 @@ sim_patients <- function(
     Name = names,
     Birth_Date = dobs,
     NHS_number = nhs_number,
-    Specialty_code = proceedures$code_1digit,
-    Specialty = proceedures$name_1digit,
-    OPCS = proceedures$code_4digit,
-    Proceedure = proceedures$name_4digit,
+    Specialty_code = procedures$code_1digit,
+    Specialty = procedures$name_1digit,
+    OPCS = procedures$code_4digit,
+    Procedure = procedures$name_4digit,
     Consultant = consultant
   )
 

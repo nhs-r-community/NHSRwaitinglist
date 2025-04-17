@@ -11,7 +11,7 @@ test_that("sim_patients returns the correct columns", {
                         , "Target_wait", "Name",
                         "Birth_Date", "NHS_number", "Specialty_code",
                         "Specialty", "OPCS",
-                        "Proceedure", "Consultant")
+                        "Procedure", "Consultant")
   expect_true(all(expected_columns %in% colnames(result)))
 })
 
