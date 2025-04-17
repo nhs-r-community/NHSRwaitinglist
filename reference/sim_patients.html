@@ -63,13 +63,13 @@
     <p>A data.frame representing an empty waiting list with the
 following columns:</p>
 <dl><dt>Referral</dt>
-<dd><p>Logical. Referral date; all values are <code>NA</code>.</p></dd>
+<dd><p>Date. Referral date; all values are <code>NA</code>.</p></dd>
 
 <dt>Removal</dt>
 <dd><p>Date. Removal date; all values are <code>NA</code>.</p></dd>
 
 <dt>Withdrawal</dt>
-<dd><p>Logical. Patient withdrawal date; all values are
+<dd><p>Date. Patient withdrawal date; all values are
 <code>NA</code></p></dd>
 
 <dt>Priority</dt>
@@ -84,7 +84,7 @@ wait at the assigned priority level (e.g., 28 days for priority 2)</p></dd>
 <dd><p>Character. Patient name in the format
 <code>"Last, First"</code>.</p></dd>
 
-<dt>Birth_Date</dt>
+<dt>Birth_date</dt>
 <dd><p>Date. Date of birth.</p></dd>
 
 <dt>NHS_number</dt>
@@ -101,7 +101,7 @@ the procedure.</p></dd>
 <dt>OPCS</dt>
 <dd><p>Character. OPCS-4 code of the selected procedure.</p></dd>
 
-<dt>Proceedure</dt>
+<dt>Procedure</dt>
 <dd><p>Character. Name of the selected procedure.</p></dd>
 
 <dt>Consultant</dt>
@@ -115,27 +115,27 @@ the procedure.</p></dd>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">sim_patients</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    Referral Removal Withdrawal Priority Target_wait                 Name</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1        NA    &lt;NA&gt;         NA        4         365      Wheeler, Cierra</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2        NA    &lt;NA&gt;         NA        2          28       Johnson, Jalen</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3        NA    &lt;NA&gt;         NA        1           7       el-Mian, Hamza</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4        NA    &lt;NA&gt;         NA        4         365 Maldonado, Francesco</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5        NA    &lt;NA&gt;         NA        4         365       Wesley, Kaylah</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6        NA    &lt;NA&gt;         NA        4         365       Xiong, Joachim</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7        NA    &lt;NA&gt;         NA        4         365    al-Muhammed, Huda</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8        NA    &lt;NA&gt;         NA        4         365       Rivera, Monica</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9        NA    &lt;NA&gt;         NA        1           7       Reece, Sabrina</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10       NA    &lt;NA&gt;         NA        1           7       Macias, Monica</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    Birth_Date NHS_number Specialty_code</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2019-06-26   18261270              Z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1974-10-04   54583776              B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1988-03-02   29667426              N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2024-02-24   16295646              V</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1981-07-28    1818720              X</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1979-02-12   76107722              N</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1972-09-29   83179572              C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1979-09-26   16168471              B</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1947-11-28   90652366              Z</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1986-07-18   17733190              Z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1      &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;        4         365      Wheeler, Cierra</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2      &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;        2          28       Johnson, Jalen</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3      &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;        1           7       el-Mian, Hamza</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4      &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;        4         365 Maldonado, Francesco</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5      &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;        4         365       Wesley, Kaylah</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6      &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;        4         365       Xiong, Joachim</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7      &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;        4         365    al-Muhammed, Huda</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8      &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;        4         365       Rivera, Monica</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9      &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;        1           7       Reece, Sabrina</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10     &lt;NA&gt;    &lt;NA&gt;       &lt;NA&gt;        1           7       Macias, Monica</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Birth_date NHS_number Specialty_code</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  2019-06-28   18261270              Z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  1974-10-06   54583776              B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3  1988-03-04   29667426              N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  2024-02-26   16295646              V</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  1981-07-30    1818720              X</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  1979-02-14   76107722              N</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  1972-10-01   83179572              C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8  1979-09-28   16168471              B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  1947-11-30   90652366              Z</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 1986-07-20   17733190              Z</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                          Specialty OPCS</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  Subsidiary Classification of Sites of Operation Z562</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                      Endocrine System and Breast B092</span>
@@ -147,7 +147,7 @@ the procedure.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8                      Endocrine System and Breast B098</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9  Subsidiary Classification of Sites of Operation Z033</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 Subsidiary Classification of Sites of Operation Z792</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                       Proceedure</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                        Procedure</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                            Z56.2 Thenar muscle</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                    B09.2 Excision of sublingual thyroid tissue</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                     N15.9 Unspecified operations on epididymis</span>

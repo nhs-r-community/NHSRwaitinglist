@@ -100,22 +100,49 @@ and removal dates</p>
 list (may be <code>NA</code> if unscheduled).</p></dd>
 
 
-If <code>detailed_sim = TRUE</code>: returns a more detailed
+If <code>detailed_sim = TRUE</code>, returns a more detailed
 data.frame with the following additional
 fields:
 
+<dt>Withdrawal</dt>
+<dd><p>Date. The date the patient withdrew from the
+waiting list.</p></dd>
 
+<dt>Priority</dt>
+<dd><p>Numeric. Waiting list priority level, from 1
+(most urgent) to 4 (least urgent).</p></dd>
 
+<dt>Target_wait</dt>
+<dd><p>Numeric. Target number of days the patient should
+wait at the assigned priority level (e.g., 28 days for priority 2)</p></dd>
 
+<dt>Name</dt>
+<dd><p>Character. Patient name in the format
+<code>"Last, First"</code>.</p></dd>
 
+<dt>Birth_date</dt>
+<dd><p>Date. Date of birth.</p></dd>
 
+<dt>NHS_number</dt>
+<dd><p>Integer. Patient identifier, up to 100,000,000.</p></dd>
 
+<dt>Specialty_code</dt>
+<dd><p>Character. One-letter code representing the
+specialty of the procedure.</p></dd>
 
+<dt>Specialty</dt>
+<dd><p>Character. Full name of the specialty associated with
+the procedure.</p></dd>
 
+<dt>OPCS</dt>
+<dd><p>Character. OPCS-4 code of the selected procedure.</p></dd>
 
+<dt>Procedure</dt>
+<dd><p>Character. Name of the selected procedure.</p></dd>
 
-
-
+<dt>Consultant</dt>
+<dd><p>Character. Consultant name in the format
+<code>"Last, First"</code>.</p></dd>
 
 
 </dl></div>
