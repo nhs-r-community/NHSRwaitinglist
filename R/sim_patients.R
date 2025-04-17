@@ -9,9 +9,9 @@
 #'  following columns:
 #'
 #' \describe{
-#'   \item{Referral}{Logical. Referral date; all values are \code{NA}.}
+#'   \item{Referral}{Date. Referral date; all values are \code{NA}.}
 #'   \item{Removal}{Date. Removal date; all values are \code{NA}.}
-#'   \item{Withdrawal}{Logical. Patient withdrawal date; all values are
+#'   \item{Withdrawal}{Date. Patient withdrawal date; all values are
 #'     \code{NA}}
 #'   \item{Priority}{Numeric. Waiting list priority level, from 1
 #'     (most urgent) to 4 (least urgent).}
@@ -77,14 +77,12 @@ sim_patients <- function(
   target_wait <- sapply(priority, calc_priority_to_target)
 
   # referral, removal, withdrawal columns
-  referral <- c(rep(NA, n_rows))
-  removal <- as.Date(c(rep(NA, n_rows)))
-  withdrawal <- c(rep(NA, n_rows))
+  empty_date_vector <- as.Date(rep(NA, n_rows))
 
   waiting_list <- data.frame(
-    Referral = referral,
-    Removal = removal,
-    Withdrawal = withdrawal,
+    Referral = empty_date_vector,
+    Removal = empty_date_vector,
+    Withdrawal = empty_date_vector,
     Priority = priority,
     Target_wait = target_wait,
     Name = names,
