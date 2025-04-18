@@ -7,27 +7,22 @@
 wl_insert(waiting_list, additions, referral_index = 1)
 }
 \arguments{
-\item{waiting_list}{dataframe. A df of referral dates and removals}
+\item{waiting_list}{data.frame. A df of referral dates and removals}
 
-\item{additions}{character vector. A list of referral dates to add to the
-waiting list}
+\item{additions}{Character or Date vector. A list of referral dates to add to
+the waiting list}
 
-\item{referral_index}{integer. The column number in the waiting_list which
-contains the referral dates}
+\item{referral_index}{The index of the column in \code{waiting_list} which
+contains the referral dates. Defaults to the first column.}
 }
 \value{
-A \code{data.frame} representing the updated waiting list
-with additional referrals dates, with columns:
-
-\describe{
-\item{referral}{Date. The updated referral dates, with new values from
-\code{additions} appended to the existing data.}
-\item{removal}{Date. The removal date for each patient. Newly added
-rows have \code{NA} in this column.}
-}
+A \code{data.frame} representing the updated waiting list,
+with additional referrals dates in the column specified by
+\code{referral_index}. Other columns are filled with \code{NA} in the
+new rows. The result is sorted by the referral column.
 }
 \description{
-adds new referrals (removal date is set as NA)
+Adds new referrals, with other columns set as \code{NA}.
 }
 \examples{
 referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
