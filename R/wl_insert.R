@@ -27,10 +27,11 @@
 #' longer_waiting_list <- wl_insert(waiting_list, additions)
 #'
 wl_insert <- function(waiting_list, additions, referral_index = 1) {
-  new_rows <- data.frame(
-    "referral" = additions,
-    "removal" = rep(as.Date(NA), length(additions))
-  )
+  # keep waiting_list structure and fill with NAs
+  new_rows <- waiting_list[0, ]
+  new_rows[seq_along(additions), ] <- NA
+
+  new_rows[referral_index] <- additions
 
   # recombine to update list
   updated_list <- rbind(waiting_list, new_rows)
