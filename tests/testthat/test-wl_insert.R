@@ -43,3 +43,42 @@ test_that("inserting to list returns right output", {
   em <- "wl_insert(): expected result for test data including sorting."
   expect_identical(wl_insert(wl1, additions), expected_out)
 })
+
+test_that("the column receiving additions is defined by the index", {
+  referral_index <- 2
+  other_index <- 1
+
+  test_output <- wl_insert(wl1,
+                           additions,
+                           referral_index = referral_index)
+
+  # no NAs added at chosen index
+  expect_equal(
+    sum(is.na(test_output[[referral_index]])),
+    sum(is.na(wl1[[referral_index]]))
+  )
+
+  # NAs added elsewhere
+  expect_gt(
+    sum(is.na(test_output[[other_index]])),
+    sum(is.na(wl1[[other_index]]))
+  )
+})
+
+test_that("valid indexes of different types work", {
+  # numeric
+  expect_identical(wl_insert(wl1,
+                             additions,
+                             referral_index = 1),
+                   expected_out)
+  # character
+  expect_identical(wl_insert(wl1,
+                             additions,
+                             referral_index = "referral"),
+                   expected_out)
+  # logical
+  expect_identical(wl_insert(wl1,
+                             additions,
+                             referral_index = c(TRUE, FALSE)),
+                   expected_out)
+})
