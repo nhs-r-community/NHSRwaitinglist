@@ -1,22 +1,18 @@
 #' @title Insert new referrals into the waiting list
 #'
-#' @description adds new referrals (removal date is set as NA)
+#' @description Adds new referrals, with other columns set as \code{NA}.
 #'
-#' @param waiting_list dataframe. A df of referral dates and removals
-#' @param additions character vector. A list of referral dates to add to the
-#'   waiting list
-#' @param referral_index integer. The column number in the waiting_list which
-#'   contains the referral dates
+#' @param waiting_list data.frame. A df of referral dates and removals
+#' @param additions Character or Date vector. A list of referral dates to add to
+#'   the waiting list
+#' @param referral_index The index of the column in \code{waiting_list} which
+#'   contains the referral dates. Defaults to the first column.
 #'
-#' @return A \code{data.frame} representing the updated waiting list
-#'   with additional referrals dates, with columns:
+#' @return A \code{data.frame} representing the updated waiting list,
+#'   with additional referrals dates in the column specified by
+#'   \code{referral_index}. Other columns are filled with \code{NA} in the
+#'   new rows. The result is sorted by the referral column.
 #'
-#' \describe{
-#'   \item{referral}{Date. The updated referral dates, with new values from
-#'     \code{additions} appended to the existing data.}
-#'   \item{removal}{Date. The removal date for each patient. Newly added
-#'     rows have \code{NA} in this column.}
-#' }
 #' @export
 #'
 #' @examples
