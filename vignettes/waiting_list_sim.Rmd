@@ -1,8 +1,8 @@
 ---
-title: "Simulating waiting lists"
+title: "Exploring waiting list management strategies with simulation"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Simulating waiting lists}
+  %\VignetteIndexEntry{Exploring with simulation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,6 +14,7 @@ knitr::opts_chunk$set(
   fig.height = 5,
   fig.width = 8
 )
+options(rmarkdown.html_vignette.check_title = FALSE)
 ```
 
 ```{r setup}
@@ -27,6 +28,10 @@ theme_set(
       plot.subtitle = element_text(face = "italic")
     )
 )
+
+# Fix the random number seed for this vignette
+# Don't do this is real world application
+set.seed(123)
 ```
 
 # Introduction
@@ -221,7 +226,7 @@ target_queue2 <-
 target_queue2
 ```
 
-Our current waiting list is 82, with a target of: `r round(target_queue2,2)`.  This means we can afford to let our queue size increase to `r round(target_queue2 - 82,2)`.
+Our current waiting list is 82, with a target of: `r round(target_queue2,2)`.  This means we can afford to let our queue size increase by `r round(target_queue2 - 82,2)`.
 
 If we are willing to let our waiting list grow over the next 6 months, this equates to:
 
@@ -267,7 +272,7 @@ ggplot(raised_wl, aes(y = queue_size, x = dates)) +
 
 # 3. How our list will change with referral growth / service change
 
-This more complex example, and we will make two assumptions over a 5-year modelling period:
+This is a more complicated example where we will make two assumptions over a 5-year modelling period:
 
 1. Referrals will grow 5% per year
 2. In year 3, a service change will come into place that removes 20% of the referrals.
@@ -323,10 +328,15 @@ current_wl3 <-
 ```
 
 
-We then run the first line of the table through the simulation. with the current waiting list: 
+We now need to run the simulation for each line of our control table.  A handy way to capture this in `R` is to use a `list()`.
+First we will initialise a list of the right size to receive our output, as this is an efficient way to capture it. We can run the first line of the table through the simulation with the current waiting list: 
 
 ```{r sim3_1}
-sim3_period1 <-
+# Initialise a list of the same length as the table
+sim3 <- list(NROW(ctrl_tbl))
+
+# Run the first line and current waiting list
+sim3[[1]] <- 
   wl_simulator(start_date = ctrl_tbl$start_date[1]
                , end_date = ctrl_tbl$end_date[1]
                , demand = ctrl_tbl$demand[1]
@@ -334,27 +344,21 @@ sim3_period1 <-
                , waiting_list = current_wl3)
 ```
 
-We can now loop through the rest of the table using a mechanism such as a loop:
+We can now run through the rest of the table using a loop, referencing the last run as our waiting list e.g. during run 2, our waiting list is run 1, achieved by the `sim3[[i - 1]]`:
 
 ```{r sim3_loop}
 # Loop through and simulate each section
-# Loop pick up each previous waiting list
-# using the 'eval(call("<-")...) allows dynamic naming for each loop
+# Loop picks up each previous waiting list
 for (i in seq(2, 5)) {
-  eval(
-    call("<-"
-      , as.name(paste0("sim3_period", as.character(i)))
-      , wl_simulator(start_date = ctrl_tbl$start_date[i]
-                     , end_date = ctrl_tbl$end_date[i]
-                     , demand = ctrl_tbl$demand[i]
-                     , capacity = ctrl_tbl$capacity[i]
-                     , waiting_list =
-                       get(paste0("sim3_period", as.character(i - 1))))
-    )
-  )
+  sim3[[i]] <-
+    wl_simulator(start_date = ctrl_tbl$start_date[i]
+                 , end_date = ctrl_tbl$end_date[i]
+                 , demand = ctrl_tbl$demand[i]
+                 , capacity = ctrl_tbl$capacity[i]
+                 , waiting_list = sim3[[i - 1]])
 }
 
-queue_over_time <-  wl_queue_size(sim3_period5)
+queue_over_time <- wl_queue_size(sim3[[5]])
 ```
 
 We can now plot and see what our list looks like.  Key points to note are:
@@ -399,21 +403,20 @@ Using example 1., we can repeatedly run it in several ways. This method wraps th
 
 
 ```{r montecarlo_1}
-sim_func <- function() {
-  i <<- i + 1L # manually add an iterator
+sim_func <- function(run_id) {
   sim <- wl_simulator(start_date = as.Date("2023-04-01"),
                       end_date = as.Date("2024-03-31"),
                       demand = 100,
                       capacity = 105,
                       waiting_list = current_wl1)
-  cbind(wl_queue_size(sim), i)
+                      
+  cbind(wl_queue_size(sim), run_id)
 }
 
-# initialise iterator
-i <- 0L
+# sequence to iterate over
+run_sequence <- 1:50
 
-raised_capacity_wl_mc <-
-  replicate(50, sim_func(), simplify = FALSE)
+raised_capacity_wl_mc <- lapply(run_sequence, sim_func)
 ```
 
 The replicate function above runs the simulation 50 times, and returns a list of the 50 replicates. In reality, we would run it many more times than this, but 50 keeps this vignette's build time to a minimum and leads to wider more visible confidence interval in the chart below.
