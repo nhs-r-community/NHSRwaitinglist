@@ -35,6 +35,7 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/example_walkthrough.html">Walkthrough of waiting list functions</a></li>
     <li><a class="dropdown-item" href="../articles/three_example_waiting_lists.html">Three example waiting lists</a></li>
+    <li><a class="dropdown-item" href="../articles/waiting_list_sim.html">Exploring waiting list management strategies with simulation</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -43,6 +44,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/nhs-r-community/NHSRwaitinglist/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -59,7 +61,7 @@
       <h1>Walkthrough of waiting list functions</h1>
             
       
-
+      <small class="dont-index">Source: <a href="https://github.com/nhs-r-community/NHSRwaitinglist/blob/main/vignettes/example_walkthrough.Rmd" class="external-link"><code>vignettes/example_walkthrough.Rmd</code></a></small>
       <div class="d-none name"><code>example_walkthrough.Rmd</code></div>
     </div>
 
@@ -271,22 +273,24 @@ capacity required to maintain equilibrium.</p>
 <span></span>
 <span><span class="va">target_capacity_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_target_capacity.html">calc_target_capacity</a></span><span class="op">(</span></span>
 <span>  demand <span class="op">=</span> <span class="va">demand</span>,</span>
-<span>  target_wait <span class="op">=</span> <span class="va">waiting_time_target</span></span>
+<span>  target_wait <span class="op">=</span> <span class="va">waiting_time_target</span>,</span>
+<span>  factor <span class="op">=</span> <span class="va">f_1</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">target_capacity_1</span></span>
-<span><span class="co">#&gt; [1] 30.07692</span></span></code></pre></div>
-<p>If F is 1, we can see that the capacity required is 30.08, or 0.08
+<span><span class="co">#&gt; [1] 30.01923</span></span></code></pre></div>
+<p>If F is 1, we can see that the capacity required is 30.02, or 0.02
 more than the demand.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f_2</span> <span class="op">&lt;-</span> <span class="fl">6.58</span></span>
 <span></span>
 <span><span class="va">target_capacity_2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_target_capacity.html">calc_target_capacity</a></span><span class="op">(</span></span>
 <span>  demand <span class="op">=</span> <span class="va">demand</span>,</span>
-<span>  target_wait <span class="op">=</span> <span class="va">waiting_time_target</span></span>
+<span>  target_wait <span class="op">=</span> <span class="va">waiting_time_target</span>,</span>
+<span>  factor <span class="op">=</span> <span class="va">f_2</span></span>
 <span><span class="op">)</span></span>
 <span><span class="va">target_capacity_2</span></span>
-<span><span class="co">#&gt; [1] 30.07692</span></span></code></pre></div>
-<p>If F is 6.58, we can see that the capacity required is 30.08, or 0.08
+<span><span class="co">#&gt; [1] 30.12654</span></span></code></pre></div>
+<p>If F is 6.58, we can see that the capacity required is 30.13, or 0.13
 more than the demand.</p>
 <p>So, decreasing variability of service (for example by stabilising
 operating theatre schedules from day to day and week to week) has the
