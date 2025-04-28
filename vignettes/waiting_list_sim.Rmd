@@ -178,8 +178,8 @@ Instead of raising capacity, let's imagine we have put in new referral guidance 
 reduced_demand_wl <-
   wl_simulator(start_date = as.Date("2023-04-01"),
                end_date = as.Date("2024-03-31"),
-               demand = 95,
-               capacity = 100,
+               demand = 77,
+               capacity = 80,
                waiting_list = current_wl1)
 
 reduced_demand_queue <- wl_queue_size(reduced_demand_wl)
