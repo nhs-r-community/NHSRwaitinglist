@@ -23,7 +23,8 @@
       "avatar_url": "https://avatars.githubusercontent.com/u/10871342?v=4",
       "profile": "https://github.com/ThomUK",
       "contributions": [
-        "code"
+        "code",
+        "review""
       ]
     },
     {
@@ -53,7 +54,8 @@
       "contributions": [
         "code",
         "doc",
-        "test"
+        "test",
+        "review"
       ]
     },
     {
@@ -67,7 +69,7 @@
     },
     {
       "login": "neilwalton",
-      "name": "neilwalton",
+      "name": "Neil Walton",
       "avatar_url": "https://avatars.githubusercontent.com/u/53338269?v=4",
       "profile": "https://github.com/neilwalton",
       "contributions": [
@@ -75,7 +77,8 @@
         "doc",
         "video"
       ]
-    },
+    }
+    ,
     {
       "login": "davidfoord1",
       "name": "David Foord",
