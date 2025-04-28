@@ -458,6 +458,6 @@ ggplot(mc_bind, aes(x = dates)) +
        , subtitle = "Average WL over 50 runs, with 95% confidence interval")
 ```
 
-The averaging has led to a straighter line for the trend and we have a range of uncertainty around the projection. Alternatively we could present the 25th - 75% percentile range.  
+The averaging has led to a straighter line for the trend and we have a range of uncertainty around the projection. Alternatively we could present the 25th - 75th percentile range.  
 
 This type of Monte Carlo process can be applied to various situation by building your simulation into a function, repeatedly executing that function (which could be in parallel), collected the results calculating summary statistics.
