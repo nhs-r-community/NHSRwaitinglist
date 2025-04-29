@@ -336,7 +336,7 @@ First we will initialise a list of the right size to receive our output, as this
 sim3 <- list(NROW(ctrl_tbl))
 
 # Run the first line and current waiting list
-sim3[[1]] <- 
+sim3[[1]] <-
   wl_simulator(start_date = ctrl_tbl$start_date[1]
                , end_date = ctrl_tbl$end_date[1]
                , demand = ctrl_tbl$demand[1]
@@ -409,7 +409,7 @@ sim_func <- function(run_id) {
                       demand = 100,
                       capacity = 105,
                       waiting_list = current_wl1)
-                      
+
   cbind(wl_queue_size(sim), run_id)
 }
 
@@ -421,7 +421,7 @@ raised_capacity_wl_mc <- lapply(run_sequence, sim_func)
 
 The replicate function above runs the simulation 50 times, and returns a list of the 50 replicates. In reality, we would run it many more times than this, but 50 keeps this vignette's build time to a minimum and leads to wider more visible confidence interval in the chart below.
 
-We then need to take our output, reformat the list, and chose how we will average over the events.  In the example below, I pull it into a single table then aggregate by average values per day.  This will not always be the right approach, but it depends on your question.  In this case, it helps give a more robust estimate of the average effects and allows us to put point-wise percentile range or confidence interval around them, using the daily means of the simulation.  Alternatives might be to fit linear or non-linear models across the range and use the confidence intervals / bands from this approach, as demonstrated in [this vignette](https://cran.r-project.org/web/packages/nlraa/vignettes/Confidence-Bands.html) from the `nlraa` package.
+We then need to take our output, reformat the list, and chose how we will average over the events.  In the example below, I pull it into a single table then aggregate by average values per day.  This will not always be the right approach, but it depends on your question.  In this case, it helps give a more robust estimate of the average effects and allows us to put point-wise percentile range or confidence interval around them, using the daily means of the simulation.  Alternatives might be to fit linear or non-linear models across the range and use the confidence intervals / bands from this approach, as demonstrated in [this vignette](https://cran.r-project.org/package=nlraa/vignettes/Confidence-Bands.html) from the `nlraa` package.
 
 ```{r montecarlo_2}
 mc_bind <- do.call("rbind", raised_capacity_wl_mc)
@@ -458,6 +458,6 @@ ggplot(mc_bind, aes(x = dates)) +
        , subtitle = "Average WL over 50 runs, with 95% confidence interval")
 ```
 
-The averaging has led to a straighter line for the trend and we have a range of uncertainty around the projection. Alternatively we could present the 25th - 75% percentile range.  
+The averaging has led to a straighter line for the trend and we have a range of uncertainty around the projection. Alternatively we could present the 25th - 75th percentile range.  
 
 This type of Monte Carlo process can be applied to various situation by building your simulation into a function, repeatedly executing that function (which could be in parallel), collected the results calculating summary statistics.

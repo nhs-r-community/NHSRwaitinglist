@@ -7,21 +7,21 @@
 #' @param end_date date. The end date for the simulation.
 #' @param demand numeric. Weekly demand (i.e., typical referrals per week).
 #' @param capacity numeric. Weekly capacity (i.e., typical removals per week).
-#' @param waiting_list integer. The number of patients on the waiting list.
+#' @param waiting_list data.frame. Waiting list where each row is a
+#' pathway/patient with date columns 'Referral' and 'Removal'.
 #' @param withdrawal_prob numeric. Probability of a patient withdrawing.
 #' @param detailed_sim logical. If TRUE, simulation provides detailed output.
 #'
-#' @return A \code{data.frame} simulating a waiting list, with columns:
+#' @return A \code{data.frame} simulating a waiting list, with columns:\cr
 #'
-#' \describe{
-#'   \item{Referral}{Date. The date each patient was added to the waiting list.}
-#'   \item{Removal}{Date. The date each patient was removed from the waiting
-#'     list (may be \code{NA} if unscheduled).}
+#'  \item{Referral}{Date. The date each patient was added to the waiting list.}
+#'  \item{Removal}{Date. The date each patient was removed from the waiting
+#'     list (may be \code{NA} if unscheduled).}\cr
 #'
 #'
 #'   \strong{If \code{detailed_sim = TRUE}}, returns a more detailed
 #'   \code{data.frame} with the following additional
-#'   fields:
+#'   fields:\cr
 #'
 #'   \item{Withdrawal}{Date. The date the patient withdrew from the
 #'     waiting list.}
@@ -41,7 +41,6 @@
 #'   \item{Procedure}{Character. Name of the selected procedure.}
 #'   \item{Consultant}{Character. Consultant name in the format
 #'     \code{"Last, First"}.}
-#' }
 #'
 #' @import dplyr
 #' @importFrom stats rgeom
@@ -63,6 +62,14 @@ wl_simulator <- function(
   withdrawal_prob = NA,
   detailed_sim = FALSE
 ) {
+
+  # check input type for WL
+  if (!is.null(waiting_list)) {
+    if (!methods::is(waiting_list, "data.frame")) {
+      stop("Waiting list is not supplied as a data.frame")}
+  }
+
+
   # Fix Start and End Dates
   if (is.null(start_date)) {
     start_date <- Sys.Date()
@@ -70,6 +77,7 @@ wl_simulator <- function(
   if (is.null(end_date)) {
     end_date <- start_date + 31
   }
+
   start_date <- as.Date(start_date)
   end_date <- as.Date(end_date)
   number_of_days <- as.numeric(end_date) - as.numeric(start_date)

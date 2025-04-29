@@ -1,6 +1,6 @@
 Package: NHSRwaitinglist
 Title: Waiting List Metrics Using Queuing Theory
-Version: 0.1.9999
+Version: 0.1.1
 Authors@R: c(
           person("Neil", "Walton", ,"neil.walton@durham.ac.uk", "aut", comment = c(ORCID ="0000-0002-5241-9765")),
           person("Jacqueline", "Grout", ,"jacqueline.grout1@nhs.net", "ctb"),

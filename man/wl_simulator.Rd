@@ -23,23 +23,23 @@ wl_simulator(
 
 \item{capacity}{numeric. Weekly capacity (i.e., typical removals per week).}
 
-\item{waiting_list}{integer. The number of patients on the waiting list.}
+\item{waiting_list}{data.frame. Waiting list where each row is a
+pathway/patient with date columns 'Referral' and 'Removal'.}
 
 \item{withdrawal_prob}{numeric. Probability of a patient withdrawing.}
 
 \item{detailed_sim}{logical. If TRUE, simulation provides detailed output.}
 }
 \value{
-A \code{data.frame} simulating a waiting list, with columns:
+A \code{data.frame} simulating a waiting list, with columns:\cr
 
-\describe{
 \item{Referral}{Date. The date each patient was added to the waiting list.}
 \item{Removal}{Date. The date each patient was removed from the waiting
-list (may be \code{NA} if unscheduled).}
+list (may be \code{NA} if unscheduled).}\cr
 
 \strong{If \code{detailed_sim = TRUE}}, returns a more detailed
 \code{data.frame} with the following additional
-fields:
+fields:\cr
 
 \item{Withdrawal}{Date. The date the patient withdrew from the
 waiting list.}
@@ -59,7 +59,6 @@ the procedure.}
 \item{Procedure}{Character. Name of the selected procedure.}
 \item{Consultant}{Character. Consultant name in the format
 \code{"Last, First"}.}
-}
 }
 \description{
 Creates a simulated waiting list comprising referral dates,
