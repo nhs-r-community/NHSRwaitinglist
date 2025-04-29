@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">NHSRwaitinglist</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.9999</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -471,7 +471,7 @@ waiting list:</p>
 <span><span class="va">sim3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html" class="external-link">NROW</a></span><span class="op">(</span><span class="va">ctrl_tbl</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Run the first line and current waiting list</span></span>
-<span><span class="va">sim3</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> </span>
+<span><span class="va">sim3</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="../reference/wl_simulator.html">wl_simulator</a></span><span class="op">(</span>start_date <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">start_date</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span>               , end_date <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">end_date</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
 <span>               , demand <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">demand</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
@@ -549,7 +549,7 @@ queue sizes.</p>
 <span>                      demand <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>                      capacity <span class="op">=</span> <span class="fl">105</span>,</span>
 <span>                      waiting_list <span class="op">=</span> <span class="va">current_wl1</span><span class="op">)</span></span>
-<span>                      </span>
+<span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="../reference/wl_queue_size.html">wl_queue_size</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span>, <span class="va">run_id</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
@@ -570,7 +570,7 @@ case, it helps give a more robust estimate of the average effects and
 allows us to put point-wise percentile range or confidence interval
 around them, using the daily means of the simulation. Alternatives might
 be to fit linear or non-linear models across the range and use the
-confidence intervals / bands from this approach, as demonstrated in <a href="https://cran.r-project.org/web/packages/nlraa/vignettes/Confidence-Bands.html" class="external-link">this
+confidence intervals / bands from this approach, as demonstrated in <a href="https://cran.r-project.org/package=nlraa/vignettes/Confidence-Bands.html" class="external-link">this
 vignette</a> from the <code>nlraa</code> package.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mc_bind</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="st">"rbind"</span>, <span class="va">raised_capacity_wl_mc</span><span class="op">)</span></span>
@@ -605,7 +605,7 @@ the average value and 95% confidence interval.</p>
 <p><img src="waiting_list_sim_files/figure-html/montecarlo_3-1.png" width="768"></p>
 <p>The averaging has led to a straighter line for the trend and we have
 a range of uncertainty around the projection. Alternatively we could
-present the 25th - 75% percentile range.</p>
+present the 25th - 75th percentile range.</p>
 <p>This type of Monte Carlo process can be applied to various situation
 by building your simulation into a function, repeatedly executing that
 function (which could be in parallel), collected the results calculating

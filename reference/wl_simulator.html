@@ -9,7 +9,7 @@ and removal dates"></head><body>
 
     <a class="navbar-brand me-2" href="../index.html">NHSRwaitinglist</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.9999</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,7 +80,8 @@ and removal dates</p>
 
 
 <dt id="arg-waiting-list">waiting_list<a class="anchor" aria-label="anchor" href="#arg-waiting-list"></a></dt>
-<dd><p>integer. The number of patients on the waiting list.</p></dd>
+<dd><p>data.frame. Waiting list where each row is a
+pathway/patient with date columns 'Referral' and 'Removal'.</p></dd>
 
 
 <dt id="arg-withdrawal-prob">withdrawal_prob<a class="anchor" aria-label="anchor" href="#arg-withdrawal-prob"></a></dt>
@@ -93,20 +94,18 @@ and removal dates</p>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A <code>data.frame</code> simulating a waiting list, with columns:</p>
+    <p>A <code>data.frame</code> simulating a waiting list, with columns:<br></p>
 <dl><dt>Referral</dt>
 <dd><p>Date. The date each patient was added to the waiting list.</p></dd>
 
 <dt>Removal</dt>
 <dd><p>Date. The date each patient was removed from the waiting
 list (may be <code>NA</code> if unscheduled).</p></dd>
-
-
-If <code>detailed_sim = TRUE</code>, returns a more detailed
-data.frame with the following additional
-fields:
-
-<dt>Withdrawal</dt>
+</dl><p><br></p>
+<p><strong>If <code>detailed_sim = TRUE</code></strong>, returns a more detailed
+<code>data.frame</code> with the following additional
+fields:<br></p>
+<dl><dt>Withdrawal</dt>
 <dd><p>Date. The date the patient withdrew from the
 waiting list.</p></dd>
 
@@ -145,7 +144,6 @@ the procedure.</p></dd>
 <dt>Consultant</dt>
 <dd><p>Character. Consultant name in the format
 <code>"Last, First"</code>.</p></dd>
-
 
 </dl></div>
 
