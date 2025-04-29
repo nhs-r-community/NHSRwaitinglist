@@ -336,7 +336,7 @@ First we will initialise a list of the right size to receive our output, as this
 sim3 <- list(NROW(ctrl_tbl))
 
 # Run the first line and current waiting list
-sim3[[1]] <- 
+sim3[[1]] <-
   wl_simulator(start_date = ctrl_tbl$start_date[1]
                , end_date = ctrl_tbl$end_date[1]
                , demand = ctrl_tbl$demand[1]
@@ -409,7 +409,7 @@ sim_func <- function(run_id) {
                       demand = 100,
                       capacity = 105,
                       waiting_list = current_wl1)
-                      
+
   cbind(wl_queue_size(sim), run_id)
 }
 
