@@ -10,16 +10,19 @@ check_class <- function(
     .expected_class = "numeric",
     .call = rlang::caller_env()) {
 
+  args <- rlang::dots_list(..., .named = TRUE)
+
   # expected types included NULL for argument defaults
   supported_classes <- c("numeric", "character", "logical", "data.frame",
                          "Date", "NULL")
 
-  .expected_class <- match.arg(.expected_class, supported_classes)
+  .expected_class <- match.arg(.expected_class, supported_classes, several.ok = TRUE)
 
   args <- rlang::dots_list(..., .named = TRUE)
 
   args_are_class <- lapply(args,
-                           \(arg) methods::is(arg, .expected_class))
+                           \(arg) inherits(arg, .expected_class))
+
 
   fails_names <- names(Filter(isFALSE, args_are_class))
 
