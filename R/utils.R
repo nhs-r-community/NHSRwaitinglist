@@ -14,15 +14,24 @@ check_class <- function(
 
   # expected types included NULL for argument defaults
   supported_classes <- c("numeric", "character", "logical", "data.frame",
-                         "Date", "NULL")
+                         "Date", "NULL", "integer")
 
   .expected_class <- match.arg(.expected_class, supported_classes, several.ok = TRUE)
 
-  args <- rlang::dots_list(..., .named = TRUE)
+  # inherits() is very useful for checking multiple classes at once
+  # however since integers does not "inherit" the `numeric` class
+  # manually adding it to the list to match is.numeric() behaviour
+  if ("numeric" %in% .expected_class) {
+    .expected_class = c(.expected_class, "integer")
+  }
 
   args_are_class <- lapply(args,
                            \(arg) inherits(arg, .expected_class))
 
+  # clean up the integer workaround
+  if ("numeric" %in% .expected_class) {
+    .expected_class = .expected_class[.expected_class != "integer"]
+  }
 
   fails_names <- names(Filter(isFALSE, args_are_class))
 

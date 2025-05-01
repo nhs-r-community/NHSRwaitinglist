@@ -1,6 +1,7 @@
 test_that("check_class doesn't throw an error with appropriate input", {
   expect_no_error(check_class(x = 1, .expected_class = "numeric"))
   expect_no_error(check_class(x = 1, y = 2, .expected_class = "numeric"))
+  expect_no_error(check_class(x = 1L, .expected_class = "numeric"))
 
   expect_no_error(check_class(x = "x", .expected_class = "character"))
   expect_no_error(check_class(x = "x", y = "y", .expected_class = "character"))
@@ -16,6 +17,9 @@ test_that("check_class doesn't throw an error with appropriate input", {
 
   expect_no_error(check_class(x = NULL, .expected_class = "NULL"))
   expect_no_error(check_class(x = NULL, y = NULL, .expected_class = "NULL"))
+
+  expect_no_error(check_class(x = 1L, .expected_class = "integer"))
+  expect_no_error(check_class(x = 1L, y = 2L, .expected_class = "integer"))
 })
 
 cli::test_that_cli("check_class prints error for single input", {
@@ -51,6 +55,11 @@ cli::test_that_cli("check_class prints error for single input", {
       check_class(x = list(), .expected_class = "NULL")
       check_class(x = data.frame(), .expected_class = "NULL")
       check_class(x = matrix(), .expected_class = "NULL")
+
+      check_class(x = "x", .expected_class = "integer")
+      check_class(x = list(), .expected_class = "integer")
+      check_class(x = data.frame(), .expected_class = "integer")
+      check_class(x = matrix(), .expected_class = "integer")
     },
     error = TRUE
   )
@@ -100,6 +109,13 @@ cli::test_that_cli("check_class prints error for multiple input", {
       check_class(
         x = NULL, y = 1, z = list(), a = data.frame(),
         .expected_class = "NULL"
+      )
+
+      check_class(x = 1L, y = "x", .expected_class = "integer")
+      check_class(x = "x", y = "y", .expected_class = "integer")
+      check_class(
+        x = 1L, y = "x", z = list(), a = data.frame(),
+        .expected_class = "integer"
       )
     },
     error = TRUE
