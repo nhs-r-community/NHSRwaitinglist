@@ -105,3 +105,22 @@ cli::test_that_cli("check_class prints error for multiple input", {
     error = TRUE
   )
 })
+
+test_that("check_class works with multiple expected classes", {
+  # For date args
+  date_classes <- c("character", "Date")
+  expect_no_error(check_class("1900-01-01", .expected_class = date_classes))
+  expect_no_error(check_class(as.Date(1), .expected_class = date_classes))
+
+  # For index args
+  idx_classes <- c("numeric", "character", "logical")
+  expect_no_error(check_class(x = 1, .expected_class = idx_classes))
+  expect_no_error(check_class(x = 1L, .expected_class = idx_classes))
+  expect_no_error(check_class(x = "referrals", .expected_class = idx_classes))
+  expect_no_error(check_class(x = TRUE, .expected_class = idx_classes))
+
+  # Including NULL default arg
+  df_classes <- c("NULL", "data.frame")
+  expect_no_error(check_class(x = NULL, .expected_class = df_classes))
+  expect_no_error(check_class(x = iris, .expected_class = df_classes))
+})
