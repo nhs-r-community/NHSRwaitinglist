@@ -4,6 +4,18 @@ test_that("check_class doesn't throw an error with appropriate input", {
 
   expect_no_error(check_class(x = "x", .expected_class = "character"))
   expect_no_error(check_class(x = "x", y = "y", .expected_class = "character"))
+
+  expect_no_error(check_class(x = TRUE, .expected_class = "logical"))
+  expect_no_error(check_class(x = TRUE, y = FALSE, .expected_class = "logical"))
+
+  expect_no_error(check_class(x = iris, .expected_class = "data.frame"))
+  expect_no_error(check_class(iris, data.frame(), .expected_class = "data.frame"))
+
+  expect_no_error(check_class(x = as.Date(1), .expected_class = "Date"))
+  expect_no_error(check_class(as.Date(1), Sys.Date(), .expected_class = "Date"))
+
+  expect_no_error(check_class(x = NULL, .expected_class = "NULL"))
+  expect_no_error(check_class(x = NULL, y = NULL, .expected_class = "NULL"))
 })
 
 cli::test_that_cli("check_class prints error for single input", {
@@ -19,6 +31,26 @@ cli::test_that_cli("check_class prints error for single input", {
       check_class(x = list(), .expected_class = "character")
       check_class(x = data.frame(), .expected_class = "character")
       check_class(x = matrix(), .expected_class = "character")
+
+      check_class(x = 1, .expected_class = "logical")
+      check_class(x = list(), .expected_class = "logical")
+      check_class(x = data.frame(), .expected_class = "logical")
+      check_class(x = matrix(), .expected_class = "logical")
+
+      check_class(x = 1, .expected_class = "data.frame")
+      check_class(x = list(), .expected_class = "data.frame")
+      check_class(x = numeric(), .expected_class = "data.frame")
+      check_class(x = matrix(), .expected_class = "data.frame")
+
+      check_class(x = 1, .expected_class = "Date")
+      check_class(x = list(), .expected_class = "Date")
+      check_class(x = data.frame(), .expected_class = "Date")
+      check_class(x = matrix(), .expected_class = "Date")
+
+      check_class(x = 1, .expected_class = "NULL")
+      check_class(x = list(), .expected_class = "NULL")
+      check_class(x = data.frame(), .expected_class = "NULL")
+      check_class(x = matrix(), .expected_class = "NULL")
     },
     error = TRUE
   )
@@ -40,6 +72,34 @@ cli::test_that_cli("check_class prints error for multiple input", {
       check_class(
         x = "x", y = 1, z = list(), a = data.frame(),
         .expected_class = "character"
+      )
+
+      check_class(x = TRUE, y = 1, .expected_class = "logical")
+      check_class(x = 1, y = 2, .expected_class = "logical")
+      check_class(
+        x = TRUE, y = 1, z = list(), a = data.frame(),
+        .expected_class = "logical"
+      )
+
+      check_class(x = data.frame(), y = 1, .expected_class = "data.frame")
+      check_class(x = 1, y = 2, .expected_class = "data.frame")
+      check_class(
+        x = "x", y = 1, z = list(), a = data.frame(),
+        .expected_class = "data.frame"
+      )
+
+      check_class(x = as.Date(1), y = 1, .expected_class = "Date")
+      check_class(x = 1, y = 2, .expected_class = "Date")
+      check_class(
+        x = as.Date(1), y = 1, z = list(), a = data.frame(),
+        .expected_class = "Date"
+      )
+
+      check_class(x = NULL, y = 1, .expected_class = "NULL")
+      check_class(x = 1, y = 2, .expected_class = "NULL")
+      check_class(
+        x = NULL, y = 1, z = list(), a = data.frame(),
+        .expected_class = "NULL"
       )
     },
     error = TRUE
