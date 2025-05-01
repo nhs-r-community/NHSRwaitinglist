@@ -174,6 +174,35 @@
       x You provided:
       * `` with class <matrix>
       * `` with class <array>
+    Code
+      check_class(x = "x", .expected_class = "integer")
+    Condition
+      Error:
+      ! `x` must be of class <integer>
+      x You provided:
+      * `x` with class <character>
+    Code
+      check_class(x = list(), .expected_class = "integer")
+    Condition
+      Error:
+      ! `x` must be of class <integer>
+      x You provided:
+      * `x` with class <list>
+    Code
+      check_class(x = data.frame(), .expected_class = "integer")
+    Condition
+      Error:
+      ! `x` must be of class <integer>
+      x You provided:
+      * `x` with class <data.frame>
+    Code
+      check_class(x = matrix(), .expected_class = "integer")
+    Condition
+      Error:
+      ! `x` must be of class <integer>
+      x You provided:
+      * `` with class <matrix>
+      * `` with class <array>
 
 # check_class prints error for single input [ansi]
 
@@ -348,6 +377,35 @@
     Condition
       [1m[33mError[39m:[22m
       [1m[22m[33m![39m `x` must be of class [34m<NULL>[39m
+      [31mx[39m You provided:
+      [36m*[39m `` with class [34m<matrix>[39m
+      [36m*[39m `` with class [34m<array>[39m
+    Code
+      check_class(x = "x", .expected_class = "integer")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` must be of class [34m<integer>[39m
+      [31mx[39m You provided:
+      [36m*[39m `x` with class [34m<character>[39m
+    Code
+      check_class(x = list(), .expected_class = "integer")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` must be of class [34m<integer>[39m
+      [31mx[39m You provided:
+      [36m*[39m `x` with class [34m<list>[39m
+    Code
+      check_class(x = data.frame(), .expected_class = "integer")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` must be of class [34m<integer>[39m
+      [31mx[39m You provided:
+      [36m*[39m `x` with class [34m<data.frame>[39m
+    Code
+      check_class(x = matrix(), .expected_class = "integer")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` must be of class [34m<integer>[39m
       [31mx[39m You provided:
       [36m*[39m `` with class [34m<matrix>[39m
       [36m*[39m `` with class [34m<array>[39m
@@ -528,6 +586,35 @@
       ✖ You provided:
       • `` with class <matrix>
       • `` with class <array>
+    Code
+      check_class(x = "x", .expected_class = "integer")
+    Condition
+      Error:
+      ! `x` must be of class <integer>
+      ✖ You provided:
+      • `x` with class <character>
+    Code
+      check_class(x = list(), .expected_class = "integer")
+    Condition
+      Error:
+      ! `x` must be of class <integer>
+      ✖ You provided:
+      • `x` with class <list>
+    Code
+      check_class(x = data.frame(), .expected_class = "integer")
+    Condition
+      Error:
+      ! `x` must be of class <integer>
+      ✖ You provided:
+      • `x` with class <data.frame>
+    Code
+      check_class(x = matrix(), .expected_class = "integer")
+    Condition
+      Error:
+      ! `x` must be of class <integer>
+      ✖ You provided:
+      • `` with class <matrix>
+      • `` with class <array>
 
 # check_class prints error for single input [fancy]
 
@@ -705,6 +792,35 @@
       [31m✖[39m You provided:
       [36m•[39m `` with class [34m<matrix>[39m
       [36m•[39m `` with class [34m<array>[39m
+    Code
+      check_class(x = "x", .expected_class = "integer")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` must be of class [34m<integer>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `x` with class [34m<character>[39m
+    Code
+      check_class(x = list(), .expected_class = "integer")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` must be of class [34m<integer>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `x` with class [34m<list>[39m
+    Code
+      check_class(x = data.frame(), .expected_class = "integer")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` must be of class [34m<integer>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `x` with class [34m<data.frame>[39m
+    Code
+      check_class(x = matrix(), .expected_class = "integer")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` must be of class [34m<integer>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `` with class [34m<matrix>[39m
+      [36m•[39m `` with class [34m<array>[39m
 
 # check_class prints error for multiple input [plain]
 
@@ -851,6 +967,30 @@
       ! `y`, `z`, and `a` must be of class <NULL>
       x You provided:
       * `y` with class <numeric>
+      * `z` with class <list>
+      * `a` with class <data.frame>
+    Code
+      check_class(x = 1L, y = "x", .expected_class = "integer")
+    Condition
+      Error:
+      ! `y` must be of class <integer>
+      x You provided:
+      * `y` with class <character>
+    Code
+      check_class(x = "x", y = "y", .expected_class = "integer")
+    Condition
+      Error:
+      ! `x` and `y` must be of class <integer>
+      x You provided:
+      * `x` with class <character>
+      * `y` with class <character>
+    Code
+      check_class(x = 1L, y = "x", z = list(), a = data.frame(), .expected_class = "integer")
+    Condition
+      Error:
+      ! `y`, `z`, and `a` must be of class <integer>
+      x You provided:
+      * `y` with class <character>
       * `z` with class <list>
       * `a` with class <data.frame>
 
@@ -1001,6 +1141,30 @@
       [36m*[39m `y` with class [34m<numeric>[39m
       [36m*[39m `z` with class [34m<list>[39m
       [36m*[39m `a` with class [34m<data.frame>[39m
+    Code
+      check_class(x = 1L, y = "x", .expected_class = "integer")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `y` must be of class [34m<integer>[39m
+      [31mx[39m You provided:
+      [36m*[39m `y` with class [34m<character>[39m
+    Code
+      check_class(x = "x", y = "y", .expected_class = "integer")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` and `y` must be of class [34m<integer>[39m
+      [31mx[39m You provided:
+      [36m*[39m `x` with class [34m<character>[39m
+      [36m*[39m `y` with class [34m<character>[39m
+    Code
+      check_class(x = 1L, y = "x", z = list(), a = data.frame(), .expected_class = "integer")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `y`, `z`, and `a` must be of class [34m<integer>[39m
+      [31mx[39m You provided:
+      [36m*[39m `y` with class [34m<character>[39m
+      [36m*[39m `z` with class [34m<list>[39m
+      [36m*[39m `a` with class [34m<data.frame>[39m
 
 # check_class prints error for multiple input [unicode]
 
@@ -1147,6 +1311,30 @@
       ! `y`, `z`, and `a` must be of class <NULL>
       ✖ You provided:
       • `y` with class <numeric>
+      • `z` with class <list>
+      • `a` with class <data.frame>
+    Code
+      check_class(x = 1L, y = "x", .expected_class = "integer")
+    Condition
+      Error:
+      ! `y` must be of class <integer>
+      ✖ You provided:
+      • `y` with class <character>
+    Code
+      check_class(x = "x", y = "y", .expected_class = "integer")
+    Condition
+      Error:
+      ! `x` and `y` must be of class <integer>
+      ✖ You provided:
+      • `x` with class <character>
+      • `y` with class <character>
+    Code
+      check_class(x = 1L, y = "x", z = list(), a = data.frame(), .expected_class = "integer")
+    Condition
+      Error:
+      ! `y`, `z`, and `a` must be of class <integer>
+      ✖ You provided:
+      • `y` with class <character>
       • `z` with class <list>
       • `a` with class <data.frame>
 
@@ -1297,4 +1485,416 @@
       [36m•[39m `y` with class [34m<numeric>[39m
       [36m•[39m `z` with class [34m<list>[39m
       [36m•[39m `a` with class [34m<data.frame>[39m
+    Code
+      check_class(x = 1L, y = "x", .expected_class = "integer")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `y` must be of class [34m<integer>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `y` with class [34m<character>[39m
+    Code
+      check_class(x = "x", y = "y", .expected_class = "integer")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` and `y` must be of class [34m<integer>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `x` with class [34m<character>[39m
+      [36m•[39m `y` with class [34m<character>[39m
+    Code
+      check_class(x = 1L, y = "x", z = list(), a = data.frame(), .expected_class = "integer")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `y`, `z`, and `a` must be of class [34m<integer>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `y` with class [34m<character>[39m
+      [36m•[39m `z` with class [34m<list>[39m
+      [36m•[39m `a` with class [34m<data.frame>[39m
+
+# check_class prints error with multiple expected classes [plain]
+
+    Code
+      date_classes <- c("character", "Date")
+      check_class(x = 1, y = "x", .expected_class = date_classes)
+    Condition
+      Error:
+      ! `x` must be of class <character/Date>
+      x You provided:
+      * `x` with class <numeric>
+    Code
+      check_class(x = 1, y = 2, .expected_class = date_classes)
+    Condition
+      Error:
+      ! `x` and `y` must be of class <character/Date>
+      x You provided:
+      * `x` with class <numeric>
+      * `y` with class <numeric>
+    Code
+      check_class(x = as.Date(1), y = "x", z = list(), a = data.frame(),
+      .expected_class = dates_classes)
+    Condition
+      Error:
+      ! object 'dates_classes' not found
+    Code
+      idx_classes <- c("numeric", "character", "logical")
+      check_class(x = NULL, y = 1, .expected_class = idx_classes)
+    Condition
+      Error:
+      ! `x` must be of class <numeric/character/logical>
+      x You provided:
+      * `x` with class <NULL>
+    Code
+      check_class(x = NULL, y = list(), .expected_class = idx_classes)
+    Condition
+      Error:
+      ! `x` and `y` must be of class <numeric/character/logical>
+      x You provided:
+      * `x` with class <NULL>
+      * `y` with class <list>
+    Code
+      check_class(x = "x", y = 1, z = list(), a = data.frame(), .expected_class = idx_classes)
+    Condition
+      Error:
+      ! `z` and `a` must be of class <numeric/character/logical>
+      x You provided:
+      * `z` with class <list>
+      * `a` with class <data.frame>
+    Code
+      check_class(x = TRUE, y = 1, .expected_class = "logical")
+    Condition
+      Error:
+      ! `y` must be of class <logical>
+      x You provided:
+      * `y` with class <numeric>
+    Code
+      check_class(x = 1, y = 2, .expected_class = "logical")
+    Condition
+      Error:
+      ! `x` and `y` must be of class <logical>
+      x You provided:
+      * `x` with class <numeric>
+      * `y` with class <numeric>
+    Code
+      check_class(x = TRUE, y = 1, z = list(), a = data.frame(), .expected_class = "logical")
+    Condition
+      Error:
+      ! `y`, `z`, and `a` must be of class <logical>
+      x You provided:
+      * `y` with class <numeric>
+      * `z` with class <list>
+      * `a` with class <data.frame>
+    Code
+      df_classes <- c("NULL", "data.frame")
+      check_class(x = data.frame(), y = 1, .expected_class = df_classes)
+    Condition
+      Error:
+      ! `y` must be of class <NULL/data.frame>
+      x You provided:
+      * `y` with class <numeric>
+    Code
+      check_class(x = 1, y = 2, .expected_class = df_classes)
+    Condition
+      Error:
+      ! `x` and `y` must be of class <NULL/data.frame>
+      x You provided:
+      * `x` with class <numeric>
+      * `y` with class <numeric>
+    Code
+      check_class(x = NULL, y = 1, z = list(), a = data.frame(), .expected_class = df_classes)
+    Condition
+      Error:
+      ! `y` and `z` must be of class <NULL/data.frame>
+      x You provided:
+      * `y` with class <numeric>
+      * `z` with class <list>
+
+# check_class prints error with multiple expected classes [ansi]
+
+    Code
+      date_classes <- c("character", "Date")
+      check_class(x = 1, y = "x", .expected_class = date_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` must be of class [34m<character/Date>[39m
+      [31mx[39m You provided:
+      [36m*[39m `x` with class [34m<numeric>[39m
+    Code
+      check_class(x = 1, y = 2, .expected_class = date_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` and `y` must be of class [34m<character/Date>[39m
+      [31mx[39m You provided:
+      [36m*[39m `x` with class [34m<numeric>[39m
+      [36m*[39m `y` with class [34m<numeric>[39m
+    Code
+      check_class(x = as.Date(1), y = "x", z = list(), a = data.frame(),
+      .expected_class = dates_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [33m![39m object 'dates_classes' not found
+    Code
+      idx_classes <- c("numeric", "character", "logical")
+      check_class(x = NULL, y = 1, .expected_class = idx_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` must be of class [34m<numeric/character/logical>[39m
+      [31mx[39m You provided:
+      [36m*[39m `x` with class [34m<NULL>[39m
+    Code
+      check_class(x = NULL, y = list(), .expected_class = idx_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` and `y` must be of class [34m<numeric/character/logical>[39m
+      [31mx[39m You provided:
+      [36m*[39m `x` with class [34m<NULL>[39m
+      [36m*[39m `y` with class [34m<list>[39m
+    Code
+      check_class(x = "x", y = 1, z = list(), a = data.frame(), .expected_class = idx_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `z` and `a` must be of class [34m<numeric/character/logical>[39m
+      [31mx[39m You provided:
+      [36m*[39m `z` with class [34m<list>[39m
+      [36m*[39m `a` with class [34m<data.frame>[39m
+    Code
+      check_class(x = TRUE, y = 1, .expected_class = "logical")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `y` must be of class [34m<logical>[39m
+      [31mx[39m You provided:
+      [36m*[39m `y` with class [34m<numeric>[39m
+    Code
+      check_class(x = 1, y = 2, .expected_class = "logical")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` and `y` must be of class [34m<logical>[39m
+      [31mx[39m You provided:
+      [36m*[39m `x` with class [34m<numeric>[39m
+      [36m*[39m `y` with class [34m<numeric>[39m
+    Code
+      check_class(x = TRUE, y = 1, z = list(), a = data.frame(), .expected_class = "logical")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `y`, `z`, and `a` must be of class [34m<logical>[39m
+      [31mx[39m You provided:
+      [36m*[39m `y` with class [34m<numeric>[39m
+      [36m*[39m `z` with class [34m<list>[39m
+      [36m*[39m `a` with class [34m<data.frame>[39m
+    Code
+      df_classes <- c("NULL", "data.frame")
+      check_class(x = data.frame(), y = 1, .expected_class = df_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `y` must be of class [34m<NULL/data.frame>[39m
+      [31mx[39m You provided:
+      [36m*[39m `y` with class [34m<numeric>[39m
+    Code
+      check_class(x = 1, y = 2, .expected_class = df_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` and `y` must be of class [34m<NULL/data.frame>[39m
+      [31mx[39m You provided:
+      [36m*[39m `x` with class [34m<numeric>[39m
+      [36m*[39m `y` with class [34m<numeric>[39m
+    Code
+      check_class(x = NULL, y = 1, z = list(), a = data.frame(), .expected_class = df_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `y` and `z` must be of class [34m<NULL/data.frame>[39m
+      [31mx[39m You provided:
+      [36m*[39m `y` with class [34m<numeric>[39m
+      [36m*[39m `z` with class [34m<list>[39m
+
+# check_class prints error with multiple expected classes [unicode]
+
+    Code
+      date_classes <- c("character", "Date")
+      check_class(x = 1, y = "x", .expected_class = date_classes)
+    Condition
+      Error:
+      ! `x` must be of class <character/Date>
+      ✖ You provided:
+      • `x` with class <numeric>
+    Code
+      check_class(x = 1, y = 2, .expected_class = date_classes)
+    Condition
+      Error:
+      ! `x` and `y` must be of class <character/Date>
+      ✖ You provided:
+      • `x` with class <numeric>
+      • `y` with class <numeric>
+    Code
+      check_class(x = as.Date(1), y = "x", z = list(), a = data.frame(),
+      .expected_class = dates_classes)
+    Condition
+      Error:
+      ! object 'dates_classes' not found
+    Code
+      idx_classes <- c("numeric", "character", "logical")
+      check_class(x = NULL, y = 1, .expected_class = idx_classes)
+    Condition
+      Error:
+      ! `x` must be of class <numeric/character/logical>
+      ✖ You provided:
+      • `x` with class <NULL>
+    Code
+      check_class(x = NULL, y = list(), .expected_class = idx_classes)
+    Condition
+      Error:
+      ! `x` and `y` must be of class <numeric/character/logical>
+      ✖ You provided:
+      • `x` with class <NULL>
+      • `y` with class <list>
+    Code
+      check_class(x = "x", y = 1, z = list(), a = data.frame(), .expected_class = idx_classes)
+    Condition
+      Error:
+      ! `z` and `a` must be of class <numeric/character/logical>
+      ✖ You provided:
+      • `z` with class <list>
+      • `a` with class <data.frame>
+    Code
+      check_class(x = TRUE, y = 1, .expected_class = "logical")
+    Condition
+      Error:
+      ! `y` must be of class <logical>
+      ✖ You provided:
+      • `y` with class <numeric>
+    Code
+      check_class(x = 1, y = 2, .expected_class = "logical")
+    Condition
+      Error:
+      ! `x` and `y` must be of class <logical>
+      ✖ You provided:
+      • `x` with class <numeric>
+      • `y` with class <numeric>
+    Code
+      check_class(x = TRUE, y = 1, z = list(), a = data.frame(), .expected_class = "logical")
+    Condition
+      Error:
+      ! `y`, `z`, and `a` must be of class <logical>
+      ✖ You provided:
+      • `y` with class <numeric>
+      • `z` with class <list>
+      • `a` with class <data.frame>
+    Code
+      df_classes <- c("NULL", "data.frame")
+      check_class(x = data.frame(), y = 1, .expected_class = df_classes)
+    Condition
+      Error:
+      ! `y` must be of class <NULL/data.frame>
+      ✖ You provided:
+      • `y` with class <numeric>
+    Code
+      check_class(x = 1, y = 2, .expected_class = df_classes)
+    Condition
+      Error:
+      ! `x` and `y` must be of class <NULL/data.frame>
+      ✖ You provided:
+      • `x` with class <numeric>
+      • `y` with class <numeric>
+    Code
+      check_class(x = NULL, y = 1, z = list(), a = data.frame(), .expected_class = df_classes)
+    Condition
+      Error:
+      ! `y` and `z` must be of class <NULL/data.frame>
+      ✖ You provided:
+      • `y` with class <numeric>
+      • `z` with class <list>
+
+# check_class prints error with multiple expected classes [fancy]
+
+    Code
+      date_classes <- c("character", "Date")
+      check_class(x = 1, y = "x", .expected_class = date_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` must be of class [34m<character/Date>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `x` with class [34m<numeric>[39m
+    Code
+      check_class(x = 1, y = 2, .expected_class = date_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` and `y` must be of class [34m<character/Date>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `x` with class [34m<numeric>[39m
+      [36m•[39m `y` with class [34m<numeric>[39m
+    Code
+      check_class(x = as.Date(1), y = "x", z = list(), a = data.frame(),
+      .expected_class = dates_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [33m![39m object 'dates_classes' not found
+    Code
+      idx_classes <- c("numeric", "character", "logical")
+      check_class(x = NULL, y = 1, .expected_class = idx_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` must be of class [34m<numeric/character/logical>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `x` with class [34m<NULL>[39m
+    Code
+      check_class(x = NULL, y = list(), .expected_class = idx_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` and `y` must be of class [34m<numeric/character/logical>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `x` with class [34m<NULL>[39m
+      [36m•[39m `y` with class [34m<list>[39m
+    Code
+      check_class(x = "x", y = 1, z = list(), a = data.frame(), .expected_class = idx_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `z` and `a` must be of class [34m<numeric/character/logical>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `z` with class [34m<list>[39m
+      [36m•[39m `a` with class [34m<data.frame>[39m
+    Code
+      check_class(x = TRUE, y = 1, .expected_class = "logical")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `y` must be of class [34m<logical>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `y` with class [34m<numeric>[39m
+    Code
+      check_class(x = 1, y = 2, .expected_class = "logical")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` and `y` must be of class [34m<logical>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `x` with class [34m<numeric>[39m
+      [36m•[39m `y` with class [34m<numeric>[39m
+    Code
+      check_class(x = TRUE, y = 1, z = list(), a = data.frame(), .expected_class = "logical")
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `y`, `z`, and `a` must be of class [34m<logical>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `y` with class [34m<numeric>[39m
+      [36m•[39m `z` with class [34m<list>[39m
+      [36m•[39m `a` with class [34m<data.frame>[39m
+    Code
+      df_classes <- c("NULL", "data.frame")
+      check_class(x = data.frame(), y = 1, .expected_class = df_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `y` must be of class [34m<NULL/data.frame>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `y` with class [34m<numeric>[39m
+    Code
+      check_class(x = 1, y = 2, .expected_class = df_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `x` and `y` must be of class [34m<NULL/data.frame>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `x` with class [34m<numeric>[39m
+      [36m•[39m `y` with class [34m<numeric>[39m
+    Code
+      check_class(x = NULL, y = 1, z = list(), a = data.frame(), .expected_class = df_classes)
+    Condition
+      [1m[33mError[39m:[22m
+      [1m[22m[33m![39m `y` and `z` must be of class [34m<NULL/data.frame>[39m
+      [31m✖[39m You provided:
+      [36m•[39m `y` with class [34m<numeric>[39m
+      [36m•[39m `z` with class [34m<list>[39m
 

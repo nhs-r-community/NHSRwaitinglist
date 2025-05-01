@@ -140,3 +140,43 @@ test_that("check_class works with multiple expected classes", {
   expect_no_error(check_class(x = NULL, .expected_class = df_classes))
   expect_no_error(check_class(x = iris, .expected_class = df_classes))
 })
+
+cli::test_that_cli("check_class prints error with multiple expected classes", {
+  testthat::local_edition(3)
+  testthat::expect_snapshot(
+    {
+      date_classes <- c("character", "Date")
+      check_class(x = 1, y = "x", .expected_class = date_classes)
+      check_class(x = 1, y = 2, .expected_class = date_classes)
+      check_class(
+        x = as.Date(1), y = "x", z = list(), a = data.frame(),
+        .expected_class = dates_classes
+      )
+
+
+      idx_classes <- c("numeric", "character", "logical")
+      check_class(x = NULL, y = 1, .expected_class = idx_classes)
+      check_class(x = NULL, y = list(), .expected_class = idx_classes)
+      check_class(
+        x = "x", y = 1, z = list(), a = data.frame(),
+        .expected_class = idx_classes
+      )
+
+      check_class(x = TRUE, y = 1, .expected_class = "logical")
+      check_class(x = 1, y = 2, .expected_class = "logical")
+      check_class(
+        x = TRUE, y = 1, z = list(), a = data.frame(),
+        .expected_class = "logical"
+      )
+
+      df_classes <- c("NULL", "data.frame")
+      check_class(x = data.frame(), y = 1, .expected_class = df_classes)
+      check_class(x = 1, y = 2, .expected_class = df_classes)
+      check_class(
+        x = NULL, y = 1, z = list(), a = data.frame(),
+        .expected_class = df_classes
+      )
+    },
+    error = TRUE
+  )
+})
