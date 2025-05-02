@@ -33,6 +33,10 @@ check_class <- function(
     .expected_class = .expected_class[.expected_class != "integer"]
   }
 
+  # remove NULL from user facing output
+  # as intended for using default values only
+  .expected_class = .expected_class[.expected_class != "NULL"]
+
   fails_names <- names(Filter(isFALSE, args_are_class))
 
   if (length(fails_names) > 0) {
