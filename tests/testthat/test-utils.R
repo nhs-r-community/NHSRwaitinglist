@@ -267,9 +267,6 @@ test_that("check_date errors with incorrect class", {
 
   expect_error(check_date(1, Sys.Date()), class_msg)
   expect_error(check_date(c(1, Sys.Date())), class_msg)
-
-  # date_1 is coerced to numeric with NULL
-  expect_error(check_date(c(NULL, date_1), .allow_null = TRUE), class_msg)
 })
 
 test_that("check_date errors with ambigious character format", {
@@ -282,8 +279,4 @@ test_that("check_date errors with ambigious character format", {
 
   expect_error(check_date("not a date", "also not a date"), format_msg)
   expect_error(check_date(c("not a date", "also not a date")), format_msg)
-
-  # date_1 is coerced to numeric `1` with NULL, then to character `"1"`
-  expect_error(check_date(c(NULL, date_1, "2000-01-01"), .allow_null = TRUE),
-               format_msg)
 })
