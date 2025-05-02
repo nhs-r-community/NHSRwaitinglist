@@ -114,4 +114,3 @@ test_that("wl_schedule errors with incorrect arg classes", {
   expect_error(wl_schedule(waiting_list, schedule, unscheduled = sum),
                unsch_msg)
 })
-

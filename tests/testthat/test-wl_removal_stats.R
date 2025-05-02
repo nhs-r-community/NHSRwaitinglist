@@ -86,7 +86,8 @@ test_that("wl_removal_stats errors with incorrect arg classes", {
 
   expect_error(wl_removal_stats(waiting_list, start_date = 1), start_msg)
   expect_error(wl_removal_stats(waiting_list, start_date = list()), start_msg)
-  expect_error(wl_removal_stats(waiting_list, start_date = data.frame()), start_msg)
+  expect_error(wl_removal_stats(waiting_list, start_date = data.frame()),
+               start_msg)
 
   end_msg <- "`end_date` must be of class <Date/character>"
 

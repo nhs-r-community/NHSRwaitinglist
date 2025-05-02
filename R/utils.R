@@ -16,13 +16,15 @@ check_class <- function(
   supported_classes <- c("numeric", "character", "logical", "data.frame",
                          "Date", "NULL", "integer")
 
-  .expected_class <- match.arg(.expected_class, supported_classes, several.ok = TRUE)
+  .expected_class <- match.arg(.expected_class,
+                               supported_classes,
+                               several.ok = TRUE)
 
   # inherits() is very useful for checking multiple classes at once
   # however since integers does not "inherit" the `numeric` class
   # manually adding it to the list to match is.numeric() behaviour
   if ("numeric" %in% .expected_class) {
-    .expected_class = c(.expected_class, "integer")
+    .expected_class <- c(.expected_class, "integer")
   }
 
   args_are_class <- lapply(args,
@@ -30,13 +32,13 @@ check_class <- function(
 
   # clean up the integer workaround
   if ("numeric" %in% .expected_class) {
-    .expected_class = .expected_class[.expected_class != "integer"]
+    .expected_class <- .expected_class[.expected_class != "integer"]
   }
 
   # remove NULL from user facing output
   # as intended for using default values only
   if (length(.expected_class) > 1) {
-    .expected_class = .expected_class[.expected_class != "NULL"]
+    .expected_class <- .expected_class[.expected_class != "NULL"]
   }
 
   fails_names <- names(Filter(isFALSE, args_are_class))
@@ -81,14 +83,14 @@ check_class <- function(
 #'
 #' @noRd
 check_date <- function(...,
-                      .call = rlang::caller_env(),
-                      .allow_null = FALSE) {
+                       .call = rlang::caller_env(),
+                       .allow_null = FALSE) {
   args <- rlang::dots_list(..., .named = TRUE)
 
   date_classes <- c("Date", "character")
 
   if (.allow_null) {
-    date_classes <- c(date_classes , "NULL")
+    date_classes <- c(date_classes, "NULL")
   }
 
   rlang::exec(check_class,

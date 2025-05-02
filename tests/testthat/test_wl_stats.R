@@ -93,4 +93,3 @@ test_that("wl_stats errors with incorrect arg classes", {
   expect_error(wl_stats(waiting_list, end_date = list()), end_msg)
   expect_error(wl_stats(waiting_list, end_date = data.frame()), end_msg)
 })
-

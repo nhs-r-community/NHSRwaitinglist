@@ -12,7 +12,8 @@ test_that("check_class doesn't throw an error with appropriate input", {
   expect_no_error(check_class(x = TRUE, y = FALSE, .expected_class = "logical"))
 
   expect_no_error(check_class(x = iris, .expected_class = "data.frame"))
-  expect_no_error(check_class(iris, data.frame(), .expected_class = "data.frame"))
+  expect_no_error(check_class(iris, data.frame(),
+                              .expected_class = "data.frame"))
 
   expect_no_error(check_class(x = as.Date(1), .expected_class = "Date"))
   expect_no_error(check_class(as.Date(1), Sys.Date(), .expected_class = "Date"))
@@ -121,14 +122,17 @@ testthat::test_that("check_class prints error for multiple input", {
     .expected_class = "logical"
   ), "must be of class <logical>")
 
-  expect_error(check_class(x = data.frame(), y = 1, .expected_class = "data.frame"),
-               "must be of class <data.frame>")
+  expect_error(
+    check_class(x = data.frame(), y = 1, .expected_class = "data.frame"),
+    "must be of class <data.frame>"
+  )
   expect_error(check_class(x = 1, y = 2, .expected_class = "data.frame"),
                "must be of class <data.frame>")
-  expect_error(check_class(
-    x = "x", y = 1, z = list(), a = data.frame(),
-    .expected_class = "data.frame"
-  ), "must be of class <data.frame>")
+  expect_error(
+    check_class(x = "x", y = 1, z = list(), a = data.frame(),
+                .expected_class = "data.frame"),
+    "must be of class <data.frame>"
+  )
 
   expect_error(check_class(x = as.Date(1), y = 1, .expected_class = "Date"),
                "must be of class <Date>")
