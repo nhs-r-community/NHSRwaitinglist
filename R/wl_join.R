@@ -26,6 +26,10 @@
 #' wl_join(wl_1,wl_2)
 #'
 wl_join <- function(wl_1, wl_2, referral_index = 1) {
+  check_class(wl_1, wl_2, .expected_class = "data.frame")
+  check_class(referral_index,
+              .expected_class = c("numeric", "character", "logical"))
+
   # combine and sort to update list
   updated_list <- rbind(wl_1, wl_2)
   updated_list <- updated_list[order(updated_list[, referral_index]), ]
