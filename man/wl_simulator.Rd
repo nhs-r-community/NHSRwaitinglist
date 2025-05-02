@@ -10,7 +10,7 @@ wl_simulator(
   demand = 10,
   capacity = 11,
   waiting_list = NULL,
-  withdrawal_prob = NA,
+  withdrawal_prob = NA_real_,
   detailed_sim = FALSE
 )
 }

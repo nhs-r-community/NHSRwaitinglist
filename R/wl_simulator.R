@@ -59,16 +59,15 @@ wl_simulator <- function(
   demand = 10,
   capacity = 11,
   waiting_list = NULL,
-  withdrawal_prob = NA,
+  withdrawal_prob = NA_real_,
   detailed_sim = FALSE
 ) {
-
-  # check input type for WL
-  if (!is.null(waiting_list)) {
-    if (!methods::is(waiting_list, "data.frame")) {
-      stop("Waiting list is not supplied as a data.frame")}
-  }
-
+  check_date(start_date, end_date, .allow_null = TRUE)
+  check_class(demand, capacity,
+              .expected_class = "numeric")
+  check_class(waiting_list, .expected_class = c("NULL", "data.frame"))
+  check_class(withdrawal_prob, .expected_class = c("numeric"))
+  check_class(detailed_sim, .expected_class = "logical")
 
   # Fix Start and End Dates
   if (is.null(start_date)) {
