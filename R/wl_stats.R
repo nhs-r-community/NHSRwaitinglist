@@ -61,12 +61,9 @@ wl_stats <- function(waiting_list,
                      target_wait = 4,
                      start_date = NULL,
                      end_date = NULL) {
-
-  # Error handle
-  if (!methods::is(waiting_list, "data.frame")) {
-    stop("waiting list should be supplied as a data.frame")
-  }
-
+  check_class(waiting_list, .expected_class = "data.frame")
+  check_class(target_wait, .expected_class = "numeric")
+  check_date(start_date, end_date, .allow_null = TRUE)
 
   if (nrow(waiting_list) == 0) {
     stop("No data rows in waiting list")
