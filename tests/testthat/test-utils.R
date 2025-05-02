@@ -1,3 +1,5 @@
+# check_class -------------------------------------------------------------
+
 test_that("check_class doesn't throw an error with appropriate input", {
   expect_no_error(check_class(x = 1, .expected_class = "numeric"))
   expect_no_error(check_class(x = 1, y = 2, .expected_class = "numeric"))
@@ -188,4 +190,61 @@ test_that("check_class errors correctly with multiple expected classes", {
                 .expected_class = df_classes),
     df_msg
   )
+})
+
+# check_date --------------------------------------------------------------
+
+test_that("check_date doesn't error with correct input", {
+  # Date formats
+  date_1 <- as.Date(1)
+  date_2 <- Sys.Date()
+  expect_no_error(check_date(date_1))
+  expect_no_error(check_date(date_2))
+  expect_no_error(check_date(date_1, date_2)) # multiple inputs
+  expect_no_error(check_date(c(date_1, date_2))) # length > 1 input
+
+  # Unambigious character formats
+  expect_no_error(check_date("2000-01-01")) # YYYY-MM-DD
+  expect_no_error(check_date("28-02-2000")) # DD-MM-YYYY
+  expect_no_error(check_date("2000-01-01", "28-02-2000")) # multiple inputs
+  expect_no_error(check_date(c("2000-01-01", "28-02-2000"))) # length > 1 input
+
+  # NULL
+  expect_no_error(check_date(NULL, .allow_null = TRUE))
+
+  # mixed
+  expect_no_error(check_date(date_1, "2000-01-01"))
+  expect_no_error(check_date(NULL, date_1, .allow_null = TRUE))
+  expect_no_error(check_date(NULL, date_1, "2000-01-01", .allow_null = TRUE))
+})
+
+test_that("check_date errors with incorrect class", {
+  class_msg <- "must be of class <Date/character>"
+  expect_error(check_date(1), class_msg)
+  expect_error(check_date(1L), class_msg)
+  expect_error(check_date(TRUE), class_msg)
+  expect_error(check_date(list()), class_msg)
+  expect_error(check_date(data.frame()), class_msg)
+
+  expect_error(check_date(1, Sys.Date()), class_msg)
+  expect_error(check_date(c(1, Sys.Date())), class_msg)
+
+  # date_1 is coerced to numeric with NULL
+  expect_error(check_date(c(NULL, date_1), .allow_null = TRUE), class_msg)
+})
+
+test_that("check_date errors with ambigious character format", {
+  format_msg <- "must be in an unambiguous Date format e.g., 'YYYY-MM-DD'"
+
+  expect_error(check_date("not a date"), format_msg)
+  expect_error(check_date("2000-30-30"), format_msg)
+  expect_error(check_date("-2000-01-01"), format_msg)
+  expect_error(check_date("2.000-01-01"), format_msg)
+
+  expect_error(check_date("not a date", "also not a date"), format_msg)
+  expect_error(check_date(c("not a date", "also not a date")), format_msg)
+
+  # date_1 is coerced to numeric `1` with NULL, then to character `"1"`
+  expect_error(check_date(c(NULL, date_1, "2000-01-01"), .allow_null = TRUE),
+               format_msg)
 })
