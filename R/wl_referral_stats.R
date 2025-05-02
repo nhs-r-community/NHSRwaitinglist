@@ -32,6 +32,11 @@ wl_referral_stats <- function(waiting_list,
                               start_date = NULL,
                               end_date = NULL,
                               referral_index = 1) {
+  check_class(waiting_list, .expected_class = "data.frame")
+  check_date(start_date, end_date, .allow_null = TRUE)
+  check_class(referral_index,
+              .expected_class = c("numeric", "character", "logical"))
+
   if (!is.null(start_date)) {
     start_date <- as.Date(start_date)
   } else {
