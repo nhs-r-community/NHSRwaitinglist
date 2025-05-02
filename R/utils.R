@@ -61,3 +61,56 @@ check_class <- function(
     )
   }
 }
+
+#' Check format of input date arguments
+#'
+#' First calls [check_class()] to error if not `Date` or `character`.
+#'
+#' Then tries to coerce to `Date`, reporting if a provided string is not in
+#' an unambiguous format.
+#'
+#' @param ... Date arguments to check
+#' @param .call The environment in which this function is to be
+#'     called.
+#' @param .allow_null Logical whether to include `NULL` in allowed classes, for
+#'   when it is used as a default value.
+#'
+#' @return Returns `NULL` invisibly if no errors
+#'
+#' @noRd
+check_date <- function(...,
+                      .call = rlang::caller_env(),
+                      .allow_null = FALSE) {
+  args <- rlang::dots_list(..., .named = TRUE)
+
+  date_classes <- c("Date", "character")
+
+  if (.allow_null) {
+    date_classes <- c(date_classes , "NULL")
+  }
+
+  rlang::exec(check_class,
+              !!!args,
+              .expected_class = date_classes,
+              .call = .call)
+
+  # attempt to coerce to date
+  # NAs returned incorrect/ambiguous
+  coerced_dates <- lapply(args,
+                          \(arg) as.Date(arg, format = "%Y-%m-%d"))
+
+  are_not_dates <- lapply(coerced_dates, \(x) any(is.na(x)))
+  are_not_dates <- unlist(are_not_dates)
+  fails_names <- names(coerced_dates)[are_not_dates]
+
+  if (length(fails_names) > 0) {
+    cli::cli_abort(
+      message =
+        paste(
+          "{.var {fails_names}} must be in an unambiguous Date format",
+          "e.g., 'YYYY-MM-DD'"
+        ),
+      call = .call
+    )
+  }
+}
