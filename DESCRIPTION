@@ -30,8 +30,7 @@ Imports:
     rlang,
     utils,
     stats,
-    randomNames,
-    methods
+    randomNames
 Suggests: 
     ggplot2,
     knitr,
