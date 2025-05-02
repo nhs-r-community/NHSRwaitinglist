@@ -51,11 +51,12 @@ wl_schedule <- function(
   unscheduled = FALSE
 ) {
 
-
   # Error handle
-  if (!methods::is(waiting_list, "data.frame")) {
-    stop("waiting list should be supplied as a data.frame")
-  }
+  check_class(waiting_list, .expected_class = "data.frame")
+  check_date(schedule)
+  check_class(referral_index, removal_index,
+              .expected_class = c("numeric", "character", "logical"))
+  check_class(unscheduled, .expected_class = "logical")
 
   if (nrow(waiting_list) == 0) {
     stop("No data rows in waiting list")
@@ -65,10 +66,9 @@ wl_schedule <- function(
     stop("No waiting list supplied")
   }
 
-  if (!methods::is(schedule, "Date")) {
-    stop("Schedule vector is not formatted as dates")
+  if (!inherits(schedule, "Date")) {
+    schedule <- as.Date(schedule)
   }
-
 
   # split waiters and removed
   wl <- waiting_list[is.na(waiting_list[, removal_index]), ]
