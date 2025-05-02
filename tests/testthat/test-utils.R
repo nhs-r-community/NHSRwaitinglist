@@ -24,105 +24,140 @@ test_that("check_class doesn't throw an error with appropriate input", {
   expect_no_error(check_class(x = 1L, y = 2L, .expected_class = "integer"))
 })
 
-cli::test_that_cli("check_class prints error for single input", {
+testthat::test_that("check_class prints error for single input", {
   testthat::local_edition(3)
-  testthat::expect_snapshot(
-    {
-      check_class(x = "x", .expected_class = "numeric")
-      check_class(x = list(), .expected_class = "numeric")
-      check_class(x = data.frame(), .expected_class = "numeric")
-      check_class(x = matrix(), .expected_class = "numeric")
 
-      check_class(x = 1, .expected_class = "character")
-      check_class(x = list(), .expected_class = "character")
-      check_class(x = data.frame(), .expected_class = "character")
-      check_class(x = matrix(), .expected_class = "character")
+  expect_error(check_class(x = "x", .expected_class = "numeric"),
+               "must be of class <numeric>")
+  expect_error(check_class(x = list(), .expected_class = "numeric"),
+               "must be of class <numeric>")
+  expect_error(check_class(x = data.frame(), .expected_class = "numeric"),
+               "must be of class <numeric>")
+  expect_error(check_class(x = matrix(), .expected_class = "numeric"),
+               "must be of class <numeric>")
 
-      check_class(x = 1, .expected_class = "logical")
-      check_class(x = list(), .expected_class = "logical")
-      check_class(x = data.frame(), .expected_class = "logical")
-      check_class(x = matrix(), .expected_class = "logical")
+  expect_error(check_class(x = 1, .expected_class = "character"),
+               "must be of class <character>")
+  expect_error(check_class(x = list(), .expected_class = "character"),
+               "must be of class <character>")
+  expect_error(check_class(x = data.frame(), .expected_class = "character"),
+               "must be of class <character>")
+  expect_error(check_class(x = matrix(), .expected_class = "character"),
+               "must be of class <character>")
 
-      check_class(x = 1, .expected_class = "data.frame")
-      check_class(x = list(), .expected_class = "data.frame")
-      check_class(x = numeric(), .expected_class = "data.frame")
-      check_class(x = matrix(), .expected_class = "data.frame")
+  expect_error(check_class(x = 1, .expected_class = "logical"),
+               "must be of class <logical>")
+  expect_error(check_class(x = list(), .expected_class = "logical"),
+               "must be of class <logical>")
+  expect_error(check_class(x = data.frame(), .expected_class = "logical"),
+               "must be of class <logical>")
+  expect_error(check_class(x = matrix(), .expected_class = "logical"),
+               "must be of class <logical>")
 
-      check_class(x = 1, .expected_class = "Date")
-      check_class(x = list(), .expected_class = "Date")
-      check_class(x = data.frame(), .expected_class = "Date")
-      check_class(x = matrix(), .expected_class = "Date")
+  expect_error(check_class(x = 1, .expected_class = "data.frame"),
+               "must be of class <data.frame>")
+  expect_error(check_class(x = list(), .expected_class = "data.frame"),
+               "must be of class <data.frame>")
+  expect_error(check_class(x = numeric(), .expected_class = "data.frame"),
+               "must be of class <data.frame>")
+  expect_error(check_class(x = matrix(), .expected_class = "data.frame"),
+               "must be of class <data.frame>")
 
-      check_class(x = 1, .expected_class = "NULL")
-      check_class(x = list(), .expected_class = "NULL")
-      check_class(x = data.frame(), .expected_class = "NULL")
-      check_class(x = matrix(), .expected_class = "NULL")
+  expect_error(check_class(x = 1, .expected_class = "Date"),
+               "must be of class <Date>")
+  expect_error(check_class(x = list(), .expected_class = "Date"),
+               "must be of class <Date>")
+  expect_error(check_class(x = data.frame(), .expected_class = "Date"),
+               "must be of class <Date>")
+  expect_error(check_class(x = matrix(), .expected_class = "Date"),
+               "must be of class <Date>")
 
-      check_class(x = "x", .expected_class = "integer")
-      check_class(x = list(), .expected_class = "integer")
-      check_class(x = data.frame(), .expected_class = "integer")
-      check_class(x = matrix(), .expected_class = "integer")
-    },
-    error = TRUE
-  )
+  expect_error(check_class(x = 1, .expected_class = "NULL"),
+               "must be of class <NULL>")
+  expect_error(check_class(x = list(), .expected_class = "NULL"),
+               "must be of class <NULL>")
+  expect_error(check_class(x = data.frame(), .expected_class = "NULL"),
+               "must be of class <NULL>")
+  expect_error(check_class(x = matrix(), .expected_class = "NULL"),
+               "must be of class <NULL>")
+
+  expect_error(check_class(x = "x", .expected_class = "integer"),
+               "must be of class <integer>")
+  expect_error(check_class(x = list(), .expected_class = "integer"),
+               "must be of class <integer>")
+  expect_error(check_class(x = data.frame(), .expected_class = "integer"),
+               "must be of class <integer>")
+  expect_error(check_class(x = matrix(), .expected_class = "integer"),
+               "must be of class <integer>")
 })
 
-cli::test_that_cli("check_class prints error for multiple input", {
+testthat::test_that("check_class prints error for multiple input", {
   testthat::local_edition(3)
-  testthat::expect_snapshot(
-    {
-      check_class(x = 1, y = "x", .expected_class = "numeric")
-      check_class(x = "x", y = "y", .expected_class = "numeric")
-      check_class(
-        x = 1, y = "x", z = list(), a = data.frame(),
-        .expected_class = "numeric"
-      )
 
-      check_class(x = "x", y = 1, .expected_class = "character")
-      check_class(x = 1, y = 2, .expected_class = "character")
-      check_class(
-        x = "x", y = 1, z = list(), a = data.frame(),
-        .expected_class = "character"
-      )
+  expect_error(check_class(x = 1, y = "x", .expected_class = "numeric"),
+               "must be of class <numeric>")
+  expect_error(check_class(x = "x", y = "y", .expected_class = "numeric"),
+               "must be of class <numeric>")
+  expect_error(check_class(
+    x = 1, y = "x", z = list(), a = data.frame(),
+    .expected_class = "numeric"
+  ), "must be of class <numeric>")
 
-      check_class(x = TRUE, y = 1, .expected_class = "logical")
-      check_class(x = 1, y = 2, .expected_class = "logical")
-      check_class(
-        x = TRUE, y = 1, z = list(), a = data.frame(),
-        .expected_class = "logical"
-      )
+  expect_error(check_class(x = "x", y = 1, .expected_class = "character"),
+               "must be of class <character>")
+  expect_error(check_class(x = 1, y = 2, .expected_class = "character"),
+               "must be of class <character>")
+  expect_error(check_class(
+    x = "x", y = 1, z = list(), a = data.frame(),
+    .expected_class = "character"
+  ), "must be of class <character>")
 
-      check_class(x = data.frame(), y = 1, .expected_class = "data.frame")
-      check_class(x = 1, y = 2, .expected_class = "data.frame")
-      check_class(
-        x = "x", y = 1, z = list(), a = data.frame(),
-        .expected_class = "data.frame"
-      )
+  expect_error(check_class(x = TRUE, y = 1, .expected_class = "logical"),
+               "must be of class <logical>")
+  expect_error(check_class(x = 1, y = 2, .expected_class = "logical"),
+               "must be of class <logical>")
+  expect_error(check_class(
+    x = TRUE, y = 1, z = list(), a = data.frame(),
+    .expected_class = "logical"
+  ), "must be of class <logical>")
 
-      check_class(x = as.Date(1), y = 1, .expected_class = "Date")
-      check_class(x = 1, y = 2, .expected_class = "Date")
-      check_class(
-        x = as.Date(1), y = 1, z = list(), a = data.frame(),
-        .expected_class = "Date"
-      )
+  expect_error(check_class(x = data.frame(), y = 1, .expected_class = "data.frame"),
+               "must be of class <data.frame>")
+  expect_error(check_class(x = 1, y = 2, .expected_class = "data.frame"),
+               "must be of class <data.frame>")
+  expect_error(check_class(
+    x = "x", y = 1, z = list(), a = data.frame(),
+    .expected_class = "data.frame"
+  ), "must be of class <data.frame>")
 
-      check_class(x = NULL, y = 1, .expected_class = "NULL")
-      check_class(x = 1, y = 2, .expected_class = "NULL")
-      check_class(
-        x = NULL, y = 1, z = list(), a = data.frame(),
-        .expected_class = "NULL"
-      )
+  expect_error(check_class(x = as.Date(1), y = 1, .expected_class = "Date"),
+               "must be of class <Date>")
+  expect_error(check_class(x = 1, y = 2, .expected_class = "Date"),
+               "must be of class <Date>")
+  expect_error(check_class(
+    x = as.Date(1), y = 1, z = list(), a = data.frame(),
+    .expected_class = "Date"
+  ), "must be of class <Date>")
 
-      check_class(x = 1L, y = "x", .expected_class = "integer")
-      check_class(x = "x", y = "y", .expected_class = "integer")
-      check_class(
-        x = 1L, y = "x", z = list(), a = data.frame(),
-        .expected_class = "integer"
-      )
-    },
-    error = TRUE
-  )
+  expect_error(check_class(x = NULL, y = 1, .expected_class = "NULL"),
+               "must be of class <NULL>")
+  expect_error(check_class(x = 1, y = 2, .expected_class = "NULL"),
+               "must be of class <NULL>")
+  expect_error(check_class(
+    x = NULL, y = 1, z = list(), a = data.frame(),
+    .expected_class = "NULL"
+  ), "must be of class <NULL>")
+
+  expect_error(check_class(x = 1L, y = "x", .expected_class = "integer"),
+               "must be of class <integer>")
+  expect_error(check_class(x = "x", y = "y", .expected_class = "integer"),
+               "must be of class <integer>")
+  expect_error(check_class(
+    x = 1L, y = "x", z = list(), a = data.frame(),
+    .expected_class = "integer"
+  ), "must be of class <integer>")
 })
+
 
 test_that("check_class works with multiple expected classes", {
   # For date args
