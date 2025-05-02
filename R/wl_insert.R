@@ -3,8 +3,8 @@
 #' @description Adds new referrals, with other columns set as \code{NA}.
 #'
 #' @param waiting_list data.frame. A df of referral dates and removals
-#' @param additions Character or Date vector. A list of referral dates to add to
-#'   the waiting list
+#' @param additions Date or character vector (in format 'YYYY-MM-DD'). A list of
+#'   referral dates to add to the waiting list
 #' @param referral_index The index of the column in \code{waiting_list} which
 #'   contains the referral dates. Defaults to the first column.
 #'

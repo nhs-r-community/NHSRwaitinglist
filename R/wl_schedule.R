@@ -6,13 +6,13 @@
 #' I.e. earlier referrals are scheduled first (FIFO).
 #'
 #' @param waiting_list data.frame. A df of referral dates and removals
-#' @param schedule vector of dates. Should be formatted as year-month-date, e.g.
-#' "2024-04-01".  The dates to schedule open referrals into
-#'   (i.e. dates of unbooked future capacity)
-#' @param referral_index integer. The column number in the waiting_list which
-#'   contains the referral dates
-#' @param removal_index integer. The column number in the waiting_list which
-#'   contains the removal dates
+#' @param schedule Date or character vector. Should be formatted as
+#'   year-month-date, e.g. "2024-04-01".  The dates to schedule open referrals
+#'   into (i.e. dates of unbooked future capacity)
+#' @param referral_index The column index in the waiting_list which contains the
+#'   referral dates
+#' @param removal_index The column index in the waiting_list which contains the
+#'   removal dates
 #' @param unscheduled logical.
 #'  If TRUE, returns a list of scheduled and unscheduled procedures
 #'  If FALSE, only returns the updated waiting list

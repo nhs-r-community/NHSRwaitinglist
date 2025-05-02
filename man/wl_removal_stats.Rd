@@ -15,13 +15,15 @@ wl_removal_stats(
 \arguments{
 \item{waiting_list}{data.frame. A df of referral dates and removals}
 
-\item{start_date}{date. The start date to calculate from}
+\item{start_date}{Date or character (in format 'YYYY-MM-DD'); The start date
+to calculate from.}
 
-\item{end_date}{date. The end date to calculate to}
+\item{end_date}{Date or character (in format 'YYYY-MM-DD'); The end date to
+calculate to.}
 
-\item{referral_index}{int. Index of the referral column in waiting_list.}
+\item{referral_index}{Index of the referral column in waiting_list.}
 
-\item{removal_index}{int. Index of the removal column in waiting_list.}
+\item{removal_index}{Index of the removal column in waiting_list.}
 }
 \value{
 A data.frame with the following summary statistics on

@@ -15,9 +15,11 @@ wl_simulator(
 )
 }
 \arguments{
-\item{start_date}{date. The start date for the simulation.}
+\item{start_date}{Date or character (in format 'YYYY-MM-DD'); The start date
+to calculate from}
 
-\item{end_date}{date. The end date for the simulation.}
+\item{end_date}{Date or character (in format 'YYYY-MM-DD'); The end date to
+calculate to}
 
 \item{demand}{numeric. Weekly demand (i.e., typical referrals per week).}
 

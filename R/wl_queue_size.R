@@ -4,8 +4,10 @@
 
 #'
 #' @param waiting_list data.frame consisting addition and removal dates
-#' @param start_date start of calculation period
-#' @param end_date end of calculation period
+#' @param start_date Date or character (in format 'YYYY-MM-DD'); start of
+#'   calculation period
+#' @param end_date Date or character (in format 'YYYY-MM-DD'); end of
+#'   calculation period
 #' @param referral_index the index of referrals in waiting_list
 #' @param removal_index the index of removals in waiting_list
 #'

@@ -4,8 +4,10 @@
 #'
 #' @param waiting_list data.frame. A df of referral dates and removals
 #' @param target_wait numeric. The required waiting time
-#' @param start_date date. The start date to calculate from
-#' @param end_date date. The end date to calculate to
+#' @param start_date Date or character (in format 'YYYY-MM-DD'); The start date
+#'   to calculate from
+#' @param end_date Date or character (in format 'YYYY-MM-DD'); The end date to
+#'   calculate to
 #'
 #' @return A data.frame of key waiting list summary statistics based on
 #'   queueing theory:
