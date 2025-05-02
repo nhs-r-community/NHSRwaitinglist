@@ -15,15 +15,15 @@ wl_schedule(
 \arguments{
 \item{waiting_list}{data.frame. A df of referral dates and removals}
 
-\item{schedule}{vector of dates. Should be formatted as year-month-date, e.g.
-"2024-04-01".  The dates to schedule open referrals into
-(i.e. dates of unbooked future capacity)}
+\item{schedule}{Date or character vector. Should be formatted as
+year-month-date, e.g. "2024-04-01".  The dates to schedule open referrals
+into (i.e. dates of unbooked future capacity)}
 
-\item{referral_index}{integer. The column number in the waiting_list which
-contains the referral dates}
+\item{referral_index}{The column index in the waiting_list which contains the
+referral dates}
 
-\item{removal_index}{integer. The column number in the waiting_list which
-contains the removal dates}
+\item{removal_index}{The column index in the waiting_list which contains the
+removal dates}
 
 \item{unscheduled}{logical.
 If TRUE, returns a list of scheduled and unscheduled procedures

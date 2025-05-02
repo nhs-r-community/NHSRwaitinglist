@@ -4,8 +4,10 @@
 
 #'
 #' @param waiting_list data.frame consisting addition and removal dates
-#' @param start_date start of calculation period
-#' @param end_date end of calculation period
+#' @param start_date Date or character (in format 'YYYY-MM-DD'); start of
+#'   calculation period
+#' @param end_date Date or character (in format 'YYYY-MM-DD'); end of
+#'   calculation period
 #' @param referral_index the index of referrals in waiting_list
 #' @param removal_index the index of removals in waiting_list
 #'
@@ -32,6 +34,10 @@ wl_queue_size <- function(waiting_list,
                           end_date = NULL,
                           referral_index = 1,
                           removal_index = 2) {
+  check_class(waiting_list, .expected_class = "data.frame")
+  check_date(start_date, end_date, .allow_null = TRUE)
+  check_class(referral_index, removal_index,
+              .expected_class = c("numeric", "character", "logical"))
 
   if (missing(waiting_list)) {
     stop("No waiting list supplied")
