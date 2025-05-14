@@ -66,7 +66,8 @@ wl_simulator <- function(
   # check input type for WL
   if (!is.null(waiting_list)) {
     if (!methods::is(waiting_list, "data.frame")) {
-      stop("Waiting list is not supplied as a data.frame")}
+      stop("Waiting list is not supplied as a data.frame")
+    }
   }
 
 
