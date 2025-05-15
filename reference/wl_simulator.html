@@ -54,7 +54,7 @@ and removal dates</p>
 <span>  demand <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  capacity <span class="op">=</span> <span class="fl">11</span>,</span>
 <span>  waiting_list <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  withdrawal_prob <span class="op">=</span> <span class="cn">NA</span>,</span>
+<span>  withdrawal_prob <span class="op">=</span> <span class="cn">NA_real_</span>,</span>
 <span>  detailed_sim <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -64,11 +64,13 @@ and removal dates</p>
 
 
 <dl><dt id="arg-start-date">start_date<a class="anchor" aria-label="anchor" href="#arg-start-date"></a></dt>
-<dd><p>date. The start date for the simulation.</p></dd>
+<dd><p>Date or character (in format 'YYYY-MM-DD'); The start date
+to calculate from</p></dd>
 
 
 <dt id="arg-end-date">end_date<a class="anchor" aria-label="anchor" href="#arg-end-date"></a></dt>
-<dd><p>date. The end date for the simulation.</p></dd>
+<dd><p>Date or character (in format 'YYYY-MM-DD'); The end date to
+calculate to</p></dd>
 
 
 <dt id="arg-demand">demand<a class="anchor" aria-label="anchor" href="#arg-demand"></a></dt>
