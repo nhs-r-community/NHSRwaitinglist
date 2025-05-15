@@ -11,9 +11,11 @@ wl_stats(waiting_list, target_wait = 4, start_date = NULL, end_date = NULL)
 
 \item{target_wait}{numeric. The required waiting time}
 
-\item{start_date}{date. The start date to calculate from}
+\item{start_date}{Date or character (in format 'YYYY-MM-DD'); The start date
+to calculate from}
 
-\item{end_date}{date. The end date to calculate to}
+\item{end_date}{Date or character (in format 'YYYY-MM-DD'); The end date to
+calculate to}
 }
 \value{
 A data.frame of key waiting list summary statistics based on

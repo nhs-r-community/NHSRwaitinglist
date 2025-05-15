@@ -82,3 +82,23 @@ test_that("valid indexes of different types work", {
                              referral_index = c(TRUE, FALSE)),
                    expected_out)
 })
+
+test_that("wl_insert errors with incorrect arg classes", {
+  wl_msg <- "`waiting_list` must be of class <data.frame>"
+
+  expect_error(wl_insert(waiting_list = 1), wl_msg)
+  expect_error(wl_insert(waiting_list = "cat"), wl_msg)
+  expect_error(wl_insert(1, additions), wl_msg)
+
+  adds_msg <- "`additions` must be of class <Date/character>"
+
+  expect_error(wl_insert(wl1, 1), adds_msg)
+  expect_error(wl_insert(wl1, list()), adds_msg)
+  expect_error(wl_insert(wl1, data.frame()), adds_msg)
+
+  idx_msg <- "`referral_index` must be of class <numeric/character/logical>"
+
+  expect_error(wl_insert(wl1, additions, referral_index = list(), idx_msg))
+  expect_error(wl_insert(wl1, additions, referral_index = NULL, idx_msg))
+  expect_error(wl_insert(wl1, additions, referral_index = as.Date(1)), idx_msg)
+})

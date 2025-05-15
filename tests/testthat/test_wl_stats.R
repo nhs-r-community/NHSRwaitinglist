@@ -46,7 +46,7 @@ test_that("wl_stats throws an error for incorrect data type", {
                                  , "removal" = "not a date")
 
   expect_error(wl_stats(incorrect_waiting_list)
-               , "waiting list should be supplied as a data.frame")
+               , "`waiting_list` must be of class <data.frame>")
 })
 
 # Test 5: Test with specific date range
@@ -59,4 +59,37 @@ test_that("wl_stats returns correct stats for a specific date range", {
                      , end_date = "2024-01-10")
 
   expect_equal(result$mean_wait, 3)
+})
+
+# Test 6: Test with incorrect class of arguments
+test_that("wl_stats errors with incorrect arg classes", {
+  referrals <- c(as.Date("2024-01-01"), as.Date("2024-01-04")
+                 , as.Date("2024-01-10"), as.Date("2024-01-16"))
+  removals <- c(as.Date("2024-01-08"), NA, NA, NA)
+  waiting_list <- data.frame(referral = referrals, removal = removals)
+
+
+  wl_msg <- "`waiting_list` must be of class <data.frame>"
+
+  expect_error(wl_stats(waiting_list = 1), wl_msg)
+  expect_error(wl_stats(waiting_list = "cat"), wl_msg)
+  expect_error(wl_stats(list(), additions), wl_msg)
+
+  target_msg <- "`target_wait` must be of class <numeric>"
+
+  expect_error(wl_stats(waiting_list, target_wait = "4"), target_msg)
+  expect_error(wl_stats(waiting_list, target_wait = list()), target_msg)
+  expect_error(wl_stats(waiting_list, target_wait = data.frame()), target_msg)
+
+  start_msg <- "`start_date` must be of class <Date/character>"
+
+  expect_error(wl_stats(waiting_list, start_date = 1), start_msg)
+  expect_error(wl_stats(waiting_list, start_date = list()), start_msg)
+  expect_error(wl_stats(waiting_list, start_date = data.frame()), start_msg)
+
+  end_msg <- "`end_date` must be of class <Date/character>"
+
+  expect_error(wl_stats(waiting_list, end_date = 1), end_msg)
+  expect_error(wl_stats(waiting_list, end_date = list()), end_msg)
+  expect_error(wl_stats(waiting_list, end_date = data.frame()), end_msg)
 })
