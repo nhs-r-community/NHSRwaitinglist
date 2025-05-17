@@ -3,6 +3,8 @@ TODO.txt
 calc_Lambert.R
 calc_tail_prob.R
 
+# Data
+tom_data/
 
 # mac stuff
 .DS_Store
