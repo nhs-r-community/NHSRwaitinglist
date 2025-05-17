@@ -1,4 +1,3 @@
-
 #' @title Calculate some stats about the waiting list
 #'
 #' @description A summary of all the key stats associated with a waiting list
@@ -67,52 +66,57 @@ wl_stats <- function(waiting_list,
   # check_class(waiting_list, .expected_class = "data.frame")
   # check_class(target_wait, .expected_class = "numeric")
   # check_date(start_date, end_date, .allow_null = TRUE)
+  #
+  # if (nrow(waiting_list) == 0) {
+  #   stop("No data rows in waiting list")
+  # }
+  #
+  # if (missing(waiting_list)) {
+  #   stop("No waiting list supplied")
+  # }
+  #
+  #
+  # # get indices and set target wait if possible and get dates
+  # referral_index <- calc_index(waiting_list, type = "referral")
+  # removal_index <- calc_index(waiting_list, type = "removal")
+  #
+  # if (!is.null(start_date)) {
+  #   start_date <- as.Date(start_date)
+  # } else {
+  #   start_date <- min(waiting_list[, referral_index])
+  # }
+  # if (!is.null(end_date)) {
+  #   end_date <- as.Date(end_date)
+  # } else {
+  #   end_date <- max(waiting_list[, referral_index])
+  # }
 
-  if (nrow(waiting_list) == 0) {
-    stop("No data rows in waiting list")
-  }
 
-  if (missing(waiting_list)) {
-    stop("No waiting list supplied")
-  }
+  # referral_stats <- wl_referral_stats(
+  #   wl_hist,
+  #   start_date,
+  #   end_date,
+  #   referral_index
+  # )
+  referral_stats <- wl_referral_stats_hist(wl_hist)
 
+  # queue_sizes <- wl_queue_size(
+  #   waiting_list,
+  #   start_date,
+  #   end_date,
+  #   referral_index,
+  #   removal_index
+  # )
+  queue_size <- wl_queue_size_hist(wl_hist)
 
-  # get indices and set target wait if possible and get dates
-  referral_index <- calc_index(waiting_list, type = "referral")
-  removal_index <- calc_index(waiting_list, type = "removal")
-
-  if (!is.null(start_date)) {
-    start_date <- as.Date(start_date)
-  } else {
-    start_date <- min(waiting_list[, referral_index])
-  }
-  if (!is.null(end_date)) {
-    end_date <- as.Date(end_date)
-  } else {
-    end_date <- max(waiting_list[, referral_index])
-  }
-
-
-  referral_stats <- wl_referral_stats(
-    waiting_list,
-    start_date,
-    end_date,
-    referral_index
-  )
-  queue_sizes <- wl_queue_size(
-    waiting_list,
-    start_date,
-    end_date,
-    referral_index,
-    removal_index
-  )
-  removal_stats <- wl_removal_stats(
-    waiting_list,
-    start_date,
-    end_date,
-    referral_index,
-    removal_index
-  )
+    ############## THIS NEEDS FIXING ######################
+  # removal_stats <- wl_removal_stats(
+  #   waiting_list,
+  #   start_date,
+  #   end_date,
+  #   referral_index,
+  #   removal_index
+  # )
 
   # load
   q_load <-
@@ -121,9 +125,6 @@ wl_stats <- function(waiting_list,
 
   # load too big
   q_load_too_big <- (q_load >= 1.)
-
-  # final queue_size
-  q_size <- utils::tail(queue_sizes, n = 1)[, 2]
 
   # target queue size
   q_target <-
