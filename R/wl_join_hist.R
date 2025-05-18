@@ -19,7 +19,11 @@ wl_join_hist <- function(wl_hist_1, wl_hist_2){
   # do this by moving data forwards to the prior Monday date
   standardised_wl <- joined_wl |>
     dplyr::mutate(
-      waiting_since = lubridate::floor_date(waiting_since, unit = "week", week_start = 1)
+      # the arrival_since date is the nominal start of the period (i.e Monday, or 1st of month)
+      arrival_since = lubridate::floor_date(arrival_since, unit = "week", week_start = 1),
+
+      # the arrival_before date is the nominal end of the period (i.e Sunday, or 31st of month)
+      arrival_before = lubridate::floor_date(arrival_before, unit = "week", week_start = 1) + lubridate::days(6)
     ) |>
 
     # sum the new total for each histogram bin (if any data was not already on Mondays)

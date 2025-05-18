@@ -20,7 +20,8 @@ sim_exponential_histogram <- function(weeks = 52, end_date = Sys.Date(), rate = 
 
   # Create the data frame
   df <- data.frame(
-    waiting_since = dates,
+    arrival_before = dates,
+    arrival_since = dates - lubridate::days(6),
     n = n_values
   )
 

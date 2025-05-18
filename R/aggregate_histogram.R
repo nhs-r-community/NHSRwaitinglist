@@ -9,7 +9,7 @@
 aggregate_histogram <- function(histogram){
 
   result <- histogram |>
-    dplyr::group_by(waiting_since) |>
+    dplyr::group_by(arrival_before, arrival_since) |>
     dplyr::summarise(n = sum(n)) |>
     dplyr::ungroup()
 
