@@ -30,17 +30,29 @@
 #' }
 #'
 #' @export
+format_histogram <- function(histogram, group_columns = NULL, end_date = NULL, time_interval = "weeks") {
 
-format_histogram <- function(histogram, group_columns = NULL, end_date = NULL) {
-    
-    # Set end_date to today's date if not provided
+    # Set end_date based on time_interval and arrival_since if not provided
     if (is.null(end_date)) {
-        end_date <- Sys.Date()
+        max_date <- max(as.Date(histogram$arrival_since), na.rm = TRUE)
+        if (is.null(time_interval)) {
+            end_date <- Sys.Date()
+        } else if (identical(time_interval, "weeks")) {
+            end_date <- max_date + 7
+        } else if (identical(time_interval, "months")) {
+            # Get last day of the month for max_date
+            end_date <- as.Date(format(max_date, "%Y-%m-01")) + 
+                as.difftime(1, units = "months") - 1
+        } else if (is.numeric(time_interval)) {
+            end_date <- max_date + (as.numeric(time_interval) - 1)
+        } else {
+            end_date <- Sys.Date()
+        }
     } else {
         end_date <- as.Date(end_date)
     }
-    
-    # Convert the 'arrival_since' column in the 'histogram' data frame to Date type # nolint
+
+    # Convert the 'arrival_since' column in the 'histogram' data frame to Date type
     histogram$arrival_since <- as.Date(histogram$arrival_since)
 
     # If 'arrival_before' column exists, convert it to Date.
@@ -63,7 +75,7 @@ format_histogram <- function(histogram, group_columns = NULL, end_date = NULL) {
             histogram <- dplyr::ungroup(histogram)
         }
     }
-    
+
     # Reorder columns: arrival_since, arrival_before, then the rest
     cols <- names(histogram)
     cols <- c("arrival_since", "arrival_before", setdiff(cols, c("arrival_since", "arrival_before")))
@@ -77,6 +89,6 @@ format_histogram <- function(histogram, group_columns = NULL, end_date = NULL) {
     } else {
         histogram <- histogram[order(-as.numeric(histogram$arrival_since)), ]
     }
-    
+
     return(as.data.frame(histogram))
 }
