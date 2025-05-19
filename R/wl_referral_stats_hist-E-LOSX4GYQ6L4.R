@@ -34,7 +34,7 @@ wl_referral_stats_hist <- function(wl_hist,
                               start_date = NULL,
                               end_date = NULL) {
 
-  wl_hist <- format_histogram(wl_hist, end_date = end_date)
+
 
   df_referrals <-  wl_hist[which.max(wl_hist$arrival_before),]
 

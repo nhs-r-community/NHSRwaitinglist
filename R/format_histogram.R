@@ -31,13 +31,16 @@
 #'
 #' @export
 
-format_histogram <- function(histogram, group_column=NULL, end_date = NULL) {
+format_histogram <- function(histogram, group_columns = NULL, end_date = NULL) {
+    
+    # Set end_date to today's date if not provided
     if (is.null(end_date)) {
         end_date <- Sys.Date()
     } else {
         end_date <- as.Date(end_date)
     }
     
+    # Convert the 'arrival_since' column in the 'histogram' data frame to Date type # nolint
     histogram$arrival_since <- as.Date(histogram$arrival_since)
 
     # If 'arrival_before' column exists, convert it to Date.
@@ -45,13 +48,13 @@ format_histogram <- function(histogram, group_column=NULL, end_date = NULL) {
     if ("arrival_before" %in% names(histogram)) {
         histogram$arrival_before <- as.Date(histogram$arrival_before)
     } else {
-        if (is.null(group_column)) {
+        if (is.null(group_columns)) {
             # No grouping: just use lag on the whole data frame
             histogram <- histogram[order(-as.numeric(histogram$arrival_since)), ]
             histogram$arrival_before <- dplyr::lag(histogram$arrival_since, default = end_date) - 1
         } else {
-            group_syms <- rlang::syms(group_column)
-            histogram <- histogram[order(histogram[, group_column], -as.numeric(histogram$arrival_since)), ]
+            group_syms <- rlang::syms(group_columns)
+            histogram <- histogram[order(histogram[, group_columns], -as.numeric(histogram$arrival_since)), ]
             histogram <- dplyr::group_by(histogram, !!!group_syms)
             histogram <- dplyr::mutate(
                 histogram,
@@ -65,6 +68,15 @@ format_histogram <- function(histogram, group_column=NULL, end_date = NULL) {
     cols <- names(histogram)
     cols <- c("arrival_since", "arrival_before", setdiff(cols, c("arrival_since", "arrival_before")))
     histogram <- histogram[, cols]
+
+    # Improved sorting: always sort by group_columns(s) (if present) and arrival_since (descending)
+    if (!is.null(group_columns)) {
+        group_columns <- setdiff(group_columns, c("arrival_since", "arrival_before", "n"))
+        ordering <- do.call(order, c(histogram[group_columns], list(-as.numeric(histogram$arrival_since))))
+        histogram <- histogram[ordering, ]
+    } else {
+        histogram <- histogram[order(-as.numeric(histogram$arrival_since)), ]
+    }
     
     return(as.data.frame(histogram))
 }
