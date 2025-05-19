@@ -6,13 +6,20 @@
 #'
 #' @returns a dataframe summarised to a single aggregated waiting list
 #'
-aggregate_histogram <- function(histogram){
+#' @importFrom utils globalVariables
 
-  result <- histogram |>
-    dplyr::group_by(arrival_since) |>
-    dplyr::summarise(n = sum(n)) |>
-    dplyr::ungroup()
 
+aggregate_histogram <- function(histogram) {
+
+  if ("arrival_before" %in% colnames(histogram)) {
+    result <- histogram |>
+      dplyr::group_by(arrival_since, arrival_before) |>
+      dplyr::summarise(n = sum(n), .groups = "drop")
+  } else {
+    result <- histogram |>
+      dplyr::group_by(arrival_since) |>
+      dplyr::summarise(n = sum(n), .groups = "drop")
+  }
   # the result will have only two columns:
   ## waiting_since
   ## n
