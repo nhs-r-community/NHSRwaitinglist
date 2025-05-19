@@ -1,8 +1,12 @@
 # Your todo list
 TODO.txt
+TODO.md
 calc_Lambert.R
 calc_tail_prob.R
 
+
+# Folder with the data
+tom_data/
 
 # mac stuff
 .DS_Store
