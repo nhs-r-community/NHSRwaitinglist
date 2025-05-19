@@ -16,6 +16,17 @@ sim_exponential_histogram <- function(num_intervals = 52,
   random = FALSE
   ){
 
+  # Adjust end_date back if it's today's date.
+  if (as.Date(end_date) == Sys.Date()) {
+    if (is.numeric(time_interval)) {
+      end_date <- Sys.Date() - time_interval
+    } else if (tolower(time_interval) == "months") {
+      end_date <- seq.Date(Sys.Date(), by = "-1 month", length.out = 2)[2]
+    } else {
+      end_date <- Sys.Date() - 7
+    }
+  }
+
   # Determine the sequence by time_interval
   if (is.numeric(time_interval)) {
   # Numeric: treat as days
@@ -29,12 +40,11 @@ sim_exponential_histogram <- function(num_intervals = 52,
 
   if (random) {
   # generate exponential values for each date
-  n_values <- rexp(queue_size, rate = rate) |>
-    round() |>
-    sort(decreasing = TRUE)
+  n_values_raw <- ceiling(rexp(queue_size, rate = rate))
+  n_values <- tabulate(n_values_raw + 1, nbins = num_intervals)
   } else {
   # calculate values using the exponential function
-  n_values <- round(queue_size * exp(-rate * seq(0, num_intervals - 1)))
+  n_values <- ceiling(queue_size * exp(-rate * seq(0, num_intervals - 1)) * (1 - exp(-rate)))
   }
 
   # Ensure n_values length matches dates
@@ -45,6 +55,7 @@ sim_exponential_histogram <- function(num_intervals = 52,
     arrival_since = dates,
     n = n_values
   )
+  df <- format_histogram(df, end_date = end_date)
 
   return(df)
 }
