@@ -13,4 +13,5 @@ wl_queue_size_hist <- function(wl_hist){
     dplyr::pull(n) |>
     sum()
 
+  return(queue_size)
 }
