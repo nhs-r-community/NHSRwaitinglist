@@ -59,7 +59,8 @@
 #' waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 #' waiting_list_stats <- wl_stats(waiting_list)
 #'
-wl_stats_hist <- function(waiting_list,
+wl_stats_hist <- function(wl_hist1,
+                     wl_hist2,
                      target_wait = 4,
                      start_date = NULL,
                      end_date = NULL) {
@@ -98,7 +99,7 @@ wl_stats_hist <- function(waiting_list,
   #   end_date,
   #   referral_index
   # )
-  referral_stats <- wl_referral_stats_hist(wl_hist)
+  referral_stats <- wl_referral_stats_hist(wl_hist1)
 
   # queue_sizes <- wl_queue_size(
   #   waiting_list,
@@ -107,7 +108,7 @@ wl_stats_hist <- function(waiting_list,
   #   referral_index,
   #   removal_index
   # )
-  q_size <- wl_queue_size_hist(wl_hist)
+  q_size <- wl_queue_size_hist(wl_hist1)
 
     ############## THIS NEEDS FIXING ######################
   # removal_stats <- wl_removal_stats(
@@ -118,7 +119,7 @@ wl_stats_hist <- function(waiting_list,
   #   removal_index
   # )
 
-  removal_stats <- wl_removal_stats_hist(wl_hist,wl_hist2)
+  removal_stats <- wl_removal_stats_hist(wl_hist1,wl_hist2)
 
   # load
   q_load <-
@@ -136,7 +137,7 @@ wl_stats_hist <- function(waiting_list,
   q_too_big <- (q_size > 2 * q_target)
 
   # mean wait
-  mean_wait_age <- wl_mean_wait_age_hist(wl_hist, end_date)
+  mean_wait_age <- wl_mean_wait_age_hist(wl_hist1, end_date)
 
   # target capacity
   if (!q_too_big) {
@@ -161,7 +162,7 @@ wl_stats_hist <- function(waiting_list,
   }
 
   # pressure
-  pressure <- calc_waiting_list_pressure(mean_wait, target_wait)
+  pressure <- calc_waiting_list_pressure(mean_wait_age, target_wait)
 
   waiting_stats <- data.frame(
     "mean_demand" = referral_stats$demand_weekly,
