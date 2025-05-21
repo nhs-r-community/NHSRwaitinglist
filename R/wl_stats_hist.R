@@ -107,7 +107,7 @@ wl_stats <- function(waiting_list,
   #   referral_index,
   #   removal_index
   # )
-  queue_size <- wl_queue_size_hist(wl_hist)
+  q_size <- wl_queue_size_hist(wl_hist)
 
     ############## THIS NEEDS FIXING ######################
   # removal_stats <- wl_removal_stats(
@@ -117,6 +117,8 @@ wl_stats <- function(waiting_list,
   #   referral_index,
   #   removal_index
   # )
+
+  removal_stats <- wl_removal_stats_hist(wl_hist,wl_hist2)
 
   # load
   q_load <-
