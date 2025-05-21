@@ -59,7 +59,7 @@
 #' waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 #' waiting_list_stats <- wl_stats(waiting_list)
 #'
-wl_stats <- function(waiting_list,
+wl_stats_hist <- function(waiting_list,
                      target_wait = 4,
                      start_date = NULL,
                      end_date = NULL) {
@@ -136,13 +136,7 @@ wl_stats <- function(waiting_list,
   q_too_big <- (q_size > 2 * q_target)
 
   # mean wait
-  waiting_patients <-
-    waiting_list[which((waiting_list[, removal_index] >
-                          end_date | is.na(waiting_list[, removal_index]) &
-                          waiting_list[, referral_index] <= end_date)), ]
-  wait_times <-
-    as.numeric(end_date) - as.numeric(waiting_patients[, referral_index])
-  mean_wait <- mean(wait_times)
+  mean_wait_age <- wl_mean_wait_age_hist(wl_hist, end_date)
 
   # target capacity
   if (!q_too_big) {
@@ -178,7 +172,7 @@ wl_stats <- function(waiting_list,
     "queue_size" = q_size,
     "target_queue_size" = q_target,
     "queue_too_big" = q_too_big,
-    "mean_wait" = mean_wait,
+    "mean_wait_age" = mean_wait_age,
     "cv_arrival" = referral_stats$demand_cov,
     "cv_removal" = removal_stats$capacity_cov,
     "target_capacity" = target_cap,
