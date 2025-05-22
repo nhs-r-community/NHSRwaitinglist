@@ -1,16 +1,20 @@
-#' Create a weekly histogram in the format used by the package
+#' Create a waiting list histogram in the format used by the package
 #'
-#' @param weeks integer. Number of weeks of waiting list to create
+#' @param num_intervals integer. Number of intervals (weeks, months, etc) of waiting list to create
 #' @param end_date data. The date that the waiting list should end
 #' @param rate numeric. The rate defining the exponential
+#' @param queue_size integer. The queue size to create
+#' @param time_interval character. The bin width for the histogram (weeks, or months)
+#' @param random logical. Whether to generate a random histogram (TRUE/FALSE)
 #'
-#' @returns a dataframe of a simulated waiting list in histogram format
+#' @returns a data.frame of a simulated waiting list in histogram format
 #'
 #' @export
 #'
-sim_exponential_histogram <- function(num_intervals = 52, 
-  end_date = Sys.Date(), 
-  rate = 0.1, 
+sim_exponential_histogram <- function(
+  num_intervals = 52,
+  end_date = Sys.Date(),
+  rate = 0.1,
   queue_size = 1000,
   time_interval = "weeks",
   random = FALSE
