@@ -12,6 +12,7 @@ format:
 
 params:
   data_path: "default.rds"
+  org_name: "Default Org Name"
 ---
 
 ```{r}
@@ -40,7 +41,7 @@ overall_queue_size <- NHSRwaitinglist::wl_queue_size_hist(df) |>
 
 ```
 
-## Heading
+## `r params$org_name`
 
 There are `r overall_queue_size` patients in the waiting list.
 

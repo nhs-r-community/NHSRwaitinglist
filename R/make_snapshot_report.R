@@ -38,7 +38,10 @@ make_snapshot_report <- function(
   quarto::quarto_render(
     input = temp_file_name,
     output_file = final_filename,
-    execute_params = list(data_path = temp_data_path)
+    execute_params = list(
+      data_path = temp_data_path,
+      org_name = org_name
+    )
   )
 
   # delete the temporary files
