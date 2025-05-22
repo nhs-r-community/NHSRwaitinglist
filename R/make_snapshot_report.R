@@ -14,6 +14,8 @@ make_snapshot_report <- function(
     org_categories = NULL,
     fill_category = NULL,
     org_name = NULL,
+    report_reference = NULL,
+    report_owner = NULL,
     destination_directory = "."
 ){
 
@@ -40,7 +42,9 @@ make_snapshot_report <- function(
     output_file = final_filename,
     execute_params = list(
       data_path = temp_data_path,
-      org_name = org_name
+      org_name = org_name,
+      report_reference = report_reference,
+      report_owner = report_owner
     )
   )
 

@@ -13,6 +13,8 @@ format:
 params:
   data_path: "default.rds"
   org_name: "Default Org Name"
+  report_reference: "REF001"
+  report_owner: "Default Analyst"
 ---
 
 ```{r}
@@ -42,6 +44,12 @@ overall_queue_size <- NHSRwaitinglist::wl_queue_size_hist(df) |>
 ```
 
 ## `r params$org_name`
+
+Report Ref: `r params$report_reference`  
+Report Owner: `r params$report_owner`  
+Report creation time: `r format(Sys.time(), "%Y-%m-%d %H:%M:%S")`  
+
+---
 
 There are `r overall_queue_size` patients in the waiting list.
 
