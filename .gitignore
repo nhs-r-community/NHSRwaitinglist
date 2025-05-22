@@ -9,6 +9,9 @@ calc_tail_prob.R
 tom_data/
 dev/
 
+# Rendered report files
+*.html
+
 # mac stuff
 .DS_Store
 
