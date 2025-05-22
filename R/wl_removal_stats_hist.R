@@ -39,21 +39,20 @@ wl_removal_stats_hist <- function(wl_hist1,wl_hist2,
                              removal_index = 2) {
 
 
-
-  wl_hist1 <- wl_hist1 %>%
+  wl_hist1_ <- wl_hist1 %>%
     rename(
       n_hist1 = n,
       arrival_before_hist1 = arrival_before
     )
 
-  wl_hist2 <- wl_hist2 %>%
+  wl_hist2_ <- wl_hist2 %>%
     rename(
       n_hist2 = n,
       arrival_before_hist2 = arrival_before
     )
 
   # Step 2: Full join and handle missing data
-  comparison <- full_join(wl_hist1, wl_hist2, by = "arrival_since") %>%
+  comparison <- full_join(wl_hist1_, wl_hist2_, by = "arrival_since") %>%
     mutate(
       n_hist1 = replace_na(n_hist1, 0),
       n_hist2 = replace_na(n_hist2, 0),
@@ -71,11 +70,13 @@ wl_removal_stats_hist <- function(wl_hist1,wl_hist2,
     ) %>%
     arrange(arrival_since)
 
+
+
   num_removals <- abs(sum(comparison$change[comparison$change < 0]))
 
   # Find the most recent dates
-  latest1 <- max(wl_hist1$arrival_before_hist1, na.rm = TRUE)
-  latest2 <- max(wl_hist2$arrival_before_hist2, na.rm = TRUE)
+  latest1 <- max(wl_hist1_$arrival_before_hist1, na.rm = TRUE)
+  latest2 <- max(wl_hist2_$arrival_before_hist2, na.rm = TRUE)
 
   # Calculate difference in days
   days_diff <- as.numeric(abs(difftime(latest1, latest2, units = "days")))
