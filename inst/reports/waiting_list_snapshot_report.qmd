@@ -9,25 +9,38 @@ format:
       body-width: 900px
     theme: 
       - cosmo
+
+params:
+  data_path: "default.rds"
 ---
 
-## Quarto
-
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
 ```{r}
-1 + 1
+#| message: false
+#| warning: true
+#| include: false
+
+# load the package when in the development context
+# the package will already be loaded when in production
+if (requireNamespace("devtools", quietly = TRUE)) {
+  try(devtools::load_all("."), silent = TRUE)
+}
+
+# Load the data from the RDS path
+df <- readRDS(params$data_path)
+
 ```
 
-You can add options to executable code like this 
-
 ```{r}
-#| echo: false
-2 * 2
+#| message: false
+#| warning: false
+#| include: false
+
+overall_queue_size <- NHSRwaitinglist::wl_queue_size_hist(df) |> 
+  format(big.mark = ",", scientific = FALSE)
+
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+## Heading
+
+There are `r overall_queue_size` patients in the waiting list.
+

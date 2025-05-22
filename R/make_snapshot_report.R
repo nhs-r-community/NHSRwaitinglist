@@ -17,6 +17,11 @@ make_snapshot_report <- function(
     destination_directory = "."
 ){
 
+  # Create a temp file to hold the data in an RDS
+  # this overcomes the problem where quarto converts params to lists
+  temp_data_path <- tempfile(fileext = ".rds")
+  saveRDS(histogram_data, temp_data_path)
+
   # this is the source location for the quarto report format
   report_qmd_path <- system.file("reports", "waiting_list_snapshot_report.qmd", package = "NHSRwaitinglist")
 
@@ -32,11 +37,13 @@ make_snapshot_report <- function(
   # render the report
   quarto::quarto_render(
     input = temp_file_name,
-    output_file = final_filename
+    output_file = final_filename,
+    execute_params = list(data_path = temp_data_path)
   )
 
-  # delete the temporary file
-  file.remove(temp_file_name)
+  # delete the temporary files
+  unlink(temp_file_name)
+  unlink(temp_data_path)
 
   # move the report to the output directory if required
   if(destination_directory != "."){
