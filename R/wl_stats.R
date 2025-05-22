@@ -134,7 +134,6 @@ wl_stats <- function(waiting_list,
   # mean wait age
   mean_wait_age <- wl_mean_wait_age(waiting_list, referral_index, removal_index, end_date)
 
-
   # target capacity
   if (!q_too_big) {
     target_cap <- calc_target_capacity(
