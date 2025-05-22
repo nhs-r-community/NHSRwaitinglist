@@ -1,0 +1,55 @@
+#' Make Waiting List Snapshot Report
+#'
+#' @param histogram_data data.frame.  A data.frame of histogram data in the NHSRwaitinglist data format.
+#' @param org_categories charactor vector. A charactor vector of category column names present in the histogram data.
+#' @param fill_category character. The name of a category column in the histogram data which will be used to define the histogram fill colours.
+#' @param org_name character. The name of the organisation producing the report.
+#' @param destination character. The path the final report should be rendered to.  Defaults to the current working directory.
+#'
+#' @returns character. The filepath of the final rendered report.
+#' @export
+#'
+make_snapshot_report <- function(
+    histogram_data,
+    org_categories = NULL,
+    fill_category = NULL,
+    org_name = NULL,
+    destination_directory = "."
+){
+
+  # this is the source location for the quarto report format
+  report_qmd_path <- system.file("reports", "waiting_list_snapshot_report.qmd", package = "NHSRwaitinglist")
+
+  # to render reliably, we need to copy the qmd to a temporary location
+  temp_file_name <- "temp_report.qmd"
+
+  # this is the final filename for the output
+  final_filename <- paste0(format(Sys.time(), "%Y%m%d_%H%M%S_"), "Waiting_List_Snapshot_Report.html")
+
+  # temporarily copy the qmd file to avoid resource filepath problems
+  file.copy(report_qmd_path, temp_file_name, overwrite = TRUE)
+
+  # render the report
+  quarto::quarto_render(
+    input = temp_file_name,
+    output_file = final_filename
+  )
+
+  # delete the temporary file
+  file.remove(temp_file_name)
+
+  # move the report to the output directory if required
+  if(destination_directory != "."){
+    result_path <- file.path(getwd(), destination_directory, final_filename)
+    file.copy(final_filename, result_path)
+    file.remove(final_filename)
+  } else {
+    result_path <- file.path(getwd(), final_filename)
+  }
+
+  # open the report in the web browser
+  browseURL(result_path)
+
+  return(result_path)
+
+}
