@@ -57,13 +57,11 @@ wl_removal_stats_hist <- function(wl_hist1,wl_hist2,
       n_hist1 = replace_na(n_hist1, 0),
       n_hist2 = replace_na(n_hist2, 0),
       # Step 3: Merge the arrival_before columns using coalesce
-      arrival_before = coalesce(arrival_before_hist1, arrival_before_hist2),
       change = n_hist2 - n_hist1
     ) %>%
     # Optional: tidy up column order
     select(
       arrival_since,
-      arrival_before,
       n_hist1,
       n_hist2,
       change
@@ -75,8 +73,8 @@ wl_removal_stats_hist <- function(wl_hist1,wl_hist2,
   num_removals <- abs(sum(comparison$change[comparison$change < 0]))
 
   # Find the most recent dates
-  latest1 <- max(wl_hist1_$arrival_before_hist1, na.rm = TRUE)
-  latest2 <- max(wl_hist2_$arrival_before_hist2, na.rm = TRUE)
+  latest1 <- max(wl_hist1_$report_date, na.rm = TRUE)
+  latest2 <- max(wl_hist2_$report_date, na.rm = TRUE)
 
   # Calculate difference in days
   days_diff <- as.numeric(abs(difftime(latest1, latest2, units = "days")))
