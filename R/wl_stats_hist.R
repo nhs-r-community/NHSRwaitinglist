@@ -135,7 +135,7 @@ wl_stats_hist <- function(wl_hist1,
 
   # target queue size
   q_target <-
-    calc_target_queue_size(referral_stats$demand_weekly, target_wait)
+    calc_target_queue_size(referral_stats$demand_weekly, target_wait=18, factor = 2.52)
 
   # queue too big
   q_too_big <- (q_size > 2 * q_target)
