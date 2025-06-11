@@ -34,6 +34,8 @@
 #'
 #' calc_relief_capacity(30, 1200, 390, 26)
 #'
+#' 
+# TODO: imporve discussion on coefficient of variation include conversion from count data
 calc_relief_capacity <- function(
   demand,
   queue_size,
