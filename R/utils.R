@@ -123,7 +123,7 @@ check_date <- function(...,
 #'
 #' @param waiting_list data.frame waiting list to check
 #' 
-#' @param .empty String strategy for handling 0 row data frames. One of:
+#' @param .empty_wl String strategy for handling 0 row data frames. One of:
 #'   "error" - Throw an error (default);
 #'   "warn" - Throw a warning;
 #'   "allow" - Do nothing.
@@ -139,11 +139,12 @@ check_date <- function(...,
 #' @noRd
 check_wl <- function(
   waiting_list,
-  .empty = c("error", "warn", "allow"),
+  .empty_wl = c("error", "warn", "allow"),
+  .allow_null = NULL,
   .wl_name = rlang::caller_arg(waiting_list),
   .call = rlang::caller_env()
 ) {
-  .empty <- rlang::arg_match(.empty)
+  .empty_wl <- rlang::arg_match(.empty_wl)
 
   # check_class expects args passed to `...`
   # so for the single waiting list argument:
@@ -152,11 +153,11 @@ check_wl <- function(
   wl_list <- setNames(list(waiting_list), .wl_name)
   check_class(!!!wl_list, .expected_class = "data.frame")
 
-  if (.empty != "allow") {
+  if (.empty_wl != "allow") {
     wl_is_empty <- NROW(waiting_list) == 0
 
-    empty_handler <- switch(
-      .empty,
+    empty_wl_handler <- switch(
+      .empty_wl,
       "error" = cli::cli_abort,
       "warn" = cli::cli_warn
     )
@@ -164,7 +165,7 @@ check_wl <- function(
     if (wl_is_empty) {
       msg <- paste0("{.arg ", .wl_name, "} has 0 rows")
 
-      empty_handler(message = c("!" = msg), call = .call)
+      empty_wl_handler(message = c("!" = msg), call = .call)
     }
   }
 }

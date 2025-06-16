@@ -306,9 +306,9 @@ test_that("check_wl handles 0 row data frames correctly", {
   msg <- "`empty_df` has 0 rows"
 
   expect_error(check_wl(empty_df), msg) # default
-  expect_error(check_wl(empty_df, .empty = "error"), msg)
+  expect_error(check_wl(empty_df, .empty_wl = "error"), msg)
 
-  expect_warning(check_wl(empty_df, .empty = "warn"), msg)
+  expect_warning(check_wl(empty_df, .empty_wl = "warn"), msg)
 
-  expect_no_error(check_wl(empty_df, .empty = "allow"))
+  expect_no_error(check_wl(empty_df, .empty_wl = "allow"))
 })
