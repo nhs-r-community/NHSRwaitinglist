@@ -118,3 +118,32 @@ check_date <- function(...,
     )
   }
 }
+
+#' Check format of input waiting list
+#'
+#' @param waiting_list data.frame waiting list to check
+#' 
+#' @param wl_name The waiting list arg name from the calling environment. 
+#'   Recommended to leave as default.
+#' 
+#' @param .call The environment in which this function is to be
+#'   called. Recommended to leave as default.
+#'
+#' @return Returns `NULL` invisibly if no errors
+#'
+#' @noRd
+check_wl <- function(
+  waiting_list,
+  .empty = c("error", "warn", "allow"),
+  .wl_name = rlang::caller_arg(waiting_list),
+  .call = rlang::caller_env()
+) {
+  .empty <- rlang::arg_match(.empty)
+
+  # check_class expects args passed to `...`
+  # so for the single waiting list argument:
+  #   wrap in a named list,
+  #   then splice `!!!` the list when passing as an arg to "dot-dot-dotify" it
+  wl_list <- setNames(list(waiting_list), .wl_name)
+  check_class(!!!wl_list, .expected_class = "data.frame")
+}

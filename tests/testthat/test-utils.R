@@ -280,3 +280,23 @@ test_that("check_date errors with ambigious character format", {
   expect_error(check_date("not a date", "also not a date"), format_msg)
   expect_error(check_date(c("not a date", "also not a date")), format_msg)
 })
+
+# check_wl -------------------------------------------------------------
+
+test_that("check_wl errors correctly by waiting list class", {
+  # no error for data frames
+  expect_no_error(check_wl(iris))
+  expect_no_error(check_wl(mtcars)) 
+
+  # error for non-data frames
+  df_msg <- "must be of class <data.frame>"
+
+  expect_error(check_wl(1), df_msg)
+  expect_error(check_wl(1), "`1` with class <numeric>")
+
+  expect_error(check_wl(TRUE), df_msg)
+  expect_error(check_wl(TRUE), "`TRUE` with class <logical>")
+
+  expect_error(check_wl(letters), df_msg)
+  expect_error(check_wl(letters), '`letters` with class <character>')
+})
