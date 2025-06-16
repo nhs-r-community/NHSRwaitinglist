@@ -123,6 +123,11 @@ check_date <- function(...,
 #'
 #' @param waiting_list data.frame waiting list to check
 #' 
+#' @param .empty String strategy for handling 0 row data frames. One of:
+#'   "error" - Throw an error (default);
+#'   "warn" - Throw a warning;
+#'   "allow" - Do nothing.
+#' 
 #' @param wl_name The waiting list arg name from the calling environment. 
 #'   Recommended to leave as default.
 #' 
@@ -146,4 +151,20 @@ check_wl <- function(
   #   then splice `!!!` the list when passing as an arg to "dot-dot-dotify" it
   wl_list <- setNames(list(waiting_list), .wl_name)
   check_class(!!!wl_list, .expected_class = "data.frame")
+
+  if (.empty != "allow") {
+    wl_is_empty <- NROW(waiting_list) == 0
+
+    empty_handler <- switch(
+      .empty,
+      "error" = cli::cli_abort,
+      "warn" = cli::cli_warn
+    )
+
+    if (wl_is_empty) {
+      msg <- paste0("{.arg ", .wl_name, "} has 0 rows")
+
+      empty_handler(message = c("!" = msg), call = .call)
+    }
+  }
 }
