@@ -122,15 +122,18 @@ check_date <- function(...,
 #' Check format of input waiting list
 #'
 #' @param waiting_list data.frame waiting list to check
-#' 
+#'
+#' @param ... Indices for columns in `waiting_list`, can be positional like `1`,
+#'   named like `"referrals"`, or logical like `c(TRUE, FALSE)`
+#'
 #' @param .empty_wl String strategy for handling 0 row data frames. One of:
 #'   "error" - Throw an error (default);
 #'   "warn" - Throw a warning;
 #'   "allow" - Do nothing.
-#' 
-#' @param wl_name The waiting list arg name from the calling environment. 
+#'
+#' @param wl_name The waiting list arg name from the calling environment.
 #'   Recommended to leave as default.
-#' 
+#'
 #' @param .call The environment in which this function is to be
 #'   called. Recommended to leave as default.
 #'
@@ -139,6 +142,7 @@ check_date <- function(...,
 #' @noRd
 check_wl <- function(
   waiting_list,
+  ...,
   .empty_wl = c("error", "warn", "allow"),
   .allow_null = NULL,
   .wl_name = rlang::caller_arg(waiting_list),
@@ -168,4 +172,10 @@ check_wl <- function(
       empty_wl_handler(message = c("!" = msg), call = .call)
     }
   }
+
+  check_class(
+    ...,
+    .expected_class = c("numeric", "character", "logical"),
+    .call = .call
+  )
 }

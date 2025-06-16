@@ -312,3 +312,18 @@ test_that("check_wl handles 0 row data frames correctly", {
 
   expect_no_error(check_wl(empty_df, .empty_wl = "allow"))
 })
+
+test_that("check_wl errors on incorrect index class", {
+  idx_msg <-  "must be of class <numeric/character/logical>"
+
+  date <- Sys.Date()
+  expect_error(check_wl(iris, date), idx_msg)
+  expect_error(check_wl(iris, date), "`date` with class <Date>")
+
+  # multiple indices
+  fct_l <- as.factor(letters)
+  fct_u <- as.factor(LETTERS)
+  expect_error(check_wl(iris, fct_l, fct_u), idx_msg)
+  expect_error(check_wl(iris, fct_l, fct_u), "`fct_l` with class <factor>")
+  expect_error(check_wl(iris, fct_l, fct_u), "`fct_u` with class <factor>")
+})
