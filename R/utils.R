@@ -123,6 +123,7 @@ check_date <- function(...,
 #'
 #' - Checks the `waiting_list` is a data.frame.
 #' - Checks the `waiting_list` is not empty (doesn't have 0 rows).
+#' - Checks the indices passed to `...` are not `NA`.
 #' - Checks the indices passed to `...` are numerical, character or logical.
 #' - Checks the columns specified by the indices do exist in `waiting_list`
 #' - Checks the columns in `waiting_list` specified by the indices are valid
@@ -194,6 +195,30 @@ check_wl <- function(
   }
 
   # Checks the indices passed to `...` are not `NA` ----
+
+  if (length(indices) == 1) {
+    is_na_index <- vapply(indices, is.na, logical(1))
+    na_indices <- indices[is_na_index]
+
+    if (sum(is_na_index) > 0) {
+      fails_bullets <- stats::setNames(
+        paste0(
+          "{.var ", names(na_indices), "} with value {.val ",
+          na_indices, "}"
+        ),
+        rep("*", length(na_indices))
+      )
+
+      cli::cli_abort(
+        message = c(
+          "x" = "Column indices must not be not be NA/missing values",
+          "You provided:",
+          fails_bullets
+        ),
+        .call = .call
+      )
+    }
+  }
 
 
   # Checks the indices passed to `...` are numerical, character or logical ----
