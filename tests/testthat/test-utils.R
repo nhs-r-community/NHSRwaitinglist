@@ -286,7 +286,7 @@ test_that("check_date errors with ambigious character format", {
 test_that("check_wl errors correctly by waiting list class", {
   # no error for data frames
   expect_no_error(check_wl(iris))
-  expect_no_error(check_wl(mtcars)) 
+  expect_no_error(check_wl(mtcars))
 
   # error for non-data frames
   df_msg <- "must be of class <data.frame>"
@@ -298,7 +298,7 @@ test_that("check_wl errors correctly by waiting list class", {
   expect_error(check_wl(TRUE), "`TRUE` with class <logical>")
 
   expect_error(check_wl(letters), df_msg)
-  expect_error(check_wl(letters), '`letters` with class <character>')
+  expect_error(check_wl(letters), "`letters` with class <character>")
 })
 
 test_that("check_wl handles 0 row data frames correctly", {
@@ -334,7 +334,7 @@ test_that("check_wl errors in incorrect column class", {
   expect_error(check_wl(iris, "Species"), date_msg)
 
   expect_error(
-    check_wl(iris, "Species"), 
+    check_wl(iris, "Species"),
     r"(`iris\[\["Species"]]` with class <factor>)"
   )
 })
