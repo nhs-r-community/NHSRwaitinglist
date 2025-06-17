@@ -119,12 +119,21 @@ check_date <- function(...,
   }
 }
 
-#' Check format of input waiting list
+#' Check format of input waiting list and indexed columns
+#' 
+#' - Checks the `waiting_list` is a data.frame. 
+#' - Checks the `waiting_list` is not empty (doesn't have 0 rows).
+#' - Checks the indices passed to `...` are numerical, character or logical.
+#' - Checks the columns specified by the indices do exist in `waiting_list`
+#' - Checks the columns in `waiting_list` specified by the indices are valid
+#'     date vectors.
+#' 
+#' Uses check_class and check_date for the class and date checks.
+#' 
+#' @param waiting_list Object expected to be a data.frame waiting list
 #'
-#' @param waiting_list data.frame waiting list to check
-#'
-#' @param ... Indices for columns in `waiting_list`, can be positional like `1`,
-#'   named like `"referrals"`, or logical like `c(TRUE, FALSE)`
+#' @param ... Indices for date columns in `waiting_list`, can be positional 
+#'   like `1`, named like `"referrals"`, or logical like `c(TRUE, FALSE)`
 #'
 #' @param .empty_wl String strategy for handling 0 row data frames. One of:
 #'   "error" - Throw an error (default);
@@ -172,10 +181,27 @@ check_wl <- function(
       empty_wl_handler(message = c("!" = msg), call = .call)
     }
   }
+  
+  indices <- rlang::dots_list(..., .named = TRUE)
+
+  # exit if no indices to check
+  if (length(indices) == 0) {
+    return(invisible())
+  }
 
   check_class(
     ...,
     .expected_class = c("numeric", "character", "logical"),
     .call = .call
   )
+
+  # check if index is in waiting_list
+
+  # check if waiting_list[[index]] is Date
+  date_inputs <- setNames(
+    lapply(indices, function(index) waiting_list[[index]]),
+    paste0(.wl_name, "[[", names(indices), "]]")
+  )
+
+  check_date(!!!date_inputs, .call = .call)
 }

@@ -327,3 +327,14 @@ test_that("check_wl errors on incorrect index class", {
   expect_error(check_wl(iris, fct_l, fct_u), "`fct_l` with class <factor>")
   expect_error(check_wl(iris, fct_l, fct_u), "`fct_u` with class <factor>")
 })
+
+test_that("check_wl errors in incorrect column class", {
+  date_msg <- "must be of class <Date/character>"
+  # indexed columns must be of class date
+  expect_error(check_wl(iris, "Species"), date_msg)
+
+  expect_error(
+    check_wl(iris, "Species"), 
+    r"(`iris\[\["Species"]]` with class <factor>)"
+  )
+})
