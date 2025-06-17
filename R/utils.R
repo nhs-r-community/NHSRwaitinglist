@@ -190,12 +190,21 @@ check_wl <- function(
   }
 
   check_class(
-    ...,
+    ..., # we can just pass the dots directly here
     .expected_class = c("numeric", "character", "logical"),
     .call = .call
   )
 
   # check if index is in waiting_list
+  for (i in seq_along(indices)) {
+    check_column_exists(
+      indices[[i]],
+      waiting_list,
+      index_name = names(indices)[[i]],
+      df_name = .wl_name,
+      .call = .call
+    )
+  }
 
   # check if waiting_list[[index]] is Date
   date_inputs <- setNames(
@@ -204,4 +213,88 @@ check_wl <- function(
   )
 
   check_date(!!!date_inputs, .call = .call)
+}
+
+#' Assess validity of column index based on its data type
+#'
+#' Helper function to check_wl.
+#'
+#' A numerical index must be of length 1,
+#'   and have a value between 1 and NCOL(df).
+#'
+#' A character index must be of length 1,
+#'   and must be %in% names(df).
+#'
+#' A logical index must be of length NCOL(df),
+#'  and have a sum of 1 (one TRUE for one column).
+#'
+#' The error message has structure
+#' Column `{index_name}` not find in `{df_name}`
+#' You provided:
+#' * Index `{index_name}` with value "{index}"
+#'
+#' Could be improved with more specific messages, for example specifying that
+#' the length is wrong.
+#'
+#' @param index index to check for validity
+#'
+#' @param df data.frame to check for column validity against
+#'
+#' @param index_name arg name for `index` from parent function
+#'
+#' @param df_name arg name for `df` from parent function
+#'
+#' @return Returns `NULL` invisibly if no errors found
+#'
+#' @noRd
+check_column_exists <- function(
+  index,
+  df,
+  index_name = rlang::caller_arg(index),
+  df_name = rlang::caller_arg(df),
+  .call = rlang::caller_env()
+) {
+  stopifnot(is.data.frame(df))
+  stopifnot(is.numeric(index) || is.character(index) || is.logical(index))
+
+  index_is_valid <- FALSE
+  ncols <- NCOL(df)
+
+  if (is.numeric(index)) {
+    if (length(index) == 1) {
+      # is in valid range
+      index_is_valid <- index >= 1 && index <= ncols
+    }
+  } else if (is.character(index)) {
+    if (length(index) == 1) {
+      index_is_valid <- index %in% colnames(df)
+    }
+  } else if (is.logical(index)) {
+    if (length(index) == ncols) {
+      # is correct size
+      index_is_valid <- sum(index) == 1
+    }
+  }
+
+  if (!index_is_valid) {
+    err_msg <- paste0(
+      "Column {.var ", index_name , "} not found in {.var ", df_name, "}"
+    )
+
+    # collapse in case longer than length 1
+    val <- paste0(index, collapse = ", ")
+
+    provided_msg <- paste0(
+      "Index {.var ", index_name , "} with value {.val ", val, "}"
+    )
+
+    cli::cli_abort(
+      message = c(
+        "x" = err_msg,
+        "You provided:",
+        "*" = provided_msg
+      ),
+      call = .call
+    )
+  }
 }

@@ -338,3 +338,27 @@ test_that("check_wl errors in incorrect column class", {
     r"(`iris\[\["Species"]]` with class <factor>)"
   )
 })
+
+test_that("check_wl errors if index column not found in waiting list", {
+  found_msg <- "not found in `iris`"
+
+  num_idx <- 10
+  expect_error(check_wl(iris, num_idx), found_msg)
+  expect_error(check_wl(iris, num_idx), r"(`num_idx` with value "10")")
+
+  chr_idx <- "not a col"
+  expect_error(check_wl(iris, chr_idx), found_msg)
+  expect_error(check_wl(iris, chr_idx), r"(`chr_idx` with value "not a col")")
+
+  lgl_idx <- c(TRUE, FALSE)
+  expect_error(check_wl(iris, lgl_idx), found_msg)
+  expect_error(check_wl(iris, lgl_idx), r"(`lgl_idx` with value "TRUE, FALSE")")
+
+  multi_num <- c(1, 2, 3)
+  expect_error(check_wl(iris, multi_num), found_msg)
+  expect_error(check_wl(iris, multi_num), r"(`multi_num` with value "1, 2, 3")")
+
+  multi_chr <- c("a", "b", "c")
+  expect_error(check_wl(iris, multi_chr), found_msg)
+  expect_error(check_wl(iris, multi_chr), r"(`multi_chr` with value "a, b, c")")
+})
