@@ -123,8 +123,8 @@ check_date <- function(...,
 #'
 #' - Checks the `waiting_list` is a data.frame.
 #' - Checks the `waiting_list` is not empty (doesn't have 0 rows).
-#' - Checks the indices passed to `...` are not `NA`.
 #' - Checks the indices passed to `...` are numerical, character or logical.
+#' - Checks the indices passed to `...` are not `NA`.
 #' - Checks the columns specified by the indices do exist in `waiting_list`
 #'
 #' Uses check_class and check_date for the class and date checks.
@@ -192,6 +192,14 @@ check_wl <- function(
     return(invisible())
   }
 
+  # Checks the indices passed to `...` are numerical, character or logical ----
+
+  check_class(
+    ..., # we can just pass the dots directly here
+    .expected_class = c("numeric", "character", "logical"),
+    .call = .call
+  )
+
   # Checks the indices passed to `...` are not `NA` ----
 
   is_na_index <- vapply(
@@ -220,15 +228,6 @@ check_wl <- function(
       .call = .call
     )
   }
-
-
-  # Checks the indices passed to `...` are numerical, character or logical ----
-
-  check_class(
-    ..., # we can just pass the dots directly here
-    .expected_class = c("numeric", "character", "logical"),
-    .call = .call
-  )
 
   # Checks the columns specified by the indices do exist in `waiting_list` ----
 
