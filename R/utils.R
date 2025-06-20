@@ -221,7 +221,7 @@ check_wl <- function(
 
     cli::cli_abort(
       message = c(
-        "x" = "Column indices must not be not be NA/missing values",
+        "x" = "Column indices must not be {.val NA}",
         "You provided:",
         fails_bullets
       ),

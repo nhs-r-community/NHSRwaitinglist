@@ -328,6 +328,22 @@ test_that("check_wl errors on incorrect index class", {
   expect_error(check_wl(iris, fct_l, fct_u), "`fct_u` with class <factor>")
 })
 
+test_that("check_wl errors clearly on NA index", {
+  na_msg <- r"(Column indices must not be "NA")"
+
+  expect_error(check_wl(iris, NA), na_msg)
+  expect_error(check_wl(iris, NA_real_), na_msg)
+  expect_error(check_wl(iris, NA_character_), na_msg)
+  expect_error(check_wl(iris, NA_integer_), na_msg)
+  expect_error(check_wl(iris, idx_1 = NA, idx_2 = NA), na_msg)
+
+  # You provided:
+  expect_error(check_wl(iris, idx_1 = NA, idx_2 = NA),
+               r"(`idx_1` with value "NA")")
+  expect_error(check_wl(iris, idx_1 = NA, idx_2 = NA),
+               r"(`idx_2` with value "NA")")
+})
+
 test_that("check_wl errors if index column not found in waiting list", {
   found_msg <- "not found in `iris`"
 
