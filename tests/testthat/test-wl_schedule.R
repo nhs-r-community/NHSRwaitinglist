@@ -114,3 +114,38 @@ test_that("wl_schedule errors with incorrect arg classes", {
   expect_error(wl_schedule(waiting_list, schedule, unscheduled = sum),
                unsch_msg)
 })
+
+test_that("wl_schedule errors for invalid indexes to `waiting_list", {
+  schedule <- Sys.Date()
+  bad_lgl <- c(rep(FALSE, 9), TRUE)
+
+  not_found <- "Column `referral_index` not found in `waiting_list`"
+
+  expect_error(wl_schedule(iris, schedule, "bad index"), not_found)
+  expect_error(wl_schedule(iris, schedule, referral_index = 10), not_found)
+  expect_error(wl_schedule(iris, schedule, referral_index = bad_lgl), not_found)
+
+  expect_error(wl_schedule(iris, schedule, "bad index"),
+               r"(`referral_index` with value "bad index")")
+  expect_error(wl_schedule(iris, schedule, referral_index = 10),
+               r"(`referral_index` with value "10")")
+
+  not_found <- "Column `removal_index` not found in `waiting_list`"
+
+  expect_error(wl_schedule(iris, schedule, removal_index = "bad index"),
+               not_found)
+  expect_error(wl_schedule(iris, schedule, removal_index = 10), not_found)
+  expect_error(wl_schedule(iris, schedule, removal_index = bad_lgl), not_found)
+
+  expect_error(wl_schedule(iris, schedule, removal_index = "bad index"),
+               r"(`removal_index` with value "bad index")")
+  expect_error(wl_schedule(iris, schedule, removal_index = 10),
+               r"(`removal_index` with value "10")")
+})
+
+test_that("wl_schedule errors for 0 row data frames", {
+  empty_msg <- "`waiting_list` has 0 rows of data"
+
+  expect_error(wl_schedule(mtcars[0, ]), empty_msg)
+  expect_error(wl_schedule(iris[0, ]), empty_msg)
+})
