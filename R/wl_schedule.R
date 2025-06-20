@@ -52,19 +52,9 @@ wl_schedule <- function(
 ) {
 
   # Error handle
-  check_class(waiting_list, .expected_class = "data.frame")
+  check_wl(waiting_list, referral_index, removal_index)
   check_date(schedule)
-  check_class(referral_index, removal_index,
-              .expected_class = c("numeric", "character", "logical"))
   check_class(unscheduled, .expected_class = "logical")
-
-  if (nrow(waiting_list) == 0) {
-    stop("No data rows in waiting list")
-  }
-
-  if (missing(waiting_list)) {
-    stop("No waiting list supplied")
-  }
 
   if (!inherits(schedule, "Date")) {
     schedule <- as.Date(schedule)
