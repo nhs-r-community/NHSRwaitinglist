@@ -164,7 +164,7 @@ check_wl <- function(
   # so for the single waiting list argument:
   #   wrap in a named list,
   #   then splice `!!!` the list when passing as an arg to "dot-dot-dotify" it
-  wl_list <- setNames(list(waiting_list), .wl_name)
+  wl_list <- stats::setNames(list(waiting_list), .wl_name)
   check_class(!!!wl_list, .expected_class = "data.frame")
 
   # Checks the `waiting_list` is not empty (doesn't have 0 rows) ----
