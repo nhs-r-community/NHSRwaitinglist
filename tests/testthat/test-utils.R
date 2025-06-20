@@ -303,7 +303,7 @@ test_that("check_wl errors correctly by waiting list class", {
 
 test_that("check_wl handles 0 row data frames correctly", {
   empty_df <- iris[0, ]
-  msg <- "`empty_df` has 0 rows"
+  msg <- "`empty_df` has 0 rows of data"
 
   expect_error(check_wl(empty_df), msg) # default
   expect_error(check_wl(empty_df, .empty_wl = "error"), msg)

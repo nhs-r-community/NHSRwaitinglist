@@ -179,7 +179,7 @@ check_wl <- function(
     )
 
     if (wl_is_empty) {
-      msg <- paste0("{.arg ", .wl_name, "} has 0 rows")
+      msg <- paste0("{.arg ", .wl_name, "} has 0 rows of data")
 
       empty_wl_handler(message = c("!" = msg), call = .call)
     }
