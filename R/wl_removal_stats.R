@@ -37,10 +37,8 @@ wl_removal_stats <- function(waiting_list,
                              end_date = NULL,
                              referral_index = 1,
                              removal_index = 2) {
-  check_class(waiting_list, .expected_class = "data.frame")
+  check_wl(waiting_list, referral_index, removal_index)
   check_date(start_date, end_date, .allow_null = TRUE)
-  check_class(removal_index,
-              .expected_class = c("numeric", "character", "logical"))
 
   if (nrow(waiting_list) == 0) {
     stop("Waiting list contains no rows")

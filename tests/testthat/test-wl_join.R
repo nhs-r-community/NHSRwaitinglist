@@ -55,7 +55,7 @@ test_that("wl_join errors with incorrect arg classes", {
   expect_error(wl_join(wl1, 2), wl2_msg)
   expect_error(wl_join(wl1, "dog"), wl2_msg)
 
-  wl_msg <- "`wl_1` and `wl_2` must be of class <data.frame>"
+  wl_msg <- "`wl_1` must be of class <data.frame>"
 
   expect_error(wl_join(1, 2), wl_msg)
   expect_error(wl_join("cat", "dog"), wl_msg)
