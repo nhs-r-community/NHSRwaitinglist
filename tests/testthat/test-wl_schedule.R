@@ -130,7 +130,7 @@ test_that("wl_schedule errors for invalid indexes to `waiting_list", {
   expect_error(wl_schedule(iris, schedule, referral_index = 10),
                r"(`referral_index` with value "10")")
 
-  not_found <- "Column `removal_index` not found in `waiting_list`"
+  not_found <- "`removal_index` not found in `waiting_list`"
 
   expect_error(wl_schedule(iris, schedule, removal_index = "bad index"),
                not_found)

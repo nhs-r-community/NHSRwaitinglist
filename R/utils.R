@@ -305,7 +305,11 @@ check_column_exists <- function(
 
   if (!index_is_valid) {
     err_msg <- paste0(
-      "Column {.var ", index_name, "} not found in {.var ", df_name, "}"
+      "Column specified by {.var ",
+      index_name,
+      "} not found in {.var ",
+      df_name,
+      "}"
     )
 
     # collapse in case longer than length 1
