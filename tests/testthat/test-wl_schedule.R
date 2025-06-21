@@ -119,7 +119,7 @@ test_that("wl_schedule errors for invalid indexes to `waiting_list", {
   schedule <- Sys.Date()
   bad_lgl <- c(rep(FALSE, 9), TRUE)
 
-  not_found <- "Column `referral_index` not found in `waiting_list`"
+  not_found <- "`referral_index` not found in `waiting_list`"
 
   expect_error(wl_schedule(iris, schedule, "bad index"), not_found)
   expect_error(wl_schedule(iris, schedule, referral_index = 10), not_found)
