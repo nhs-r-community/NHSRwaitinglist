@@ -64,6 +64,7 @@ wl_simulator <- function(
   withdrawal_prob = NA_real_,
   detailed_sim = FALSE
 ) {
+
   check_date(start_date, end_date, .allow_null = TRUE)
   check_class(demand, capacity, withdrawal_prob, .expected_class = "numeric")
   check_class(detailed_sim, .expected_class = "logical")

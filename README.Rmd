@@ -45,6 +45,9 @@ You can install the current version of {NHSRwaitinglist} from GitHub as below.
 If you have not installed from GitHub before, you may first need to create and store a "Personal Access Token" (PAT) to grant access to your account, for example by following the [{usethis} guide](https://usethis.r-lib.org/articles/git-credentials.html#get-a-personal-access-token-pat).
 
 ```r
+# Install from CRAN
+install.packages("NHSRwaitinglist")
+
 # install.packages("remotes")
 remotes::install_github("nhs-r-community/NHSRwaitinglist", build_vignettes = TRUE)
 ```
