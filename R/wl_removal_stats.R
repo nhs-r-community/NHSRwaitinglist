@@ -3,10 +3,12 @@
 #' @description Calculate some stats about removals
 #'
 #' @param waiting_list data.frame. A df of referral dates and removals
-#' @param start_date date. The start date to calculate from
-#' @param end_date date. The end date to calculate to
-#' @param referral_index int. Index of the referral column in waiting_list.
-#' @param removal_index int. Index of the removal column in waiting_list.
+#' @param start_date Date or character (in format 'YYYY-MM-DD'); The start date
+#'   to calculate from.
+#' @param end_date Date or character (in format 'YYYY-MM-DD'); The end date to
+#'   calculate to.
+#' @param referral_index Index of the referral column in waiting_list.
+#' @param removal_index Index of the removal column in waiting_list.
 #'
 #' @return A data.frame with the following summary statistics on
 #'   removals/capacity:
@@ -35,6 +37,8 @@ wl_removal_stats <- function(waiting_list,
                              end_date = NULL,
                              referral_index = 1,
                              removal_index = 2) {
+  check_wl(waiting_list, referral_index, removal_index)
+  check_date(start_date, end_date, .allow_null = TRUE)
 
   if (nrow(waiting_list) == 0) {
     stop("Waiting list contains no rows")

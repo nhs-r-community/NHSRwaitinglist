@@ -3,8 +3,8 @@
 #' @description Adds new referrals, with other columns set as \code{NA}.
 #'
 #' @param waiting_list data.frame. A df of referral dates and removals
-#' @param additions Character or Date vector. A list of referral dates to add to
-#'   the waiting list
+#' @param additions Date or character vector (in format 'YYYY-MM-DD'). A list of
+#'   referral dates to add to the waiting list
 #' @param referral_index The index of the column in \code{waiting_list} which
 #'   contains the referral dates. Defaults to the first column.
 #'
@@ -23,6 +23,9 @@
 #' longer_waiting_list <- wl_insert(waiting_list, additions)
 #'
 wl_insert <- function(waiting_list, additions, referral_index = 1) {
+  check_wl(waiting_list, referral_index)
+  check_date(additions)
+
   # keep waiting_list structure and fill with NAs
   new_rows <- waiting_list[0, ]
   new_rows[seq_along(additions), ] <- NA

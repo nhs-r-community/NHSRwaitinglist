@@ -6,13 +6,13 @@
 #' I.e. earlier referrals are scheduled first (FIFO).
 #'
 #' @param waiting_list data.frame. A df of referral dates and removals
-#' @param schedule vector of dates. Should be formatted as year-month-date, e.g.
-#' "2024-04-01".  The dates to schedule open referrals into
-#'   (i.e. dates of unbooked future capacity)
-#' @param referral_index integer. The column number in the waiting_list which
-#'   contains the referral dates
-#' @param removal_index integer. The column number in the waiting_list which
-#'   contains the removal dates
+#' @param schedule Date or character vector. Should be formatted as
+#'   year-month-date, e.g. "2024-04-01".  The dates to schedule open referrals
+#'   into (i.e. dates of unbooked future capacity)
+#' @param referral_index The column index in the waiting_list which contains the
+#'   referral dates
+#' @param removal_index The column index in the waiting_list which contains the
+#'   removal dates
 #' @param unscheduled logical.
 #'  If TRUE, returns a list of scheduled and unscheduled procedures
 #'  If FALSE, only returns the updated waiting list
@@ -51,24 +51,14 @@ wl_schedule <- function(
   unscheduled = FALSE
 ) {
 
-
   # Error handle
-  if (!methods::is(waiting_list, "data.frame")) {
-    stop("waiting list should be supplied as a data.frame")
-  }
+  check_wl(waiting_list, referral_index, removal_index)
+  check_date(schedule)
+  check_class(unscheduled, .expected_class = "logical")
 
-  if (nrow(waiting_list) == 0) {
-    stop("No data rows in waiting list")
+  if (!inherits(schedule, "Date")) {
+    schedule <- as.Date(schedule)
   }
-
-  if (missing(waiting_list)) {
-    stop("No waiting list supplied")
-  }
-
-  if (!methods::is(schedule, "Date")) {
-    stop("Schedule vector is not formatted as dates")
-  }
-
 
   # split waiters and removed
   wl <- waiting_list[is.na(waiting_list[, removal_index]), ]

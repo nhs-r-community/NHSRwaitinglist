@@ -43,3 +43,26 @@ test_that("it joins two waiting list data.frames correctly", {
   em <- "wl_join(): expected result for test data including sorting."
   expect_identical(wl_join(wl1, wl2), wl3_sorted)
 })
+
+test_that("wl_join errors with incorrect arg classes", {
+  wl1_msg <- "`wl_1` must be of class <data.frame>"
+
+  expect_error(wl_join(1, wl2), wl1_msg)
+  expect_error(wl_join("cat", wl2), wl1_msg)
+
+  wl2_msg <- "`wl_2` must be of class <data.frame>"
+
+  expect_error(wl_join(wl1, 2), wl2_msg)
+  expect_error(wl_join(wl1, "dog"), wl2_msg)
+
+  wl_msg <- "`wl_1` must be of class <data.frame>"
+
+  expect_error(wl_join(1, 2), wl_msg)
+  expect_error(wl_join("cat", "dog"), wl_msg)
+
+  idx_msg <- "`referral_index` must be of class <numeric/character/logical>"
+
+  expect_error(wl_join(wl1, wl2, referral_index = list(), idx_msg))
+  expect_error(wl_join(wl1, wl2, referral_index = NULL, idx_msg))
+  expect_error(wl_join(wl1, wl2, referral_index = as.Date(1)), idx_msg)
+})
