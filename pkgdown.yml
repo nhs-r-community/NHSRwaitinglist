@@ -5,7 +5,7 @@ articles:
   example_walkthrough: example_walkthrough.html
   three_example_waiting_lists: three_example_waiting_lists.html
   waiting_list_sim: waiting_list_sim.html
-last_built: 2025-06-30T09:02Z
+last_built: 2025-06-30T12:33Z
 urls:
   reference: https://nhs-r-community.github.io/NHSRwaitinglist/reference
   article: https://nhs-r-community.github.io/NHSRwaitinglist/articles
