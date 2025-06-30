@@ -1,11 +1,11 @@
 pandoc: 3.1.11
-pkgdown: 2.1.2
+pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   example_walkthrough: example_walkthrough.html
   three_example_waiting_lists: three_example_waiting_lists.html
   waiting_list_sim: waiting_list_sim.html
-last_built: 2025-05-15T21:11Z
+last_built: 2025-06-30T09:02Z
 urls:
   reference: https://nhs-r-community.github.io/NHSRwaitinglist/reference
   article: https://nhs-r-community.github.io/NHSRwaitinglist/articles
