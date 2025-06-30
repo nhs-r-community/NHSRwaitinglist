@@ -280,3 +280,90 @@ test_that("check_date errors with ambigious character format", {
   expect_error(check_date("not a date", "also not a date"), format_msg)
   expect_error(check_date(c("not a date", "also not a date")), format_msg)
 })
+
+# check_wl -------------------------------------------------------------
+
+test_that("check_wl errors correctly by waiting list class", {
+  # no error for data frames
+  expect_no_error(check_wl(iris))
+  expect_no_error(check_wl(mtcars))
+
+  # error for non-data frames
+  df_msg <- "must be of class <data.frame>"
+
+  expect_error(check_wl(1), df_msg)
+  expect_error(check_wl(1), "`1` with class <numeric>")
+
+  expect_error(check_wl(TRUE), df_msg)
+  expect_error(check_wl(TRUE), "`TRUE` with class <logical>")
+
+  expect_error(check_wl(letters), df_msg)
+  expect_error(check_wl(letters), "`letters` with class <character>")
+})
+
+test_that("check_wl handles 0 row data frames correctly", {
+  empty_df <- iris[0, ]
+  msg <- "`empty_df` has 0 rows of data"
+
+  expect_error(check_wl(empty_df), msg) # default
+  expect_error(check_wl(empty_df, .empty_wl = "error"), msg)
+
+  expect_warning(check_wl(empty_df, .empty_wl = "warn"), msg)
+
+  expect_no_error(check_wl(empty_df, .empty_wl = "allow"))
+})
+
+test_that("check_wl errors on incorrect index class", {
+  idx_msg <-  "must be of class <numeric/character/logical>"
+
+  date <- Sys.Date()
+  expect_error(check_wl(iris, date), idx_msg)
+  expect_error(check_wl(iris, date), "`date` with class <Date>")
+
+  # multiple indices
+  fct_l <- as.factor(letters)
+  fct_u <- as.factor(LETTERS)
+  expect_error(check_wl(iris, fct_l, fct_u), idx_msg)
+  expect_error(check_wl(iris, fct_l, fct_u), "`fct_l` with class <factor>")
+  expect_error(check_wl(iris, fct_l, fct_u), "`fct_u` with class <factor>")
+})
+
+test_that("check_wl errors clearly on NA index", {
+  na_msg <- r"(Column indices must not be "NA")"
+
+  expect_error(check_wl(iris, NA), na_msg)
+  expect_error(check_wl(iris, NA_real_), na_msg)
+  expect_error(check_wl(iris, NA_character_), na_msg)
+  expect_error(check_wl(iris, NA_integer_), na_msg)
+  expect_error(check_wl(iris, idx_1 = NA, idx_2 = NA), na_msg)
+
+  # You provided:
+  expect_error(check_wl(iris, idx_1 = NA, idx_2 = NA),
+               r"(`idx_1` with value "NA")")
+  expect_error(check_wl(iris, idx_1 = NA, idx_2 = NA),
+               r"(`idx_2` with value "NA")")
+})
+
+test_that("check_wl errors if index column not found in waiting list", {
+  found_msg <- "not found in `iris`"
+
+  num_idx <- 10
+  expect_error(check_wl(iris, num_idx), found_msg)
+  expect_error(check_wl(iris, num_idx), r"(`num_idx` with value "10")")
+
+  chr_idx <- "not a col"
+  expect_error(check_wl(iris, chr_idx), found_msg)
+  expect_error(check_wl(iris, chr_idx), r"(`chr_idx` with value "not a col")")
+
+  lgl_idx <- c(TRUE, FALSE)
+  expect_error(check_wl(iris, lgl_idx), found_msg)
+  expect_error(check_wl(iris, lgl_idx), r"(`lgl_idx` with value "TRUE, FALSE")")
+
+  multi_num <- c(1, 2, 3)
+  expect_error(check_wl(iris, multi_num), found_msg)
+  expect_error(check_wl(iris, multi_num), r"(`multi_num` with value "1, 2, 3")")
+
+  multi_chr <- c("a", "b", "c")
+  expect_error(check_wl(iris, multi_chr), found_msg)
+  expect_error(check_wl(iris, multi_chr), r"(`multi_chr` with value "a, b, c")")
+})

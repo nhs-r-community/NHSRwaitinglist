@@ -65,11 +65,9 @@ wl_simulator <- function(
   detailed_sim = FALSE
 ) {
   check_date(start_date, end_date, .allow_null = TRUE)
-  check_class(demand, capacity,
-              .expected_class = "numeric")
-  check_class(waiting_list, .expected_class = c("NULL", "data.frame"))
-  check_class(withdrawal_prob, .expected_class = c("numeric"))
+  check_class(demand, capacity, withdrawal_prob, .expected_class = "numeric")
   check_class(detailed_sim, .expected_class = "logical")
+  if (!is.null(waiting_list)) check_wl(waiting_list)
 
   # Fix Start and End Dates
   if (is.null(start_date)) {
