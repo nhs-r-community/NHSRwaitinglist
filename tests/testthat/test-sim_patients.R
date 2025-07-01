@@ -59,7 +59,7 @@ test_that("sim_patients generates random names for patients", {
 test_that("sim_patients fails gracefully wiwhen given zero rows", {
   #result <- sim_patients(n_rows = 0)
   #expect_equal(nrow(result), 0)
-  expect_error(sim_patients(n_rows = 0)
-               , "NOTE: Please supply a positive integer for the argument
-               n_rows.")
+  expect_error(
+    sim_patients(n_rows = 0)
+    , "NOTE: Please supply a positive integer for the argument n_rows.")
 })
