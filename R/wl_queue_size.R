@@ -37,14 +37,6 @@ wl_queue_size <- function(waiting_list,
   check_wl(waiting_list, referral_index, removal_index)
   check_date(start_date, end_date, .allow_null = TRUE)
 
-  if (missing(waiting_list)) {
-    stop("No waiting list supplied")
-  } else {
-    if (nrow(waiting_list) == 0) {
-      stop("No rows in supplied waiting list")
-    }
-  }
-
   wl <- waiting_list
 
   if (is.null(start_date)) {
@@ -56,6 +48,7 @@ wl_queue_size <- function(waiting_list,
 
   wl[wl[, referral_index] < start_date, referral_index] <- start_date
   arrival_counts <- data.frame(table(wl[, referral_index]))
+  arrival_counts[, 1] <- as.Date(arrival_counts[, 1])
 
   dates <- seq(as.Date(start_date), as.Date(end_date), by = "day")
   queues <- data.frame(dates, rep(0, length(dates)))
@@ -72,6 +65,8 @@ wl_queue_size <- function(waiting_list,
         table(wl[which((start_date <= wl[, removal_index]) &
                          (wl[, removal_index] <= end_date)), removal_index])
       )
+
+    departure_counts[, 1] <- as.Date(departure_counts[, 1])
 
     queues$departures <- rep(0, length(dates))
     queues[which(queues[, 1] %in% departure_counts[, 1]), 4] <-
