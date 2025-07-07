@@ -54,8 +54,8 @@ wl_removal_stats_hist <- function(wl_hist1,wl_hist2,
   # Step 2: Full join and handle missing data
   comparison <- full_join(wl_hist1_, wl_hist2_, by = "arrival_since") %>%
     mutate(
-      n_hist1 = replace_na(n_hist1, 0),
-      n_hist2 = replace_na(n_hist2, 0),
+      n_hist1 = tidyr::replace_na(n_hist1, 0),
+      n_hist2 = tidyr::replace_na(n_hist2, 0),
       # Step 3: Merge the arrival_before columns using coalesce
       change = n_hist2 - n_hist1
     ) %>%
