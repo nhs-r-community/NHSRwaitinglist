@@ -118,3 +118,15 @@ check_date <- function(...,
     )
   }
 }
+
+# Custom color function for gradients (light blue to light red)
+# Used in the reactable table within report output
+gradient_color <- function(value, min, max) {
+  if (is.na(value)) return(NA)
+  # Interpolate between light blue (#add8e6) and light red (#ffb3b3)
+  pal <- colorRampPalette(c("#add8e6", "#ffb3b3"))
+  n <- 100
+  colours <- pal(n)
+  idx <- as.integer((value - min) / (max - min) * (n - 1)) + 1
+  colours[pmax(pmin(idx, n), 1)]
+}

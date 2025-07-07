@@ -53,5 +53,140 @@ Report creation time: `r format(Sys.time(), "%Y-%m-%d %H:%M:%S")`
 
 ---
 
+## Summary stats
+
 There are `r overall_queue_size` patients in the waiting list.
 
+```{r}
+#| include: false
+
+specialties <- intersect(unique(hist1$specialty), unique(hist2$specialty))
+all_stats <- purrr::map_dfr(specialties, function(specialty) {
+  wl_hist1 <- hist1[hist1$specialty == specialty & hist1$ptl_type == "Non-admitted", ]
+  wl_hist2 <- hist2[hist2$specialty == specialty & hist2$ptl_type == "Non-admitted", ]
+  wl_hist1 <- wl_hist1[ , c("report_date", "arrival_before", "arrival_since", "n")]
+  wl_hist2 <- wl_hist2[ , c("report_date", "arrival_before", "arrival_since", "n")]
+  stats <- wl_stats_hist(wl_hist1, wl_hist2)
+  stats$specialty <- specialty
+  stats
+}) |> 
+  dplyr::mutate(
+    ratio = queue_size / target_queue_size)  |> 
+  dplyr::relocate(ratio, .after = target_queue_size) |> 
+  dplyr::relocate(specialty) |> 
+  
+  # remove a couple of less important columns to fit better on the page
+  dplyr::select(-c(cv_arrival, cv_removal, target_capacity))
+```
+
+```{r}
+#| include: false
+
+# calc some min and max values ready for ranking with colour fills
+min_pressure <- min(all_stats$pressure, na.rm = TRUE)
+max_pressure <- max(all_stats$pressure, na.rm = TRUE)
+min_ratio <- min(all_stats$ratio, na.rm = TRUE)
+max_ratio <- max(all_stats$ratio, na.rm = TRUE)
+
+# Function to generate a ggplot for a given specialty and return as an HTML image
+plot_for_specialty <- function(specialty) {
+  # Example plot: replace with your actual plotting logic
+  df <- all_stats[all_stats$specialty == specialty, ]
+  p <- ggplot2::ggplot(df, ggplot2::aes(x = pressure, y = ratio)) +
+    ggplot2::geom_point(color = '#4682B4', size = 4) +
+    ggplot2::labs(title = paste("Pressure vs Ratio for", specialty), x = "Pressure", y = "Queue/Target Ratio") +
+    ggplot2::theme_minimal()
+  
+  # Save to a temporary file
+  tmpfile <- tempfile(fileext = ".png")
+  ggplot2::ggsave(tmpfile, plot = p, width = 5, height = 3, dpi = 120)
+  # Encode as base64
+  img_data <- base64enc::dataURI(file = tmpfile, mime = "image/png")
+  unlink(tmpfile)
+  htmltools::tags$img(src = img_data, style = "max-width:100%; height:auto;")
+}
+
+rdf <- reactable::reactable(
+  all_stats,
+  filterable = TRUE,
+  searchable = TRUE,
+  pagination = TRUE,
+  defaultPageSize = 20,
+  highlight = TRUE,
+  bordered = TRUE,
+  striped = TRUE,
+  compact = TRUE,
+  resizable = TRUE,
+  showPageSizeOptions = TRUE,
+  defaultColDef = reactable::colDef(
+    align = "center",
+    minWidth = 100,
+    headerStyle = list(background = "#4682B4", color = "white", fontWeight = "bold", fontSize = "1.1em"),
+    cell = function(value) { if (is.numeric(value)) round(value) else value }
+  ),
+  columns = list(
+    load_too_big = reactable::colDef(
+      style = function(value) {
+        if (isTRUE(value)) {
+          list(background = "#ff4d4d", color = "white", fontWeight = "bold")
+        } else {
+          list(background = "#4CAF50", color = "white", fontWeight = "bold")
+        }
+      },
+      filterable = TRUE,
+      name = "Load Too Big"
+    ),
+    queue_too_big = reactable::colDef(
+      style = function(value) {
+        if (isTRUE(value)) {
+          list(background = "#ff4d4d", color = "white", fontWeight = "bold")
+        } else {
+          list(background = "#4CAF50", color = "white", fontWeight = "bold")
+        }
+      },
+      filterable = TRUE,
+      name = "Queue Too Big"
+    ),
+    pressure = reactable::colDef(
+      style = function(value) {
+        list(background = gradient_color(value, min_pressure, max_pressure), fontWeight = "bold")
+      },
+      format = reactable::colFormat(digits = 2),
+      name = "Pressure"
+    ),
+    ratio = reactable::colDef(
+      style = function(value) {
+        list(background = gradient_color(value, min_ratio, max_ratio), fontWeight = "bold")
+      },
+      format = reactable::colFormat(digits = 2),
+      name = "Queue/Target Ratio"
+    ),
+    specialty = reactable::colDef(
+      name = "Specialty",
+      align = "left",
+      filterable = TRUE,
+      minWidth = 150,
+      style = list(fontWeight = "bold", background = "#e6f2ff"),
+      details = function(value, index) {
+        plot_for_specialty(value)
+      }
+    )
+  ),
+  theme = reactable::reactableTheme(
+    borderColor = "#4682B4",
+    stripedColor = "#f0f8ff",
+    highlightColor = "#e6f7ff",
+    cellPadding = "8px 12px",
+    style = list(fontFamily = "Segoe UI, Arial, sans-serif", fontSize = "1em")
+  )
+)
+
+```
+
+## Detailed queueing stats
+
+```{r}
+#| echo: false
+
+rdf
+```
