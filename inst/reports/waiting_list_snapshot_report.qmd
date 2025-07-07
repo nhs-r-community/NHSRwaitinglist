@@ -11,7 +11,8 @@ format:
       - cosmo
 
 params:
-  data_path: "default.rds"
+  data_path_1: "histogram_1.rds"
+  data_path_2: "histogram_2.rds"
   org_name: "Default Org Name"
   report_reference: "REF001"
   report_owner: "Default Analyst"
@@ -29,7 +30,8 @@ if (requireNamespace("devtools", quietly = TRUE)) {
 }
 
 # Load the data from the RDS path
-df <- readRDS(params$data_path)
+hist1 <- readRDS(params$data_path_1)
+hist2 <- readRDS(params$data_path_2)
 
 ```
 
@@ -38,7 +40,7 @@ df <- readRDS(params$data_path)
 #| warning: false
 #| include: false
 
-overall_queue_size <- NHSRwaitinglist::wl_queue_size_hist(df) |> 
+overall_queue_size <- NHSRwaitinglist::wl_queue_size_hist(hist2) |> 
   format(big.mark = ",", scientific = FALSE)
 
 ```
