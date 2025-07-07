@@ -2,11 +2,14 @@
 title: "Waiting List Snapshot Report"
 format: 
   html:
+    grid:
+      sidebar-width: 0px
+      body-width: 1600px
+      margin-width: 200px
+      gutter-width: 0.5rem
     toc: true
     embed-resources: true
     smooth-scroll: true
-    grid:
-      body-width: 900px
     theme: 
       - cosmo
 
