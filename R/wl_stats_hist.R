@@ -92,6 +92,10 @@ wl_stats_hist <- function(wl_hist1,
   #   end_date <- max(waiting_list[, referral_index])
   # }
 
+  if (is.null(end_date)) {
+    end_date <- max(wl_hist1$report_date, na.rm = TRUE)
+  }
+
 
   # referral_stats <- wl_referral_stats(
   #   wl_hist,
@@ -131,13 +135,13 @@ wl_stats_hist <- function(wl_hist1,
 
   # target queue size
   q_target <-
-    calc_target_queue_size(referral_stats$demand_weekly, target_wait)
+    calc_target_queue_size(referral_stats$demand_weekly, target_wait=18, factor = 2.52)
 
   # queue too big
   q_too_big <- (q_size > 2 * q_target)
 
   # mean wait
-  mean_wait_age <- wl_mean_wait_age_hist(wl_hist1, end_date)
+  mean_wait_age <- wl_mean_wait_age_hist(wl_hist1)
 
   # target capacity
   if (!q_too_big) {
