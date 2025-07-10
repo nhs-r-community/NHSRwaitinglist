@@ -39,6 +39,11 @@ sim_patients <- function(
   n_rows = 10,
   start_date = NULL
 ) {
+
+  if (n_rows == 0) {
+    stop("NOTE: Please supply a positive integer for the argument n_rows.")
+  }
+
   if (is.null(start_date)) {
     start_date <- Sys.Date()
   }
@@ -74,6 +79,7 @@ sim_patients <- function(
   priority <-
     sample(c(1, 2, 3, 4), size = n_rows, replace = TRUE
            , prob = c(0.05, 0.2, 0.25, 0.5))
+
   target_wait <- sapply(priority, calc_priority_to_target)
 
   # referral, removal, withdrawal columns
