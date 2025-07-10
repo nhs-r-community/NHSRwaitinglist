@@ -58,12 +58,16 @@ Report creation time: `r format(Sys.time(), "%Y-%m-%d %H:%M:%S")`
 
 ## Summary stats
 
-There are `r overall_queue_size` patients in the waiting list.
+In total there are `r overall_queue_size` patients waiting.
 
 ```{r}
 #| include: false
 
 specialties <- intersect(unique(hist1$specialty), unique(hist2$specialty))
+
+hist1 <- hist1 |> dplyr::filter(specialty %in% specialties)
+hist2 <- hist2 |> dplyr::filter(specialty %in% specialties)
+
 all_stats <- purrr::map_dfr(specialties, function(specialty) {
   wl_hist1 <- hist1[hist1$specialty == specialty & hist1$ptl_type == "Non-admitted", ]
   wl_hist2 <- hist2[hist2$specialty == specialty & hist2$ptl_type == "Non-admitted", ]
@@ -71,6 +75,7 @@ all_stats <- purrr::map_dfr(specialties, function(specialty) {
   wl_hist2 <- wl_hist2[ , c("report_date", "arrival_before", "arrival_since", "n")]
   stats <- wl_stats_hist(wl_hist1, wl_hist2)
   stats$specialty <- specialty
+#  stop("here")
   stats
 }) |> 
   dplyr::mutate(
@@ -79,7 +84,7 @@ all_stats <- purrr::map_dfr(specialties, function(specialty) {
   dplyr::relocate(specialty) |> 
   
   # remove a couple of less important columns to fit better on the page
-  dplyr::select(-c(cv_arrival, cv_removal, target_capacity))
+  dplyr::select(-c(count_demand, cv_arrival, cv_removal, target_capacity))
 ```
 
 ```{r}
@@ -128,51 +133,69 @@ rdf <- reactable::reactable(
     cell = function(value) { if (is.numeric(value)) round(value) else value }
   ),
   columns = list(
-    load_too_big = reactable::colDef(
-      style = function(value) {
-        if (isTRUE(value)) {
-          list(background = "#ff4d4d", color = "white", fontWeight = "bold")
-        } else {
-          list(background = "#4CAF50", color = "white", fontWeight = "bold")
-        }
-      },
-      filterable = TRUE,
-      name = "Load Too Big"
-    ),
-    queue_too_big = reactable::colDef(
-      style = function(value) {
-        if (isTRUE(value)) {
-          list(background = "#ff4d4d", color = "white", fontWeight = "bold")
-        } else {
-          list(background = "#4CAF50", color = "white", fontWeight = "bold")
-        }
-      },
-      filterable = TRUE,
-      name = "Queue Too Big"
-    ),
-    pressure = reactable::colDef(
-      style = function(value) {
-        list(background = gradient_color(value, min_pressure, max_pressure), fontWeight = "bold")
-      },
-      format = reactable::colFormat(digits = 2),
-      name = "Pressure"
-    ),
-    ratio = reactable::colDef(
-      style = function(value) {
-        list(background = gradient_color(value, min_ratio, max_ratio), fontWeight = "bold")
-      },
-      format = reactable::colFormat(digits = 2),
-      name = "Queue/Target Ratio"
-    ),
     specialty = reactable::colDef(
       name = "Specialty",
       align = "left",
-      filterable = TRUE,
       minWidth = 150,
       style = list(fontWeight = "bold", background = "#e6f2ff"),
       details = function(value, index) {
         plot_for_specialty(value)
       }
+    ),
+    mean_demand = reactable::colDef(
+      name = "Demand"
+    ),
+    mean_capacity = reactable::colDef(
+      name = "Capacity"
+    ),
+    load = reactable::colDef(
+      name = "Load"
+    ),
+    load_too_big = reactable::colDef(
+      name = "Load too big",
+      style = function(value) {
+        if (isTRUE(value)) {
+          list(background = "#ff4d4d", color = "white", fontWeight = "bold")
+        } else {
+          list(background = "#4CAF50", color = "white", fontWeight = "bold")
+        }
+      }
+    ),
+    queue_size = reactable::colDef(
+      name = "Queue size"
+    ),
+    target_queue_size = reactable::colDef(
+      name = "Target queue size"
+    ),
+    ratio = reactable::colDef(
+      name = "Queue / Target Ratio",
+      style = function(value) {
+        list(background = gradient_color(value, min_ratio, max_ratio), fontWeight = "bold")
+      },
+      format = reactable::colFormat(digits = 2)
+    ),
+    queue_too_big = reactable::colDef(
+      name = "Queue Too Big",
+      style = function(value) {
+        if (isTRUE(value)) {
+          list(background = "#ff4d4d", color = "white", fontWeight = "bold")
+        } else {
+          list(background = "#4CAF50", color = "white", fontWeight = "bold")
+        }
+      }
+    ),
+    mean_wait_age = reactable::colDef(
+      name = "Mean wait (weeks)"
+    ),
+    relief_capacity = reactable::colDef(
+      name = "Relief capacity"
+    ),
+    pressure = reactable::colDef(
+      name = "Pressure",
+      style = function(value) {
+        list(background = gradient_color(value, min_pressure, max_pressure), fontWeight = "bold")
+      },
+      format = reactable::colFormat(digits = 2)
     )
   ),
   theme = reactable::reactableTheme(
