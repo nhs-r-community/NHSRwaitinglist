@@ -1,13 +1,7 @@
 ## Release summary
 
-This a second release of NHSRwaitinglist, and fixes small bugs and documentation issues, as well as adding a further vignette.
-
-### Fixes based on pretest results, and email from CRAN team:
-* Update DESCRIPTION author list and added GitHub links
-* Added waiting_list_sim vignette
-* Updated wl_insert() functions
-* Arguments harmonised across functions
-* Updates to error handling and metadata in wl_simulator()
+This a third, bugfix, release of NHSRwaitinglist.
+Fixes issue with date checking logic introduced by new S3 method mtfrm.Date in R devel.
 
 
 ## Test environments
@@ -16,10 +10,10 @@ This a second release of NHSRwaitinglist, and fixes small bugs and documentation
 * R-devel and release, on Win-builder
 
 * GitHub actions:
-  * Mac OS aarch64-apple-darwin20, R 4.5.0
-  * Windows Server x64 2022 Datacentre, 10.0.20348, R 4.5.0
-  * Ubuntu 24.04.2 LTS, R-devel 2025-04-26 r88181
-  * Ubuntu 24.04.2 LTS, R 4.5.0
+  * Mac OS 14.7.6 23H626, R 4.5.1
+  * Windows Server x64 2022 Datacentre, 10.0.20348, R 4.5.1
+  * Ubuntu 24.04.2 LTS, R-devel 2025-06-27 r88363
+  * Ubuntu 24.04.2 LTS, R 4.5.1
   * Ubuntu 24.04.2 LTS, R 4.4.3
 
 * r-hub v2 via GitHub actions: 
