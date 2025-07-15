@@ -119,9 +119,8 @@ knitr::kable(overall_stats)
 ## Contributing
 
 If you want to learn more about this project, please join the discussion
-at the [NHS-R Community
-Slack](https://nhsrway.nhsrcommunity.com/community-handbook.html#slack)
-group and the specific channel \#managing-waiting-lists.
+at the [NHS-R Community Slack](https://nhsrcommunity.slack.com/) group
+and the specific channel \#managing-waiting-lists.
 
 Please see our [guidance on how to
 contribute](https://tools.nhsrcommunity.com/contribution.html).
@@ -154,7 +153,7 @@ if you are a member):
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji
-key](https://allcontributors.org/docs/en/emoji-key)):
+key](https://github.com/all-contributors/all-contributors/blob/master/docs/emoji-key.md)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 

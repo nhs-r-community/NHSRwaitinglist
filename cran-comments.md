@@ -3,6 +3,7 @@
 This a third, bugfix, release of NHSRwaitinglist.
 Fixes issue with date checking logic introduced by new S3 method mtfrm.Date in R devel.
 
+Updated broken links found on CRAN pre-test.
 
 ## Test environments
 * local windows 10 Enterprise, 22H2, R 4.5.0
