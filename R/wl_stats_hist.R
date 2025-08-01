@@ -58,7 +58,8 @@
 #' removals <- c.Date("2024-01-08", NA, NA, NA)
 #' waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 #' waiting_list_stats <- wl_stats(waiting_list)
-#'
+
+# TODO: This should work with a single histogram with multiple dates not two histograms
 wl_stats_hist <- function(wl_hist1,
                      wl_hist2,
                      target_wait = 4,
