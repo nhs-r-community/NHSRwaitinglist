@@ -85,6 +85,11 @@ all_excel_links <- unlist(lapply(links, extract_inner_links, pattern = "\\.xlsx?
 all_excel_links <- unique(all_excel_links)
 print(head(all_excel_links))
 
+# Print all links that contain the text "Timeseries" (case-insensitive)
+timeseries_links <- all_excel_links[grepl("timeseries", all_excel_links, ignore.case = TRUE)]
+print(timeseries_links)
+
+
 # Apply extract_inner_links to all links for CSV files
 all_csv_links <- unlist(
     lapply(

@@ -8,6 +8,7 @@ calc_tail_prob.R
 # Folder with the data
 tom_data/
 ent_data/
+raw_data/
 
 # mac stuff
 .DS_Store
