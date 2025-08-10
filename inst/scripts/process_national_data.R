@@ -39,12 +39,14 @@
 #'
 #' @export
 
-# TODO: comments above too much?  
+# TODO: comments above too much? THE FUNCTIONALITY BELOW DOES MORE
 # TODO: Create decent dummy data for this
 library(tidyr)
 library(dplyr)
 library(readxl)
+source("R/utils_dates.R")
 
+# TODO: EXTEND THIS BEYOND INCOMPLETES
 excel_report_date <- function(filename) {
     date_str <- substr(
         sub("^Incomplete-Provider-", "", basename(filename)),
@@ -56,8 +58,6 @@ excel_report_date <- function(filename) {
 }
 
 flatten_waiting_list_data <- function(excel_file_name, remove_zeros = FALSE) {
-    
-    
     # Derive report_date from the excel_report_date function using excel_file_name
     report_date <- excel_report_date(excel_file_name)
     # Skip processing if report_date is earlier than 2013-04-01
@@ -141,43 +141,123 @@ flatten_waiting_list_data <- function(excel_file_name, remove_zeros = FALSE) {
     return(report_long)
 }
 
+load_national_new_periods <- function(reload = FALSE, start_date = as.Date("1900-01-01"), end_date = as.Date("2100-12-31")) {
+    rds_file <- "data/all_national_new_periods.rds"
+    if (!file.exists(rds_file) || reload) {
+        file_paths <- list.files(
+            path = "raw_data/national_rtt/provider/new_periods",
+            pattern = "^New-Periods-Provider-.*\\.xlsx$",
+            full.names = TRUE
+        )
+
+        all_national_data <- data.frame()
+
+        for (file_path in file_paths) {
+            # Extract the date from the filename
+            # TODO: this below should be a function
+            provider_date <- substr(
+                sub(
+                    "^raw_data/national_rtt/provider/new_periods/New-Periods-Provider-", 
+                    "", 
+                    file_path
+                ),
+                1, 5
+            )
+            report_date <- month_year_to_last_day(provider_date)
+
+            # Only process if report_date is within start_date and end_date
+            if (as.Date(report_date) < as.Date(start_date) || as.Date(report_date) > as.Date(end_date)) {
+                next
+            }
+
+            # Read the Excel file and clean up the data
+            national_data <- read_excel(file_path)
+            national_data <- national_data[-(1:11), ]
+            colnames(national_data) <- gsub(
+                " ", "_", as.character(unlist(national_data[1, ]))
+            )
+            national_data <- national_data[-1, ]
+
+            # Add date columns and convert relevant columns to numeric
+            national_data$Number_of_new_RTT_clock_starts_during_the_month <- as.numeric(national_data$Number_of_new_RTT_clock_starts_during_the_month)
+            names(national_data)[names(national_data) == "Number_of_new_RTT_clock_starts_during_the_month"] <- "n"
+
+            national_data$report_date <- report_date
+            national_data$arrival_since <- first_day_of_month(report_date)
+            national_data$arrival_before <- report_date
+
+            # Append to the combined data frame
+            all_national_data <- rbind(all_national_data, national_data)
+        }
+
+        # Save the processed data for future use
+        saveRDS(all_national_data, file = rds_file)
+    } else {
+        # Load the processed data if it already exists
+        all_national_data <- readRDS(rds_file)
+        # Optionally filter by date if loaded from RDS
+        if (!is.null(all_national_data$report_date)) {
+            all_national_data <- all_national_data %>%
+            filter(as.Date(report_date) >= as.Date(start_date) & as.Date(report_date) <= as.Date(end_date))
+        }
+    }
+    return(all_national_data)
+}
+
+load_national_incomplete <- function(reload = FALSE, start_date = as.Date("1900-01-01"), end_date = as.Date("2100-12-31")) {
+    rds_file <- "data/all_national_incomplete.rds"
+    if (!file.exists(rds_file) || reload) {
+        # TODO: be more precise here!
+        r_scripts <- list.files("R", pattern = "\\.R$", full.names = TRUE)
+        sapply(r_scripts, source)
+
+        # List Excel files in the specified directory
+        excel_files <- list.files("raw_data/national_rtt/provider/incomplete/", pattern = "\\.xlsx?$", full.names = TRUE)
+
+        # Check if any Excel files are found
+        if (length(excel_files) == 0) {
+            stop("No Excel files found in 'raw_data/national_rtt/provider/incomplete/'")
+        }
+
+        flat_dfs <- list()
+        for (i in seq_along(excel_files)) {
+            report_date <- excel_report_date(excel_files[i])
+            # Only process if report_date is within start_date and end_date
+            if (is.null(report_date) || as.Date(report_date) < as.Date(start_date) || as.Date(report_date) > as.Date(end_date)) {
+                next
+            }
+            cat("Processing file", i, "of", length(excel_files), ":", excel_files[i], "\n")
+            flat_dfs[[i]] <- flatten_waiting_list_data(excel_files[i])
+        }
+
+        # Filter out NULLs from flat_dfs
+        flat_dfs_nonnull <- Filter(Negate(is.null), flat_dfs)
+        # Bind the non-NULL data frames into one
+        flat_df <- bind_rows(flat_dfs_nonnull)
+
+        saveRDS(flat_df, file = rds_file)
+    } else {
+        flat_df <- readRDS(rds_file)
+        # Optionally filter by date if loaded from RDS
+        if (!is.null(flat_df$report_date)) {
+            flat_df <- flat_df %>%
+                filter(as.Date(report_date) >= as.Date(start_date) & as.Date(report_date) <= as.Date(end_date))
+        }
+    }
+    return(flat_df)
+}
+
 
 # TODO: Delete this scatch area when done 
 ########## SCRATCH AREA ###########
 
 # Source all R scripts in the 'R' directory
-r_scripts <- list.files("R", pattern = "\\.R$", full.names = TRUE)
-sapply(r_scripts, source)
 
-# List Excel files in the specified directory
-excel_files <- list.files("raw_data/national_rtt/provider/incomplete/", pattern = "\\.xlsx?$", full.names = TRUE)
-
-# Check if any Excel files are found
-if (length(excel_files) == 0) {
-    stop("No Excel files found in 'raw_data/national_rtt/provider/incomplete/'")
-}
-
-# Process all Excel files and combine the results
-flat_dfs <- list()
-for (i in seq_along(excel_files)) {
-    cat("Processing file", i, "of", length(excel_files), ":", excel_files[i], "\n")
-    flat_dfs[[i]] <- flatten_waiting_list_data(excel_files[i])
-}
-
-# Filter out NULLs from flat_dfs
-flat_dfs_nonnull <- Filter(Negate(is.null), flat_dfs)
-# Bind the non-NULL data frames into one
-flat_df <- bind_rows(flat_dfs_nonnull)
-
-saveRDS(flat_df, file = "data/all_national_incomplete.rds")
-
-# Load the saved combined data frame from RDS file
-flat_df <- readRDS("data/all_national_incomplete.rds")
 
 # Load the existing all_national_data from RDS file
 all_national_data <- readRDS("data/all_national_data.rds")
 
-# HERE: Now you need to join this with the all_national_data for new periods
+# HERE: Maybe keep as separate files and have one file merging with a flag for removal/referal etc...
 
 View(head(flat_df))
 View(head(all_national_data))
