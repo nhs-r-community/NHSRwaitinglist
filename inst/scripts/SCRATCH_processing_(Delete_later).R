@@ -26,6 +26,7 @@ incomplete_data <- incomplete_data[-1, ]
 # Remove columns 6 to 110 (assumed to be date columns)
 incomplete_data <- incomplete_data[, -c(6:110)]
 
+head(incomplete_data)
 # View the cleaned data
 View(incomplete_data)
 
@@ -172,3 +173,9 @@ if (!file.exists("data/all_national_data.rds")) {
 }
 
 View(all_national_data)
+
+# HERE: now flatten all the national data to start making the histogram plots
+
+# TODO: Apply the above function to different report dates.
+# TODO: Maybe just add a report date column then merge? 
+# TODO: Remember to develope the Vignette for processing.

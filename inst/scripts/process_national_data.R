@@ -39,18 +39,58 @@
 #'
 #' @export
 
-# TODO: comments above too much? 
+# TODO: comments above too much?  
+# TODO: Create decent dummy data for this
 library(tidyr)
 library(dplyr)
-flatten_waiting_list_data <- function(report_data, report_date, remove_zeros = FALSE) {
-    # Identify the columns to keep and the columns to pivot
-    id_cols <- c("Area_Team_Code", "Provider_Code", "Provider_Name", "Treatment_Function_Code", "Treatment_Function")
+library(readxl)
 
-    # Find the position of the "52_plus" column
-    col_52_plus <- which(colnames(report_data) == "52_plus")
+excel_report_date <- function(filename) {
+    date_str <- substr(
+        sub("^Incomplete-Provider-", "", basename(filename)),
+        1, 5
+    )
+    # Use the month_year_to_last_day function from utils_dates.R
+    report_date <- month_year_to_last_day(date_str)
+    return(report_date)
+}
+
+flatten_waiting_list_data <- function(excel_file_name, remove_zeros = FALSE) {
+    
+    
+    # Derive report_date from the excel_report_date function using excel_file_name
+    report_date <- excel_report_date(excel_file_name)
+    # Skip processing if report_date is earlier than 2013-04-01
+    if (as.Date(report_date) < as.Date("2013-04-01")) {
+        message("Skipping file: report_date is earlier than 2013-04-01")
+        return(NULL)
+    }
+    
+    # Remove the first 11 rows (assumed to be metadata/header)
+    excel_file <- read_excel(excel_file_name)
+    excel_file <- excel_file[-c(1:11), ]
+    
+    # Set column names using the first row, replacing spaces with underscores
+    colnames(excel_file) <- gsub(" ", "_", as.character(unlist(excel_file[1, ])))
+    
+
+    # Remove the row used for column names
+    excel_file <- excel_file[-1, ]
+
+    
+    # Now process as report_data
+    report_data <- excel_file
+
+    # Identify the columns to keep and the columns to pivot
+    # Identify id columns as all columns up to and including "Treatment_Function"
+    id_cols_end <- which(colnames(report_data) == "Treatment_Function")
+    id_cols <- colnames(report_data)[1:id_cols_end]
+
+    # Find the position of the first column containing "_plus"
+    col_plus <- which(grepl("_plus", colnames(report_data)))[1]
 
     # Keep only columns up to "52_plus"
-    report_data <- report_data[, c(id_cols, colnames(report_data)[(length(id_cols)+1):col_52_plus])]
+    report_data <- report_data[, c(id_cols, colnames(report_data)[(length(id_cols)+1):col_plus])]
 
     # Identify week columns (those after id_cols and up to "52_plus")
     week_cols <- setdiff(colnames(report_data), id_cols)
@@ -100,3 +140,52 @@ flatten_waiting_list_data <- function(report_data, report_date, remove_zeros = F
 
     return(report_long)
 }
+
+
+# TODO: Delete this scatch area when done 
+########## SCRATCH AREA ###########
+
+# Source all R scripts in the 'R' directory
+r_scripts <- list.files("R", pattern = "\\.R$", full.names = TRUE)
+sapply(r_scripts, source)
+
+# List Excel files in the specified directory
+excel_files <- list.files("raw_data/national_rtt/provider/incomplete/", pattern = "\\.xlsx?$", full.names = TRUE)
+
+# Check if any Excel files are found
+if (length(excel_files) == 0) {
+    stop("No Excel files found in 'raw_data/national_rtt/provider/incomplete/'")
+}
+
+# Process all Excel files and combine the results
+flat_dfs <- list()
+for (i in seq_along(excel_files)) {
+    cat("Processing file", i, "of", length(excel_files), ":", excel_files[i], "\n")
+    flat_dfs[[i]] <- flatten_waiting_list_data(excel_files[i])
+}
+
+# Filter out NULLs from flat_dfs
+flat_dfs_nonnull <- Filter(Negate(is.null), flat_dfs)
+# Bind the non-NULL data frames into one
+flat_df <- bind_rows(flat_dfs_nonnull)
+
+saveRDS(flat_df, file = "data/all_national_incomplete.rds")
+
+# Load the saved combined data frame from RDS file
+flat_df <- readRDS("data/all_national_incomplete.rds")
+
+# Load the existing all_national_data from RDS file
+all_national_data <- readRDS("data/all_national_data.rds")
+
+# HERE: Now you need to join this with the all_national_data for new periods
+
+View(head(flat_df))
+View(head(all_national_data))
+
+print(colnames(flat_df))
+print(colnames(all_national_data))
+
+excel_files[9]
+flatten_waiting_list_data(excel_files[9])
+excel_file_name <- excel_files[9]
+View(report_data)

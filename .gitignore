@@ -9,6 +9,7 @@ calc_tail_prob.R
 tom_data/
 ent_data/
 raw_data/
+data/
 
 # mac stuff
 .DS_Store

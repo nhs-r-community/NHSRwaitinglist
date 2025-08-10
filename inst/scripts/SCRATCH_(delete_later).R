@@ -1,5 +1,4 @@
 # Download excel
-# HERE: create a download script for the national data from the NHS England website
 # TODO: TIDY THIS UP
 
 #- Create structure
