@@ -65,3 +65,6 @@ po/*~
 rsconnect/
 inst/doc
 docs
+
+# Python virtual environment (avoid committing local deps)
+.venv/
