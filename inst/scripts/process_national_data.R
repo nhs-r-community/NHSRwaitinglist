@@ -46,50 +46,7 @@ library(dplyr)
 library(readxl)
 source("R/utils_dates.R")
 
-# TODO: EXTEND THIS BEYOND INCOMPLETES
-excel_report_date <- function(filename) {
-  file_base <- basename(filename)
-  if (startsWith(file_base, "Incomplete-Provider-")) {
-    date_str <- substr(
-      sub("^Incomplete-Provider-", "", file_base),
-      1, 5
-    )
-    # Use the month_year_to_last_day function from utils_dates.R
-    report_date <- month_year_to_last_day(date_str)
-    return(report_date)
-  } else if (startsWith(file_base, "NonAdmitted")) {
-    date_str <- substr(
-      sub("^NonAdmitted-Adjusted-Provider-", "", file_base),
-      1, 5
-    )
-    report_date <- month_year_to_last_day(date_str)
-    # If report_date is NULL, try NonAdmitted-Provider-
-    if (is.null(report_date) || is.na(report_date)) {
-      date_str <- substr(
-        sub("^NonAdmitted-Provider-", "", file_base),
-        1, 5
-      )
-      report_date <- month_year_to_last_day(date_str)
-    }
-    return(report_date)
-  } else if (startsWith(file_base, "Admitted")) {
-    date_str <- substr(
-      sub("^Admitted-Adjusted-Provider-", "", file_base),
-      1, 5
-    )
-    report_date <- month_year_to_last_day(date_str)
-    # If report_date is NULL, try Admitted-Provider-
-    if (is.null(report_date) || is.na(report_date)) {
-      date_str <- substr(
-        sub("^Admitted-Provider-", "", file_base),
-        1, 5
-      )
-      report_date <- month_year_to_last_day(date_str)
-    }
-    return(report_date)
-  }
-  # Add more else if conditions here for other filename patterns
-}
+
 
 flatten_waiting_list_data <- function(excel_file_name, remove_zeros = FALSE) {
     # Derive report_date from the excel_report_date function using excel_file_name
@@ -257,16 +214,7 @@ load_national_incomplete <- function(reload = FALSE, start_date = as.Date("1900-
             stop("No Excel files found in 'raw_data/national_rtt/provider/incomplete/'")
         }
 
-        flat_dfs <- list()
-        for (i in seq_along(excel_files)) {
-            report_date <- excel_report_date(excel_files[i])
-            # Only process if report_date is within start_date and end_date
-            if (is.null(report_date) || as.Date(report_date) < as.Date(start_date) || as.Date(report_date) > as.Date(end_date)) {
-                next
-            }
-            cat("Processing file", i, "of", length(excel_files), ":", excel_files[i], "\n")
-            flat_dfs[[i]] <- flatten_waiting_list_data(excel_files[i])
-        }
+        ç
 
         # Filter out NULLs from flat_dfs
         flat_dfs_nonnull <- Filter(Negate(is.null), flat_dfs)
@@ -328,25 +276,25 @@ load_national_admitted <- function(reload = FALSE, start_date = as.Date("1900-01
     return(flat_df)
 }
 
-# TODO: Delete this scatch area when done 
-########## SCRATCH AREA ###########
+# # TODO: Delete this scatch area when done 
+# ########## SCRATCH AREA ###########
 
-# Source all R scripts in the 'R' directory
+# # Source all R scripts in the 'R' directory
 
 
-# Load the existing all_national_data from RDS file
-all_national_data <- readRDS("data/all_national_incomplete.rds")
-View(head(all_national_data))
+# # Load the existing all_national_data from RDS file
+# all_national_data <- readRDS("data/all_national_incomplete.rds")
+# View(head(all_national_data))
 
-# HERE: Maybe keep as separate files and have one file merging with a flag for removal/referal etc...
+# # HERE: Maybe keep as separate files and have one file merging with a flag for removal/referal etc...
 
-View(head(flat_df))
-View(head(all_national_data))
+# View(head(flat_df))
+# View(head(all_national_data))
 
-print(colnames(flat_df))
-print(colnames(all_national_data))
+# print(colnames(flat_df))
+# print(colnames(all_national_data))
 
-excel_files[9]
-flatten_waiting_list_data(excel_files[9])
-excel_file_name <- excel_files[9]
-View(report_data)
+# excel_files[9]
+# flatten_waiting_list_data(excel_files[9])
+# excel_file_name <- excel_files[9]
+# View(report_data)

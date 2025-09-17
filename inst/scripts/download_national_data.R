@@ -19,6 +19,7 @@
 #'
 
 # TODO: consider limiting download to a date range, e.g. start_date and end_date
+# TODO: Make messaging much clearer.
 
 # ---- Libraries ----
 library(rvest)
@@ -219,14 +220,14 @@ download_national_data <- function(
 ) {
     provider_or_commissioner <- match.arg(provider_or_commissioner, choices = c("Provider", "Comissioner"), several.ok = TRUE)
     
-    getwd()
+
     if (!grepl("NHSRwaitinglist$", getwd())) {
-        warning("Current working directory is not 'NHSRwaitinglist'. Download location may be incorrect.")
+        warning("Current working directory is not 'NHSRwaitinglist'. \n Download location may be incorrect.")
+        wd <- getwd()
+        wd <- sub("inst/examples/?$", "", wd)
+        setwd(wd)
+        warning("Working directory changed to: ", wd)
     }
-
-    cat("Downloading...\n")
-    cat("All data is approx 14GB...\n")
-
 
     # Create folders: comissioner, provider, timeseries and csv files
     create_folders()    

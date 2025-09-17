@@ -1,7 +1,7 @@
 library(readxl)
 
 # List Excel files in the specified directory
-excel_files <- list.files("raw_data/national_rtt/provider/incomplete/", pattern = "\\.xlsx?$", full.names = TRUE)
+excel_files <- list.files("raw_data/national_rtt/provider/incomplete", pattern = "\\.xlsx?$", full.names = TRUE)
 
 # Check if any Excel files are found
 if (length(excel_files) == 0) {

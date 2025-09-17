@@ -24,3 +24,47 @@ month_year_to_last_day <- function(mmmyy) {
   last_day <- as.Date(format(last_day, "%Y-%m-%d"))
   as.character(last_day)
 }
+# Extracts month-year token from NHS filenames 
+excel_report_date <- function(filename) {
+  file_base <- basename(filename)
+  if (startsWith(file_base, "Incomplete-Provider-")) {
+    date_str <- substr(
+      sub("^Incomplete-Provider-", "", file_base),
+      1, 5
+    )
+    # Use the month_year_to_last_day function from utils_dates.R
+    report_date <- month_year_to_last_day(date_str)
+    return(report_date)
+  } else if (startsWith(file_base, "NonAdmitted")) {
+    date_str <- substr(
+      sub("^NonAdmitted-Adjusted-Provider-", "", file_base),
+      1, 5
+    )
+    report_date <- month_year_to_last_day(date_str)
+    # If report_date is NULL, try NonAdmitted-Provider-
+    if (is.null(report_date) || is.na(report_date)) {
+      date_str <- substr(
+        sub("^NonAdmitted-Provider-", "", file_base),
+        1, 5
+      )
+      report_date <- month_year_to_last_day(date_str)
+    }
+    return(report_date)
+  } else if (startsWith(file_base, "Admitted")) {
+    date_str <- substr(
+      sub("^Admitted-Adjusted-Provider-", "", file_base),
+      1, 5
+    )
+    report_date <- month_year_to_last_day(date_str)
+    # If report_date is NULL, try Admitted-Provider-
+    if (is.null(report_date) || is.na(report_date)) {
+      date_str <- substr(
+        sub("^Admitted-Provider-", "", file_base),
+        1, 5
+      )
+      report_date <- month_year_to_last_day(date_str)
+    }
+    return(report_date)
+  }
+  # Add more else if conditions here for other filename patterns
+}
