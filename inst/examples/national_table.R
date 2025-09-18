@@ -1,74 +1,112 @@
 library(dplyr)
 library(readxl)
 # TODO: Correct so that mean is over the last years data only
+# TODO: Don't name things 2024 just say a year ago
 
 all_new_periods <- readRDS("data/all_national_new_periods.rds")
+#View(all_new_periods)
 
 mean_rows_df <- all_new_periods %>%
   group_by(Provider_Code, Treatment_Function_Code, Provider_Name, Treatment_Function, Region_Code) %>%
   summarise(Mean_Arrival = mean(n, na.rm = TRUE), .groups = 'drop')
-#View(mean_rows_df)
+##View(mean_rows_df)
 
-all_national_incomplete <- readRDS("data/all_national_incomplete.rds")
+all_national_incomplete <- readRDS("data/all_national_incomplete_stats.rds")
 
-max_report_date <- max(all_national_incomplete$report_date, na.rm = TRUE)
+# max_report_date <- max(all_national_incomplete$report_date, na.rm = TRUE)
+# 
+
+max_report_date <- as.Date("2025-05-01")
 incomplete_data <- dplyr::filter(all_national_incomplete, report_date == max_report_date)
+
+
+
 #View(incomplete_data)
 
 
-# remove arrived_before / arrive_since and aggregate arrivals by provider + treatment function
-incomplete_data <- incomplete_data %>%
-  select(-any_of(c("arrived_before", "arrive_since")))
+
+
+# # remove arrived_before / arrive_since and aggregate arrivals by provider + treatment function
+# incomplete_data <- incomplete_data %>%
+#   select(-any_of(c("arrived_before", "arrive_since")))
 
 # sum n per Provider_Code + Treatment_Function_Code and keep fixed columns (take first observed value)
-incomplete_data <- incomplete_data %>%
-  group_by(Provider_Code, Treatment_Function_Code) %>%
-  summarise(
-    n = sum(n, na.rm = TRUE),
-    Provider_Name = first(Provider_Name),
-    Treatment_Function = first(Treatment_Function),
-    Region_Code = first(Region_Code),
-    .groups = "drop"
-  )
+# incomplete_data <- incomplete_data %>%
+#   group_by(Provider_Code, Treatment_Function_Code) %>%
+#   summarise(
+#     n = sum(n, na.rm = TRUE),
+#     Provider_Name = first(Provider_Name),
+#     Treatment_Function = first(Treatment_Function),
+#     Region_Code = first(Region_Code),
+#     .groups = "drop"
+#   )
 
   # keep original 'n' for compatibility, also add a clearer "Queue_Size" column
-incomplete_data <- incomplete_data %>%
-    dplyr::mutate(Queue_Size = as.numeric(n))
+# incomplete_data <- incomplete_data %>%
+#     dplyr::mutate(Queue_Size = as.numeric(n))
 
+# Ensure the Incomplete dataset has a Queue_Size column (rename if present)
+
+incomplete_data <- incomplete_data %>%
+  rename(Queue_Size = Total_number_of_incomplete_pathways)
+
+# keep original 'n' for compatibility and ensure numeric type
+incomplete_data$Queue_Size <- as.numeric(incomplete_data$Queue_Size)
+
+# Remove Area_Team_Code if present to avoid carrying it through joins
+incomplete_data <- incomplete_data %>% select(-any_of("Area_Team_Code"))
+# Drop 95th percentile column(s) if present (handle both common name variants)
+# Drop any 95th-percentile columns (handle common name variants / any column containing "95th")
+cols_95 <- grep("(?i)95th", names(incomplete_data), value = TRUE, perl = TRUE)
+if (length(cols_95) > 0) {
+  incomplete_data <- incomplete_data %>% select(-any_of(cols_95))
+}
 # View(incomplete_data)
 
 # also preserve the existing Mean_Arrival (mean of the original n values per group)
-mean_arrival_df <- all_new_periods_clean %>%
-  group_by(Provider_Code, Treatment_Function_Code) %>%
-  summarise(Mean_Arrival = mean(n, na.rm = TRUE), .groups = "drop")
+# mean_arrival_df <- all_new_periods_clean %>%
+#   group_by(Provider_Code, Treatment_Function_Code) %>%
+#   summarise(Mean_Arrival = mean(n, na.rm = TRUE), .groups = "drop")
+#View(mean_arrival_df)
 
 # final dataframe to use downstream (contains summed n plus Mean_Arrival and fixed columns)
 mean_rows_df <- incomplete_data %>%
-  left_join(mean_arrival_df, by = c("Provider_Code", "Treatment_Function_Code"))
-View(mean_rows_df)
+  left_join(mean_rows_df, by = c("Provider_Code", "Treatment_Function_Code"))
 
-# Join mean_rows_df with incomplete_data, removing duplicate columns from incomplete_data
-common_cols <- intersect(names(mean_rows_df), names(incomplete_data))
-# Exclude all common columns except "Provider_Code"
-cols_to_remove <- setdiff(common_cols, c("Provider_Code", "Treatment_Function_Code"))
-incomplete_data_nodup <- incomplete_data[, !(names(incomplete_data) %in% cols_to_remove), drop = FALSE]
-joined_data <- merge(
-  mean_rows_df, 
-  incomplete_data, 
-  by = c("Provider_Code", "Treatment_Function_Code"), 
-  all.x = TRUE
-)
+# remove duplicated columns from the RHS (".y") and keep LHS (".x"), dropping the ".x" suffix
+mean_rows_df <- mean_rows_df[, !grepl("\\.y$", names(mean_rows_df)), drop = FALSE]
+names(mean_rows_df) <- sub("\\.x$", "", names(mean_rows_df))
+
+
+
+#View(mean_rows_df)
+
+
+# # Join mean_rows_df with incomplete_data, removing duplicate columns from incomplete_data
+# common_cols <- intersect(names(mean_rows_df), names(incomplete_data))
+# # Exclude all common columns except "Provider_Code"
+# cols_to_remove <- setdiff(common_cols, c("Provider_Code", "Treatment_Function_Code"))
+# incomplete_data_nodup <- incomplete_data[, !(names(incomplete_data) %in% cols_to_remove), drop = FALSE]
+# joined_data <- merge(
+#   mean_rows_df, 
+#   incomplete_data, 
+#   by = c("Provider_Code", "Treatment_Function_Code"), 
+#   all.x = TRUE
+# )
+
+
 #View(joined_data)
-
+joined_data <- mean_rows_df
 joined_data <- subset(
   joined_data,
-  Mean_Arrival != 0 & n != 0
+  Mean_Arrival != 0 & Queue_Size != 0
 )
 #View(joined_data)
 
 
 ############# REPEAT OF CODE BLOCK ABOVE FOR JAN2024
 
+# TODO:  Change this so it actually repeats the above code block for the 2024 data
 
 # Import the Incomplete Provider Excel file
 # TODO: Automate the file path to always get the latest file
@@ -100,27 +138,29 @@ colnames(df_2024)[colnames(df_2024) == "92nd_percentile_waiting_time_(in_weeks)"
 
 colnames(df_2024)[colnames(df_2024) == "Total_within_18_weeks"] <- "Total_within_18_weeks_2024"
 colnames(df_2024)[colnames(df_2024) == "%_within_18_weeks"] <- "%_within_18_weeks_2024"
-View(df_2024)
+#View(df_2024)
 
 
 # Join mean_rows_df with incomplete_data, removing duplicate columns from incomplete_data
 
-common_cols <- intersect(names(mean_rows_df), names(incomplete_data))
-# Exclude all common columns except "Provider_Code"
-cols_to_remove <- setdiff(common_cols, c("Provider_Code", "Treatment_Function_Code"))
-incomplete_data_nodup <- incomplete_data[, !(names(incomplete_data) %in% cols_to_remove), drop = FALSE]
-joined_data <- merge(
-  mean_rows_df,
-  incomplete_data_nodup,
-  by = c("Provider_Code", "Treatment_Function_Code"),
-  all.x = TRUE
-)#View(joined_data)
+# common_cols <- intersect(names(mean_rows_df), names(incomplete_data))
+# # Exclude all common columns except "Provider_Code"
+# cols_to_remove <- setdiff(common_cols, c("Provider_Code", "Treatment_Function_Code"))
+# incomplete_data_nodup <- incomplete_data[, !(names(incomplete_data) %in% cols_to_remove), drop = FALSE]
+# joined_data <- merge(
+#   mean_rows_df,
+#   incomplete_data_nodup,
+#   by = c("Provider_Code", "Treatment_Function_Code"),
+#   all.x = TRUE
+# )#View(joined_data)
 
 # Remove rows where Mean_Arrival is zero or Total_number_of_incomplete_pathways is zero
 joined_data <- subset(
   joined_data,
-  Mean_Arrival != 0 & n != 0
+  Mean_Arrival != 0 & Queue_Size != 0
 )
+#View(joined_data)
+#View(df_2024)
 
 joined_data <- merge(joined_data, df_2024, by = c("Provider_Code", "Treatment_Function_Code"), all.x = TRUE)
 
@@ -130,7 +170,7 @@ joined_data$Total_within_18_weeks <- as.numeric(joined_data$Total_within_18_week
 joined_data$Relative_Improvement_in_18_weeks <-
   (joined_data$Total_within_18_weeks_2024 - joined_data$Total_within_18_weeks) / joined_data$Total_within_18_weeks_2024
 
-View(joined_data)
+#View(joined_data)
 
 
 final_table <- joined_data
@@ -140,7 +180,7 @@ print(colnames_final_table)
 final_table$Target_Q_Size <- round(as.numeric(final_table$Mean_Arrival) * (18 / (2.52*4.345)))
 
 #View(final_table)
-final_table$Queue_Ratio <- as.numeric(final_table$n) / final_table$Target_Q_Size
+final_table$Queue_Ratio <- as.numeric(final_table$Queue_Size) / final_table$Target_Q_Size
 # Rename column "92nd_percentile_waiting_time_(in_weeks)" to "percentile_92" in percentile_92
 # Example: Load or define percentile_92 before renaming its column
 # percentile_92 <- read_excel("path/to/percentile_92.xlsx") # Uncomment and edit as needed
@@ -169,9 +209,6 @@ final_table$Percentile_92nd <- round(100*as.numeric(final_table$`%_within_18_wee
 
 final_table$Median_Wait <- final_table$`Average_(median)_waiting_time_(in_weeks)`
 
-final_table$Queue_Size <- final_table$Total_number_of_incomplete_pathways
-
-final_table$Total_number_of_incomplete_pathways <- NULL
 
 final_table$Total_52_plus_weeks <- NULL
 final_table$Total_78_plus_weeks <- NULL
@@ -189,14 +226,17 @@ final_table$Mean_Arrival <- as.numeric(final_table$Mean_Arrival)
 final_table$Mean_Departure <- final_table$Mean_Arrival - (final_table$Queue_Size - final_table$Queue_size_2024) / 12
 final_table$Load <- final_table$Mean_Arrival/final_table$Mean_Departure
 
-View(final_table)
+# ensure numeric then round to 1 decimal place
+final_table$`%_within_18_weeks` <- round(as.numeric(final_table$`%_within_18_weeks`), 1)
+
+#View(final_table)
 
 final_table$Mean_Arrival_Rank <- NA_integer_
-mask <- final_table$Treatment_Function_Code == "C_999"
-final_table$Mean_Arrival_Rank[mask] <- rank(-final_table$Mean_Arrival[mask], ties.method = "first")
+# mask <- final_table$Treatment_Function_Code == "C_999"
+# final_table$Mean_Arrival_Rank[mask] <- rank(-final_table$Mean_Arrival[mask], ties.method = "first")
 
 rownames(final_table) <- NULL
-View(final_table)
+#View(final_table)
 
 
 # Custom numeric filter: show rows with value >= filter input
@@ -215,9 +255,18 @@ numeric_filter_method <- reactable::JS(
 
 
 
-View(final_table)
+#View(final_table)
 
-
+# Drop unwanted columns if they exist
+cols_to_remove <- c(
+  "95th_percentile_waiting_time_(in_weeks)",
+  "Area_Team_Code",
+  "Mean_Arrival_Rank"
+)
+cols_present <- intersect(names(final_table), cols_to_remove)
+if (length(cols_present) > 0) {
+  final_table[cols_present] <- NULL
+}
 
 # ONLY INCLUDE FULL ROWS
 final_table_finite <- final_table[complete.cases(final_table), ]
@@ -228,6 +277,7 @@ final_table <- final_table_finite[final_table_finite$Queue_Size != 0, ]
 # ...existing code...
 
 
+#View(final_table_finite)
 
 # Reorder columns to put Treatment_Function_Code last and include percentile_relative_improvement
 finalized_table <- final_table[, c(
@@ -254,7 +304,7 @@ finalized_table$Queue_Size <- as.numeric(finalized_table$Queue_Size)
 finalized_table$Queue_Ratio <- round(finalized_table$Queue_Ratio, 2)
 finalized_table$percentile_92 <- round(as.numeric(finalized_table$percentile_92), 1)
 
-View(finalized_table)
+#View(finalized_table)
 
 # Ensure first four columns are character, rest are numeric
 for (i in 1:4) {
@@ -282,6 +332,16 @@ gradient_color <- function(value, min, max) {
     colors <- pal(n)
     idx <- as.integer((value - min) / (max - min) * (n - 1)) + 1
     colors[pmax(pmin(idx, n), 1)]
+}
+
+# Reverse gradient (light red to light blue) so higher values are blue
+gradient_color_rev <- function(value, min, max) {
+  if (is.na(value)) return(NA)
+  pal <- colorRampPalette(c("#ffb3b3", "#add8e6"))
+  n <- 100
+  colors <- pal(n)
+  idx <- as.integer((value - min) / (max - min) * (n - 1)) + 1
+  colors[pmax(pmin(idx, n), 1)]
 }
 
 
@@ -344,7 +404,7 @@ get_header_blue <- function(col) {
   header_blues[header_blue_indices[idx]]
 }
 
-View(finalized_table)
+#View(finalized_table)
 
 ## Build columns list with appropriate filterMethod
 columns_list <- lapply(seq_along(names(finalized_table)), function(i) {
@@ -495,7 +555,7 @@ columns_list <- lapply(seq_along(names(finalized_table)), function(i) {
       style = function(value) {
         rng <- range(finalized_table$`%_within_18_weeks`, na.rm = TRUE)
         list(
-          background = gradient_color(value, rng[1], rng[2]),
+          background = gradient_color_rev(value, rng[1], rng[2]),
           fontWeight = "bold"
         )
       },
@@ -614,5 +674,5 @@ save_and_clean_widget <- function(widget, file) {
   unlink(tmpfile)
 }
 
-save_and_clean_widget(tbl_widget, "ent_data/National_Data_Sept.html")
+save_and_clean_widget(tbl_widget, "ent_data/National_Data_SU_version.html")
 
