@@ -15,9 +15,6 @@
 # 4. We then combine and process rows to generate a final table
 # 5. Finally we render the table using reactable adding filtering and sorting
 
-
-# TODO : make a plot functions utils 
-
 ########################
 # 0. Required libraries
 ########################
@@ -26,8 +23,7 @@ library(dplyr)
 library(tidyr)
 library(reactable)
 library(htmlwidgets)
-library(htmltools) # TODO: check if still needed
-
+library(htmltools) 
 ################################
 # 1. Load the preprocessed data
 ################################
@@ -98,8 +94,21 @@ colnames(a_year_ago)[colnames(a_year_ago) == "92nd_percentile_waiting_time_(in_w
 ##########################################
 
 mean_rows_df <- all_national_new_periods %>%
-  group_by(Provider_Code, Treatment_Function_Code, Provider_Name, Treatment_Function, Region_Code) %>%
-  summarise(Mean_Arrival = mean(n, na.rm = TRUE), .groups = 'drop')
+  filter(
+    as.Date(report_date) >= as.Date(one_year_ago),
+    as.Date(report_date) <= as.Date(max_report_date)
+  ) %>%
+  group_by(
+    Provider_Code,
+    Treatment_Function_Code,
+    Provider_Name,
+    Treatment_Function,
+    Region_Code
+  ) %>%
+  summarise(
+    Mean_Arrival = mean(n, na.rm = TRUE),
+    .groups = "drop"
+  )
 
 ###############################################################
 # 4. We then combine and process to generate a final table
