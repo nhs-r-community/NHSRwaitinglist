@@ -37,12 +37,14 @@ test_that("wl_simulator works with detailed_sim = TRUE", {
 
 # Test for behaviour when `waiting_list` is provided
 test_that("wl_simulator incorporates waiting_list correctly", {
+
   result1 <- wl_simulator("2024-03-20", "2024-03-31"
                           , demand = 100, capacity = 110)
 
   result2 <- wl_simulator("2024-04-01", "2024-04-02"
                           , demand = 100, capacity = 110
                           , waiting_list = result1)
+
   expect_true(nrow(result2) >= 100)  # Ensure waiting_list is incorporated
 })
 
@@ -58,7 +60,7 @@ test_that("wl_simulator handles wrong format waiting list input", {
 test_that("wl_simulator handles zero demand gracefully", {
   expect_error(wl_simulator("2024-01-01", "2024-03-31"
                             , demand = 0, capacity = 110)
-               , "No data rows in waiting list")
+               , "`waiting_list` has 0 rows of data")
 
 })
 

@@ -1,3 +1,9 @@
+# NHSRwaitinglist 0.1.2
+
+* Bug fix release, required for changes in date handling in R.
+* More input checks added
+* CRAN installation instructions added.
+
 # NHSRwaitinglist 0.1.1
 
 * Bug fixes and formatting updated in some help files

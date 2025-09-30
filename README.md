@@ -48,6 +48,9 @@ account, for example by following the [{usethis}
 guide](https://usethis.r-lib.org/articles/git-credentials.html#get-a-personal-access-token-pat).
 
 ``` r
+# Install from CRAN
+install.packages("NHSRwaitinglist")
+
 # install.packages("remotes")
 remotes::install_github("nhs-r-community/NHSRwaitinglist", build_vignettes = TRUE)
 ```
@@ -116,9 +119,8 @@ knitr::kable(overall_stats)
 ## Contributing
 
 If you want to learn more about this project, please join the discussion
-at the [NHS-R Community
-Slack](https://nhsrway.nhsrcommunity.com/community-handbook.html#slack)
-group and the specific channel \#managing-waiting-lists.
+at the [NHS-R Community Slack](https://nhsrcommunity.slack.com/) group
+and the specific channel \#managing-waiting-lists.
 
 Please see our [guidance on how to
 contribute](https://tools.nhsrcommunity.com/contribution.html).
@@ -151,30 +153,72 @@ if you are a member):
 ## Contributors ✨
 
 Thanks goes to these wonderful people ([emoji
-key](https://allcontributors.org/docs/en/emoji-key)):
+key](https://github.com/all-contributors/all-contributors/blob/master/docs/emoji-key.md)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+
 <!-- prettier-ignore-start -->
+
 <!-- markdownlint-disable -->
+
 <table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/jacgrout"><img src="https://avatars.githubusercontent.com/u/103451105?v=4?s=100" width="100px;" alt="Jacqueline Grout"/><br /><sub><b>Jacqueline Grout</b></sub></a><br /><a href="#ideas-jacgrout" title="Ideas, Planning, & Feedback">🤔</a> <a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=jacgrout" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ThomUK"><img src="https://avatars.githubusercontent.com/u/10871342?v=4?s=100" width="100px;" alt="Tom Smith"/><br /><sub><b>Tom Smith</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=ThomUK" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://www.matt-dray.com/"><img src="https://avatars.githubusercontent.com/u/18232097?v=4?s=100" width="100px;" alt="Matt Dray"/><br /><sub><b>Matt Dray</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=matt-dray" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/kaituna"><img src="https://avatars.githubusercontent.com/u/151142766?v=4?s=100" width="100px;" alt="kaituna"/><br /><sub><b>kaituna</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=kaituna" title="Documentation">📖</a> <a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=kaituna" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/chrismainey"><img src="https://avatars.githubusercontent.com/u/39626211?v=4?s=100" width="100px;" alt="Chris Mainey"/><br /><sub><b>Chris Mainey</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=chrismainey" title="Code">💻</a> <a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=chrismainey" title="Documentation">📖</a> <a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=chrismainey" title="Tests">⚠️</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/PeterSNHS"><img src="https://avatars.githubusercontent.com/u/67410797?v=4?s=100" width="100px;" alt="PeterSNHS"/><br /><sub><b>PeterSNHS</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=PeterSNHS" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/neilwalton"><img src="https://avatars.githubusercontent.com/u/53338269?v=4?s=100" width="100px;" alt="neilwalton"/><br /><sub><b>neilwalton</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=neilwalton" title="Code">💻</a> <a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=neilwalton" title="Documentation">📖</a> <a href="#video-neilwalton" title="Videos">📹</a></td>
-    </tr>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/davidfoord1"><img src="https://avatars.githubusercontent.com/u/140633967?v=4?s=100" width="100px;" alt="David Foord"/><br /><sub><b>David Foord</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/issues?q=author%3Adavidfoord1" title="Bug reports">🐛</a> <a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=davidfoord1" title="Code">💻</a> <a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=davidfoord1" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://philosopher-analyst.netlify.app/"><img src="https://avatars.githubusercontent.com/u/39963221?v=4?s=100" width="100px;" alt="Zoë Turner"/><br /><sub><b>Zoë Turner</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=Lextuga007" title="Code">💻</a> <a href="https://github.com/nhs-r-community/NHSRwaitinglist/pulls?q=is%3Apr+reviewed-by%3ALextuga007" title="Reviewed Pull Requests">👀</a></td>
-    </tr>
-  </tbody>
+
+<tbody>
+
+<tr>
+
+<td align="center" valign="top" width="14.28%">
+
+<a href="https://github.com/jacgrout"><img src="https://avatars.githubusercontent.com/u/103451105?v=4?s=100" width="100px;" alt="Jacqueline Grout"/><br /><sub><b>Jacqueline
+Grout</b></sub></a><br /><a href="#ideas-jacgrout" title="Ideas, Planning, & Feedback">🤔</a>
+<a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=jacgrout" title="Code">💻</a>
+</td>
+
+<td align="center" valign="top" width="14.28%">
+
+<a href="https://github.com/ThomUK"><img src="https://avatars.githubusercontent.com/u/10871342?v=4?s=100" width="100px;" alt="Tom Smith"/><br /><sub><b>Tom
+Smith</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=ThomUK" title="Code">💻</a>
+</td>
+
+<td align="center" valign="top" width="14.28%">
+
+<a href="https://www.matt-dray.com/"><img src="https://avatars.githubusercontent.com/u/18232097?v=4?s=100" width="100px;" alt="Matt Dray"/><br /><sub><b>Matt
+Dray</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=matt-dray" title="Code">💻</a>
+</td>
+
+<td align="center" valign="top" width="14.28%">
+
+<a href="https://github.com/kaituna"><img src="https://avatars.githubusercontent.com/u/151142766?v=4?s=100" width="100px;" alt="kaituna"/><br /><sub><b>kaituna</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=kaituna" title="Documentation">📖</a>
+<a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=kaituna" title="Code">💻</a>
+</td>
+
+<td align="center" valign="top" width="14.28%">
+
+<a href="https://github.com/chrismainey"><img src="https://avatars.githubusercontent.com/u/39626211?v=4?s=100" width="100px;" alt="Chris Mainey"/><br /><sub><b>Chris
+Mainey</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=chrismainey" title="Code">💻</a>
+<a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=chrismainey" title="Documentation">📖</a>
+<a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=chrismainey" title="Tests">⚠️</a>
+</td>
+
+<td align="center" valign="top" width="14.28%">
+
+<a href="https://github.com/PeterSNHS"><img src="https://avatars.githubusercontent.com/u/67410797?v=4?s=100" width="100px;" alt="PeterSNHS"/><br /><sub><b>PeterSNHS</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=PeterSNHS" title="Documentation">📖</a>
+</td>
+
+<td align="center" valign="top" width="14.28%">
+
+<a href="https://github.com/neilwalton"><img src="https://avatars.githubusercontent.com/u/53338269?v=4?s=100" width="100px;" alt="neilwalton"/><br /><sub><b>neilwalton</b></sub></a><br /><a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=neilwalton" title="Code">💻</a>
+<a href="https://github.com/nhs-r-community/NHSRwaitinglist/commits?author=neilwalton" title="Documentation">📖</a>
+</td>
+
+</tr>
+
+</tbody>
+
 </table>
 
 <!-- markdownlint-restore -->
+
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->

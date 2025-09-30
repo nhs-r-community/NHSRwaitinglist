@@ -63,7 +63,7 @@ wl_stats <- function(waiting_list,
                      target_wait = 4,
                      start_date = NULL,
                      end_date = NULL) {
-  check_class(waiting_list, .expected_class = "data.frame")
+  check_wl(waiting_list)
   check_class(target_wait, .expected_class = "numeric")
   check_date(start_date, end_date, .allow_null = TRUE)
 

@@ -27,12 +27,12 @@ test_that("sim_patients assigns valid priority values", {
   expect_true(all(result$Priority %in% c(1, 2, 3, 4)))
 })
 
-# Test if 'Target_wait' is calculated based on priority
-test_that("sim_patients calculates 'Target_wait' based on priority", {
-  result <- sim_patients(n_rows = 10)
-  target_wait_values <- sapply(result$Priority, calc_priority_to_target)
-  expect_equal(result$Target_wait, target_wait_values)
-})
+# # Test if 'Target_wait' is calculated based on priority
+# test_that("sim_patients calculates 'Target_wait' based on priority", {
+#   result <- sim_patients(n_rows = 10)
+#   target_wait_values <- sapply(result$Priority, calc_priority_to_target)
+#   expect_equal(result$Target_wait, target_wait_values)
+# })
 
 # Test if 'Referral', 'Removal', and 'Withdrawal' are NA initially
 test_that("sim_patients initializes 'Referral', 'Removal'
@@ -56,9 +56,9 @@ test_that("sim_patients generates random names for patients", {
 })
 
 # Test for handling edge case with 0 rows
-test_that("sim_patients returns an empty dataframe when n_rows is 0", {
-  result <- sim_patients(n_rows = 0)
-  expect_equal(nrow(result), 0)
-  expect_message(sim_patients(n_rows = 0)
-                 , "NOTE: Please supply a positive integer for the argument n.")
+test_that("sim_patients fails gracefully when given zero rows", {
+  #result <- sim_patients(n_rows = 0)
+  #expect_equal(nrow(result), 0)
+  err <- "NOTE: Please supply a positive integer for the argument n_rows."
+  expect_error(sim_patients(n_rows = 0), err)
 })

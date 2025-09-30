@@ -23,10 +23,8 @@
 #' longer_waiting_list <- wl_insert(waiting_list, additions)
 #'
 wl_insert <- function(waiting_list, additions, referral_index = 1) {
-  check_class(waiting_list, .expected_class = "data.frame")
+  check_wl(waiting_list, referral_index)
   check_date(additions)
-  check_class(referral_index,
-              .expected_class = c("numeric", "character", "logical"))
 
   # keep waiting_list structure and fill with NAs
   new_rows <- waiting_list[0, ]
