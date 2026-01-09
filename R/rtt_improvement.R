@@ -11,6 +11,7 @@ plot_rtt_journey <- function(referral_rate){
   # rtt performance levels to include in the plot
   rtt_performance <- c(0.5, 0.60, 0.70, 0.80, 0.92)
 
+  # the NHS referral to treatment standard is 92% treated by 18 weeks
   target_weeks <- 18 # weeks
 
   # get the exponential lambda values for each rtt performance level
@@ -52,7 +53,7 @@ plot_rtt_journey <- function(referral_rate){
       )
     )
 
-  # buld a dataframe to drive a plot annotation
+  # build a dataframe to drive a plot annotation
   annotation_df <- df_binned |>
     dplyr::select(label) |>
     dplyr::distinct()
@@ -65,29 +66,27 @@ plot_rtt_journey <- function(referral_rate){
     ggplot2::scale_fill_manual(values = colours) +
     ggplot2::geom_col(position = "identity", just = 0) +   # overlaid semi-transparent bars
     ggplot2::geom_vline(xintercept = target_weeks, colour = "red", linetype = "dashed") +
+
     # red target box
     ggplot2::annotate("rect",
-             xmin = target_weeks, xmax = target_weeks + 14,      # box position on x-axis
-             ymin = referral_rate - 20,  ymax = referral_rate,       # box position on y-axis
+             xmin = target_weeks, xmax = target_weeks + 30,      # box position on x-axis
+             ymin = referral_rate * 0.9,  ymax = referral_rate,  # box position on y-axis
              fill = "white",
              colour = "red") +
 
-    # red target annotation
+    # red target text
     ggplot2::annotate("text",
-             x = target_weeks + 7, y = referral_rate - 10,  # centre of the box
+             x = target_weeks + 15, # centre of the text
+             y = referral_rate * 0.95,  # centre of the box
              label = "Target 92% by 18 weeks",
-             colour = "red", size = ggplot2::rel(5)) +
-
-    ggplot2::geom_text(
-      ggplot2::aes(y = 200 - 10 * (1:5), label = label),
-      data = annotation_df,
-      x = 40,
-      size = ggplot2::rel(5)
-    ) +
+             colour = "red",
+             #size = ggplot2::rel(5)
+             ) +
 
     ggplot2::labs(
-      title = glue::glue("Waiting List Distributions and RTT performance levels for referral rate of {referral_rate} patients/wk"),
-      subtitle = "Based on exponential distribution",
+      title = glue::glue("Waiting List Size and Corresponding RTT Performance Levels"),
+      subtitle = glue::glue("For referral rate of {referral_rate} patients/wk \nAssuming a typical exponential waiting time distribution"),
+      caption = "Source: {NHSRwaitinglist} R package",
       x = "Weeks waiting",
       y = "Number of patients (or pathways)",
       fill = "Patients Waiting & \nRTT Performance"
