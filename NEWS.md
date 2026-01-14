@@ -1,3 +1,9 @@
+# NHSRwaitinglist 0.1.2.9000
+
+* Added a plotting function `plot_rtt_journey()` and quarto report generating 
+function `rep_rtt_improvement()` to conveniently generate plots to help tell 
+RTT improvement stories within acute trusts.
+
 # NHSRwaitinglist 0.1.2
 
 * Bug fix release, required for changes in date handling in R.
