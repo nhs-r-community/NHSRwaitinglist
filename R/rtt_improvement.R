@@ -4,6 +4,8 @@
 #' @param referral_rate numeric. A weekly referral rate to plot
 #'
 #' @returns ggplot object
+#'
+#' @importFrom stats pexp dexp
 #' @export
 #'
 plot_rtt_journey <- function(referral_rate){
