@@ -84,8 +84,8 @@ plot_rtt_journey <- function(referral_rate){
              ) +
 
     ggplot2::labs(
-      title = glue::glue("Waiting List Size and Corresponding RTT Performance Levels"),
-      subtitle = glue::glue("For referral rate of {referral_rate} patients/wk \nAssuming a typical exponential waiting time distribution"),
+      title = "Waiting List Size and Corresponding RTT Performance Levels",
+      subtitle = paste0("For referral rate of ", referral_rate, " patients/wk \nAssuming a typical exponential waiting time distribution"),
       caption = "Source: {NHSRwaitinglist} R package",
       x = "Weeks waiting",
       y = "Number of patients (or pathways)",
