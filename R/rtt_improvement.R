@@ -89,7 +89,7 @@ plot_rtt_journey <- function(referral_rate){
       caption = "Source: {NHSRwaitinglist} R package",
       x = "Weeks waiting",
       y = "Number of patients (or pathways)",
-      fill = "Patients Waiting & \nRTT Performance"
+      fill = "Waiting List & \nRTT Performance"
     ) +
     ggplot2::theme_minimal(base_size = 12)
 
