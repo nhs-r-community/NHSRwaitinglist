@@ -96,6 +96,14 @@ plot_rtt_journey <- function(referral_rate){
   return(p)
 }
 
+#' Make an RTT improvement report
+#'
+#' @param referral_rates numeric. A numeric vector of referral rates. Each rate
+#' will produce a plot in the finished report
+#'
+#' @returns character. The path to a produced report
+#' @export
+#'
 rep_rtt_improvement <- function(referral_rates){
 
   # ---- staging area ----
