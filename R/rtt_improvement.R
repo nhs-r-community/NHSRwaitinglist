@@ -59,7 +59,7 @@ plot_rtt_journey <- function(referral_rate){
     dplyr::distinct()
 
   # skip the lightest colour, and hand pick the rest
-  colours <- RColorBrewer::brewer.pal(9, "Blues")[c(2, 4, 5, 6, 7)]
+  colours <- c("#DEEBF7", "#9ECAE1", "#6BAED6", "#4292C6", "#2171B5")
 
   # build the plot
   p <- ggplot2::ggplot(df_binned, ggplot2::aes(x = x_min, y = height, fill = label)) +
