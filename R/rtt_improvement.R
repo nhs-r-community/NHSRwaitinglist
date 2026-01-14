@@ -32,39 +32,39 @@ plot_rtt_journey <- function(referral_rate){
   df <- expand.grid(
     x = seq(0, n_bins, length.out = n_bins * 100),
     lambda = lambda_values
-  ) |>
-    dplyr::left_join(params, by = "lambda") |>
+  ) %>%
+    dplyr::left_join(params, by = "lambda") %>%
     dplyr::mutate(
-      density = dexp(x, rate = lambda),
-      population_y = density * total_population
+      density = dexp(.data$x, rate = .data$lambda),
+      population_y = .data$density * .data$total_population
     )
 
  # create a binned data summary ready for histogram plotting
-  df_binned <- df |>
-    dplyr::mutate(bin = ggplot2::cut_number(x, n_bins)) |>
-    dplyr::group_by(lambda, total_population, percent_within_target, bin) |>
+  df_binned <- df %>%
+    dplyr::mutate(bin = ggplot2::cut_number(.data$x, n_bins)) %>%
+    dplyr::group_by(.data$lambda, .data$total_population, .data$percent_within_target, .data$bin) %>%
     dplyr::summarise(
-      height = mean(population_y),
+      height = mean(.data$population_y),
       .groups = "drop"
-    ) |>
+    ) %>%
     dplyr::mutate(
-      x_min = as.numeric(stringr::str_extract(bin, "\\d+(?=,)")), # get the first digit from the bin factor
+      x_min = as.numeric(stringr::str_extract(.data$bin, "\\d+(?=,)")), # get the first digit from the bin factor
       label = forcats::fct_reorder(
-        paste0(format(round(total_population, 0), big.mark = ","), " patients = ", percent_within_target,"% RTT"),
-        dplyr::desc(total_population)
+        paste0(format(round(.data$total_population, 0), big.mark = ","), " patients = ", .data$percent_within_target,"% RTT"),
+        dplyr::desc(.data$total_population)
       )
     )
 
   # build a dataframe to drive a plot annotation
-  annotation_df <- df_binned |>
-    dplyr::select(label) |>
+  annotation_df <- df_binned %>%
+    dplyr::select(.data$label) %>%
     dplyr::distinct()
 
   # define the colours needed
   colours <- c("#DEEBF7", "#9ECAE1", "#6BAED6", "#4292C6", "#2171B5")
 
   # build the plot
-  p <- ggplot2::ggplot(df_binned, ggplot2::aes(x = x_min, y = height, fill = label)) +
+  p <- ggplot2::ggplot(df_binned, ggplot2::aes(x = .data$x_min, y = .data$height)) +
     ggplot2::scale_fill_manual(values = colours) +
     ggplot2::geom_col(position = "identity", just = 0) +   # overlaid semi-transparent bars
     ggplot2::geom_vline(xintercept = target_weeks, colour = "red", linetype = "dashed") +
