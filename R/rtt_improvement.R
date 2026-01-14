@@ -1,5 +1,5 @@
 
-#' Plot RTT improvement journey
+#' Create a ggplot of an RTT improvement journey
 #'
 #' @param referral_rate numeric. A weekly referral rate to plot
 #'
