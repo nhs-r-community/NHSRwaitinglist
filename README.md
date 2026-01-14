@@ -116,6 +116,23 @@ knitr::kable(overall_stats)
 |---:|---:|---:|:---|---:|---:|---:|:---|---:|---:|---:|---:|:---|---:|
 | 9.818065 | 10.08372 | 0.9736549 | FALSE | 2174 | 5 | 44.18129 | FALSE | 1.8 | 1.131775 | 0.7003787 | 10.01489 | NA | 0.2 |
 
+## Reporting functions
+
+In addition to the underlying method functions above, there are some
+convenience functions designed to quickly product plots for RTT
+improvement discussions with clinical specialties. `plot_rtt_journey()`
+produces plots as demonstrated below, while `rep_rtt_improvement()` is a
+quarto report generating function that makes it easy to produce a
+discussion document covering multiple referral rates.
+
+``` r
+# produce a single plot showing waiting list and RTT size for a specialty
+# with a referral rate of 300 patients per week
+plot_rtt_journey(300)
+```
+
+<img src="man/figures/README-plot_rtt_journey-1.png" width="100%" />
+
 ## Contributing
 
 If you want to learn more about this project, please join the discussion
