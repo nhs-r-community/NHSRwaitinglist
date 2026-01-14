@@ -95,3 +95,40 @@ plot_rtt_journey <- function(referral_rate){
 
   return(p)
 }
+
+rep_rtt_improvement <- function(referral_rates){
+
+  # ---- staging area ----
+  stage_dir <- tempfile("quarto-report-")
+  dir.create(stage_dir, recursive = TRUE)
+
+  # copy template into staging (helps with relative paths, resources, etc.)
+  template_qmd <- system.file("quarto", "rtt_improvement_report.qmd", package = "NHSRwaitinglist")
+
+  stage_qmd <- file.path(stage_dir, basename(template_qmd))
+  file.copy(template_qmd, stage_qmd, overwrite = TRUE)
+
+  # ---- render ----
+  # we render into stage_dir, then copy final artifact to here::here()
+  quarto::quarto_render(
+    input = stage_qmd,
+    execute_params = list(
+      referral_rates = referral_rates
+    )
+  )
+
+  # path to the rendered file
+  rendered_file <- file.path(
+    stage_dir,
+    paste0(tools::file_path_sans_ext(basename(stage_qmd)), ".html")
+  )
+
+  # copy to user destination
+  ok <- file.copy(rendered_file, here::here(), overwrite = TRUE)
+  if (!ok) stop("Failed to copy rendered report to user_filepath.", call. = FALSE)
+
+  return(
+    file.path(here::here(), basename(rendered_file))
+  )
+
+}

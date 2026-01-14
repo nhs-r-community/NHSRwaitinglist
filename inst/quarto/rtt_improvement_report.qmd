@@ -1,0 +1,39 @@
+---
+title: "RTT Improvement Journey"
+format:
+  html:
+    toc: true
+    embed-resources: true
+params:
+  referral_rates: null
+---
+
+```{r}
+#| echo: false
+library(NHSRwaitinglist)
+knitr::opts_chunk$set(fig.path = "rtt_improvement_report_files/figure-pdf/")
+```
+
+```{r}
+#| echo: false
+#| results: asis
+#| fig-width: 8
+#| fig-height: 5
+#| out-width: "100%"
+#| message: false
+#| warning: false
+
+rr <- params$referral_rates
+
+# map over each of the referral rates to produce a plot for each
+purrr::walk(rr, \(x){
+  
+  cat("### ", x, " Referrals per week \n\n")
+  print(plot_rtt_journey(x))
+  cat("\n\n")
+  cat("---")
+  cat("\n\n")
+  
+})
+
+```
