@@ -39,10 +39,10 @@ rr <- params$referral_rates
 # map over each of the referral rates to produce a plot for each
 purrr::walk(rr, function(x){
   
-  cat("### ", x, " Referrals per week \n\n")
-  print(plot_rtt_journey(x))
-  cat("\n\n")
   cat("---")
+  cat("\n\n")
+  cat("## ", x, " Referrals per week \n\n")
+  print(plot_rtt_journey(x))
   cat("\n\n")
   
 })
