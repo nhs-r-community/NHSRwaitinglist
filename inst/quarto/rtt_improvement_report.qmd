@@ -26,7 +26,7 @@ knitr::opts_chunk$set(fig.path = "rtt_improvement_report_files/figure-pdf/")
 rr <- params$referral_rates
 
 # map over each of the referral rates to produce a plot for each
-purrr::walk(rr, \(x){
+purrr::walk(rr, function(x){
   
   cat("### ", x, " Referrals per week \n\n")
   print(plot_rtt_journey(x))
