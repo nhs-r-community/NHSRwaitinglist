@@ -64,7 +64,7 @@ plot_rtt_journey <- function(referral_rate){
   colours <- c("#DEEBF7", "#9ECAE1", "#6BAED6", "#4292C6", "#2171B5")
 
   # build the plot
-  p <- ggplot2::ggplot(df_binned, ggplot2::aes(x = .data$x_min, y = .data$height)) +
+  p <- ggplot2::ggplot(df_binned, ggplot2::aes(x = .data$x_min, y = .data$height, fill = .data$label)) +
     ggplot2::scale_fill_manual(values = colours) +
     ggplot2::geom_col(position = "identity", just = 0) +   # overlaid semi-transparent bars
     ggplot2::geom_vline(xintercept = target_weeks, colour = "red", linetype = "dashed") +
