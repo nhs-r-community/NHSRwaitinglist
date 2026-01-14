@@ -4,7 +4,7 @@
 #'     should be checked.
 #' @param .call The environment in which this function is to be
 #'     called.
-#' @noRd
+#' @keywords internal
 check_class <- function(
     ...,
     .expected_class = "numeric",
