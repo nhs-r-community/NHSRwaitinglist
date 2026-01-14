@@ -1,4 +1,5 @@
 ---
+title: "RTT Improvement Report"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{RTT Improvement Report}
