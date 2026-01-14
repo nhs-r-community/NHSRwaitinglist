@@ -60,7 +60,7 @@ plot_rtt_journey <- function(referral_rate){
     dplyr::select(label) |>
     dplyr::distinct()
 
-  # skip the lightest colour, and hand pick the rest
+  # define the colours needed
   colours <- c("#DEEBF7", "#9ECAE1", "#6BAED6", "#4292C6", "#2171B5")
 
   # build the plot
