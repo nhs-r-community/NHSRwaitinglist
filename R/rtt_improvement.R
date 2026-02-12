@@ -2,16 +2,19 @@
 #' Create a ggplot of an RTT improvement journey
 #'
 #' @param referral_rate numeric. A weekly referral rate to plot
-#'
+#' @param rtt_performance numeric vector. A vector of performance thresholds, as proportion e.g. 0.65 = 65%. 
+# '  Default values are: c(0.5, 0.60, 0.70, 0.80, 0.92)
+#' @param n_bins numeric.  Number of bins for histogram. Default is 1 - 64 weeks.
 #' @returns ggplot object
 #'
 #' @importFrom stats pexp dexp
 #' @export
 #'
-plot_rtt_journey <- function(referral_rate){
+plot_rtt_journey <- function(referral_rate, rtt_performance = c(0.5, 0.60, 0.70, 0.80, 0.92),
+                             n_bins = 64){
 
   # rtt performance levels to include in the plot
-  rtt_performance <- c(0.5, 0.60, 0.70, 0.80, 0.92)
+  # rtt_performance <- c(0.5, 0.60, 0.70, 0.80, 0.92)
 
   # the NHS referral to treatment standard is 92% treated by 18 weeks
   target_weeks <- 18 # weeks
@@ -26,7 +29,7 @@ plot_rtt_journey <- function(referral_rate){
   )
 
   # we want a weekly histogram from 1 to 64 weeks
-  n_bins <- 64
+  # n_bins <- 64
 
   # expand out a dataset with sufficient resolution (100 data points per bin)
   df <- expand.grid(
