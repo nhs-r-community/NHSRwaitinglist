@@ -7,10 +7,14 @@
 #'
 #' @param histogram a waiting list in histogram format, possibly including
 #' counts for different categorical variables
+#' @param group_columns Optional character vector of additional column names to 
+#' group by (in addition to arrival_since and arrival_before). Default is NULL.
 #'
 #' @returns a dataframe summarised to a single aggregated waiting list
 #'
 #' @importFrom utils globalVariables
+#' 
+#' @export
 
 
 aggregate_histogram <- function(histogram, group_columns = NULL) {

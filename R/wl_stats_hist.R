@@ -1,13 +1,17 @@
-#' @title Calculate some stats about the waiting list
+#' @title Calculate waiting list statistics from histogram data
 #'
 #' @description A summary of all the key stats associated with a waiting list
+#'   using histogram format data with multiple report dates.
 #'
-#' @param waiting_list data.frame. A df of referral dates and removals
-#' @param target_wait numeric. The required waiting time
+#' @param wl_hist data.frame. A histogram with columns: arrival_since, arrival_before,
+#'   n, and report_date. Must contain at least 2 unique report_date values.
+#' @param target_wait numeric. The required waiting time in weeks.
 #' @param start_date Date or character (in format 'YYYY-MM-DD'); The start date
-#'   to calculate from
-#' @param end_date Date or character (in format 'YYYY-MM-DD'); The end date to
-#'   calculate to
+#'   for calculating removal statistics. If NULL, uses earliest report_date.
+#' @param end_date Date or character (in format 'YYYY-MM-DD'); The end date for
+#'   calculating removal statistics. If NULL, uses latest report_date.
+#'
+#' @importFrom dplyr filter
 #'
 #' @return A data.frame of key waiting list summary statistics based on
 #'   queueing theory:
@@ -51,80 +55,55 @@
 #'
 #' @export
 #'
-#'
 #' @examples
+#' \dontrun{
+#' # Histogram with multiple report dates
+#' wl_hist <- data.frame(
+#'   arrival_since = as.Date(c("2024-01-01", "2024-01-08")),
+#'   arrival_before = as.Date(c("2024-01-07", "2024-01-14")),
+#'   n = c(100, 120),
+#'   report_date = as.Date(c("2024-01-31", "2024-02-29"))
+#' )
+#' waiting_list_stats <- wl_stats_hist(wl_hist, target_wait = 18)
+#' }
 #'
-#' referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
-#' removals <- c.Date("2024-01-08", NA, NA, NA)
-#' waiting_list <- data.frame("referral" = referrals, "removal" = removals)
-#' waiting_list_stats <- wl_stats(waiting_list)
-
-# TODO: This should work with a single histogram with multiple dates not two histograms
-wl_stats_hist <- function(wl_hist1,
-                     wl_hist2,
-                     target_wait = 4,
-                     start_date = NULL,
-                     end_date = NULL) {
-  # check_class(waiting_list, .expected_class = "data.frame")
-  # check_class(target_wait, .expected_class = "numeric")
-  # check_date(start_date, end_date, .allow_null = TRUE)
-  #
-  # if (nrow(waiting_list) == 0) {
-  #   stop("No data rows in waiting list")
-  # }
-  #
-  # if (missing(waiting_list)) {
-  #   stop("No waiting list supplied")
-  # }
-  #
-  #
-  # # get indices and set target wait if possible and get dates
-  # referral_index <- calc_index(waiting_list, type = "referral")
-  # removal_index <- calc_index(waiting_list, type = "removal")
-  #
-  # if (!is.null(start_date)) {
-  #   start_date <- as.Date(start_date)
-  # } else {
-  #   start_date <- min(waiting_list[, referral_index])
-  # }
-  # if (!is.null(end_date)) {
-  #   end_date <- as.Date(end_date)
-  # } else {
-  #   end_date <- max(waiting_list[, referral_index])
-  # }
-
-  if (is.null(end_date)) {
-    end_date <- max(wl_hist1$report_date, na.rm = TRUE)
+wl_stats_hist <- function(wl_hist,
+                          target_wait = 4,
+                          start_date = NULL,
+                          end_date = NULL) {
+  
+  # Check we have report_date column
+  if (!"report_date" %in% colnames(wl_hist)) {
+    stop("Histogram must contain a 'report_date' column")
   }
-
-
-  # referral_stats <- wl_referral_stats(
-  #   wl_hist,
-  #   start_date,
-  #   end_date,
-  #   referral_index
-  # )
-  referral_stats <- wl_referral_stats_hist(wl_hist1)
-
-  # queue_sizes <- wl_queue_size(
-  #   waiting_list,
-  #   start_date,
-  #   end_date,
-  #   referral_index,
-  #   removal_index
-  # )
-  q_size <- wl_queue_size_hist(wl_hist1)
-
-    ############## THIS NEEDS FIXING ######################
-  # removal_stats <- wl_removal_stats(
-  #   waiting_list,
-  #   start_date,
-  #   end_date,
-  #   referral_index,
-  #   removal_index
-  # )
-
-  removal_stats <- wl_removal_stats_hist(wl_hist1,wl_hist2)
+  
+  # Get unique report dates
+  report_dates <- unique(wl_hist$report_date)
+  
+  # Check we have at least 2 dates for removal stats
+  if (length(report_dates) < 2) {
+    stop("Histogram must contain at least 2 report_date values to calculate statistics")
+  }
+  
+  # Use most recent date for queue size and referral stats
+  if (is.null(end_date)) {
+    end_date <- max(report_dates, na.rm = TRUE)
+  } else {
+    end_date <- as.Date(end_date)
+  }
+  
+  # Filter to most recent snapshot for queue and referral calculations
+  wl_hist_latest <- wl_hist |>
+    dplyr::filter(report_date == end_date)
+  
+  # Calculate referral statistics from latest snapshot
+  referral_stats <- wl_referral_stats_hist(wl_hist_latest)
+  
+  # Calculate queue size from latest snapshot
+  q_size <- wl_queue_size_hist(wl_hist_latest)
+  
+  # Calculate removal statistics using all snapshots in date range
+  removal_stats <- wl_removal_stats_hist(wl_hist, start_date, end_date)
 
   # load
   q_load <-
@@ -136,13 +115,13 @@ wl_stats_hist <- function(wl_hist1,
 
   # target queue size
   q_target <-
-    calc_target_queue_size(referral_stats$demand_weekly, target_wait=18, factor = 2.52)
+    calc_target_queue_size(referral_stats$demand_weekly, target_wait = target_wait, factor = 2.52)
 
   # queue too big
   q_too_big <- (q_size > 2 * q_target)
 
   # mean wait
-  mean_wait_age <- wl_mean_wait_age_hist(wl_hist1)
+  mean_wait_age <- wl_mean_wait_age_hist(wl_hist_latest)
 
   # target capacity
   if (!q_too_big) {

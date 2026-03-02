@@ -4,7 +4,7 @@
 \alias{calc_target_queue_size}
 \title{Target Queue Size}
 \usage{
-calc_target_queue_size(demand, target_wait, factor = 4)
+calc_target_queue_size(demand, target_wait, factor = -log(0.08))
 }
 \arguments{
 \item{demand}{Numeric value of rate of demand in same units as target wait
