@@ -184,12 +184,12 @@ Find specific percentiles of the waiting time distribution:
 
 ```{r percentiles}
 # Median (50th percentile)
-p50 <- wl_percentile_hist(wl_hist_feb, percentile = 0.50)
-cat("Median wait:", round(p50, 1), "weeks\n")
+p50 <- wl_percentile_hist(wl_hist_feb, percentage = 50)
+cat("Median wait:", round(p50$weeks, 1), "weeks\n")
 
 # 95th percentile
-p95 <- wl_percentile_hist(wl_hist_feb, percentile = 0.95)
-cat("95th percentile wait:", round(p95, 1), "weeks\n")
+p95 <- wl_percentile_hist(wl_hist_feb, percentage = 95)
+cat("95th percentile wait:", round(p95$weeks, 1), "weeks\n")
 ```
 
 # Comprehensive Statistics with wl_stats_hist()
@@ -366,13 +366,16 @@ set.seed(42)
 referral_dates <- seq(as.Date("2024-01-01"), as.Date("2024-01-31"), by = "day")
 patient_data <- data.frame(
   referral = sample(referral_dates, 100, replace = TRUE),
-  removal = NA
+  removal = as.Date(NA)
 )
 
 # Simulate some removals
 removal_indices <- sample(1:100, 30)
-patient_data$removal[removal_indices] <- patient_data$referral[removal_indices] + 
-  sample(7:60, 30, replace = TRUE)
+# Fix: use as.Date() to keep it as Date type
+patient_data$removal[removal_indices] <- as.Date(
+  patient_data$referral[removal_indices] + sample(7:60, 30, replace = TRUE),
+  origin = "1970-01-01"
+)
 
 head(patient_data)
 ```
@@ -385,7 +388,7 @@ patient_stats <- wl_stats(patient_data, target_wait = 18)
 patient_queue <- wl_queue_size(patient_data)
 
 cat("Patient-level approach:\n")
-cat("Queue size:", patient_queue, "\n")
+cat("Queue size:", patient_queue$queue_size, "\n")  # Changed: extract queue_size
 cat("Mean demand:", round(patient_stats$mean_demand, 1), "per week\n")
 cat("Mean capacity:", round(patient_stats$mean_capacity, 1), "per week\n")
 ```
