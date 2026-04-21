@@ -2,7 +2,7 @@
 % Please edit documentation in R/sim_exponential_histogram.R
 \name{sim_exponential_histogram}
 \alias{sim_exponential_histogram}
-\title{Create a weekly histogram in the format used by the package}
+\title{Create a simulated histogram in the format used by the package}
 \usage{
 sim_exponential_histogram(
   num_intervals = 52,
@@ -14,15 +14,21 @@ sim_exponential_histogram(
 )
 }
 \arguments{
-\item{end_date}{data. The date that the waiting list should end}
+\item{num_intervals}{integer. Number of time intervals to create.}
 
-\item{rate}{numeric. The rate defining the exponential}
+\item{end_date}{Date. The date that the waiting list should end.}
 
-\item{weeks}{integer. Number of weeks of waiting list to create}
+\item{rate}{numeric. The rate defining the exponential.}
+
+\item{queue_size}{numeric. Total queue size used to scale the histogram.}
+
+\item{time_interval}{Character or numeric. Controls the spacing between rows.}
+
+\item{random}{logical. If TRUE, draws interval counts from an exponential process.}
 }
 \value{
-a dataframe of a simulated waiting list in histogram format
+A data.frame of a simulated waiting list in histogram format.
 }
 \description{
-Create a weekly histogram in the format used by the package
+Create a simulated histogram in the format used by the package
 }

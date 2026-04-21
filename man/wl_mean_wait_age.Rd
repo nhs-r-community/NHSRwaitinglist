@@ -13,7 +13,7 @@ wl_mean_wait_age(waiting_list, referral_index, removal_index, end_date)
 
 \item{end_date}{The date (as Date or numeric) up to which to calculate ages.}
 
-\item{dob_index}{The column name or index for the date of birth in \code{waiting_list}.}
+\item{referral_index}{The column name or index for the referral date in \code{waiting_list}.}
 }
 \value{
 The mean age (numeric) for patients still waiting as of \code{end_date}.

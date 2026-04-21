@@ -36,7 +36,8 @@
 #'   \item{queue_too_big}{Logical. Whether \code{queue_size} is more than twice
 #'     the \code{target_queue_size}. A value of \code{TRUE} indicates the queue
 #'     is at risk of missing its targets.}
-#'   \item{mean_wait}{Numeric. Mean waiting time in weeks.}
+#'   \item{mean_wait_age}{Numeric. Mean waiting age in days.}
+#'   \item{mean_wait}{Numeric. Legacy alias for \code{mean_wait_age}.}
 #'   \item{cv_arrival}{Numeric. Coefficient of variation in the time between
 #'     additions to the waiting list.}
 #'   \item{cv_removal}{Numeric. Coefficient of variation in the time between
@@ -49,7 +50,7 @@
 #'     assuming current demand remains steady. Calculated only if
 #'     \code{queue_too_big} is \code{TRUE}; otherwise returns \code{NA}.}
 #'   \item{pressure}{Numeric. A measure of pressure on the system, defined as
-#'     \code{2 × mean_wait / target_wait}. Values greater than 1 suggest the
+#'     \code{2 × mean_wait_age / target_wait}. Values greater than 1 suggest the
 #'     system is unlikely to meet its waiting time targets.}
 #' }
 #'
@@ -94,7 +95,7 @@ wl_stats_hist <- function(wl_hist,
   
   # Filter to most recent snapshot for queue and referral calculations
   wl_hist_latest <- wl_hist |>
-    dplyr::filter(report_date == end_date)
+    dplyr::filter(.data$report_date == end_date)
   
   # Calculate referral statistics from latest snapshot
   referral_stats <- wl_referral_stats_hist(wl_hist_latest)
@@ -158,6 +159,7 @@ wl_stats_hist <- function(wl_hist,
     "target_queue_size" = q_target,
     "queue_too_big" = q_too_big,
     "mean_wait_age" = mean_wait_age,
+    "mean_wait" = mean_wait_age,
     "cv_arrival" = referral_stats$demand_cov,
     "cv_removal" = removal_stats$capacity_cov,
     "target_capacity" = target_cap,

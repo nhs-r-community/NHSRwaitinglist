@@ -11,7 +11,7 @@ wl_join_hist(wl_hist_1, wl_hist_2, categories = FALSE)
 
 \item{wl_hist_2}{data.frame. A waiting list in histogram format.}
 
-\item{keep_categories}{logical. If TRUE, retains only the common category
+\item{categories}{logical. If TRUE, retains only the common category
 columns when aggregating. Default is FALSE.}
 }
 \value{

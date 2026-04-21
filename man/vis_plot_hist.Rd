@@ -7,7 +7,7 @@
 vis_plot_hist(wl_hist, target = 18, percentage = 92)
 }
 \arguments{
-\item{wl_hist}{Data frame containing waiting list history.}
+\item{wl_hist}{Data frame containing waiting list history in histogram format.}
 
 \item{target}{Numeric. Target number of weeks for the geometric distribution (e.g., 18).}
 

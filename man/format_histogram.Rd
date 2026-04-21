@@ -14,10 +14,13 @@ format_histogram(
 \arguments{
 \item{histogram}{A data frame containing at least an \code{arrival_since} column (as character or Date).}
 
+\item{group_columns}{A character vector specifying the column(s) to group by when generating \code{arrival_before}.}
+
 \item{end_date}{Optional. The reference date to use for the first \code{arrival_before} in each group.
 Defaults to the system date.}
 
-\item{group_column}{A character vector specifying the column(s) to group by when generating \code{arrival_before}.}
+\item{time_interval}{Optional. Controls how the default \code{end_date} is derived when it is not supplied.
+Use \code{weeks} (default), \code{months}, \code{NULL}, or a numeric offset.}
 }
 \value{
 A data frame with \code{arrival_since} and \code{arrival_before} columns as Dates, and all original columns.
@@ -41,7 +44,7 @@ df <- data.frame(
   group = c("A", "A", "B"),
   arrival_since = c("2023-01-01", "2023-02-01", "2023-01-15")
 )
-format_histogram(df, group_column = "group")
+format_histogram(df, group_columns = "group")
 }
 
 }

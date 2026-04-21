@@ -1,20 +1,20 @@
-wl1 <- data.frame(referral = c.Date("2024-01-01", "2024-02-03")
-                  , removal = c.Date("2024-03-01", "2024-05-05"))
+wl1 <- data.frame(referral = as.Date(c("2024-01-01", "2024-02-03"))
+                  , removal = as.Date(c("2024-03-01", "2024-05-05")))
 
-additions <- c.Date("2024-01-02", "2024-03-03")
+additions <- as.Date(c("2024-01-02", "2024-03-03"))
 
 expected_out <-
   data.frame(
     stringsAsFactors = FALSE,
     row.names = as.integer(c("1", "3", "2", "4")),
-    referral = c.Date("2024-01-01",
-                      "2024-01-02",
-                      "2024-02-03",
-                      "2024-03-03"),
-    removal = c.Date("2024-03-01",
-                     NA,
-                     "2024-05-05",
-                     NA)
+    referral = as.Date(c("2024-01-01",
+               "2024-01-02",
+               "2024-02-03",
+               "2024-03-03")),
+    removal = as.Date(c("2024-03-01",
+              NA,
+              "2024-05-05",
+              NA))
   )
 
 

@@ -27,7 +27,8 @@ the target queue size by.}
 
 \item{num_referrals}{Numeric value of the number of referrals per time step.}
 
-\item{cv_demand}{To be completed}
+\item{cv_demand}{Numeric value for the coefficient of variation in demand.
+Used to add a conservative uplift to demand when \code{num_referrals > 0}.}
 }
 \value{
 A numeric value of the required rate of capacity to achieve a target

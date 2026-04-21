@@ -2,8 +2,7 @@
 % Please edit documentation in R/wl_insert_hist.R
 \name{wl_insert_hist}
 \alias{wl_insert_hist}
-\title{Insert some patients into a waiting list
-Acting on a histogram this is identical to wl_join_hist()}
+\title{Insert some patients into a waiting list in histogram format}
 \usage{
 wl_insert_hist(waiting_list, additions)
 }
@@ -17,6 +16,7 @@ histogram format}
 dataframe.A combined waiting list
 }
 \description{
-Insert some patients into a waiting list
-Acting on a histogram this is identical to wl_join_hist()
+Insert some patients into a waiting list in histogram format
+
+Acting on a histogram this is identical to \code{wl_join_hist()}.
 }

@@ -4,7 +4,7 @@
 #' Recall that the age of waiting is the mean time waited so far. (Opposed to the mean sojourn time, which is the time waiting until removal from the list.)
 #'
 #' @param waiting_list A data frame containing patient waiting list data.
-#' @param dob_index The column name or index for the date of birth in \code{waiting_list}.
+#' @param referral_index The column name or index for the referral date in \code{waiting_list}.
 #' @param removal_index The column name or index for the removal date in \code{waiting_list}.
 #' @param end_date The date (as Date or numeric) up to which to calculate ages.
 #'

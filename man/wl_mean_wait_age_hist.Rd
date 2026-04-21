@@ -2,24 +2,23 @@
 % Please edit documentation in R/wl_mean_wait_age_hist.R
 \name{wl_mean_wait_age_hist}
 \alias{wl_mean_wait_age_hist}
-\title{Calculate Mean Wait Time from Waiting List History}
+\title{Calculate Mean Waiting Age from Waiting List History}
 \usage{
 wl_mean_wait_age_hist(wl_hist)
 }
 \arguments{
 \item{wl_hist}{A data frame containing waiting list history, with columns:
 \describe{
-\item{arrival_since}{Numeric, days since arrival}
-\item{arrival_before}{Numeric, days before arrival}
+\item{arrival_since}{Date, start of the arrival interval}
+\item{arrival_before}{Date, end of the arrival interval}
+\item{report_date}{Date, snapshot date of the histogram}
 \item{n}{Numeric, count of cases}
 }}
-
-\item{end_date}{A Date object representing the reference end date.}
 }
 \value{
-Numeric value of the mean wait time (in days).
+Numeric value of the mean waiting age in days.
 }
 \description{
-Calculates the mean wait time (in days) for a waiting list history data frame,
-with reference to a specified end date.
+Calculates the mean waiting age for a histogram snapshot: the average time waited so far
+by patients who are still on the waiting list at the report date.
 }

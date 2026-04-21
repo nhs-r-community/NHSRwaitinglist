@@ -5,10 +5,20 @@
 library(dplyr)
 library(tidyr)
 
+# Resolve the package root by walking upward until DESCRIPTION is found.
+pkg_root <- normalizePath(getwd())
+while (!file.exists(file.path(pkg_root, "DESCRIPTION"))) {
+  parent_root <- dirname(pkg_root)
+  if (identical(parent_root, pkg_root)) {
+    stop("Could not locate package root from manual_test_wl_removal_stats_hist.R")
+  }
+  pkg_root <- parent_root
+}
+
 # Source the required functions
-source("R/wl_removal_stats_hist.R")
-source("R/format_histogram.R")
-source("R/aggregate_histogram.R")
+source(file.path(pkg_root, "R", "wl_removal_stats_hist.R"))
+source(file.path(pkg_root, "R", "format_histogram.R"))
+source(file.path(pkg_root, "R", "aggregate_histogram.R"))
 
 cat("=== Manual Test: wl_removal_stats_hist ===\n\n")
 

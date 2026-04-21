@@ -5,16 +5,18 @@
 #' for each group as the previous `arrival_since` date (or the end date for the first row in each group).
 #'
 #' @param histogram A data frame containing at least an `arrival_since` column (as character or Date).
-#' @param group_column A character vector specifying the column(s) to group by when generating `arrival_before`.
+#' @param group_columns A character vector specifying the column(s) to group by when generating `arrival_before`.
 #' @param end_date Optional. The reference date to use for the first `arrival_before` in each group.
 #'   Defaults to the system date.
+#' @param time_interval Optional. Controls how the default `end_date` is derived when it is not supplied.
+#'   Use `weeks` (default), `months`, `NULL`, or a numeric offset.
 #'
 #' @return A data frame with `arrival_since` and `arrival_before` columns as Dates, and all original columns.
 #'   The columns are reordered so that `arrival_since` and `arrival_before` appear first.
 #'
 #' @details
 #' - If the `arrival_before` column exists, it is converted to Date.
-#' - If not, for each group (as defined by `group_column`), `arrival_before` is set to the previous
+#' - If not, for each group (as defined by `group_columns`), `arrival_before` is set to the previous
 #'   `arrival_since` (or `end_date` for the first row), minus one day.
 #'
 #' @importFrom dplyr group_by mutate lag ungroup
@@ -26,7 +28,7 @@
 #'   group = c("A", "A", "B"),
 #'   arrival_since = c("2023-01-01", "2023-02-01", "2023-01-15")
 #' )
-#' format_histogram(df, group_column = "group")
+#' format_histogram(df, group_columns = "group")
 #' }
 #'
 #' @export
@@ -70,7 +72,7 @@ format_histogram <- function(histogram, group_columns = NULL, end_date = NULL, t
             histogram <- dplyr::group_by(histogram, !!!group_syms)
             histogram <- dplyr::mutate(
                 histogram,
-                arrival_before = dplyr::lag(arrival_since, default = end_date) - 1
+                arrival_before = dplyr::lag(.data$arrival_since, default = end_date) - 1
             )
             histogram <- dplyr::ungroup(histogram)
         }

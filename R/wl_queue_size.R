@@ -25,8 +25,8 @@
 #' @export
 #'
 #' @examples
-#' referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
-#' removals <- c.Date("2024-01-08", NA, NA, NA)
+#' referrals <- as.Date(c("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16"))
+#' removals <- as.Date(c("2024-01-08", NA, NA, NA))
 #' waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 #' wl_queue_size(waiting_list)
 wl_queue_size <- function(waiting_list,
@@ -59,7 +59,7 @@ wl_queue_size <- function(waiting_list,
   departures <-
     wl[which((start_date <= wl[, removal_index]) &
                (wl[, removal_index] <= end_date)), removal_index]
-  if (length(departures > 0)) {
+  if (length(departures) > 0) {
     departure_counts <-
       data.frame(
         table(wl[which((start_date <= wl[, removal_index]) &

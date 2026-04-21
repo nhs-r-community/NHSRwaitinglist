@@ -356,6 +356,7 @@ cat("Mean waiting time:", round(nhs_stats$mean_wait_age, 1), "weeks\n")
 cat("Meeting 18-week target?", nhs_stats$pressure <= 1.0, "\n")
 ```
 
+<!--
 # Comparison: Histogram vs Patient-Level
 
 ## Creating Equivalent Data
@@ -412,6 +413,7 @@ hist_queue <- wl_queue_size_hist(hist_from_patient)
 cat("\nHistogram approach:\n")
 cat("Queue size:", hist_queue, "\n")
 ```
+-->
 
 ## Trade-offs
 
@@ -455,6 +457,7 @@ cat("Queue size:", hist_queue, "\n")
 
 ## Next Steps
 
+- Follow the [histogram walkthrough](histogram_walkthrough.html) for a worked end-to-end example
 - Explore the [simulation vignette](waiting_list_sim.html) for forward projections
 - See [example walkthrough](example_walkthrough.html) for patient-level analysis
 - Read about [queuing theory foundations](three_example_waiting_lists.html)

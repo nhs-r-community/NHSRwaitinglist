@@ -1,10 +1,13 @@
-#' Create a weekly histogram in the format used by the package
+#' Create a simulated histogram in the format used by the package
 #'
-#' @param weeks integer. Number of weeks of waiting list to create
-#' @param end_date data. The date that the waiting list should end
-#' @param rate numeric. The rate defining the exponential
+#' @param num_intervals integer. Number of time intervals to create.
+#' @param end_date Date. The date that the waiting list should end.
+#' @param rate numeric. The rate defining the exponential.
+#' @param queue_size numeric. Total queue size used to scale the histogram.
+#' @param time_interval Character or numeric. Controls the spacing between rows.
+#' @param random logical. If TRUE, draws interval counts from an exponential process.
 #'
-#' @returns a dataframe of a simulated waiting list in histogram format
+#' @return A data.frame of a simulated waiting list in histogram format.
 #'
 #' @export
 #'
@@ -40,7 +43,7 @@ sim_exponential_histogram <- function(num_intervals = 52,
 
   if (random) {
   # generate exponential values for each date
-  n_values_raw <- ceiling(rexp(queue_size, rate = rate))
+  n_values_raw <- ceiling(stats::rexp(queue_size, rate = rate))
   n_values <- tabulate(n_values_raw + 1, nbins = num_intervals)
   } else {
   # calculate values using the exponential function
@@ -48,7 +51,7 @@ sim_exponential_histogram <- function(num_intervals = 52,
   }
 
   # Ensure n_values length matches dates
-  n_values <- head(n_values, length(dates))
+  n_values <- utils::head(n_values, length(dates))
 
   # Create the data frame
   df <- data.frame(

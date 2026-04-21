@@ -12,9 +12,7 @@ wl_percentile_hist(wl_hist, percentage = 92)
 \item{percentage}{Numeric value indicating the percentile to calculate (default is 92).}
 }
 \value{
-A list with:
-\item{date_percentile}{The estimated date corresponding to the given percentile.}
-\item{weeks_percentile}{The number of weeks from the report date to the percentile date.}
+A list with the percentile date and weeks to percentile. The list includes both the preferred names \code{date_percentile} and \code{weeks_percentile}, and the legacy aliases \code{date} and \code{weeks} for backward compatibility.
 }
 \description{
 Calculate the Date and Weeks Corresponding to a Given Percentile in Waiting List History

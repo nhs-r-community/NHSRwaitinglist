@@ -41,6 +41,9 @@
 #' removal_stats <- wl_removal_stats_hist(wl_hist)
 #' }
 #'
+
+# TODO: Currently assumes equal intervals between snapshots. Consider updating to handle unequal intervals (e.g., monthly then weekly snapshots, or irregular snapshot dates). This would improve flexibility for operational data.
+
 wl_removal_stats_hist <- function(wl_hist,
                                    start_date = NULL,
                                    end_date = NULL) {
@@ -83,33 +86,33 @@ wl_removal_stats_hist <- function(wl_hist,
     
     # Filter histograms for these two dates
     wl_hist1 <- wl_hist |>
-      dplyr::filter(report_date == date1) |>
+      dplyr::filter(.data$report_date == date1) |>
       dplyr::rename(
-        n_hist1 = n,
-        arrival_before_hist1 = arrival_before
+        n_hist1 = .data$n,
+        arrival_before_hist1 = .data$arrival_before
       )
     
     wl_hist2 <- wl_hist |>
-      dplyr::filter(report_date == date2) |>
+      dplyr::filter(.data$report_date == date2) |>
       dplyr::rename(
-        n_hist2 = n,
-        arrival_before_hist2 = arrival_before
+        n_hist2 = .data$n,
+        arrival_before_hist2 = .data$arrival_before
       )
     
     # Compare the two snapshots
     comparison <- dplyr::full_join(wl_hist1, wl_hist2, by = "arrival_since") |>
       dplyr::mutate(
-        n_hist1 = tidyr::replace_na(n_hist1, 0),
-        n_hist2 = tidyr::replace_na(n_hist2, 0),
-        change = n_hist2 - n_hist1
+        n_hist1 = tidyr::replace_na(.data$n_hist1, 0),
+        n_hist2 = tidyr::replace_na(.data$n_hist2, 0),
+        change = .data$n_hist2 - .data$n_hist1
       ) |>
       dplyr::select(
-        arrival_since,
-        n_hist1,
-        n_hist2,
-        change
+        .data$arrival_since,
+        .data$n_hist1,
+        .data$n_hist2,
+        .data$change
       ) |>
-      dplyr::arrange(arrival_since)
+      dplyr::arrange(.data$arrival_since)
     
     # Calculate removals for this period (negative changes)
     period_removals <- abs(sum(comparison$change[comparison$change < 0]))

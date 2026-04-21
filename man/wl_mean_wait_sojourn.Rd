@@ -7,16 +7,20 @@
 wl_mean_wait_sojourn(waiting_list)
 }
 \arguments{
-\item{waiting_list}{A data frame containing at least 'Referral' and 'Removal' date columns.}
+\item{waiting_list}{A data frame containing referral and removal date columns.}
 }
 \value{
-A numeric value representing the mean sojourn time in days.
+A numeric value representing the mean sojourn time in days. Returns \code{NA_real_}
+if there are no complete referral/removal pairs.
 }
 \description{
-This function calculates the mean sojourn time (number of days between 'Referral' and 'Removal' dates)
-in a waiting list data frame. It ignores rows with missing 'Referral' or 'Removal' values.
+This function calculates the mean sojourn time (number of days between referral and removal dates)
+in a waiting list data frame. It ignores rows with missing referral or removal values.
 }
 \examples{
-# waiting_list should have columns 'Referral' and 'Removal' as Date objects
+waiting_list <- data.frame(
+	referral = as.Date(c("2024-01-01", "2024-01-08")),
+	removal = as.Date(c("2024-01-05", NA))
+)
 wl_mean_wait_sojourn(waiting_list)
 }

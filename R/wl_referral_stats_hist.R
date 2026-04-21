@@ -1,13 +1,15 @@
-#' @title Calculate some stats about referrals
+#' @title Calculate some stats about referrals from histogram data
 #'
-#' @description Calculate some stats about referrals
+#' @description Calculate referral statistics from a histogram containing multiple report dates.
 #'
-#' @param waiting_list data.frame. A df of referral dates and removals
+#' @param wl_hist data.frame. A histogram with columns: arrival_since, arrival_before,
+#'   n, and report_date.
 #' @param start_date Date or character (in format 'YYYY-MM-DD'); The start date
-#'   to calculate from
+#'   to calculate from.
 #' @param end_date Date or character (in format 'YYYY-MM-DD'); The end date to
-#'   calculate to
-#' @param referral_index the column index of referrals
+#'   calculate to.
+#' @param time_interval Character or numeric. Passed through to format_histogram() when
+#'   deriving the histogram end date.
 #'
 #' @return A data.frame with the following summary statistics on
 #'   referrals/demand:
@@ -25,10 +27,15 @@
 #' @export
 #'
 #' @examples
-#' referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
-#' removals <- c.Date("2024-01-08", NA, NA, NA)
-#' waiting_list <- data.frame("referral" = referrals, "removal" = removals)
-#' referral_stats <- wl_referral_stats(waiting_list)
+#' referrals <- as.Date(c("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16"))
+#' removals <- as.Date(c("2024-01-08", NA, NA, NA))
+#' hist_waiting_list <- data.frame(
+#'   arrival_since = as.Date(c("2024-01-01", "2024-01-08")),
+#'   arrival_before = as.Date(c("2024-01-07", "2024-01-14")),
+#'   n = c(100, 120),
+#'   report_date = as.Date(c("2024-01-31", "2024-02-29"))
+#' )
+#' referral_stats <- wl_referral_stats_hist(hist_waiting_list)
 #'
 wl_referral_stats_hist <- function(wl_hist,
                               start_date = NULL,

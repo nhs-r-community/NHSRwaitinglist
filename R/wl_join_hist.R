@@ -6,7 +6,7 @@
 #'
 #' @param wl_hist_1 data.frame. A waiting list in histogram format.
 #' @param wl_hist_2 data.frame. A waiting list in histogram format.
-#' @param keep_categories logical. If TRUE, retains only the common category
+#' @param categories logical. If TRUE, retains only the common category
 #'   columns when aggregating. Default is FALSE.
 #'
 #' @return data.frame. A combined waiting list in histogram format.

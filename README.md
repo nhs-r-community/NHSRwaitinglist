@@ -59,7 +59,7 @@ remotes::install_github("nhs-r-community/NHSRwaitinglist", build_vignettes = TRU
 
 There is a minimal example below. To look in more detail at the
 functions within the package and some more ways of using them, it is a
-good idea to review the first two vignettes:
+good idea to review these vignettes:
 
 1.  The [example
     walkthrough](https://nhs-r-community.github.io/NHSRwaitinglist/articles/example_walkthrough.html)
@@ -69,6 +69,10 @@ good idea to review the first two vignettes:
     lists](https://nhs-r-community.github.io/NHSRwaitinglist/articles/three_example_waiting_lists.html)
     vignette simulates three closely related waiting lists, and uses
     package functions to explore some of their characteristics.
+3.  The [histogram
+  walkthrough](https://nhs-r-community.github.io/NHSRwaitinglist/articles/histogram_walkthrough.html)
+  vignette gives a worked example of the histogram functions,
+  including simulation, queue metrics, and capacity analysis.
 
 At its most basic, the package can be used to simulate a waiting list (a
 dataframe of waiting list addition dates and removal dates), and then

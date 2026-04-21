@@ -25,10 +25,10 @@ new rows. The result is sorted by the referral column.
 Adds new referrals, with other columns set as \code{NA}.
 }
 \examples{
-referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
-removals <- c.Date("2024-01-08", NA, NA, NA)
+referrals <- as.Date(c("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16"))
+removals <- as.Date(c("2024-01-08", NA, NA, NA))
 waiting_list <- data.frame("referral" = referrals, "removal" = removals)
-additions <- c.Date("2024-01-03", "2024-01-05", "2024-01-18")
+additions <- as.Date(c("2024-01-03", "2024-01-05", "2024-01-18"))
 longer_waiting_list <- wl_insert(waiting_list, additions)
 
 }
