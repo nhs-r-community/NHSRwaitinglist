@@ -23,8 +23,12 @@ test_that("plot_rtt_journey subtitle contains referral rate", {
 })
 
 test_that("plot_rtt_journey errors on invalid rtt_performance values", {
-  expect_error(plot_rtt_journey(referral_rate = 100, rtt_performance = c(0.5, 1.5)))
-  expect_error(plot_rtt_journey(referral_rate = 100, rtt_performance = c(-0.1, 0.5)))
+  expect_error(
+    plot_rtt_journey(referral_rate = 100, rtt_performance = c(0.5, 1.5))
+  )
+  expect_error(
+    plot_rtt_journey(referral_rate = 100, rtt_performance = c(-0.1, 0.5))
+  )
 })
 
 test_that("plot_rtt_journey errors on non-positive referral rate", {

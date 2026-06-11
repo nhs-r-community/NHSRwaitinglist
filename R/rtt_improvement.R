@@ -14,9 +14,8 @@
 plot_rtt_journey <- function(referral_rate,
                              rtt_performance = c(0.5, 0.60, 0.70, 0.80, 0.92),
                              n_bins = 64) {
-
   stopifnot(all(rtt_performance > 0 & rtt_performance < 1))
-  stopifnot(referral_rate > 0 )
+  stopifnot(referral_rate > 0)
 
   # the NHS referral to treatment standard is 92% treated by 18 weeks
   target_weeks <- 18 # weeks
