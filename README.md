@@ -131,7 +131,7 @@ discussion document covering multiple referral rates.
 plot_rtt_journey(300)
 ```
 
-<img src="man/figures/README-plot_rtt_journey-1.png" width="100%" />
+<img src="man/figures/README-plot_rtt_journey-1.png" alt="" width="100%" />
 
 ## Contributing
 

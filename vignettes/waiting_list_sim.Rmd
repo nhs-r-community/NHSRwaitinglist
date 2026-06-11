@@ -110,10 +110,12 @@ end_date <- as.Date("2023-03-31")
 
 start_date <- end_date - (((840 / 20) * 7) - 1)
 
-current_wl1 <- wl_simulator(start_date = start_date,
-                            end_date = end_date,
-                            demand = 100,
-                            capacity = 80)
+current_wl1 <- wl_simulator(
+  start_date = start_date,
+  end_date = end_date,
+  demand = 100,
+  capacity = 80
+)
 
 tail(wl_queue_size(current_wl1))
 ```
@@ -124,8 +126,8 @@ As an alternative, we could manually dump 840 open pathways into the current wai
 ```{r dump_wl_setup}
 current_wl1 <-
   data.frame(
-    Referral = rep(as.Date("2023-03-31"), 840)
-    , Removal = rep(as.Date(NA), 840)
+    Referral = rep(as.Date("2023-03-31"), 840),
+    Removal = rep(as.Date(NA), 840)
   )
 
 # Only a single day in our waiting list so we don't need `tail()` this time
@@ -159,11 +161,13 @@ Let's imagine we are able to put an additional clinic in place that offers 25 mo
 
 ```{r sim_raise_capacity}
 raised_capacity_wl <-
-  wl_simulator(start_date = as.Date("2023-04-01"),
-               end_date = as.Date("2024-03-31"),
-               demand = 100,
-               capacity = 105,
-               waiting_list = current_wl1)
+  wl_simulator(
+    start_date = as.Date("2023-04-01"),
+    end_date = as.Date("2024-03-31"),
+    demand = 100,
+    capacity = 105,
+    waiting_list = current_wl1
+  )
 
 raised_capacity_queue <- wl_queue_size(raised_capacity_wl)
 
@@ -176,11 +180,13 @@ Instead of raising capacity, let's imagine we have put in new referral guidance 
 
 ```{r sim_reduce_demand}
 reduced_demand_wl <-
-  wl_simulator(start_date = as.Date("2023-04-01"),
-               end_date = as.Date("2024-03-31"),
-               demand = 77,
-               capacity = 80,
-               waiting_list = current_wl1)
+  wl_simulator(
+    start_date = as.Date("2023-04-01"),
+    end_date = as.Date("2024-03-31"),
+    demand = 77,
+    capacity = 80,
+    waiting_list = current_wl1
+  )
 
 reduced_demand_queue <- wl_queue_size(reduced_demand_wl)
 
@@ -190,7 +196,6 @@ tail(reduced_demand_queue)
 To visualise this, we will plot the queue against time, marking the target queue size.
 
 ```{r plot_raise_capacity, message=FALSE, warning=FALSE}
-
 combine_queue <-
   rbind(
     cbind(raised_capacity_queue, type = "raised capacity"),
@@ -201,11 +206,15 @@ combine_queue <-
 ggplot(combine_queue, aes(y = queue_size, x = dates)) +
   geom_line(aes(linetype = type)) +
   geom_hline(yintercept = target_queue1, colour = "#440154FF") +
-  annotate("text", label = "Target queue size", x = as.Date("2024-03-31")
-           , y = target_queue1, vjust = 1.2
-           , hjust = 1.2, colour = "#440154FF") +
-  labs(y = "Queue Size", x = "Date"
-       , title = "Simulated reduction in waiting list using demand or capacity")
+  annotate("text",
+    label = "Target queue size", x = as.Date("2024-03-31"),
+    y = target_queue1, vjust = 1.2,
+    hjust = 1.2, colour = "#440154FF"
+  ) +
+  labs(
+    y = "Queue Size", x = "Date",
+    title = "Simulated reduction in waiting list using demand or capacity"
+  )
 ```
 The simulation above suggests that either maintaining the extra clinic until the end of the year (increased capacity) or reducing the referrals (reduced demand), would return the waiting list to just below the sustainable target.
 
@@ -233,10 +242,9 @@ If we are willing to let our waiting list grow over the next 6 months, this equa
 ```{r list_growth_2}
 current_queue <- 82
 queue_growth <- target_queue2 - current_queue
-weeks_to_grow <- 26 #52 weeks per year / 2 for 6 months
+weeks_to_grow <- 26 # 52 weeks per year / 2 for 6 months
 
 queue_growth / weeks_to_grow
-
 ```
 
 We can then assume a reduced capacity by `r round(queue_growth / weeks_to_grow,2)` per week, and allow the queue to grow.
@@ -247,26 +255,32 @@ We can then verify this using simulation, following the steps in example 1.: set
 ```{r example_2}
 current_wl2 <-
   data.frame(
-    Referral = rep(as.Date("2024-03-31"), current_queue)
-    , Removal = rep(as.Date(NA), current_queue)
+    Referral = rep(as.Date("2024-03-31"), current_queue),
+    Removal = rep(as.Date(NA), current_queue)
   )
 
 raise_wl_sim <-
-  wl_simulator(start_date = as.Date("2024-04-01"),
-               end_date = as.Date("2024-09-30"),
-               demand = 50,
-               capacity =  (50 - 10), # 10 = floor(queue_growth / weeks_to_grow)
-               waiting_list = current_wl2)
+  wl_simulator(
+    start_date = as.Date("2024-04-01"),
+    end_date = as.Date("2024-09-30"),
+    demand = 50,
+    capacity = (50 - 10), # 10 = floor(queue_growth / weeks_to_grow)
+    waiting_list = current_wl2
+  )
 
 raised_wl <- wl_queue_size(raise_wl_sim)
 
 ggplot(raised_wl, aes(y = queue_size, x = dates)) +
   geom_line() +
   geom_hline(yintercept = target_queue2, colour = "#21908CFF") +
-  annotate("text", label = "Target queue size", x = as.Date("2024-04-01")
-           , y = target_queue2, vjust = 1.2, hjust = 0, colour = "#21908CFF") +
-  labs(y = "Queue Size", x = "Date"
-       , title = "Simulated waiting list after allowing waiting list to grow")
+  annotate("text",
+    label = "Target queue size", x = as.Date("2024-04-01"),
+    y = target_queue2, vjust = 1.2, hjust = 0, colour = "#21908CFF"
+  ) +
+  labs(
+    y = "Queue Size", x = "Date",
+    title = "Simulated waiting list after allowing waiting list to grow"
+  )
 ```
 
 
@@ -295,10 +309,14 @@ In this case ours sustainable waiting list is `r round(target_queue3,2)`, but th
 
 ```{r control_table}
 ctrl_tbl <- data.frame(
-  start_date = as.Date(c("2024-04-01", "2025-04-01", "2026-04-01"
-                         , "2027-04-01", "2028-04-01"), format = "%Y-%m-%d"),
-  end_date = as.Date(c("2025-03-31", "2026-03-31", "2027-03-31"
-                       , "2028-03-31", "2029-03-31"), format = "%Y-%m-%d"),
+  start_date = as.Date(c(
+    "2024-04-01", "2025-04-01", "2026-04-01",
+    "2027-04-01", "2028-04-01"
+  ), format = "%Y-%m-%d"),
+  end_date = as.Date(c(
+    "2025-03-31", "2026-03-31", "2027-03-31",
+    "2028-03-31", "2029-03-31"
+  ), format = "%Y-%m-%d"),
   demand = 100,
   capacity = 100
 )
@@ -316,15 +334,19 @@ We also need to update target queue size.  We could do this by setting based on 
 
 ```{r target_queue_size_dynamic}
 ctrl_tbl$target_queue_size <-
-  calc_target_queue_size(demand = ctrl_tbl$demand
-                         , target_wait = 18
-                         , factor = qexp(0.95))
+  calc_target_queue_size(
+    demand = ctrl_tbl$demand,
+    target_wait = 18,
+    factor = qexp(0.95)
+  )
 ```
 
 ```{r setup_wl_3}
 current_wl3 <-
-  data.frame(Referral = rep(as.Date("2024-03-31"), 500)
-             , Removal = rep(as.Date(NA), 500))
+  data.frame(
+    Referral = rep(as.Date("2024-03-31"), 500),
+    Removal = rep(as.Date(NA), 500)
+  )
 ```
 
 
@@ -337,11 +359,13 @@ sim3 <- list(NROW(ctrl_tbl))
 
 # Run the first line and current waiting list
 sim3[[1]] <-
-  wl_simulator(start_date = ctrl_tbl$start_date[1]
-               , end_date = ctrl_tbl$end_date[1]
-               , demand = ctrl_tbl$demand[1]
-               , capacity = ctrl_tbl$capacity[1]
-               , waiting_list = current_wl3)
+  wl_simulator(
+    start_date = ctrl_tbl$start_date[1],
+    end_date = ctrl_tbl$end_date[1],
+    demand = ctrl_tbl$demand[1],
+    capacity = ctrl_tbl$capacity[1],
+    waiting_list = current_wl3
+  )
 ```
 
 We can now run through the rest of the table using a loop, referencing the last run as our waiting list e.g. during run 2, our waiting list is run 1, achieved by the `sim3[[i - 1]]`:
@@ -351,11 +375,13 @@ We can now run through the rest of the table using a loop, referencing the last 
 # Loop picks up each previous waiting list
 for (i in seq(2, 5)) {
   sim3[[i]] <-
-    wl_simulator(start_date = ctrl_tbl$start_date[i]
-                 , end_date = ctrl_tbl$end_date[i]
-                 , demand = ctrl_tbl$demand[i]
-                 , capacity = ctrl_tbl$capacity[i]
-                 , waiting_list = sim3[[i - 1]])
+    wl_simulator(
+      start_date = ctrl_tbl$start_date[i],
+      end_date = ctrl_tbl$end_date[i],
+      demand = ctrl_tbl$demand[i],
+      capacity = ctrl_tbl$capacity[i],
+      waiting_list = sim3[[i - 1]]
+    )
 }
 
 queue_over_time <- wl_queue_size(sim3[[5]])
@@ -372,25 +398,31 @@ We can now plot and see what our list looks like.  Key points to note are:
 ```{r plot3}
 ggplot(queue_over_time, aes(y = queue_size, x = dates)) +
   geom_line() +
-  geom_line(aes(y = target_queue_size, x = start_date)
-            , colour = "#A69D75FF"
-            , data =
-              data.frame(
-                target_queue_size =
-                c(ctrl_tbl$target_queue_size, ctrl_tbl$target_queue_size[5]),
-                start_date =
-                c(ctrl_tbl$start_date, ctrl_tbl$end_date[5])
-              )) +
-  annotate("text", label = "Target queue size", x = ctrl_tbl$start_date[5]
-           , y = ctrl_tbl$target_queue_size[5], vjust = 1.2, hjust = 0.2
-           , colour = "#A69D75FF") +
+  geom_line(aes(y = target_queue_size, x = start_date),
+    colour = "#A69D75FF",
+    data =
+      data.frame(
+        target_queue_size =
+          c(ctrl_tbl$target_queue_size, ctrl_tbl$target_queue_size[5]),
+        start_date =
+          c(ctrl_tbl$start_date, ctrl_tbl$end_date[5])
+      )
+  ) +
+  annotate("text",
+    label = "Target queue size", x = ctrl_tbl$start_date[5],
+    y = ctrl_tbl$target_queue_size[5], vjust = 1.2, hjust = 0.2,
+    colour = "#A69D75FF"
+  ) +
   geom_vline(xintercept = as.Date("2026-04-01"), colour = "red") +
-  annotate("text", label = "20% demand\nreduction", x = as.Date("2026-04-01")
-           , y = 200, hjust = 1.1, colour = "red") +
-  labs(y = "Queue Size", x = "Date"
-       , title = "Simulated waiting list, 5% year on year growth."
-       , subtitle = "20% demand reduction from Apr-2026")
-
+  annotate("text",
+    label = "20% demand\nreduction", x = as.Date("2026-04-01"),
+    y = 200, hjust = 1.1, colour = "red"
+  ) +
+  labs(
+    y = "Queue Size", x = "Date",
+    title = "Simulated waiting list, 5% year on year growth.",
+    subtitle = "20% demand reduction from Apr-2026"
+  )
 ```
 
 
@@ -404,11 +436,13 @@ Using example 1., we can repeatedly run it in several ways. This method wraps th
 
 ```{r montecarlo_1}
 sim_func <- function(run_id) {
-  sim <- wl_simulator(start_date = as.Date("2023-04-01"),
-                      end_date = as.Date("2024-03-31"),
-                      demand = 100,
-                      capacity = 105,
-                      waiting_list = current_wl1)
+  sim <- wl_simulator(
+    start_date = as.Date("2023-04-01"),
+    end_date = as.Date("2024-03-31"),
+    demand = 100,
+    capacity = 105,
+    waiting_list = current_wl1
+  )
 
   cbind(wl_queue_size(sim), run_id)
 }
@@ -427,15 +461,17 @@ We then need to take our output, reformat the list, and chose how we will averag
 mc_bind <- do.call("rbind", raised_capacity_wl_mc)
 mc_agg <-
   aggregate(
-    queue_size ~ dates
-    , data = mc_bind
-    , FUN = \(x) {
-      c(mean_q = mean(x),
+    queue_size ~ dates,
+    data = mc_bind,
+    FUN = \(x) {
+      c(
+        mean_q = mean(x),
         median_q = median(x),
-        lower_95CI = mean(x) -  (1.96 * (sd(x) / sqrt(length(x)))),
-        upper_95CI = mean(x) +  (1.96 * (sd(x) / sqrt(length(x)))),
+        lower_95CI = mean(x) - (1.96 * (sd(x) / sqrt(length(x)))),
+        upper_95CI = mean(x) + (1.96 * (sd(x) / sqrt(length(x)))),
         q_25 = quantile(x, .025, names = FALSE),
-        q_75 = quantile(x, .975, names = FALSE))
+        q_75 = quantile(x, .975, names = FALSE)
+      )
     }
   )
 mc_agg <- data.frame(dates = as.Date(mc_agg$dates), unlist(mc_agg$queue_size))
@@ -447,15 +483,20 @@ We can now produce a similar plot to the one in section 1, but using the average
 ```{r montecarlo_3}
 ggplot(mc_bind, aes(x = dates)) +
   geom_line(aes(y = queue_size, group = i), alpha = 0.5, col = "grey") +
-  geom_ribbon(aes(y = mean_q, ymin = lower_95CI, ymax = upper_95CI)
-              , alpha = 0.5, data = mc_agg, fill = "red") +
+  geom_ribbon(aes(y = mean_q, ymin = lower_95CI, ymax = upper_95CI),
+    alpha = 0.5, data = mc_agg, fill = "red"
+  ) +
   geom_line(aes(y = mean_q), data = mc_agg, col = "black") +
   geom_hline(yintercept = target_queue1, colour = "#440154FF") +
-  annotate("text", label = "Target queue size", x = as.Date("2024-02-01")
-           , y = target_queue1, vjust = -1, colour = "#440154FF") +
-  labs(y = "Queue Size", x = "Date"
-       , title = "Simulated waiting list after raising capacity"
-       , subtitle = "Average WL over 50 runs, with 95% confidence interval")
+  annotate("text",
+    label = "Target queue size", x = as.Date("2024-02-01"),
+    y = target_queue1, vjust = -1, colour = "#440154FF"
+  ) +
+  labs(
+    y = "Queue Size", x = "Date",
+    title = "Simulated waiting list after raising capacity",
+    subtitle = "Average WL over 50 runs, with 95% confidence interval"
+  )
 ```
 
 The averaging has led to a straighter line for the trend and we have a range of uncertainty around the projection. Alternatively we could present the 25th - 75th percentile range.  

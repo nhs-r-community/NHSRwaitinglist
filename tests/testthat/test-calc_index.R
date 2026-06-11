@@ -93,30 +93,43 @@ test_that("calc_index calculates correct index", {
   # expect_equal(result, 3)
 
   # Test with specified non-default column, giving the type
-  result <- calc_index(wl_test2, colname = "removal"
-                       , type = "removal_date")
+  result <- calc_index(wl_test2,
+    colname = "removal",
+    type = "removal_date"
+  )
   expect_equal(result, 3)
 
   # Test guessing
-  expect_warning(calc_index(wl_test3, #colname = "ins"
-                            , type = "targets")
-                 , label = "Waiting list index not found")
+  expect_warning(
+    calc_index(wl_test3, # colname = "ins"
+      ,
+      type = "targets"
+    ),
+    label = "Waiting list index not found"
+  )
 
-  result <- calc_index(wl_test3, #colname = "ins"
-                       , type = "referral")
+  result <- calc_index(wl_test3, # colname = "ins"
+    ,
+    type = "referral"
+  )
   expect_equal(result, 3)
 
   result <- calc_index(wl_test3,
-                       # colname = "tg"
-                       , type = "target")
+    # colname = "tg"
+    ,
+    type = "target"
+  )
   expect_equal(result, 6)
 
-  result <- calc_index(wl_test3#, colname = "rott"
-                       , type = "withdrawal")
+  result <- calc_index(wl_test3 # , colname = "rott"
+    ,
+    type = "withdrawal"
+  )
   expect_equal(result, 5)
 
-  result <- calc_index(wl_test3#, colname = "outs"
-                       , type = "removal")
+  result <- calc_index(wl_test3 # , colname = "outs"
+    ,
+    type = "removal"
+  )
   expect_equal(result, 2)
-
 })

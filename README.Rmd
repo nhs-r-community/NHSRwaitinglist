@@ -95,7 +95,6 @@ it easy to produce a discussion document covering multiple referral rates.
 # produce a single plot showing waiting list and RTT size for a specialty
 # with a referral rate of 300 patients per week
 plot_rtt_journey(300)
-
 ```
 
 ## Contributing

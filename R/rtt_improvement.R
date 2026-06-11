@@ -1,8 +1,7 @@
-
 #' Create a ggplot of an RTT improvement journey
 #'
 #' @param referral_rate numeric. A weekly referral rate to plot
-#' @param rtt_performance numeric vector. A vector of performance thresholds, as proportion e.g. 0.65 = 65%. 
+#' @param rtt_performance numeric vector. A vector of performance thresholds, as proportion e.g. 0.65 = 65%.
 # '  Default values are: c(0.5, 0.60, 0.70, 0.80, 0.92)
 #' @param n_bins numeric.  Number of bins for histogram. Default is 1 - 64 weeks.
 #' @returns ggplot object
@@ -11,8 +10,7 @@
 #' @export
 #'
 plot_rtt_journey <- function(referral_rate, rtt_performance = c(0.5, 0.60, 0.70, 0.80, 0.92),
-                             n_bins = 64){
-
+                             n_bins = 64) {
   # rtt performance levels to include in the plot
   # rtt_performance <- c(0.5, 0.60, 0.70, 0.80, 0.92)
 
@@ -42,7 +40,7 @@ plot_rtt_journey <- function(referral_rate, rtt_performance = c(0.5, 0.60, 0.70,
       population_y = .data$density * .data$total_population
     )
 
- # create a binned data summary ready for histogram plotting
+  # create a binned data summary ready for histogram plotting
   df_binned <- df %>%
     dplyr::mutate(bin = ggplot2::cut_number(.data$x, n_bins)) %>%
     dplyr::group_by(.data$lambda, .data$total_population, .data$percent_within_target, .data$bin) %>%
@@ -53,7 +51,7 @@ plot_rtt_journey <- function(referral_rate, rtt_performance = c(0.5, 0.60, 0.70,
     dplyr::mutate(
       x_min = as.numeric(stringr::str_extract(.data$bin, "\\d+(?=,)")), # get the first digit from the bin factor
       label = forcats::fct_reorder(
-        paste0(format(round(.data$total_population, 0), big.mark = ","), " patients = ", .data$percent_within_target,"% RTT"),
+        paste0(format(round(.data$total_population, 0), big.mark = ","), " patients = ", .data$percent_within_target, "% RTT"),
         dplyr::desc(.data$total_population)
       )
     )
@@ -69,25 +67,25 @@ plot_rtt_journey <- function(referral_rate, rtt_performance = c(0.5, 0.60, 0.70,
   # build the plot
   p <- ggplot2::ggplot(df_binned, ggplot2::aes(x = .data$x_min, y = .data$height, fill = .data$label)) +
     ggplot2::scale_fill_manual(values = colours) +
-    ggplot2::geom_col(position = "identity", just = 0) +   # overlaid semi-transparent bars
+    ggplot2::geom_col(position = "identity", just = 0) + # overlaid semi-transparent bars
     ggplot2::geom_vline(xintercept = target_weeks, colour = "red", linetype = "dashed") +
 
     # red target box
     ggplot2::annotate("rect",
-             xmin = target_weeks, xmax = target_weeks + 30,      # box position on x-axis
-             ymin = referral_rate * 0.9,  ymax = referral_rate,  # box position on y-axis
-             fill = "white",
-             colour = "red") +
+      xmin = target_weeks, xmax = target_weeks + 30, # box position on x-axis
+      ymin = referral_rate * 0.9, ymax = referral_rate, # box position on y-axis
+      fill = "white",
+      colour = "red"
+    ) +
 
     # red target text
     ggplot2::annotate("text",
-             x = target_weeks + 15, # centre of the text
-             y = referral_rate * 0.95,  # centre of the box
-             label = "Target 92% by 18 weeks",
-             colour = "red",
-             #size = ggplot2::rel(5)
-             ) +
-
+      x = target_weeks + 15, # centre of the text
+      y = referral_rate * 0.95, # centre of the box
+      label = "Target 92% by 18 weeks",
+      colour = "red",
+      # size = ggplot2::rel(5)
+    ) +
     ggplot2::labs(
       title = "Waiting List Size and Corresponding RTT Performance Levels",
       subtitle = paste0("For referral rate of ", referral_rate, " patients/wk \nAssuming a typical exponential waiting time distribution"),
@@ -109,8 +107,7 @@ plot_rtt_journey <- function(referral_rate, rtt_performance = c(0.5, 0.60, 0.70,
 #' @returns character. The path to a produced report
 #' @export
 #'
-rep_rtt_improvement <- function(referral_rates){
-
+rep_rtt_improvement <- function(referral_rates) {
   # ---- staging area ----
   stage_dir <- tempfile("quarto-report-")
   dir.create(stage_dir, recursive = TRUE)
@@ -143,5 +140,4 @@ rep_rtt_improvement <- function(referral_rates){
   return(
     file.path(here::here(), basename(rendered_file))
   )
-
 }

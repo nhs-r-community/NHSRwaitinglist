@@ -58,12 +58,12 @@ wl_queue_size <- function(waiting_list,
 
   departures <-
     wl[which((start_date <= wl[, removal_index]) &
-               (wl[, removal_index] <= end_date)), removal_index]
+      (wl[, removal_index] <= end_date)), removal_index]
   if (length(departures > 0)) {
     departure_counts <-
       data.frame(
         table(wl[which((start_date <= wl[, removal_index]) &
-                         (wl[, removal_index] <= end_date)), removal_index])
+          (wl[, removal_index] <= end_date)), removal_index])
       )
 
     departure_counts[, 1] <- as.Date(departure_counts[, 1])

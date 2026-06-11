@@ -115,8 +115,10 @@ wl_stats <- function(waiting_list,
 
   # load
   q_load <-
-    calc_queue_load(referral_stats$demand_weekly
-                    , removal_stats$capacity_weekly)
+    calc_queue_load(
+      referral_stats$demand_weekly,
+      removal_stats$capacity_weekly
+    )
 
   # load too big
   q_load_too_big <- (q_load >= 1.)
@@ -134,8 +136,8 @@ wl_stats <- function(waiting_list,
   # mean wait
   waiting_patients <-
     waiting_list[which((waiting_list[, removal_index] >
-                          end_date | is.na(waiting_list[, removal_index]) &
-                          waiting_list[, referral_index] <= end_date)), ]
+      end_date | is.na(waiting_list[, removal_index]) &
+      waiting_list[, referral_index] <= end_date)), ]
   wait_times <-
     as.numeric(end_date) - as.numeric(waiting_patients[, referral_index])
   mean_wait <- mean(wait_times)
@@ -183,5 +185,4 @@ wl_stats <- function(waiting_list,
   )
 
   return(waiting_stats)
-
 }
