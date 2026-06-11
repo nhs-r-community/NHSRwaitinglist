@@ -18,3 +18,5 @@ OPCS4.csv
 
 # ignore development artifacts
 ^development_files$
+^\.positai$
+^\.claude$
