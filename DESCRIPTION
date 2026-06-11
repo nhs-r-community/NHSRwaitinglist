@@ -19,7 +19,6 @@ Description: Waiting list management using queuing theory to analyse, predict an
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 VignetteBuilder: knitr
 URL: https://nhs-r-community.github.io/NHSRwaitinglist/, https://github.com/nhs-r-community/NHSRwaitinglist
 BugReports: https://github.com/nhs-r-community/NHSRwaitinglist/issues
@@ -44,3 +43,4 @@ Depends:
     R (>= 3.5.0)
 LazyData: true
 Language: en-GB
+Config/roxygen2/version: 8.0.0
