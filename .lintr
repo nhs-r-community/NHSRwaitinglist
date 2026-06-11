@@ -1,6 +1,7 @@
 linters: linters_with_defaults(
   object_usage_linter = NULL,
-  return_linter = NULL,
+  indentation_linter = NULL, # defer to styler::style_pkg() defaults
+  return_linter = NULL, # don't complain when we use explicit return()
   commented_code_linter = NULL)
 exclude: "# nolint"
 exclude_start: "# Begin Exclude Linting"
