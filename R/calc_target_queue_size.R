@@ -9,8 +9,7 @@
 #'
 #' The average wait should sit somewhere between
 #' \code{target_wait/6} and \code{target_wait/4} depending on the chosen
-#' factor. The default \code{factor = -log(0.08)} corresponds to the historical
-#' package convention.
+#' factor. The factor defaults to 4.
 #'
 #' Only applicable when Capacity > Demand.
 #'
@@ -21,7 +20,7 @@
 #' @param factor Numeric factor used in average wait calculation
 #'   - to get a quarter of the target use factor=4
 #'   - to get one sixth of the target use factor = 6 etc.
-#'   Defaults to \code{-log(0.08)}.
+#'   Defaults to 4.
 #'
 #' @return Numeric target queue length.
 #' @export
@@ -33,7 +32,7 @@
 #'
 #' calc_target_queue_size(30, 52, 4)
 #'
-calc_target_queue_size <- function(demand, target_wait, factor = -log(0.08)) {
+calc_target_queue_size <- function(demand, target_wait, factor = 4) {
   check_class(demand, target_wait, factor)
   target_mean_wait <- calc_target_mean_wait(target_wait, factor)
   target_queue_length <- demand * target_mean_wait

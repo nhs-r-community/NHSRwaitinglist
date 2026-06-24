@@ -4,11 +4,11 @@
 #' by patients who are still on the waiting list at the report date.
 #'
 #' @param wl_hist A data frame containing waiting list history with columns:
-#'   \\describe{
-#'     \\item{arrival_since}{Date, start of the arrival interval}
-#'     \\item{arrival_before}{Date, end of the arrival interval}
-#'     \\item{report_date}{Date, snapshot date of the histogram}
-#'     \\item{n}{Numeric, count of cases}
+#'   \describe{
+#'     \item{arrival_since}{Date, start of the arrival interval}
+#'     \item{arrival_before}{Date, end of the arrival interval}
+#'     \item{report_date}{Date, snapshot date of the histogram}
+#'     \item{n}{Numeric, count of cases}
 #'   }
 #'
 #' @return Numeric value of the mean waiting age in days.

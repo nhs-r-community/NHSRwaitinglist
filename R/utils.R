@@ -32,7 +32,7 @@ check_class <- function(
 
   args_are_class <- lapply(
     args,
-    \(arg) inherits(arg, .expected_class)
+    function(arg) inherits(arg, .expected_class)
   )
 
   # clean up the integer workaround
@@ -108,10 +108,10 @@ check_date <- function(...,
   # NAs returned incorrect/ambiguous
   coerced_dates <- lapply(
     args,
-    \(arg) as.Date(arg, format = "%Y-%m-%d")
+    function(arg) as.Date(arg, format = "%Y-%m-%d")
   )
 
-  are_not_dates <- lapply(coerced_dates, \(x) any(is.na(x)))
+  are_not_dates <- lapply(coerced_dates, function(x) any(is.na(x)))
   are_not_dates <- unlist(are_not_dates)
   fails_names <- names(coerced_dates)[are_not_dates]
 

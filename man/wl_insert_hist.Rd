@@ -16,5 +16,5 @@ histogram format}
 data.frame. A combined waiting list.
 }
 \description{
-Acting on a histogram this is identical to \\code{wl_join_hist()}.
+Acting on a histogram this is identical to \code{wl_join_hist()}.
 }

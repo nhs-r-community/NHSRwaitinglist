@@ -45,6 +45,15 @@
 wl_removal_stats_hist <- function(wl_hist,
                                   start_date = NULL,
                                   end_date = NULL) {
+  required_columns <- c("arrival_since", "arrival_before", "n", "report_date")
+  missing_columns <- setdiff(required_columns, colnames(wl_hist))
+  if (length(missing_columns) > 0) {
+    stop(
+      "Histogram must contain columns: ",
+      paste(required_columns, collapse = ", ")
+    )
+  }
+
   # Extract unique report dates
   report_dates <- unique(wl_hist$report_date)
   report_dates <- sort(report_dates)
@@ -82,33 +91,33 @@ wl_removal_stats_hist <- function(wl_hist,
     date2 <- report_dates[i + 1]
 
     # Filter histograms for these two dates
-    wl_hist1 <- wl_hist |>
-      dplyr::filter(.data$report_date == date1) |>
+    wl_hist1 <- wl_hist %>%
+      dplyr::filter(.data$report_date == date1) %>%
       dplyr::rename(
-        n_hist1 = .data$n,
-        arrival_before_hist1 = .data$arrival_before
+        n_hist1 = "n",
+        arrival_before_hist1 = "arrival_before"
       )
 
-    wl_hist2 <- wl_hist |>
-      dplyr::filter(.data$report_date == date2) |>
+    wl_hist2 <- wl_hist %>%
+      dplyr::filter(.data$report_date == date2) %>%
       dplyr::rename(
-        n_hist2 = .data$n,
-        arrival_before_hist2 = .data$arrival_before
+        n_hist2 = "n",
+        arrival_before_hist2 = "arrival_before"
       )
 
     # Compare the two snapshots
-    comparison <- dplyr::full_join(wl_hist1, wl_hist2, by = "arrival_since") |>
+    comparison <- dplyr::full_join(wl_hist1, wl_hist2, by = "arrival_since") %>%
       dplyr::mutate(
         n_hist1 = tidyr::replace_na(.data$n_hist1, 0),
         n_hist2 = tidyr::replace_na(.data$n_hist2, 0),
         change = .data$n_hist2 - .data$n_hist1
-      ) |>
+      ) %>%
       dplyr::select(
-        .data$arrival_since,
-        .data$n_hist1,
-        .data$n_hist2,
-        .data$change
-      ) |>
+        "arrival_since",
+        "n_hist1",
+        "n_hist2",
+        "change"
+      ) %>%
       dplyr::arrange(.data$arrival_since)
 
     # Calculate removals for this period (negative changes)

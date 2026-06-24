@@ -13,6 +13,10 @@ expected_out <-
       "2024-01-01",
       "2024-01-02",
       "2024-02-03",
+      "2024-03-03"
+    ),
+    removal = c.Date(
+      "2024-03-01",
       NA,
       "2024-05-05",
       NA
@@ -108,7 +112,7 @@ test_that("wl_insert errors with incorrect arg classes", {
 
   idx_msg <- "`referral_index` must be of class <numeric/character/logical>"
 
-  expect_error(wl_insert(wl1, additions, referral_index = list(), idx_msg))
-  expect_error(wl_insert(wl1, additions, referral_index = NULL, idx_msg))
+  expect_error(wl_insert(wl1, additions, referral_index = list()), idx_msg)
+  expect_error(wl_insert(wl1, additions, referral_index = NULL), idx_msg)
   expect_error(wl_insert(wl1, additions, referral_index = as.Date(1)), idx_msg)
 })

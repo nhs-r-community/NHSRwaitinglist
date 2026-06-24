@@ -93,7 +93,7 @@ wl_stats_hist <- function(wl_hist,
   }
 
   # Filter to most recent snapshot for queue and referral calculations
-  wl_hist_latest <- wl_hist |>
+  wl_hist_latest <- wl_hist %>%
     dplyr::filter(.data$report_date == end_date)
 
   # Calculate referral statistics from latest snapshot

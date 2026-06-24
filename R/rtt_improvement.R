@@ -38,26 +38,26 @@ plot_rtt_journey <- function(referral_rate,
   df <- expand.grid(
     x = seq(0, n_bins, length.out = n_bins * 100),
     lambda = lambda_values
-  ) |>
-    dplyr::left_join(params, by = "lambda") |>
+  ) %>%
+    dplyr::left_join(params, by = "lambda") %>%
     dplyr::mutate(
       density = dexp(.data$x, rate = .data$lambda),
       population_y = .data$density * .data$total_population
     )
 
   # create a binned data summary ready for histogram plotting
-  df_binned <- df |>
-    dplyr::mutate(bin = ggplot2::cut_number(.data$x, n_bins)) |>
+  df_binned <- df %>%
+    dplyr::mutate(bin = ggplot2::cut_number(.data$x, n_bins)) %>%
     dplyr::group_by(
       .data$lambda,
       .data$total_population,
       .data$percent_within_target,
       .data$bin
-    ) |>
+    ) %>%
     dplyr::summarise(
       height = mean(.data$population_y),
       .groups = "drop"
-    ) |>
+    ) %>%
     dplyr::mutate(
       # get the first digit from the bin factor
       x_min = as.numeric(stringr::str_extract(.data$bin, "\\d+(?=,)")),
@@ -73,8 +73,8 @@ plot_rtt_journey <- function(referral_rate,
     )
 
   # build a dataframe to drive a plot annotation
-  annotation_df <- df_binned |>
-    dplyr::select("label") |>
+  annotation_df <- df_binned %>%
+    dplyr::select("label") %>%
     dplyr::distinct()
 
   # define the colours needed

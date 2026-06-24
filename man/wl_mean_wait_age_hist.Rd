@@ -8,11 +8,11 @@ wl_mean_wait_age_hist(wl_hist)
 }
 \arguments{
 \item{wl_hist}{A data frame containing waiting list history with columns:
-\\describe{
-\\item{arrival_since}{Date, start of the arrival interval}
-\\item{arrival_before}{Date, end of the arrival interval}
-\\item{report_date}{Date, snapshot date of the histogram}
-\\item{n}{Numeric, count of cases}
+\describe{
+\item{arrival_since}{Date, start of the arrival interval}
+\item{arrival_before}{Date, end of the arrival interval}
+\item{report_date}{Date, snapshot date of the histogram}
+\item{n}{Numeric, count of cases}
 }}
 }
 \value{

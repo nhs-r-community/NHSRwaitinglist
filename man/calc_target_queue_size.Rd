@@ -4,7 +4,7 @@
 \alias{calc_target_queue_size}
 \title{Target Queue Size}
 \usage{
-calc_target_queue_size(demand, target_wait, factor = -log(0.08))
+calc_target_queue_size(demand, target_wait, factor = 4)
 }
 \arguments{
 \item{demand}{Numeric value of rate of demand in same units as target wait
@@ -17,7 +17,7 @@ target within which the patient should be seen.}
 \itemize{
 \item to get a quarter of the target use factor=4
 \item to get one sixth of the target use factor = 6 etc.
-Defaults to \code{-log(0.08)}.
+Defaults to 4.
 }}
 }
 \value{
@@ -33,8 +33,7 @@ where Target Mean Wait = Target Wait / factor.
 
 The average wait should sit somewhere between
 \code{target_wait/6} and \code{target_wait/4} depending on the chosen
-factor. The default \code{factor = -log(0.08)} corresponds to the historical
-package convention.
+factor. The factor defaults to 4.
 
 Only applicable when Capacity > Demand.
 }

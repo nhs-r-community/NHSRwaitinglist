@@ -29,8 +29,8 @@ aggregate_histogram <- function(histogram, group_columns = NULL) {
     # Remove duplicates in case user supplies arrival_since/arrival_before
     groups <- unique(groups)
   }
-  result <- histogram |>
-    dplyr::group_by(dplyr::across(dplyr::all_of(groups))) |>
+  result <- histogram %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(groups))) %>%
     dplyr::summarise(n = sum(n), .groups = "drop")
   return(result)
 }
