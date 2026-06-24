@@ -1,12 +1,15 @@
-wl1 <- data.frame(referrals = c("2024-01-01", "2024-02-03")
-                  , removals = c("2024-03-01", "2024-05-05"))
+wl1 <- data.frame(
+  referrals = c("2024-01-01", "2024-02-03"),
+  removals = c("2024-03-01", "2024-05-05")
+)
 
-wl2 <- data.frame(referrals = c("2024-01-02", "2024-03-03")
-                  , removals = c("2024-05-21", "2024-07-15"))
+wl2 <- data.frame(
+  referrals = c("2024-01-02", "2024-03-03"),
+  removals = c("2024-05-21", "2024-07-15")
+)
 
 wl3 <-
   data.frame(
-
     stringsAsFactors = FALSE,
     referrals = c("2024-01-01", "2024-03-01", "2024-02-01", "2024-03-03"),
     removals = c("2024-01-03", "2024-05-05", "2024-05-21", "2024-07-15")

@@ -1,4 +1,3 @@
-
 # Test for valid inputs and output structure
 test_that("create_waiting_list returns a tibble with correct columns", {
   result <- create_waiting_list(10, 50, 21, "2024-01-01")
@@ -10,8 +9,10 @@ test_that("create_waiting_list returns a tibble with correct columns", {
   em <- 'create_waiting_list(): does not have expected column names: "pat_id"
   , "addition_date", "removal_date", "wait_length", "rott"'
   # Check if the returned tibble has the correct columns
-  expected_columns <- c("pat_id", "addition_date", "removal_date"
-                        , "wait_length", "rott")
+  expected_columns <- c(
+    "pat_id", "addition_date", "removal_date",
+    "wait_length", "rott"
+  )
   expect_true(all(expected_columns %in% colnames(result)))
 })
 
@@ -29,8 +30,9 @@ test_that("create_waiting_list handles zero n", {
 
 # Test for correct behaviour when limit_removals is TRUE
 test_that("create_waiting_list suppresses removal dates beyond the period", {
-  result <- create_waiting_list(10, 50, 21, "2024-01-01"
-                                , limit_removals = TRUE)
+  result <- create_waiting_list(10, 50, 21, "2024-01-01",
+    limit_removals = TRUE
+  )
   expect_true(
     all(
       is.na(
@@ -42,8 +44,9 @@ test_that("create_waiting_list suppresses removal dates beyond the period", {
 
 # Test for correct behaviour when limit_removals is FALSE
 test_that("create_waiting_list does not suppress removal dates", {
-  result <- create_waiting_list(10, 50, 21, "2024-01-01"
-                                , limit_removals = FALSE)
+  result <- create_waiting_list(10, 50, 21, "2024-01-01",
+    limit_removals = FALSE
+  )
   expect_true(all(!is.na(result$removal_date)))
 })
 
@@ -64,12 +67,12 @@ test_that("create_waiting_list handles different sd values", {
       na.omit(
         result$wait_length
       )
-    )
-    , 130
-  )  # Ensure it returns 130 rows after the seed fixed
+    ),
+    130
+  ) # Ensure it returns 130 rows after the seed fixed
 
   result_no_sd <- create_waiting_list(10, 50, 21, "2024-01-01", sd = 0)
-  expect_equal(length(result_no_sd$wait_length), 500)  # Ensure it returns 500
+  expect_equal(length(result_no_sd$wait_length), 500) # Ensure it returns 500
 })
 
 # Test if 'dots' are correctly passed and returned in the result

@@ -3,6 +3,8 @@ TODO.txt
 calc_Lambert.R
 calc_tail_prob.R
 
+# development files
+development_files/
 
 # mac stuff
 .DS_Store
@@ -58,3 +60,4 @@ po/*~
 rsconnect/
 inst/doc
 docs
+.positai
