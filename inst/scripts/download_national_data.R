@@ -216,9 +216,18 @@ download_categorized_files <- function(categorized_links) {
 
 download_national_data <- function(
     rtt_url = "https://www.england.nhs.uk/statistics/statistical-work-areas/rtt-waiting-times/",
-    provider_or_commissioner = c("Provider", "Comissioner") # Download both by default
+    provider_or_commissioner = c("Provider", "Commissioner") # Download both by default
 ) {
-    provider_or_commissioner <- match.arg(provider_or_commissioner, choices = c("Provider", "Comissioner"), several.ok = TRUE)
+    provider_or_commissioner <- match.arg(
+        provider_or_commissioner,
+        choices = c("Provider", "Commissioner", "Comissioner"),
+        several.ok = TRUE
+    )
+    provider_or_commissioner <- unique(ifelse(
+        provider_or_commissioner == "Comissioner",
+        "Commissioner",
+        provider_or_commissioner
+    ))
     
 
     if (!grepl("NHSRwaitinglist$", getwd())) {
@@ -271,7 +280,7 @@ download_national_data <- function(
     if ("Provider" %in% provider_or_commissioner) {
         keep_folders <- c(keep_folders, grep("provider", names(categorized_links), value = TRUE))
     }
-    if ("Comissioner" %in% provider_or_commissioner) {
+    if ("Commissioner" %in% provider_or_commissioner) {
         keep_folders <- c(keep_folders, grep("comissioner", names(categorized_links), value = TRUE))
     }
     categorized_links <- categorized_links[keep_folders]
@@ -299,4 +308,3 @@ download_national_data <- function(
     # Download categorized Excel files
     download_categorized_files(categorized_links)
 }
-

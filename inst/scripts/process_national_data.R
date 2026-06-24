@@ -47,93 +47,148 @@ library(readxl)
 source("R/utils_dates.R")
 
 
+is_week_band <- function(x) {
+    grepl("^>?[0-9]+-[0-9]+$", x) || grepl("^[0-9]+_plus$", x, ignore.case = TRUE)
+}
+
+week_band_lower <- function(x) {
+    as.numeric(sub("^>?([0-9]+).*$", "\\1", x))
+}
+
+normalise_national_basis <- function(basis = c("provider", "commissioner", "comissioner")) {
+    basis <- match.arg(tolower(basis), choices = c("provider", "commissioner", "comissioner"))
+    if (basis == "comissioner") {
+        basis <- "commissioner"
+    }
+    basis
+}
 
 flatten_waiting_list_data <- function(excel_file_name, remove_zeros = FALSE) {
-    # Derive report_date from the excel_report_date function using excel_file_name
     report_date <- excel_report_date(excel_file_name)
-    # Skip processing if report_date is earlier than 2013-04-01
+    if (is.null(report_date) || is.na(report_date)) {
+        stop("Could not infer report date from file name: ", basename(excel_file_name))
+    }
+
     if (as.Date(report_date) < as.Date("2013-04-01")) {
         message("Skipping file: report_date is earlier than 2013-04-01")
         return(NULL)
     }
-    
-    # Remove the first 11 rows (assumed to be metadata/header)
-    excel_file <- read_excel(excel_file_name)
-    excel_file <- excel_file[-c(1:11), ]
-    
-    # Set column names using the first row, replacing spaces with underscores
-    colnames(excel_file) <- gsub(" ", "_", as.character(unlist(excel_file[1, ])))
-    
 
-    # Remove the row used for column names
-    excel_file <- excel_file[-1, ]
+    excel_file <- readxl::read_excel(
+        excel_file_name,
+        col_names = FALSE,
+        .name_repair = "minimal"
+    )
+    header_row <- which(apply(excel_file, 1, function(row) {
+        any(trimws(as.character(row)) == "Treatment Function", na.rm = TRUE)
+    }))[1]
 
-    
-    # Now process as report_data
-    report_data <- excel_file
+    if (is.na(header_row)) {
+        stop("Could not find the 'Treatment Function' header row in: ", basename(excel_file_name))
+    }
 
-    # Identify the columns to keep and the columns to pivot
-    # Identify id columns as all columns up to and including "Treatment_Function"
-    id_cols_end <- which(colnames(report_data) == "Treatment_Function")
-    id_cols <- colnames(report_data)[1:id_cols_end]
+    header <- as.character(unlist(excel_file[header_row, ], use.names = FALSE))
+    header <- gsub("[[:space:]]+", "_", trimws(header))
+    keep_cols <- !is.na(header) & nzchar(header)
 
-    # Find the position of the first column containing "_plus"
-    col_plus <- which(grepl("_plus", colnames(report_data)))[1]
+    report_data <- excel_file[(header_row + 1):nrow(excel_file), keep_cols, drop = FALSE]
+    names(report_data) <- make.unique(header[keep_cols], sep = "_")
 
-    # Keep only columns up to "52_plus"
-    report_data <- report_data[, c(id_cols, colnames(report_data)[(length(id_cols)+1):col_plus])]
+    id_cols_end <- which(names(report_data) == "Treatment_Function")[1]
+    if (is.na(id_cols_end)) {
+        stop("Could not find 'Treatment_Function' after cleaning column names in: ", basename(excel_file_name))
+    }
 
-    # Identify week columns (those after id_cols and up to "52_plus")
-    week_cols <- setdiff(colnames(report_data), id_cols)
+    id_cols <- names(report_data)[1:id_cols_end]
+    candidate_week_cols <- names(report_data)[(id_cols_end + 1):ncol(report_data)]
+    week_cols <- candidate_week_cols[vapply(candidate_week_cols, is_week_band, logical(1))]
+    if (length(week_cols) == 0) {
+        stop("No weekly waiting-time columns found in: ", basename(excel_file_name))
+    }
 
-    # Pivot the data from wide to long format
+    report_data <- report_data[, c(id_cols, week_cols), drop = FALSE]
+
     report_long <- report_data %>%
-        pivot_longer(
-            cols = all_of(week_cols),
-            names_to = "weeks",
+        tidyr::pivot_longer(
+            cols = dplyr::all_of(week_cols),
+            names_to = "week_band",
             values_to = "n"
-        )
+        ) %>%
+        dplyr::mutate(
+            report_date = as.Date(report_date),
+            weeks_waiting = week_band_lower(.data$week_band),
+            open_ended = grepl("plus", .data$week_band, ignore.case = TRUE),
+            arrived_before = .data$report_date - (.data$weeks_waiting * 7),
+            arrived_since = .data$arrived_before - 6,
+            n = as.numeric(.data$n)
+        ) %>%
+        dplyr::relocate("arrived_since", .before = "arrived_before")
 
-    # Add a report_date column to report_long
-    report_long <- report_long %>%
-        mutate(report_date = report_date)
-
-    # Create a numeric column extracting the leading one or two digits from 'weeks', ignoring the character ">"
-    report_long <- report_long %>%
-        mutate(
-            weeks_num = as.numeric(sub("^>?([0-9]{1,2}).*", "\\1", weeks))
-        )
-
-    # Create arrived_before column as Date: report_date minus weeks_num * 7 days
-    report_long <- report_long %>%
-        mutate(
-            arrived_before = as.Date(report_date) - (weeks_num * 7)
-        )
-
-    # Create arrived_since column as Date: arrived_before minus 6 days
-    report_long <- report_long %>%
-        mutate(
-            arrived_since = arrived_before - 6
-        )
-
-    # Reorder columns so that arrived_since comes before arrived_before
-    report_long <- report_long %>%
-        relocate(arrived_since, .before = arrived_before)
-
-    # Remove the 'weeks' and 'weeks_num' columns
-    report_long <- report_long %>%
-        select(-weeks, -weeks_num)
-
-    # Ensure the 'n' column is numeric
-    report_long <- report_long %>%
-        mutate(n = as.numeric(n))
-
-    # Remove rows where n == 0 if remove_zeros is TRUE
     if (remove_zeros) {
-        report_long <- report_long %>% filter(n != 0)
+        report_long <- report_long %>% dplyr::filter(.data$n != 0)
     }
 
     return(report_long)
+}
+
+load_national_histogram_dataset <- function(
+    dataset = c("incomplete", "admitted", "non_admitted"),
+    reload = FALSE,
+    start_date = as.Date("1900-01-01"),
+    end_date = as.Date("2100-12-31"),
+    basis = c("provider", "commissioner", "comissioner")
+) {
+    dataset <- match.arg(dataset)
+    basis <- normalise_national_basis(basis)
+
+    basis_dir <- if (basis == "commissioner") "comissioner" else "provider"
+    dataset_dir <- switch(
+        dataset,
+        incomplete = "incomplete",
+        admitted = "admitted",
+        non_admitted = "non-admitted"
+    )
+    dataset_name <- switch(
+        dataset,
+        incomplete = "incomplete",
+        admitted = "admitted",
+        non_admitted = "non_admitted"
+    )
+    rds_stub <- if (basis == "provider") dataset_name else paste("commissioner", dataset_name, sep = "_")
+    rds_file <- file.path("data", paste0("all_national_", rds_stub, ".rds"))
+
+    if (!file.exists(rds_file) || reload) {
+        source_dir <- file.path("raw_data", "national_rtt", basis_dir, dataset_dir)
+        excel_files <- list.files(source_dir, pattern = "\\.xlsx?$", full.names = TRUE)
+
+        if (length(excel_files) == 0) {
+            stop("No Excel files found in '", source_dir, "'")
+        }
+
+        flat_dfs <- vector("list", length(excel_files))
+        for (i in seq_along(excel_files)) {
+            report_date <- excel_report_date(excel_files[i])
+            if (is.null(report_date) || as.Date(report_date) < as.Date(start_date) || as.Date(report_date) > as.Date(end_date)) {
+                next
+            }
+            cat("Processing file", i, "of", length(excel_files), ":", excel_files[i], "\n")
+            flat_dfs[[i]] <- flatten_waiting_list_data(excel_files[i])
+        }
+
+        flat_dfs_nonnull <- Filter(Negate(is.null), flat_dfs)
+        flat_df <- dplyr::bind_rows(flat_dfs_nonnull)
+
+        dir.create(dirname(rds_file), showWarnings = FALSE, recursive = TRUE)
+        saveRDS(flat_df, file = rds_file)
+    } else {
+        flat_df <- readRDS(rds_file)
+        if (!is.null(flat_df$report_date)) {
+            flat_df <- flat_df %>%
+                dplyr::filter(as.Date(.data$report_date) >= as.Date(start_date) & as.Date(.data$report_date) <= as.Date(end_date))
+        }
+    }
+
+    return(flat_df)
 }
 
 load_national_new_periods <- function(reload = FALSE, start_date = as.Date("1900-01-01"), end_date = as.Date("2100-12-31")) {
@@ -141,27 +196,17 @@ load_national_new_periods <- function(reload = FALSE, start_date = as.Date("1900
     if (!file.exists(rds_file) || reload) {
         file_paths <- list.files(
             path = "raw_data/national_rtt/provider/new_periods",
-            pattern = "^New-Periods-Provider-.*\\.xlsx$",
+            pattern = "^New-Periods-Provider-.*\\.xlsx?$",
             full.names = TRUE
         )
 
         all_national_data <- data.frame()
 
         for (file_path in file_paths) {
-            # Extract the date from the filename
-            # TODO: this below should be a function
-            provider_date <- substr(
-                sub(
-                    "^raw_data/national_rtt/provider/new_periods/New-Periods-Provider-", 
-                    "", 
-                    file_path
-                ),
-                1, 5
-            )
-            report_date <- month_year_to_last_day(provider_date)
+            report_date <- excel_report_date(file_path)
 
             # Only process if report_date is within start_date and end_date
-            if (as.Date(report_date) < as.Date(start_date) || as.Date(report_date) > as.Date(end_date)) {
+            if (is.null(report_date) || as.Date(report_date) < as.Date(start_date) || as.Date(report_date) > as.Date(end_date)) {
                 next
             }
 
@@ -185,6 +230,8 @@ load_national_new_periods <- function(reload = FALSE, start_date = as.Date("1900
             all_national_data <- rbind(all_national_data, national_data)
         }
 
+        dir.create(dirname(rds_file), showWarnings = FALSE, recursive = TRUE)
+
         # Save the processed data for future use
         saveRDS(all_national_data, file = rds_file)
     } else {
@@ -199,81 +246,31 @@ load_national_new_periods <- function(reload = FALSE, start_date = as.Date("1900
     return(all_national_data)
 }
 
-load_national_incomplete <- function(reload = FALSE, start_date = as.Date("1900-01-01"), end_date = as.Date("2100-12-31")) {
-    rds_file <- "data/all_national_incomplete.rds"
-    if (!file.exists(rds_file) || reload) {
-        # TODO: be more precise here!
-        r_scripts <- list.files("R", pattern = "\\.R$", full.names = TRUE)
-        sapply(r_scripts, source)
-
-        # List Excel files in the specified directory
-        excel_files <- list.files("raw_data/national_rtt/provider/incomplete/", pattern = "\\.xlsx?$", full.names = TRUE)
-
-        # Check if any Excel files are found
-        if (length(excel_files) == 0) {
-            stop("No Excel files found in 'raw_data/national_rtt/provider/incomplete/'")
-        }
-
-        ç
-
-        # Filter out NULLs from flat_dfs
-        flat_dfs_nonnull <- Filter(Negate(is.null), flat_dfs)
-        # Bind the non-NULL data frames into one
-        flat_df <- bind_rows(flat_dfs_nonnull)
-
-        saveRDS(flat_df, file = rds_file)
-    } else {
-        flat_df <- readRDS(rds_file)
-        # Optionally filter by date if loaded from RDS
-        if (!is.null(flat_df$report_date)) {
-            flat_df <- flat_df %>%
-                filter(as.Date(report_date) >= as.Date(start_date) & as.Date(report_date) <= as.Date(end_date))
-        }
-    }
-    return(flat_df)
+load_national_incomplete <- function(reload = FALSE, start_date = as.Date("1900-01-01"), end_date = as.Date("2100-12-31"), basis = c("provider", "commissioner", "comissioner")) {
+    load_national_histogram_dataset("incomplete", reload, start_date, end_date, basis)
 }
 
-load_national_admitted <- function(reload = FALSE, start_date = as.Date("1900-01-01"), end_date = as.Date("2100-12-31")) {
-    rds_file <- "data/all_national_admitted.rds"
-    if (!file.exists(rds_file) || reload) {
-        # TODO: be more precise here!
-        r_scripts <- list.files("R", pattern = "\\.R$", full.names = TRUE)
-        sapply(r_scripts, source)
+load_national_admitted <- function(reload = FALSE, start_date = as.Date("1900-01-01"), end_date = as.Date("2100-12-31"), basis = c("provider", "commissioner", "comissioner")) {
+    load_national_histogram_dataset("admitted", reload, start_date, end_date, basis)
+}
 
-        # List Excel files in the specified directory
-        excel_files <- list.files("raw_data/national_rtt/provider/admitted/", pattern = "\\.xlsx?$", full.names = TRUE)
+load_national_non_admitted <- function(reload = FALSE, start_date = as.Date("1900-01-01"), end_date = as.Date("2100-12-31"), basis = c("provider", "commissioner", "comissioner")) {
+    load_national_histogram_dataset("non_admitted", reload, start_date, end_date, basis)
+}
 
-        # Check if any Excel files are found
-        if (length(excel_files) == 0) {
-            stop("No Excel files found in 'raw_data/national_rtt/provider/admitted/'")
-        }
+process_national_data <- function(reload = FALSE, start_date = as.Date("1900-01-01"), end_date = as.Date("2100-12-31"), basis = c("provider", "commissioner", "comissioner")) {
+    basis <- normalise_national_basis(basis)
+    new_periods <- if (basis == "provider") load_national_new_periods(reload, start_date, end_date) else NULL
+    incomplete <- load_national_incomplete(reload, start_date, end_date, basis)
+    admitted <- load_national_admitted(reload, start_date, end_date, basis)
+    non_admitted <- load_national_non_admitted(reload, start_date, end_date, basis)
 
-        flat_dfs <- list()
-        for (i in seq_along(excel_files)) {
-            report_date <- excel_report_date(excel_files[i])
-            # Only process if report_date is within start_date and end_date
-            if (is.null(report_date) || as.Date(report_date) < as.Date(start_date) || as.Date(report_date) > as.Date(end_date)) {
-                next
-            }
-            cat("Processing file", i, "of", length(excel_files), ":", excel_files[i], "\n")
-            flat_dfs[[i]] <- flatten_waiting_list_data(excel_files[i])
-        }
-
-        # Filter out NULLs from flat_dfs
-        flat_dfs_nonnull <- Filter(Negate(is.null), flat_dfs)
-        # Bind the non-NULL data frames into one
-        flat_df <- bind_rows(flat_dfs_nonnull)
-
-        saveRDS(flat_df, file = rds_file)
-    } else {
-        flat_df <- readRDS(rds_file)
-        # Optionally filter by date if loaded from RDS
-        if (!is.null(flat_df$report_date)) {
-            flat_df <- flat_df %>%
-                filter(as.Date(report_date) >= as.Date(start_date) & as.Date(report_date) <= as.Date(end_date))
-        }
-    }
-    return(flat_df)
+    return(list(
+        new_periods = new_periods,
+        incomplete = incomplete,
+        admitted = admitted,
+        non_admitted = non_admitted
+    ))
 }
 
 # # TODO: Delete this scatch area when done 
