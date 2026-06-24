@@ -6,6 +6,7 @@ calc_tail_prob.R
 
 # development files
 development_files/
+*SCRATCH*
 
 # Folder with the data
 tom_data/

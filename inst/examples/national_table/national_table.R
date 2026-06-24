@@ -11,7 +11,7 @@
 # 1. Load the preprocessed data
 # 2a. Extract the latest report dates for incompletes
 # 2b. And we extract the same report from a year ago
-# 3. We compute mean arrivals per provider 
+# 3. We compute mean arrivals per provider
 # 4. We then combine and process rows to generate a final table
 # 5. Finally we render the table using reactable adding filtering and sorting
 
@@ -23,7 +23,7 @@ library(dplyr)
 library(tidyr)
 library(reactable)
 library(htmlwidgets)
-library(htmltools) 
+library(htmltools)
 ################################
 # 1. Load the preprocessed data
 ################################
@@ -71,12 +71,12 @@ incomplete_data_year_ago <- dplyr::filter(all_national_incomplete, report_date =
 
 # We don't need all columns so we select and rename what we need
 a_year_ago <- incomplete_data_year_ago[, c(
-    "Provider_Code",
-    "Treatment_Function_Code",
-    "Queue_Size",
-    "Total_within_18_weeks",
-    "%_within_18_weeks",
-    "92nd_percentile_waiting_time_(in_weeks)"
+  "Provider_Code",
+  "Treatment_Function_Code",
+  "Queue_Size",
+  "Total_within_18_weeks",
+  "%_within_18_weeks",
+  "92nd_percentile_waiting_time_(in_weeks)"
 )]
 colnames(a_year_ago)[colnames(a_year_ago) == "Queue_Size"] <- "Queue_size_year_ago"
 colnames(a_year_ago)[colnames(a_year_ago) == "Total_within_18_weeks"] <- "Total_within_18_weeks_year_ago"
@@ -86,7 +86,7 @@ colnames(a_year_ago)[colnames(a_year_ago) == "Total_within_18_weeks"] <- "Total_
 colnames(a_year_ago)[colnames(a_year_ago) == "%_within_18_weeks"] <- "%_within_18_weeks_year_ago"
 colnames(a_year_ago)[colnames(a_year_ago) == "92nd_percentile_waiting_time_(in_weeks)"] <- "92nd_percentile_year_ago"
 
-#View(a_year_ago)
+# View(a_year_ago)
 
 
 ##########################################
@@ -153,43 +153,43 @@ final_table$Relative_Improvement_in_18_weeks <-
   (final_table$Total_within_18_weeks_year_ago - final_table$Total_within_18_weeks) / final_table$Total_within_18_weeks_year_ago
 
 # Calculate Improvement in 92nd percentile
-final_table$percentile_improvement <- (final_table$percentile_92 - final_table$`92nd_percentile_year_ago`) 
+final_table$percentile_improvement <- (final_table$percentile_92 - final_table$`92nd_percentile_year_ago`)
 
 # Calculate Relative Improvement in 92nd percentile
 final_table$percentile_relative_improvement <- (final_table$percentile_92 - final_table$`92nd_percentile_year_ago`) / final_table$`92nd_percentile_year_ago`
 
 # Calculate Changes in Queue Size
 final_table$Queue_Size_Change <- final_table$Queue_Size - final_table$Queue_size_year_ago
-final_table$`%_Queue_Size_Change` <- 100*(final_table$Queue_Size - final_table$Queue_size_year_ago) / final_table$Queue_size_year_ago
+final_table$`%_Queue_Size_Change` <- 100 * (final_table$Queue_Size - final_table$Queue_size_year_ago) / final_table$Queue_size_year_ago
 
 
 # Calculate Target Queue Size
-final_table$Target_Q_Size <- round(as.numeric(final_table$Mean_Arrival) * (18 / (2.52*4.345)))
+final_table$Target_Q_Size <- round(as.numeric(final_table$Mean_Arrival) * (18 / (2.52 * 4.345)))
 
 # Calculate Queue Ratio
 final_table$Queue_Ratio <- as.numeric(final_table$Queue_Size) / final_table$Target_Q_Size
 
 # Calculated departure rate and Load
 final_table$Mean_Departure <- final_table$Mean_Arrival - (final_table$Queue_Size - final_table$Queue_size_year_ago) / 12
-final_table$Load <- final_table$Mean_Arrival/final_table$Mean_Departure
+final_table$Load <- final_table$Mean_Arrival / final_table$Mean_Departure
 
 # Shorten some titles
 final_table$percentile_92 <- final_table$`92nd_percentile_waiting_time_(in_weeks)`
 
 # Round numbers a bit for presentation purposes
 final_table$Percentile_Pressure <- round(as.numeric(final_table$percentile_92) / 18, 1)
-final_table$`%_within_18_weeks` <- 100*as.numeric(final_table$`%_within_18_weeks`)
+final_table$`%_within_18_weeks` <- 100 * as.numeric(final_table$`%_within_18_weeks`)
 final_table$Mean_Arrival <- round(as.numeric(final_table$Mean_Arrival), 1)
 final_table$`%_within_18_weeks` <- round(as.numeric(final_table$`%_within_18_weeks`), 1)
 final_table$Load <- round(as.numeric(final_table$Load), 2)
 final_table$Queue_Ratio <- round(final_table$Queue_Ratio, 2)
 final_table$percentile_92 <- round(as.numeric(final_table$percentile_92), 1)
 
-#reset rows
+# reset rows
 rownames(final_table) <- NULL
 
 
-# Drop unwanted columns 
+# Drop unwanted columns
 cols_to_remove <- c(
   "95th_percentile_waiting_time_(in_weeks)",
   "Area_Team_Code",
@@ -215,19 +215,18 @@ finalized_table <- final_table[, c(
   "Queue_Size",
   "Target_Q_Size",
   "Queue_Ratio",
-    "percentile_92",
+  "percentile_92",
   "%_within_18_weeks",
-    "Percentile_Pressure",
-      "Queue_Size_Change",
-   "Relative_Improvement_in_18_weeks",
-    "%_Queue_Size_Change",
-    "percentile_improvement",
-        "Load"
+  "Percentile_Pressure",
+  "Queue_Size_Change",
+  "Relative_Improvement_in_18_weeks",
+  "%_Queue_Size_Change",
+  "percentile_improvement",
+  "Load"
 )]
 
 
-
-#View(finalized_table)
+# View(finalized_table)
 
 # # Ensure first four columns are character, rest are numeric
 # for (i in 1:4) {
@@ -247,43 +246,45 @@ View(finalized_table)
 
 # Custom numeric filter: show rows with value >= filter input
 numeric_filter_method <- reactable::JS(
-  "function(rows, id, filterValue) {\n" 
-  , "  if (filterValue === undefined || filterValue === null || filterValue === '' || isNaN(Number(filterValue))) { return rows; }\n"
-  , "  var num = Number(filterValue);\n"
-  , "  return rows.filter(function(row) {\n"
-  , "    var value = row.values[id];\n"
-  , "    var valNum = Number(value);\n"
-  , "    if (value === null || value === undefined || value === '' || isNaN(valNum) || !isFinite(valNum)) { return false; }\n"
-  , "    return valNum >= num;\n"
-  , "  });\n"
-  , "}"
+  "function(rows, id, filterValue) {\n",
+  "  if (filterValue === undefined || filterValue === null || filterValue === '' || isNaN(Number(filterValue))) { return rows; }\n",
+  "  var num = Number(filterValue);\n",
+  "  return rows.filter(function(row) {\n",
+  "    var value = row.values[id];\n",
+  "    var valNum = Number(value);\n",
+  "    if (value === null || value === undefined || value === '' || isNaN(valNum) || !isFinite(valNum)) { return false; }\n",
+  "    return valNum >= num;\n",
+  "  });\n",
+  "}"
 )
 
 
-
 # Dynamic Rank numbering: remove any existing Row/Rank then add placeholder as first column
-existing_rank_cols <- intersect(names(finalized_table), c("Row","Rank"))
+existing_rank_cols <- intersect(names(finalized_table), c("Row", "Rank"))
 if (length(existing_rank_cols)) finalized_table[existing_rank_cols] <- NULL
 finalized_table <- cbind(Rank = NA_integer_, finalized_table)
 ## Remove any automatic row names so reactable doesn't render an extra index column
 rownames(finalized_table) <- NULL
 
 
-
 # Custom color function for gradients (light blue to light red) from tom_report_3
 gradient_color <- function(value, min, max) {
-    if (is.na(value)) return(NA)
-    # Interpolate between light blue (#add8e6) and light red (#ffb3b3)
-    pal <- colorRampPalette(c("#add8e6", "#ffb3b3"))
-    n <- 100
-    colors <- pal(n)
-    idx <- as.integer((value - min) / (max - min) * (n - 1)) + 1
-    colors[pmax(pmin(idx, n), 1)]
+  if (is.na(value)) {
+    return(NA)
+  }
+  # Interpolate between light blue (#add8e6) and light red (#ffb3b3)
+  pal <- colorRampPalette(c("#add8e6", "#ffb3b3"))
+  n <- 100
+  colors <- pal(n)
+  idx <- as.integer((value - min) / (max - min) * (n - 1)) + 1
+  colors[pmax(pmin(idx, n), 1)]
 }
 
 # Reverse gradient (light red to light blue) so higher values are blue
 gradient_color_rev <- function(value, min, max) {
-  if (is.na(value)) return(NA)
+  if (is.na(value)) {
+    return(NA)
+  }
   pal <- colorRampPalette(c("#ffb3b3", "#add8e6"))
   n <- 100
   colors <- pal(n)
@@ -294,19 +295,18 @@ gradient_color_rev <- function(value, min, max) {
 
 # Gradient color by rank: 1st is red, last is blue (same palette as above)
 gradient_color_by_rank <- function(values) {
-    pal <- colorRampPalette(c("#ffb3b3", "#add8e6")) # Red to blue
-    n <- length(values)
-    colors <- rep(NA_character_, n)
-    valid <- which(is.finite(values) & !is.na(values))
-    if (length(valid) > 0) {
-        # Rank so that highest value is rank 1 (red), lowest is last (blue)
-        ranks <- rank(-values[valid], ties.method = "first")
-        pal_colors <- pal(length(valid))
-        colors[valid] <- pal_colors[ranks]
-    }
-    colors
+  pal <- colorRampPalette(c("#ffb3b3", "#add8e6")) # Red to blue
+  n <- length(values)
+  colors <- rep(NA_character_, n)
+  valid <- which(is.finite(values) & !is.na(values))
+  if (length(valid) > 0) {
+    # Rank so that highest value is rank 1 (red), lowest is last (blue)
+    ranks <- rank(-values[valid], ties.method = "first")
+    pal_colors <- pal(length(valid))
+    colors[valid] <- pal_colors[ranks]
+  }
+  colors
 }
-
 
 
 # Calculate min/max for relevant columns
@@ -339,9 +339,9 @@ if (!"Rank" %in% names(finalized_table)) {
 # Recompute header blue indices based on presence of Rank
 has_rank <- identical(names(finalized_table)[1], "Rank")
 if (has_rank) {
-  base_pattern <- c(1, rep(1,4), rep(2,3), rep(3,3), rep(4,5))
+  base_pattern <- c(1, rep(1, 4), rep(2, 3), rep(3, 3), rep(4, 5))
 } else {
-  base_pattern <- c(rep(1,4), rep(2,3), rep(3,3), rep(4,5))
+  base_pattern <- c(rep(1, 4), rep(2, 3), rep(3, 3), rep(4, 5))
 }
 header_blue_indices <- rep(base_pattern, length.out = ncol(finalized_table))
 
@@ -351,7 +351,7 @@ get_header_blue <- function(col) {
   header_blues[header_blue_indices[idx]]
 }
 
-#View(finalized_table)
+# View(finalized_table)
 
 ###############################################
 ## Build columns list with appropriate filterMethod
@@ -362,10 +362,10 @@ columns_list <- lapply(seq_along(names(finalized_table)), function(i) {
     # Per-page numbering (simpler & reliable); will restart each page
     colDef(
       name = "Rank",
-  # Use CSS counter for numbering so that numbers always re-sequence
-  # after filtering/sorting (no gaps, restart at 1 for visible rows on each page)
-  # The cell content itself is left blank; numbers injected via ::before.
-  cell = reactable::JS("function(cellInfo){ return ''; }"),
+      # Use CSS counter for numbering so that numbers always re-sequence
+      # after filtering/sorting (no gaps, restart at 1 for visible rows on each page)
+      # The cell content itself is left blank; numbers injected via ::before.
+      cell = reactable::JS("function(cellInfo){ return ''; }"),
       sortable = FALSE,
       filterable = FALSE,
       width = 65,
@@ -378,7 +378,7 @@ columns_list <- lapply(seq_along(names(finalized_table)), function(i) {
         fontWeight = "bold"
       )
     )
-  } else if (col %in% c("Provider_Code","Provider_Name","Treatment_Function_Code","Treatment_Function")) {
+  } else if (col %in% c("Provider_Code", "Provider_Name", "Treatment_Function_Code", "Treatment_Function")) {
     # Key string filter columns
     colDef(
       filterable = TRUE,
@@ -481,7 +481,9 @@ columns_list <- lapply(seq_along(names(finalized_table)), function(i) {
   } else if (col == "Load") {
     colDef(
       style = function(value) {
-        if (is.na(value)) return(NULL)
+        if (is.na(value)) {
+          return(NULL)
+        }
         if (value > 1) {
           list(background = "#ffb3b3", fontWeight = "bold")
         } else {
@@ -599,10 +601,10 @@ tbl_widget <- reactable(
 # Add CSS for row numbering using counter (works with filtering/sorting)
 # Also hide the filter box for the Rank column
 row_number_css <- htmltools::tags$style(HTML(
-"#national_table .rt-tbody { counter-reset: rowNumber; }\n#national_table .rt-tbody .rt-tr-group { counter-increment: rowNumber; }\n#national_table .rt-tbody .rt-tr-group .rt-td:nth-child(1)::before {\n  content: counter(rowNumber);\n  font-weight: bold;\n  display: inline-block;\n  width: 100%;\n  color: inherit;\n}\n"
+  "#national_table .rt-tbody { counter-reset: rowNumber; }\n#national_table .rt-tbody .rt-tr-group { counter-increment: rowNumber; }\n#national_table .rt-tbody .rt-tr-group .rt-td:nth-child(1)::before {\n  content: counter(rowNumber);\n  font-weight: bold;\n  display: inline-block;\n  width: 100%;\n  color: inherit;\n}\n"
 ))
 hide_row_filter_css <- htmltools::tags$style(HTML(
-"#national_table .rt-th:nth-child(1) input { display: none !important; }\n"
+  "#national_table .rt-th:nth-child(1) input { display: none !important; }\n"
 ))
 
 
@@ -610,7 +612,7 @@ tbl_widget <- htmlwidgets::prependContent(tbl_widget, list(row_number_css, hide_
 
 tbl_widget
 
-Sys.setenv(RSTUDIO_PANDOC="/usr/local/bin") # or wherever pandoc is installed
+Sys.setenv(RSTUDIO_PANDOC = "/usr/local/bin") # or wherever pandoc is installed
 # Save the widget to a temporary file, read it, and remove unwanted header lines
 save_and_clean_widget <- function(widget, file) {
   tmpfile <- tempfile(fileext = ".html")
@@ -627,4 +629,3 @@ out_dir <- "inst/examples/national_table/national_table_output"
 if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
 outfile <- file.path(out_dir, paste0("National_Data_", date_str, ".html"))
 save_and_clean_widget(tbl_widget, outfile)
-

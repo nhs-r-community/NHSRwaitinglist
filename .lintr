@@ -1,8 +1,14 @@
-linters: linters_with_defaults(
-  object_usage_linter = NULL,
-  indentation_linter = NULL, # defer to styler::style_pkg() defaults
-  return_linter = NULL, # don't complain when we use explicit return()
-  commented_code_linter = NULL)
+linters: {
+  linters <- linters_with_defaults(
+    line_length_linter = NULL,
+    object_usage_linter = NULL,
+    indentation_linter = NULL, # defer to styler::style_pkg() defaults
+    return_linter = NULL, # don't complain when we use explicit return()
+    commented_code_linter = NULL)
+  # The package supports R < 4.1, so keep %>% instead of the native pipe.
+  linters$pipe_consistency_linter <- NULL
+  linters
+  }
 exclude: "# nolint"
 exclude_start: "# Begin Exclude Linting"
 exclude_end: "# End Exclude Linting"
