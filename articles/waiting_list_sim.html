@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Exploring waiting list management strategies with simulation • NHSRwaitinglist</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Exploring waiting list management strategies with simulation">
 </head>
@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">NHSRwaitinglist</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.2.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,7 @@
       <h1>Exploring waiting list management strategies with simulation</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/nhs-r-community/NHSRwaitinglist/blob/v0.1.2/vignettes/waiting_list_sim.Rmd" class="external-link"><code>vignettes/waiting_list_sim.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/nhs-r-community/NHSRwaitinglist/blob/main/vignettes/waiting_list_sim.Rmd" class="external-link"><code>vignettes/waiting_list_sim.Rmd</code></a></small>
       <div class="d-none name"><code>waiting_list_sim.Rmd</code></div>
     </div>
 
@@ -72,7 +72,7 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># set up a theme for our charts</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html" class="external-link">theme_set</a></span><span class="op">(</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/get_theme.html" class="external-link">theme_set</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span></span>
 <span>      plot.subtitle <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>face <span class="op">=</span> <span class="st">"italic"</span><span class="op">)</span></span>
@@ -186,10 +186,12 @@ average.</em></p>
 <span></span>
 <span><span class="va">start_date</span> <span class="op">&lt;-</span> <span class="va">end_date</span> <span class="op">-</span> <span class="op">(</span><span class="op">(</span><span class="op">(</span><span class="fl">840</span> <span class="op">/</span> <span class="fl">20</span><span class="op">)</span> <span class="op">*</span> <span class="fl">7</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">current_wl1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wl_simulator.html">wl_simulator</a></span><span class="op">(</span>start_date <span class="op">=</span> <span class="va">start_date</span>,</span>
-<span>                            end_date <span class="op">=</span> <span class="va">end_date</span>,</span>
-<span>                            demand <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>                            capacity <span class="op">=</span> <span class="fl">80</span><span class="op">)</span></span>
+<span><span class="va">current_wl1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wl_simulator.html">wl_simulator</a></span><span class="op">(</span></span>
+<span>  start_date <span class="op">=</span> <span class="va">start_date</span>,</span>
+<span>  end_date <span class="op">=</span> <span class="va">end_date</span>,</span>
+<span>  demand <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>  capacity <span class="op">=</span> <span class="fl">80</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">tail</a></span><span class="op">(</span><span class="fu"><a href="../reference/wl_queue_size.html">wl_queue_size</a></span><span class="op">(</span><span class="va">current_wl1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt;          dates queue_size</span></span>
@@ -205,8 +207,8 @@ simulation.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">current_wl1</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>    Referral <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-03-31"</span><span class="op">)</span>, <span class="fl">840</span><span class="op">)</span></span>
-<span>    , Removal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>, <span class="fl">840</span><span class="op">)</span></span>
+<span>    Referral <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-03-31"</span><span class="op">)</span>, <span class="fl">840</span><span class="op">)</span>,</span>
+<span>    Removal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>, <span class="fl">840</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Only a single day in our waiting list so we don't need `tail()` this time</span></span>
@@ -252,11 +254,13 @@ function, so it does not start from zero. We will run the simulation for
 one year then plot the waiting list.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">raised_capacity_wl</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="../reference/wl_simulator.html">wl_simulator</a></span><span class="op">(</span>start_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-04-01"</span><span class="op">)</span>,</span>
-<span>               end_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-03-31"</span><span class="op">)</span>,</span>
-<span>               demand <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>               capacity <span class="op">=</span> <span class="fl">105</span>,</span>
-<span>               waiting_list <span class="op">=</span> <span class="va">current_wl1</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/wl_simulator.html">wl_simulator</a></span><span class="op">(</span></span>
+<span>    start_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-04-01"</span><span class="op">)</span>,</span>
+<span>    end_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-03-31"</span><span class="op">)</span>,</span>
+<span>    demand <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>    capacity <span class="op">=</span> <span class="fl">105</span>,</span>
+<span>    waiting_list <span class="op">=</span> <span class="va">current_wl1</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">raised_capacity_queue</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wl_queue_size.html">wl_queue_size</a></span><span class="op">(</span><span class="va">raised_capacity_wl</span><span class="op">)</span></span>
 <span></span>
@@ -280,11 +284,13 @@ does not start from zero. We will run the simulation for one year then
 plot the waiting list.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">reduced_demand_wl</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="../reference/wl_simulator.html">wl_simulator</a></span><span class="op">(</span>start_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-04-01"</span><span class="op">)</span>,</span>
-<span>               end_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-03-31"</span><span class="op">)</span>,</span>
-<span>               demand <span class="op">=</span> <span class="fl">77</span>,</span>
-<span>               capacity <span class="op">=</span> <span class="fl">80</span>,</span>
-<span>               waiting_list <span class="op">=</span> <span class="va">current_wl1</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/wl_simulator.html">wl_simulator</a></span><span class="op">(</span></span>
+<span>    start_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-04-01"</span><span class="op">)</span>,</span>
+<span>    end_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-03-31"</span><span class="op">)</span>,</span>
+<span>    demand <span class="op">=</span> <span class="fl">77</span>,</span>
+<span>    capacity <span class="op">=</span> <span class="fl">80</span>,</span>
+<span>    waiting_list <span class="op">=</span> <span class="va">current_wl1</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">reduced_demand_queue</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wl_queue_size.html">wl_queue_size</a></span><span class="op">(</span><span class="va">reduced_demand_wl</span><span class="op">)</span></span>
 <span></span>
@@ -299,8 +305,7 @@ plot the waiting list.</p>
 <p>To visualise this, we will plot the queue against time, marking the
 target queue size.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">combine_queue</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="va">combine_queue</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">raised_capacity_queue</span>, type <span class="op">=</span> <span class="st">"raised capacity"</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">reduced_demand_queue</span>, type <span class="op">=</span> <span class="st">"reduced demand"</span><span class="op">)</span></span>
@@ -310,12 +315,16 @@ target queue size.</p>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">combine_queue</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">queue_size</span>, x <span class="op">=</span> <span class="va">dates</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>linetype <span class="op">=</span> <span class="va">type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="va">target_queue1</span>, colour <span class="op">=</span> <span class="st">"#440154FF"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, label <span class="op">=</span> <span class="st">"Target queue size"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-03-31"</span><span class="op">)</span></span>
-<span>           , y <span class="op">=</span> <span class="va">target_queue1</span>, vjust <span class="op">=</span> <span class="fl">1.2</span></span>
-<span>           , hjust <span class="op">=</span> <span class="fl">1.2</span>, colour <span class="op">=</span> <span class="st">"#440154FF"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Queue Size"</span>, x <span class="op">=</span> <span class="st">"Date"</span></span>
-<span>       , title <span class="op">=</span> <span class="st">"Simulated reduction in waiting list using demand or capacity"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="waiting_list_sim_files/figure-html/plot_raise_capacity-1.png" width="768">
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Target queue size"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-03-31"</span><span class="op">)</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">target_queue1</span>, vjust <span class="op">=</span> <span class="fl">1.2</span>,</span>
+<span>    hjust <span class="op">=</span> <span class="fl">1.2</span>, colour <span class="op">=</span> <span class="st">"#440154FF"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>    y <span class="op">=</span> <span class="st">"Queue Size"</span>, x <span class="op">=</span> <span class="st">"Date"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Simulated reduction in waiting list using demand or capacity"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="waiting_list_sim_files/figure-html/plot_raise_capacity-1.png" class="r-plt" alt="" width="768">
 The simulation above suggests that either maintaining the extra clinic
 until the end of the year (increased capacity) or reducing the referrals
 (reduced demand), would return the waiting list to just below the
@@ -355,7 +364,7 @@ months, this equates to:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">current_queue</span> <span class="op">&lt;-</span> <span class="fl">82</span></span>
 <span><span class="va">queue_growth</span> <span class="op">&lt;-</span> <span class="va">target_queue2</span> <span class="op">-</span> <span class="va">current_queue</span></span>
-<span><span class="va">weeks_to_grow</span> <span class="op">&lt;-</span> <span class="fl">26</span> <span class="co">#52 weeks per year / 2 for 6 months</span></span>
+<span><span class="va">weeks_to_grow</span> <span class="op">&lt;-</span> <span class="fl">26</span> <span class="co"># 52 weeks per year / 2 for 6 months</span></span>
 <span></span>
 <span><span class="va">queue_growth</span> <span class="op">/</span> <span class="va">weeks_to_grow</span></span>
 <span><span class="co">#&gt; [1] 10.55126</span></span></code></pre></div>
@@ -370,27 +379,33 @@ plot:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">current_wl2</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>    Referral <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-03-31"</span><span class="op">)</span>, <span class="va">current_queue</span><span class="op">)</span></span>
-<span>    , Removal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>, <span class="va">current_queue</span><span class="op">)</span></span>
+<span>    Referral <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-03-31"</span><span class="op">)</span>, <span class="va">current_queue</span><span class="op">)</span>,</span>
+<span>    Removal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>, <span class="va">current_queue</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">raise_wl_sim</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="../reference/wl_simulator.html">wl_simulator</a></span><span class="op">(</span>start_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-04-01"</span><span class="op">)</span>,</span>
-<span>               end_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-09-30"</span><span class="op">)</span>,</span>
-<span>               demand <span class="op">=</span> <span class="fl">50</span>,</span>
-<span>               capacity <span class="op">=</span>  <span class="op">(</span><span class="fl">50</span> <span class="op">-</span> <span class="fl">10</span><span class="op">)</span>, <span class="co"># 10 = floor(queue_growth / weeks_to_grow)</span></span>
-<span>               waiting_list <span class="op">=</span> <span class="va">current_wl2</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/wl_simulator.html">wl_simulator</a></span><span class="op">(</span></span>
+<span>    start_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-04-01"</span><span class="op">)</span>,</span>
+<span>    end_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-09-30"</span><span class="op">)</span>,</span>
+<span>    demand <span class="op">=</span> <span class="fl">50</span>,</span>
+<span>    capacity <span class="op">=</span> <span class="op">(</span><span class="fl">50</span> <span class="op">-</span> <span class="fl">10</span><span class="op">)</span>, <span class="co"># 10 = floor(queue_growth / weeks_to_grow)</span></span>
+<span>    waiting_list <span class="op">=</span> <span class="va">current_wl2</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="va">raised_wl</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wl_queue_size.html">wl_queue_size</a></span><span class="op">(</span><span class="va">raise_wl_sim</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">raised_wl</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">queue_size</span>, x <span class="op">=</span> <span class="va">dates</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="va">target_queue2</span>, colour <span class="op">=</span> <span class="st">"#21908CFF"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, label <span class="op">=</span> <span class="st">"Target queue size"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-04-01"</span><span class="op">)</span></span>
-<span>           , y <span class="op">=</span> <span class="va">target_queue2</span>, vjust <span class="op">=</span> <span class="fl">1.2</span>, hjust <span class="op">=</span> <span class="fl">0</span>, colour <span class="op">=</span> <span class="st">"#21908CFF"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Queue Size"</span>, x <span class="op">=</span> <span class="st">"Date"</span></span>
-<span>       , title <span class="op">=</span> <span class="st">"Simulated waiting list after allowing waiting list to grow"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="waiting_list_sim_files/figure-html/example_2-1.png" width="768"></p>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Target queue size"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-04-01"</span><span class="op">)</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">target_queue2</span>, vjust <span class="op">=</span> <span class="fl">1.2</span>, hjust <span class="op">=</span> <span class="fl">0</span>, colour <span class="op">=</span> <span class="st">"#21908CFF"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>    y <span class="op">=</span> <span class="st">"Queue Size"</span>, x <span class="op">=</span> <span class="st">"Date"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Simulated waiting list after allowing waiting list to grow"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="waiting_list_sim_files/figure-html/example_2-1.png" class="r-plt" alt="" width="768"></p>
 </div>
 <div class="section level2">
 <h2 id="how-our-list-will-change-with-referral-growth-service-change">3. How our list will change with referral growth / service
@@ -426,10 +441,14 @@ out to power the simulation. This is worked out below in R, but users
 may find it easier to build in a spreadsheet application.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ctrl_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>  start_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2024-04-01"</span>, <span class="st">"2025-04-01"</span>, <span class="st">"2026-04-01"</span></span>
-<span>                         , <span class="st">"2027-04-01"</span>, <span class="st">"2028-04-01"</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span><span class="op">)</span>,</span>
-<span>  end_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"2025-03-31"</span>, <span class="st">"2026-03-31"</span>, <span class="st">"2027-03-31"</span></span>
-<span>                       , <span class="st">"2028-03-31"</span>, <span class="st">"2029-03-31"</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span><span class="op">)</span>,</span>
+<span>  start_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"2024-04-01"</span>, <span class="st">"2025-04-01"</span>, <span class="st">"2026-04-01"</span>,</span>
+<span>    <span class="st">"2027-04-01"</span>, <span class="st">"2028-04-01"</span></span>
+<span>  <span class="op">)</span>, format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span><span class="op">)</span>,</span>
+<span>  end_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"2025-03-31"</span>, <span class="st">"2026-03-31"</span>, <span class="st">"2027-03-31"</span>,</span>
+<span>    <span class="st">"2028-03-31"</span>, <span class="st">"2029-03-31"</span></span>
+<span>  <span class="op">)</span>, format <span class="op">=</span> <span class="st">"%Y-%m-%d"</span><span class="op">)</span>,</span>
 <span>  demand <span class="op">=</span> <span class="fl">100</span>,</span>
 <span>  capacity <span class="op">=</span> <span class="fl">100</span></span>
 <span><span class="op">)</span></span>
@@ -453,13 +472,17 @@ demand at the last period. Here, we will take the second approach, but
 this requires a calculation for each row.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">target_queue_size</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="../reference/calc_target_queue_size.html">calc_target_queue_size</a></span><span class="op">(</span>demand <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">demand</span></span>
-<span>                         , target_wait <span class="op">=</span> <span class="fl">18</span></span>
-<span>                         , factor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">qexp</a></span><span class="op">(</span><span class="fl">0.95</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/calc_target_queue_size.html">calc_target_queue_size</a></span><span class="op">(</span></span>
+<span>    demand <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">demand</span>,</span>
+<span>    target_wait <span class="op">=</span> <span class="fl">18</span>,</span>
+<span>    factor <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html" class="external-link">qexp</a></span><span class="op">(</span><span class="fl">0.95</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">current_wl3</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>Referral <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-03-31"</span><span class="op">)</span>, <span class="fl">500</span><span class="op">)</span></span>
-<span>             , Removal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>, <span class="fl">500</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>    Referral <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-03-31"</span><span class="op">)</span>, <span class="fl">500</span><span class="op">)</span>,</span>
+<span>    Removal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="cn">NA</span><span class="op">)</span>, <span class="fl">500</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p>We now need to run the simulation for each line of our control table.
 A handy way to capture this in <code>R</code> is to use a
 <code><a href="https://rdrr.io/r/base/list.html" class="external-link">list()</a></code>. First we will initialise a list of the right size
@@ -472,11 +495,13 @@ waiting list:</p>
 <span></span>
 <span><span class="co"># Run the first line and current waiting list</span></span>
 <span><span class="va">sim3</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span></span>
-<span>  <span class="fu"><a href="../reference/wl_simulator.html">wl_simulator</a></span><span class="op">(</span>start_date <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">start_date</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span>               , end_date <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">end_date</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span>               , demand <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">demand</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span>               , capacity <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">capacity</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span></span>
-<span>               , waiting_list <span class="op">=</span> <span class="va">current_wl3</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="../reference/wl_simulator.html">wl_simulator</a></span><span class="op">(</span></span>
+<span>    start_date <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">start_date</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    end_date <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">end_date</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    demand <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">demand</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    capacity <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">capacity</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>,</span>
+<span>    waiting_list <span class="op">=</span> <span class="va">current_wl3</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
 <p>We can now run through the rest of the table using a loop,
 referencing the last run as our waiting list e.g. during run 2, our
 waiting list is run 1, achieved by the <code>sim3[[i - 1]]</code>:</p>
@@ -485,11 +510,13 @@ waiting list is run 1, achieved by the <code>sim3[[i - 1]]</code>:</p>
 <span><span class="co"># Loop picks up each previous waiting list</span></span>
 <span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">sim3</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span></span>
-<span>    <span class="fu"><a href="../reference/wl_simulator.html">wl_simulator</a></span><span class="op">(</span>start_date <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">start_date</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
-<span>                 , end_date <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">end_date</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
-<span>                 , demand <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">demand</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
-<span>                 , capacity <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">capacity</span><span class="op">[</span><span class="va">i</span><span class="op">]</span></span>
-<span>                 , waiting_list <span class="op">=</span> <span class="va">sim3</span><span class="op">[[</span><span class="va">i</span> <span class="op">-</span> <span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="../reference/wl_simulator.html">wl_simulator</a></span><span class="op">(</span></span>
+<span>      start_date <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">start_date</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>      end_date <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">end_date</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>      demand <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">demand</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>      capacity <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">capacity</span><span class="op">[</span><span class="va">i</span><span class="op">]</span>,</span>
+<span>      waiting_list <span class="op">=</span> <span class="va">sim3</span><span class="op">[[</span><span class="va">i</span> <span class="op">-</span> <span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span>    <span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="va">queue_over_time</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wl_queue_size.html">wl_queue_size</a></span><span class="op">(</span><span class="va">sim3</span><span class="op">[[</span><span class="fl">5</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
@@ -508,25 +535,32 @@ onwards, as our list is of a sustainable size.</p></li>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">queue_over_time</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">queue_size</span>, x <span class="op">=</span> <span class="va">dates</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">target_queue_size</span>, x <span class="op">=</span> <span class="va">start_date</span><span class="op">)</span></span>
-<span>            , colour <span class="op">=</span> <span class="st">"#A69D75FF"</span></span>
-<span>            , data <span class="op">=</span></span>
-<span>              <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
-<span>                target_queue_size <span class="op">=</span></span>
-<span>                <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">target_queue_size</span>, <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">target_queue_size</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span>,</span>
-<span>                start_date <span class="op">=</span></span>
-<span>                <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">start_date</span>, <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">end_date</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span>
-<span>              <span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, label <span class="op">=</span> <span class="st">"Target queue size"</span>, x <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">start_date</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span></span>
-<span>           , y <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">target_queue_size</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>, vjust <span class="op">=</span> <span class="fl">1.2</span>, hjust <span class="op">=</span> <span class="fl">0.2</span></span>
-<span>           , colour <span class="op">=</span> <span class="st">"#A69D75FF"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">target_queue_size</span>, x <span class="op">=</span> <span class="va">start_date</span><span class="op">)</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"#A69D75FF"</span>,</span>
+<span>    data <span class="op">=</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
+<span>        target_queue_size <span class="op">=</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">target_queue_size</span>, <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">target_queue_size</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span>,</span>
+<span>        start_date <span class="op">=</span></span>
+<span>          <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">start_date</span>, <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">end_date</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Target queue size"</span>, x <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">start_date</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">ctrl_tbl</span><span class="op">$</span><span class="va">target_queue_size</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span>, vjust <span class="op">=</span> <span class="fl">1.2</span>, hjust <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>    colour <span class="op">=</span> <span class="st">"#A69D75FF"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_vline</a></span><span class="op">(</span>xintercept <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-04-01"</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, label <span class="op">=</span> <span class="st">"20% demand\nreduction"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-04-01"</span><span class="op">)</span></span>
-<span>           , y <span class="op">=</span> <span class="fl">200</span>, hjust <span class="op">=</span> <span class="fl">1.1</span>, colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Queue Size"</span>, x <span class="op">=</span> <span class="st">"Date"</span></span>
-<span>       , title <span class="op">=</span> <span class="st">"Simulated waiting list, 5% year on year growth."</span></span>
-<span>       , subtitle <span class="op">=</span> <span class="st">"20% demand reduction from Apr-2026"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="waiting_list_sim_files/figure-html/plot3-1.png" width="768"></p>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"20% demand\nreduction"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2026-04-01"</span><span class="op">)</span>,</span>
+<span>    y <span class="op">=</span> <span class="fl">200</span>, hjust <span class="op">=</span> <span class="fl">1.1</span>, colour <span class="op">=</span> <span class="st">"red"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>    y <span class="op">=</span> <span class="st">"Queue Size"</span>, x <span class="op">=</span> <span class="st">"Date"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Simulated waiting list, 5% year on year growth."</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"20% demand reduction from Apr-2026"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="waiting_list_sim_files/figure-html/plot3-1.png" class="r-plt" alt="" width="768"></p>
 </div>
 <div class="section level2">
 <h2 id="estimating-uncertainty-via-monte-carlo-methods">4. Estimating uncertainty via Monte Carlo methods<a class="anchor" aria-label="anchor" href="#estimating-uncertainty-via-monte-carlo-methods"></a>
@@ -544,11 +578,13 @@ function. This means that each run will return a data.frame of daily
 queue sizes.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sim_func</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">run_id</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wl_simulator.html">wl_simulator</a></span><span class="op">(</span>start_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-04-01"</span><span class="op">)</span>,</span>
-<span>                      end_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-03-31"</span><span class="op">)</span>,</span>
-<span>                      demand <span class="op">=</span> <span class="fl">100</span>,</span>
-<span>                      capacity <span class="op">=</span> <span class="fl">105</span>,</span>
-<span>                      waiting_list <span class="op">=</span> <span class="va">current_wl1</span><span class="op">)</span></span>
+<span>  <span class="va">sim</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/wl_simulator.html">wl_simulator</a></span><span class="op">(</span></span>
+<span>    start_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2023-04-01"</span><span class="op">)</span>,</span>
+<span>    end_date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-03-31"</span><span class="op">)</span>,</span>
+<span>    demand <span class="op">=</span> <span class="fl">100</span>,</span>
+<span>    capacity <span class="op">=</span> <span class="fl">105</span>,</span>
+<span>    waiting_list <span class="op">=</span> <span class="va">current_wl1</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="fu"><a href="../reference/wl_queue_size.html">wl_queue_size</a></span><span class="op">(</span><span class="va">sim</span><span class="op">)</span>, <span class="va">run_id</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -576,15 +612,17 @@ vignette</a> from the <code>nlraa</code> package.</p>
 <code class="sourceCode R"><span><span class="va">mc_bind</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="st">"rbind"</span>, <span class="va">raised_capacity_wl_mc</span><span class="op">)</span></span>
 <span><span class="va">mc_agg</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/aggregate.html" class="external-link">aggregate</a></span><span class="op">(</span></span>
-<span>    <span class="va">queue_size</span> <span class="op">~</span> <span class="va">dates</span></span>
-<span>    , data <span class="op">=</span> <span class="va">mc_bind</span></span>
-<span>    , FUN <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>mean_q <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
+<span>    <span class="va">queue_size</span> <span class="op">~</span> <span class="va">dates</span>,</span>
+<span>    data <span class="op">=</span> <span class="va">mc_bind</span>,</span>
+<span>    FUN <span class="op">=</span> \<span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>        mean_q <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
 <span>        median_q <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html" class="external-link">median</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,</span>
-<span>        lower_95CI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span>  <span class="op">(</span><span class="fl">1.96</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>        upper_95CI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span>  <span class="op">(</span><span class="fl">1.96</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        lower_95CI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">-</span> <span class="op">(</span><span class="fl">1.96</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        upper_95CI <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1.96</span> <span class="op">*</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">/</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html" class="external-link">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>        q_25 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">.025</span>, names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>,</span>
-<span>        q_75 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">.975</span>, names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span><span class="op">)</span></span>
+<span>        q_75 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">.975</span>, names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="va">mc_agg</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>dates <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">mc_agg</span><span class="op">$</span><span class="va">dates</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="va">mc_agg</span><span class="op">$</span><span class="va">queue_size</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -593,16 +631,21 @@ the average value and 95% confidence interval.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">mc_bind</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">dates</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">queue_size</span>, group <span class="op">=</span> <span class="va">i</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.5</span>, col <span class="op">=</span> <span class="st">"grey"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">mean_q</span>, ymin <span class="op">=</span> <span class="va">lower_95CI</span>, ymax <span class="op">=</span> <span class="va">upper_95CI</span><span class="op">)</span></span>
-<span>              , alpha <span class="op">=</span> <span class="fl">0.5</span>, data <span class="op">=</span> <span class="va">mc_agg</span>, fill <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_ribbon.html" class="external-link">geom_ribbon</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">mean_q</span>, ymin <span class="op">=</span> <span class="va">lower_95CI</span>, ymax <span class="op">=</span> <span class="va">upper_95CI</span><span class="op">)</span>,</span>
+<span>    alpha <span class="op">=</span> <span class="fl">0.5</span>, data <span class="op">=</span> <span class="va">mc_agg</span>, fill <span class="op">=</span> <span class="st">"red"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">mean_q</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mc_agg</span>, col <span class="op">=</span> <span class="st">"black"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_abline.html" class="external-link">geom_hline</a></span><span class="op">(</span>yintercept <span class="op">=</span> <span class="va">target_queue1</span>, colour <span class="op">=</span> <span class="st">"#440154FF"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>, label <span class="op">=</span> <span class="st">"Target queue size"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-02-01"</span><span class="op">)</span></span>
-<span>           , y <span class="op">=</span> <span class="va">target_queue1</span>, vjust <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"#440154FF"</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Queue Size"</span>, x <span class="op">=</span> <span class="st">"Date"</span></span>
-<span>       , title <span class="op">=</span> <span class="st">"Simulated waiting list after raising capacity"</span></span>
-<span>       , subtitle <span class="op">=</span> <span class="st">"Average WL over 50 runs, with 95% confidence interval"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="waiting_list_sim_files/figure-html/montecarlo_3-1.png" width="768"></p>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/annotate.html" class="external-link">annotate</a></span><span class="op">(</span><span class="st">"text"</span>,</span>
+<span>    label <span class="op">=</span> <span class="st">"Target queue size"</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2024-02-01"</span><span class="op">)</span>,</span>
+<span>    y <span class="op">=</span> <span class="va">target_queue1</span>, vjust <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>, colour <span class="op">=</span> <span class="st">"#440154FF"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>    y <span class="op">=</span> <span class="st">"Queue Size"</span>, x <span class="op">=</span> <span class="st">"Date"</span>,</span>
+<span>    title <span class="op">=</span> <span class="st">"Simulated waiting list after raising capacity"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"Average WL over 50 runs, with 95% confidence interval"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="waiting_list_sim_files/figure-html/montecarlo_3-1.png" class="r-plt" alt="" width="768"></p>
 <p>The averaging has led to a straighter line for the trend and we have
 a range of uncertainty around the projection. Alternatively we could
 present the 25th - 75th percentile range.</p>
@@ -622,7 +665,7 @@ summary statistics.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
     </footer>

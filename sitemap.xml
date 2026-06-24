@@ -16,10 +16,13 @@
 <url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/calc_target_mean_wait.html</loc></url>
 <url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/calc_target_queue_size.html</loc></url>
 <url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/calc_waiting_list_pressure.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/check_class.html</loc></url>
 <url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/create_waiting_list.html</loc></url>
 <url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/demographic_data.html</loc></url>
 <url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/index.html</loc></url>
 <url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/opcs4.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/plot_rtt_journey.html</loc></url>
+<url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/rep_rtt_improvement.html</loc></url>
 <url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/sim_patients.html</loc></url>
 <url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/sim_schedule.html</loc></url>
 <url><loc>https://nhs-r-community.github.io/NHSRwaitinglist/reference/wl_insert.html</loc></url>

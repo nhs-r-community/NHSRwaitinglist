@@ -1,0 +1,71 @@
+# Relief Capacity
+
+Calculates required relief capacity to achieve target queue size in a
+given period of time as a function of demand, queue size, target queue
+size and time period. Relief Capacity is required if Queue Size \> 2 \*
+Target Queue Size.
+
+Relief Capacity = Current Demand + (Queue Size - Target Queue Size)/Time
+Steps
+
+WARNING!: make sure units match. I.e. if demand is measured per week
+then time_to_target should be weeks or if demand is per day then
+time_to_target is per day
+
+## Usage
+
+``` r
+calc_relief_capacity(
+  demand,
+  queue_size,
+  target_queue_size,
+  time_to_target = 26,
+  num_referrals = 0,
+  cv_demand = 0
+)
+```
+
+## Arguments
+
+- demand:
+
+  Numeric value of rate of demand in same units as target wait e.g. if
+  target wait is weeks, then demand in units of patients/week.
+
+- queue_size:
+
+  Numeric value of current number of patients in queue.
+
+- target_queue_size:
+
+  Numeric value of desired number of patients in queue.
+
+- time_to_target:
+
+  Numeric value of desired number of time-steps to reach the target
+  queue size by.
+
+- num_referrals:
+
+  Numeric value of the number of referrals per time step.
+
+- cv_demand:
+
+  To be completed
+
+## Value
+
+A numeric value of the required rate of capacity to achieve a target
+queue size in a given period of time.
+
+## Examples
+
+``` r
+# If demand is 30 patients per week, the current queue size is 1200 and the
+# target is to achieve a queue size of 390 in 26 weeks, then
+
+# Relief Capacity = 30 + (1200 - 390)/26 = 61.15 patients per week.
+
+calc_relief_capacity(30, 1200, 390, 26)
+#> [1] 61.15385
+```
