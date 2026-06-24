@@ -2,20 +2,20 @@
 % Please edit documentation in R/wl_percentile_hist.R
 \name{wl_percentile_hist}
 \alias{wl_percentile_hist}
-\title{Calculate the Date and Weeks Corresponding to a Given Percentile in Waiting List History}
+\title{Calculate the date and waiting time corresponding to a given percentile in waiting list history}
 \usage{
 wl_percentile_hist(wl_hist, percentage = 92)
 }
 \arguments{
-\item{wl_hist}{A data frame containing waiting list history with columns: n (number of patients), arrival_since, arrival_before, and report_date.}
+\item{wl_hist}{A data frame containing waiting list history with columns: \code{n} (number of patients), \code{arrival_since}, \code{arrival_before}, and \code{report_date}.}
 
-\item{percentage}{Numeric value indicating the percentile to calculate (default is 92).}
+\item{percentage}{Numeric value indicating the percentile to calculate. Must be between 0 and 100.}
 }
 \value{
 A list with the percentile date and weeks to percentile. The list includes both the preferred names \code{date_percentile} and \code{weeks_percentile}, and the legacy aliases \code{date} and \code{weeks} for backward compatibility.
 }
 \description{
-Calculate the Date and Weeks Corresponding to a Given Percentile in Waiting List History
+Calculate the date and waiting time corresponding to a given percentile in waiting list history
 }
 \examples{
 # get_percentile_date(wl_hist, percentage = 92)

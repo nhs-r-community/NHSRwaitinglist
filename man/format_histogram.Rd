@@ -34,7 +34,7 @@ for each group as the previous \code{arrival_since} date (or the end date for th
 \details{
 \itemize{
 \item If the \code{arrival_before} column exists, it is converted to Date.
-\item If not, for each group (as defined by \code{group_column}), \code{arrival_before} is set to the previous
+\item If not, for each group (as defined by \code{group_columns}), \code{arrival_before} is set to the previous
 \code{arrival_since} (or \code{end_date} for the first row), minus one day.
 }
 }
