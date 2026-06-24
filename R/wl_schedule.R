@@ -37,10 +37,10 @@
 #'
 #'
 #' @examples
-#' referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
-#' removals <- c.Date("2024-01-08", NA, NA, NA)
+#' referrals <- as.Date(c("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16"))
+#' removals <- as.Date(c("2024-01-08", NA, NA, NA))
 #' waiting_list <- data.frame("referral" = referrals, "removal" = removals)
-#' schedule <- c.Date("2024-01-03", "2024-01-05", "2024-01-18")
+#' schedule <- as.Date(c("2024-01-03", "2024-01-05", "2024-01-18"))
 #' updated_waiting_list <- wl_schedule(waiting_list, schedule)
 #'
 wl_schedule <- function(
@@ -68,7 +68,7 @@ wl_schedule <- function(
   if (!unscheduled) {
     i <- 1
     for (op in as.list(schedule)) {
-      if (op > wl[i, referral_index] && i <= nrow(wl)) {
+      if (i <= nrow(wl) && op > wl[i, referral_index]) {
         wl[i, removal_index] <- op
         i <- i + 1
       }
@@ -91,7 +91,7 @@ wl_schedule <- function(
     j <- 0
     for (op in as.list(schedule)) {
       j <- j + 1
-      if (op > wl[i, referral_index] && i <= nrow(wl)) {
+      if (i <= nrow(wl) && op > wl[i, referral_index]) {
         wl[i, removal_index] <- op
         i <- i + 1
         scheduled[j, 2] <- 1

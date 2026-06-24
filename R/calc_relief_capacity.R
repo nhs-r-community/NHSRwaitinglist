@@ -20,7 +20,8 @@
 #' @param time_to_target Numeric value of desired number of time-steps to reach
 #'   the target queue size by.
 #' @param num_referrals Numeric value of the number of referrals per time step.
-#' @param cv_demand To be completed
+#' @param cv_demand Numeric value for the coefficient of variation in demand.
+#'   Used to add a conservative uplift to demand when \code{num_referrals > 0}.
 #'
 #' @return A numeric value of the required rate of capacity to achieve a target
 #'   queue size in a given period of time.
@@ -34,6 +35,8 @@
 #'
 #' calc_relief_capacity(30, 1200, 390, 26)
 #'
+#'
+# TODO: imporve discussion on coefficient of variation include conversion from count data
 calc_relief_capacity <- function(
   demand,
   queue_size,

@@ -54,10 +54,11 @@ remotes::install_github("nhs-r-community/NHSRwaitinglist", build_vignettes = TRU
 
 ## Getting Started
 
-There is a minimal example below.  To look in more detail at the functions within the package and some more ways of using them, it is a good idea to review the first two vignettes:
+There is a minimal example below.  To look in more detail at the functions within the package and some more ways of using them, it is a good idea to review the vignettes:
 
 1. The [example walkthrough](https://nhs-r-community.github.io/NHSRwaitinglist/articles/example_walkthrough.html) vignette takes a step-by-step walk through the white paper, using the six core functions in this package.  
-2. The [three example waiting lists](https://nhs-r-community.github.io/NHSRwaitinglist/articles/three_example_waiting_lists.html) vignette simulates three closely related waiting lists, and uses package functions to explore some of their characteristics.  
+2. The [three example waiting lists](https://nhs-r-community.github.io/NHSRwaitinglist/articles/three_example_waiting_lists.html) vignette simulates three closely related waiting lists, and uses package functions to explore some of their characteristics.
+3. The [histogram analysis](https://nhs-r-community.github.io/NHSRwaitinglist/articles/histogram_analysis.html) vignette shows how to work with aggregated/binned waiting list data, ideal for analysing NHS national statistics.  
 
 At its most basic, the package can be used to simulate a waiting list (a dataframe of waiting list addition dates and removal dates), and then compute some important statistics.  Of course, if you already have waiting list data ready to analyse, you can skip the simulation step in the code below.
 
@@ -96,6 +97,36 @@ it easy to produce a discussion document covering multiple referral rates.
 # with a referral rate of 300 patients per week
 plot_rtt_journey(300)
 ```
+
+## Working with Aggregated Data (Histograms)
+
+The package also supports analysis of aggregated or binned waiting list data (histogram format), which is particularly useful for:
+
+- Analysing publicly available NHS national statistics
+- Privacy-preserving analysis (no individual patient records)
+- Working with time-bucketed summary data
+
+```{r histogram-example}
+# Example: Histogram format with 2 time points (needed for removal statistics)
+wl_hist <- data.frame(
+  arrival_since = as.Date(c("2024-01-24", "2024-01-17", "2024-01-10",
+                             "2024-02-21", "2024-02-14", "2024-02-07")),
+  arrival_before = as.Date(c("2024-01-30", "2024-01-23", "2024-01-16",
+                              "2024-02-27", "2024-02-20", "2024-02-13")),
+  n = c(45, 38, 52, 42, 35, 48),  # Patient counts in each week
+  report_date = as.Date(c(rep("2024-01-31", 3), rep("2024-02-29", 3)))
+)
+
+# Compute statistics from histogram data
+hist_stats <- wl_stats_hist(
+  wl_hist = wl_hist,
+  target_wait = 18
+)
+
+knitr::kable(hist_stats)
+```
+
+See the [histogram analysis vignette](https://nhs-r-community.github.io/NHSRwaitinglist/articles/histogram_analysis.html) for a comprehensive guide.
 
 ## Contributing
 

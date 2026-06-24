@@ -20,3 +20,6 @@ OPCS4.csv
 ^development_files$
 ^\.positai$
 ^\.claude$
+
+# Exclude local Python virtual environment
+^\.venv$

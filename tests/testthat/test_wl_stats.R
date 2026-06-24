@@ -70,7 +70,7 @@ test_that("wl_stats returns correct stats for a specific date range", {
     end_date = "2024-01-10"
   )
 
-  expect_equal(result$mean_wait, 3)
+  expect_equal(result$mean_wait_age, 3)
 })
 
 # Test 6: Test with incorrect class of arguments

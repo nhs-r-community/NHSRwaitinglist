@@ -1,10 +1,17 @@
 # Your todo list
 TODO.txt
+TODO.md
 calc_Lambert.R
 calc_tail_prob.R
 
 # development files
 development_files/
+
+# Folder with the data
+tom_data/
+ent_data/
+raw_data/
+data/
 
 # mac stuff
 .DS_Store
@@ -61,3 +68,6 @@ rsconnect/
 inst/doc
 docs
 .positai
+
+# Python virtual environment (avoid committing local deps)
+.venv/

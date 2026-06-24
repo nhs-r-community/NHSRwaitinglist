@@ -29,7 +29,7 @@ list.}
 \item{start_date}{Character value of date from which to start generated
 waiting list.}
 
-\item{limit_removals}{Defaults to TRUE}
+\item{limit_removals}{Logical. Defaults to TRUE.}
 
 \item{sd}{Numeric value, standard deviation. Defaults to 0.}
 
@@ -61,6 +61,6 @@ are merged into the output tibble.
 Creates a waiting list using the parameters specified
 }
 \examples{
-create_waiting_list(366, 50, 21, "2024-01-01", 10, 0.1)
+create_waiting_list(366, 50, 21, "2024-01-01", TRUE, 0.1)
 
 }

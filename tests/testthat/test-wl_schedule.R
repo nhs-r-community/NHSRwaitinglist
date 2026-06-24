@@ -79,7 +79,7 @@ test_that("wl_schedule errors with incorrect arg classes", {
   )
   removals <- c(as.Date("2024-01-08"), NA, NA, NA)
   waiting_list <- data.frame(referral = referrals, removal = removals)
-  schedule <- c.Date("2024-01-03", "2024-01-05", "2024-01-18")
+  schedule <- as.Date(c("2024-01-03", "2024-01-05", "2024-01-18"))
 
 
   wl_msg <- "`waiting_list` must be of class <data.frame>"

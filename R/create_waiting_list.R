@@ -11,7 +11,7 @@
 #' list.
 #' @param start_date Character value of date from which to start generated
 #' waiting list.
-#' @param limit_removals Defaults to TRUE
+#' @param limit_removals Logical. Defaults to TRUE.
 #' @param sd Numeric value, standard deviation. Defaults to 0.
 #' @param rott Numeric value, proportion of referrals to be randomly flagged
 #' as ROTT. Defaults to 0.
@@ -37,7 +37,7 @@
 #'
 #' @export
 #'
-#' @examples create_waiting_list(366, 50, 21, "2024-01-01", 10, 0.1)
+#' @examples create_waiting_list(366, 50, 21, "2024-01-01", TRUE, 0.1)
 #'
 create_waiting_list <- function(n, mean_arrival_rate, mean_wait,
                                 start_date = Sys.Date(), limit_removals = TRUE,

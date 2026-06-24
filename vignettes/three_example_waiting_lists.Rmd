@@ -131,17 +131,17 @@ knitr::kable(
     queue_size,
     target_queue_size,
     queue_too_big,
-    mean_wait
+    mean_wait_age
   ),
   align = "c"
 )
 ```
 
-There is a column to report the actual average patient waiting time, which is `r round(overall_stats$mean_wait, 2)` weeks, compared to our target of 18 weeks. 
+There is a column to report the average waiting time of the patients on the list, which is `r round(overall_stats$mean_wait, 2)` weeks, compared to our target of 18 weeks. 
 
 ```{r, echo=FALSE}
 knitr::kable(
-  overall_stats |> dplyr::select(mean_wait),
+  overall_stats |> dplyr::select(mean_wait_age),
   align = "c"
 )
 ```
