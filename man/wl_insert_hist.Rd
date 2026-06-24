@@ -13,10 +13,8 @@ wl_insert_hist(waiting_list, additions)
 histogram format}
 }
 \value{
-dataframe.A combined waiting list
+data.frame. A combined waiting list.
 }
 \description{
-Insert some patients into a waiting list in histogram format
-
-Acting on a histogram this is identical to \code{wl_join_hist()}.
+Acting on a histogram this is identical to \\code{wl_join_hist()}.
 }

@@ -16,5 +16,10 @@ cran-comments.md
 OPCS4.csv
 ^CRAN-SUBMISSION$
 
+# ignore development artifacts
+^development_files$
+^\.positai$
+^\.claude$
+
 # Exclude local Python virtual environment
 ^\.venv$

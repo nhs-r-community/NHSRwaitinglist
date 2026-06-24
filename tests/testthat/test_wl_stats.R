@@ -1,12 +1,16 @@
 # Test 1: Valid data input with all fields filled
 test_that("wl_stats calculates correctly for valid input", {
-  referrals <- as.Date(c("2024-01-01", "2024-01-04"
-                         , "2024-01-10", "2024-01-16"))
+  referrals <- as.Date(c(
+    "2024-01-01", "2024-01-04",
+    "2024-01-10", "2024-01-16"
+  ))
   removals <- as.Date(c("2024-01-08", NA, NA, NA))
   waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 
-  result <- wl_stats(waiting_list, target_wait = 4, start_date = "2024-01-01"
-                     , end_date = "2024-01-16")
+  result <- wl_stats(waiting_list,
+    target_wait = 4, start_date = "2024-01-01",
+    end_date = "2024-01-16"
+  )
 
   # Check that the result is a data frame
   expect_s3_class(result, "data.frame")
@@ -31,8 +35,10 @@ test_that("wl_stats handles missing removal dates", {
 
 # Test 3: Handle edge case with empty waiting list
 test_that("wl_stats handles empty waiting list", {
-  waiting_list <- data.frame("referral" = as.Date(character(0))
-                             , "removal" = as.Date(character(0)))
+  waiting_list <- data.frame(
+    "referral" = as.Date(character(0)),
+    "removal" = as.Date(character(0))
+  )
 
   # handles 0 rows in WL
   expect_error(wl_stats(waiting_list, target_wait = 4))
@@ -42,11 +48,15 @@ test_that("wl_stats handles empty waiting list", {
 
 # Test 4: Ensure proper error for incorrect data type
 test_that("wl_stats throws an error for incorrect data type", {
-  incorrect_waiting_list <- list("referral" = "not a date"
-                                 , "removal" = "not a date")
+  incorrect_waiting_list <- list(
+    "referral" = "not a date",
+    "removal" = "not a date"
+  )
 
-  expect_error(wl_stats(incorrect_waiting_list)
-               , "`waiting_list` must be of class <data.frame>")
+  expect_error(
+    wl_stats(incorrect_waiting_list),
+    "`waiting_list` must be of class <data.frame>"
+  )
 })
 
 # Test 5: Test with specific date range
@@ -55,16 +65,20 @@ test_that("wl_stats returns correct stats for a specific date range", {
   removals <- as.Date(c("2024-01-08", "2024-01-11", NA))
   waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 
-  result <- wl_stats(waiting_list, target_wait = 4, start_date = "2024-01-01"
-                     , end_date = "2024-01-10")
+  result <- wl_stats(waiting_list,
+    target_wait = 4, start_date = "2024-01-01",
+    end_date = "2024-01-10"
+  )
 
   expect_equal(result$mean_wait_age, 3)
 })
 
 # Test 6: Test with incorrect class of arguments
 test_that("wl_stats errors with incorrect arg classes", {
-  referrals <- c(as.Date("2024-01-01"), as.Date("2024-01-04")
-                 , as.Date("2024-01-10"), as.Date("2024-01-16"))
+  referrals <- c(
+    as.Date("2024-01-01"), as.Date("2024-01-04"),
+    as.Date("2024-01-10"), as.Date("2024-01-16")
+  )
   removals <- c(as.Date("2024-01-08"), NA, NA, NA)
   waiting_list <- data.frame(referral = referrals, removal = removals)
 

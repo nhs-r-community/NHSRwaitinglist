@@ -4,6 +4,8 @@ TODO.md
 calc_Lambert.R
 calc_tail_prob.R
 
+# development files
+development_files/
 
 # Folder with the data
 tom_data/
@@ -65,6 +67,7 @@ po/*~
 rsconnect/
 inst/doc
 docs
+.positai
 
 # Python virtual environment (avoid committing local deps)
 .venv/

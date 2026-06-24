@@ -4,21 +4,24 @@
 #'     should be checked.
 #' @param .call The environment in which this function is to be
 #'     called.
-#' @noRd
+#' @keywords internal
 check_class <- function(
-    ...,
-    .expected_class = "numeric",
-    .call = rlang::caller_env()) {
-
+  ...,
+  .expected_class = "numeric",
+  .call = rlang::caller_env()
+) {
   args <- rlang::dots_list(..., .named = TRUE)
 
   # expected types included NULL for argument defaults
-  supported_classes <- c("numeric", "character", "logical", "data.frame",
-                         "Date", "NULL", "integer")
+  supported_classes <- c(
+    "numeric", "character", "logical", "data.frame",
+    "Date", "NULL", "integer"
+  )
 
   .expected_class <- match.arg(.expected_class,
-                               supported_classes,
-                               several.ok = TRUE)
+    supported_classes,
+    several.ok = TRUE
+  )
 
   # inherits() is very useful for checking multiple classes at once
   # however since integers does not "inherit" the `numeric` class
@@ -27,8 +30,10 @@ check_class <- function(
     .expected_class <- c(.expected_class, "integer")
   }
 
-  args_are_class <- lapply(args,
-                           \(arg) inherits(arg, .expected_class))
+  args_are_class <- lapply(
+    args,
+    \(arg) inherits(arg, .expected_class)
+  )
 
   # clean up the integer workaround
   if ("numeric" %in% .expected_class) {
@@ -94,14 +99,17 @@ check_date <- function(...,
   }
 
   rlang::exec(check_class,
-              !!!args,
-              .expected_class = date_classes,
-              .call = .call)
+    !!!args,
+    .expected_class = date_classes,
+    .call = .call
+  )
 
   # attempt to coerce to date
   # NAs returned incorrect/ambiguous
-  coerced_dates <- lapply(args,
-                          \(arg) as.Date(arg, format = "%Y-%m-%d"))
+  coerced_dates <- lapply(
+    args,
+    \(arg) as.Date(arg, format = "%Y-%m-%d")
+  )
 
   are_not_dates <- lapply(coerced_dates, \(x) any(is.na(x)))
   are_not_dates <- unlist(are_not_dates)
@@ -172,8 +180,7 @@ check_wl <- function(
   if (.empty_wl != "allow") {
     wl_is_empty <- NROW(waiting_list) == 0
 
-    empty_wl_handler <- switch(
-      .empty_wl,
+    empty_wl_handler <- switch(.empty_wl,
       "error" = cli::cli_abort,
       "warn" = cli::cli_warn
     )

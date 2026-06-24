@@ -44,7 +44,6 @@ Calculate referral statistics from a histogram containing multiple report dates.
 \examples{
 referrals <- as.Date(c("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16"))
 removals <- as.Date(c("2024-01-08", NA, NA, NA))
-waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 hist_waiting_list <- data.frame(
   arrival_since = as.Date(c("2024-01-01", "2024-01-08")),
   arrival_before = as.Date(c("2024-01-07", "2024-01-14")),

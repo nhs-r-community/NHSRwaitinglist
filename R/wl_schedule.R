@@ -50,7 +50,6 @@ wl_schedule <- function(
   removal_index = 2,
   unscheduled = FALSE
 ) {
-
   # Error handle
   check_wl(waiting_list, referral_index, removal_index)
   check_date(schedule)
@@ -76,7 +75,7 @@ wl_schedule <- function(
     }
 
     # Ensure date format
-    #wl$Removal <- as.Date(wl$Removal)
+    # wl$Removal <- as.Date(wl$Removal)
     wl[, removal_index] <- as.Date(wl[, removal_index])
 
     # recombine to update list
@@ -100,9 +99,8 @@ wl_schedule <- function(
     }
 
 
-
     # Ensure date format
-    #wl$Removal <- as.Date(wl$Removal)
+    # wl$Removal <- as.Date(wl$Removal)
     wl[, removal_index] <- as.Date(wl[, removal_index])
 
     # recombine to update list

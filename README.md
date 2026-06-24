@@ -59,7 +59,7 @@ remotes::install_github("nhs-r-community/NHSRwaitinglist", build_vignettes = TRU
 
 There is a minimal example below. To look in more detail at the
 functions within the package and some more ways of using them, it is a
-good idea to review these vignettes:
+good idea to review the vignettes:
 
 1.  The [example
     walkthrough](https://nhs-r-community.github.io/NHSRwaitinglist/articles/example_walkthrough.html)
@@ -70,9 +70,9 @@ good idea to review these vignettes:
     vignette simulates three closely related waiting lists, and uses
     package functions to explore some of their characteristics.
 3.  The [histogram
-  walkthrough](https://nhs-r-community.github.io/NHSRwaitinglist/articles/histogram_walkthrough.html)
-  vignette gives a worked example of the histogram functions,
-  including simulation, queue metrics, and capacity analysis.
+    analysis](https://nhs-r-community.github.io/NHSRwaitinglist/articles/histogram_analysis.html)
+    vignette shows how to work with aggregated/binned waiting list data,
+    ideal for analysing NHS national statistics.
 
 At its most basic, the package can be used to simulate a waiting list (a
 dataframe of waiting list addition dates and removal dates), and then
@@ -116,9 +116,63 @@ knitr::kable(head(waiting_list, 5))
 knitr::kable(overall_stats)
 ```
 
-| mean_demand | mean_capacity | load | load_too_big | count_demand | queue_size | target_queue_size | queue_too_big | mean_wait | cv_arrival | cv_removal | target_capacity | relief_capacity | pressure |
-|---:|---:|---:|:---|---:|---:|---:|:---|---:|---:|---:|---:|:---|---:|
-| 9.818065 | 10.08372 | 0.9736549 | FALSE | 2174 | 5 | 44.18129 | FALSE | 1.8 | 1.131775 | 0.7003787 | 10.01489 | NA | 0.2 |
+| mean_demand | mean_capacity | load | load_too_big | count_demand | queue_size | target_queue_size | queue_too_big | mean_wait_age | mean_wait | cv_arrival | cv_removal | target_capacity | relief_capacity | pressure |
+|---:|---:|---:|:---|---:|---:|---:|:---|---:|---:|---:|---:|---:|:---|---:|
+| 9.818065 | 10.08372 | 0.9736549 | FALSE | 2174 | 5 | 69.96997 | FALSE | 1.8 | 1.8 | 1.131775 | 0.7003787 | 10.01489 | NA | 0.2 |
+
+## Reporting functions
+
+In addition to the underlying method functions above, there are some
+convenience functions designed to quickly product plots for RTT
+improvement discussions with clinical specialties. `plot_rtt_journey()`
+produces plots as demonstrated below, while `rep_rtt_improvement()` is a
+quarto report generating function that makes it easy to produce a
+discussion document covering multiple referral rates.
+
+``` r
+# produce a single plot showing waiting list and RTT size for a specialty
+# with a referral rate of 300 patients per week
+plot_rtt_journey(300)
+```
+
+<img src="man/figures/README-plot_rtt_journey-1.png" alt="" width="100%" />
+
+## Working with Aggregated Data (Histograms)
+
+The package also supports analysis of aggregated or binned waiting list
+data (histogram format), which is particularly useful for:
+
+- Analysing publicly available NHS national statistics
+- Privacy-preserving analysis (no individual patient records)
+- Working with time-bucketed summary data
+
+``` r
+# Example: Histogram format with 2 time points (needed for removal statistics)
+wl_hist <- data.frame(
+  arrival_since = as.Date(c("2024-01-24", "2024-01-17", "2024-01-10",
+                             "2024-02-21", "2024-02-14", "2024-02-07")),
+  arrival_before = as.Date(c("2024-01-30", "2024-01-23", "2024-01-16",
+                              "2024-02-27", "2024-02-20", "2024-02-13")),
+  n = c(45, 38, 52, 42, 35, 48),  # Patient counts in each week
+  report_date = as.Date(c(rep("2024-01-31", 3), rep("2024-02-29", 3)))
+)
+
+# Compute statistics from histogram data
+hist_stats <- wl_stats_hist(
+  wl_hist = wl_hist,
+  target_wait = 18
+)
+
+knitr::kable(hist_stats)
+```
+
+| mean_demand | mean_capacity | load | load_too_big | count_demand | queue_size | target_queue_size | queue_too_big | mean_wait_age | mean_wait | cv_arrival | cv_removal | target_capacity | relief_capacity | pressure |
+|---:|---:|---:|:---|---:|---:|---:|:---|---:|---:|---:|---:|---:|:---|---:|
+| 42 | 32.58621 | 1.288889 | TRUE | 42 | 125 | 300 | FALSE | 12.836 | 12.836 | 1 | 1 | 42.22222 | NA | 1.426222 |
+
+See the [histogram analysis
+vignette](https://nhs-r-community.github.io/NHSRwaitinglist/articles/histogram_analysis.html)
+for a comprehensive guide.
 
 ## Contributing
 

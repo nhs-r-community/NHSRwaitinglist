@@ -87,6 +87,17 @@ knitr::kable(head(waiting_list, 5))
 knitr::kable(overall_stats)
 ```
 
+## Reporting functions
+
+In addition to the underlying method functions above, there are some convenience functions designed to quickly product plots for RTT improvement discussions with clinical specialties. `plot_rtt_journey()` produces plots as demonstrated below, while `rep_rtt_improvement()` is a quarto report generating function that makes 
+it easy to produce a discussion document covering multiple referral rates. 
+
+```{r plot_rtt_journey, fig.height=5, fig.width=8}
+# produce a single plot showing waiting list and RTT size for a specialty
+# with a referral rate of 300 patients per week
+plot_rtt_journey(300)
+```
+
 ## Working with Aggregated Data (Histograms)
 
 The package also supports analysis of aggregated or binned waiting list data (histogram format), which is particularly useful for:

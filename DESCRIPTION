@@ -1,6 +1,6 @@
 Package: NHSRwaitinglist
 Title: Waiting List Metrics Using Queuing Theory
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: c(
           person("Neil", "Walton", ,"neil.walton@durham.ac.uk", "aut", comment = c(ORCID ="0000-0002-5241-9765")),
           person("Jacqueline", "Grout", ,"jacqueline.grout1@nhs.net", "ctb"),
@@ -20,7 +20,6 @@ Description: Waiting list management using queuing theory to analyse, predict an
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 VignetteBuilder: knitr
 URL: https://nhs-r-community.github.io/NHSRwaitinglist/, https://github.com/nhs-r-community/NHSRwaitinglist
 BugReports: https://github.com/nhs-r-community/NHSRwaitinglist/issues
@@ -32,9 +31,13 @@ Imports:
     tidyr,
     utils,
     stats,
-    randomNames
+    randomNames,
+    forcats,
+    here,
+    quarto,
+    stringr,
+    ggplot2
 Suggests: 
-    ggplot2,
     knitr,
     rmarkdown,
     scales,
@@ -43,3 +46,4 @@ Depends:
     R (>= 3.5.0)
 LazyData: true
 Language: en-GB
+Config/roxygen2/version: 8.0.0

@@ -19,8 +19,8 @@ in a waiting list data frame. It ignores rows with missing referral or removal v
 }
 \examples{
 waiting_list <- data.frame(
-	referral = as.Date(c("2024-01-01", "2024-01-08")),
-	removal = as.Date(c("2024-01-05", NA))
+  referral = as.Date(c("2024-01-01", "2024-01-08")),
+  removal = as.Date(c("2024-01-05", NA))
 )
 wl_mean_wait_sojourn(waiting_list)
 }

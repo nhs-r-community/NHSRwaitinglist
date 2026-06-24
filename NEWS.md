@@ -1,4 +1,4 @@
-# NHSRwaitinglist (development version)
+# NHSRwaitinglist 0.1.3
 
 ## New Features
 
@@ -20,6 +20,10 @@
   * All histogram analysis functions
   * Working with NHS national statistics
   * Comparison with patient-level analysis
+
+* Added a plotting function `plot_rtt_journey()` and quarto report generating 
+function `rep_rtt_improvement()` to conveniently generate plots to help tell 
+RTT improvement stories within acute trusts.
 
 ## Bug Fixes
 
