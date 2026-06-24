@@ -1,0 +1,361 @@
+---
+title: "Walkthrough of Histogram Waiting List Functions"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Walkthrough of histogram waiting list functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.height = 5,
+  fig.width = 8
+)
+options(rmarkdown.html_vignette.check_title = FALSE)
+```
+
+```{r setup}
+library(NHSRwaitinglist)
+library(dplyr, warn.conflicts = FALSE)
+library(ggplot2)
+
+set.seed(42)
+```
+
+This vignette is a worked example of the histogram workflow in {NHSRwaitinglist}.
+It follows the same style as the other package walkthroughs: start from simulated data, then work through each function and interpret the outputs.
+
+The walkthrough covers all histogram functions and helpers:
+
+- `format_histogram()`
+- `aggregate_histogram()`
+- `sim_exponential_histogram()`
+- `wl_queue_size_hist()`
+- `wl_referral_stats_hist()`
+- `wl_removal_stats_hist()`
+- `wl_mean_wait_age_hist()`
+- `wl_percentile_hist()`
+- `wl_stats_hist()`
+- `vis_plot_hist()`
+- `wl_join_hist()`
+- `wl_insert_hist()`
+
+## Why histogram data?
+
+Histogram data is often what we have available in operational practice: counts in waiting-time bands, rather than one row per patient.
+This is especially useful when patient-level data is unavailable, too large, or must remain anonymised.
+
+In this vignette we use weekly bins, then show how to estimate queue size, demand, capacity, waiting times, and pressure from those bins.
+
+## 1. Build a deterministic simulated waiting list {#one}
+[Back to top...](#)
+
+We start with simulated patient-level data, then convert snapshots into histogram bins.
+
+```{r simulate-patient-level}
+waiting_list <- wl_simulator(
+  start_date = "2023-01-01",
+  end_date = "2024-06-30",
+  demand = 45,
+  capacity = 30,
+  detailed_sim = FALSE
+)
+
+# Add a deterministic category so we can demonstrate aggregation later
+waiting_list <- waiting_list |>
+  mutate(
+    specialty = if_else(as.integer(Referral) %% 2 == 0, "Cardiology", "Orthopedics")
+  )
+
+head(waiting_list)
+```
+
+Now define a helper to convert a snapshot date into a histogram with stable weekly referral cohorts.
+
+```{r histogram-helper}
+make_hist_weekly <- function(wl, snapshot_date) {
+  snapshot_date <- as.Date(snapshot_date)
+
+  waiting_at_snapshot <- wl |>
+    filter(
+      Referral <= snapshot_date,
+      is.na(Removal) | Removal > snapshot_date
+    )
+
+  # Keep referral cohorts fixed to calendar weeks (Mon-Sun)
+  waiting_binned <- waiting_at_snapshot |>
+    mutate(
+      arrival_since = Referral - (as.integer(strftime(Referral, "%u")) - 1),
+      arrival_before = arrival_since + 6
+    ) |>
+    group_by(specialty, arrival_since, arrival_before) |>
+    summarise(n = n(), .groups = "drop") |>
+    mutate(report_date = snapshot_date)
+
+  waiting_binned
+}
+```
+
+Create weekly snapshots so we can estimate both demand and removals from histogram data.
+
+```{r create-snapshots}
+report_dates <- seq(as.Date("2024-03-31"), as.Date("2024-05-26"), by = "1 week")
+
+hist_three_snapshots <- bind_rows(lapply(report_dates, function(d) {
+  make_hist_weekly(waiting_list, d)
+}))
+
+unique(hist_three_snapshots$report_date)
+```
+
+## 2. Prepare histogram structure {#two}
+[Back to top...](#)
+
+`format_histogram()` standardises date columns and ordering.
+
+```{r format-histogram}
+# Keep specialty while formatting each snapshot
+first_report_date <- min(hist_three_snapshots$report_date)
+hist_first <- hist_three_snapshots |>
+  filter(report_date == first_report_date)
+
+hist_mar_fmt <- format_histogram(
+  hist_first,
+  group_columns = "specialty",
+  end_date = "2024-04-01"
+)
+
+head(hist_mar_fmt)
+```
+
+`aggregate_histogram()` removes categorical splits (unless requested) and sums counts.
+
+```{r aggregate-histogram}
+# Collapse specialties into one total queue
+hist_mar_total <- aggregate_histogram(hist_mar_fmt)
+
+head(hist_mar_total)
+```
+
+We can also keep categories while aggregating.
+
+```{r aggregate-by-category}
+hist_mar_by_specialty <- aggregate_histogram(
+  hist_mar_fmt,
+  group_columns = "specialty"
+)
+
+head(hist_mar_by_specialty)
+```
+
+## 3. Create a second synthetic histogram example {#three}
+[Back to top...](#)
+
+`sim_exponential_histogram()` is useful when you want a clean deterministic example for testing and teaching.
+
+```{r synthetic-histogram}
+synthetic_hist <- sim_exponential_histogram(
+  num_intervals = 18,
+  end_date = as.Date("2024-05-31"),
+  rate = 0.12,
+  queue_size = 650,
+  time_interval = "weeks",
+  random = FALSE
+) |>
+  mutate(report_date = as.Date("2024-05-31"))
+
+head(synthetic_hist)
+```
+
+## 4. Single-snapshot metrics {#four}
+[Back to top...](#)
+
+For single-snapshot metrics we use the latest report date in our weekly series.
+
+```{r select-latest-snapshot}
+latest_report_date <- max(hist_three_snapshots$report_date)
+
+hist_may_total <- hist_three_snapshots |>
+  filter(report_date == latest_report_date) |>
+  aggregate_histogram(group_columns = "report_date")
+
+head(hist_may_total)
+```
+
+### Queue size
+
+```{r queue-size}
+queue_size_may <- wl_queue_size_hist(hist_may_total)
+queue_size_may
+```
+
+The total queue size in this snapshot is `r queue_size_may` patients waiting.
+
+### Mean waiting age
+
+```{r mean-wait-age}
+mean_wait_age_days <- wl_mean_wait_age_hist(hist_may_total)
+mean_wait_age_days
+```
+
+The average waiting age is `r round(mean_wait_age_days, 1)` days.
+
+### Percentiles
+
+```{r percentile}
+p92 <- wl_percentile_hist(hist_may_total, percentage = 92)
+p50 <- wl_percentile_hist(hist_may_total, percentage = 50)
+
+p92
+p50
+```
+
+The median wait is approximately `r p50$weeks_percentile` weeks,
+and the 92nd percentile wait is approximately `r p92$weeks_percentile` weeks.
+
+## 5. Multi-snapshot demand and capacity metrics {#five}
+[Back to top...](#)
+
+`wl_referral_stats_hist()` and `wl_removal_stats_hist()` use report dates differently:
+
+- referral stats are inferred from the latest histogram intervals
+- removal stats compare at least two snapshots over time
+
+```{r demand-and-capacity}
+hist_all_total <- hist_three_snapshots |>
+  aggregate_histogram(group_columns = "report_date")
+
+referral_stats <- wl_referral_stats_hist(hist_all_total)
+removal_stats <- wl_removal_stats_hist(hist_all_total)
+
+referral_stats
+removal_stats
+```
+
+From this simulation, the estimated demand is `r round(referral_stats$demand_weekly, 2)` per week,
+and estimated capacity is `r round(removal_stats$capacity_weekly, 2)` per week.
+
+## 6. Complete summary with wl_stats_hist() {#six}
+[Back to top...](#)
+
+Now compute all key measures in one call.
+
+```{r full-stats}
+overall_hist_stats <- wl_stats_hist(
+  hist_all_total,
+  target_wait = 18
+)
+
+overall_hist_stats
+```
+
+For readability, here are selected columns.
+
+```{r stats-table, echo=FALSE}
+knitr::kable(
+  overall_hist_stats |>
+    select(
+      mean_demand,
+      mean_capacity,
+      load,
+      queue_size,
+      target_queue_size,
+      queue_too_big,
+      mean_wait_age,
+      pressure,
+      target_capacity,
+      relief_capacity
+    ),
+  digits = 2,
+  align = "c"
+)
+```
+
+Interpretation:
+
+- `load >= 1` indicates unstable demand/capacity balance
+- `queue_too_big = TRUE` suggests recovery capacity may be needed
+- higher `pressure` indicates greater risk of missing the waiting-time target
+
+## 7. Plot actual histogram against geometric target {#seven}
+[Back to top...](#)
+
+`vis_plot_hist()` overlays the observed histogram with a target distribution.
+
+```{r visualise-histogram}
+vis_plot_hist(
+  wl_hist = hist_may_total,
+  target = 18,
+  percentage = 92
+)
+```
+
+This chart helps compare the current queue shape with the target profile implied by the waiting standard.
+
+## 8. Joining and inserting histograms {#eight}
+[Back to top...](#)
+
+These helpers combine histogram datasets. On histogram inputs, `wl_insert_hist()` is equivalent to `wl_join_hist()`.
+
+```{r join-insert}
+base_hist <- hist_may_total
+
+# Synthetic additions in very recent bins
+additions <- data.frame(
+  arrival_since = as.Date(c("2024-05-13", "2024-05-20")),
+  arrival_before = as.Date(c("2024-05-19", "2024-05-26")),
+  n = c(12, 9),
+  report_date = latest_report_date
+)
+
+joined_hist <- wl_join_hist(base_hist, additions)
+inserted_hist <- wl_insert_hist(base_hist, additions)
+
+queue_size_base <- wl_queue_size_hist(base_hist)
+queue_size_joined <- wl_queue_size_hist(joined_hist)
+queue_size_inserted <- wl_queue_size_hist(inserted_hist)
+
+data.frame(
+  base = queue_size_base,
+  joined = queue_size_joined,
+  inserted = queue_size_inserted
+)
+```
+
+Both combined outputs increase the queue by the same number of additions in this example.
+
+## 9. Practical checks and pitfalls {#nine}
+[Back to top...](#)
+
+When working with histogram functions:
+
+1. Keep `report_date` present and correctly typed as Date.
+2. Use at least two unique report dates when calling `wl_removal_stats_hist()` and `wl_stats_hist()`.
+3. Keep bin width consistent (for example, always 1 week) across snapshots.
+4. Confirm total counts after aggregation and joins to avoid accidental double-counting.
+5. Treat percentile and pressure values as approximations because they are inferred from bins.
+
+## Summary
+
+This vignette walked through a complete histogram workflow:
+
+- simulated data and binned into weekly intervals
+- formatted and aggregated histograms
+- computed single-snapshot queue and wait metrics
+- estimated demand/capacity from multiple snapshots
+- produced full waiting-list summary metrics
+- visualised actual versus target shape
+- combined histograms with join/insert helpers
+
+## Further reading
+
+- For patient-level workflows, see [Walkthrough of waiting list functions](example_walkthrough.html)
+- For three contrasted queue behaviours, see [Three example waiting lists](three_example_waiting_lists.html)
+- For simulation-heavy exploration, see [Simulating waiting lists](waiting_list_sim.html)
+
+---
+
+END

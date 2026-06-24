@@ -1,0 +1,469 @@
+---
+title: "Analysing Waiting Lists with Histogram Data"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Analysing with histogram data}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.height = 5,
+  fig.width = 8
+)
+options(rmarkdown.html_vignette.check_title = FALSE)
+```
+
+```{r setup}
+library(NHSRwaitinglist)
+library(dplyr)
+library(ggplot2)
+
+# set up a theme for our charts
+theme_set(
+  theme_minimal() +
+    theme(
+      plot.subtitle = element_text(face = "italic")
+    )
+)
+```
+
+# Introduction
+
+The NHSRwaitinglist package provides two complementary approaches for analysing waiting lists:
+
+1. **Patient-level data**: Individual records with referral and removal dates
+2. **Histogram data**: Aggregated counts by waiting time intervals
+
+This vignette focuses on the **histogram approach**, which is particularly valuable for:
+
+- **Processing NHS national statistics**: Published data is aggregated, not patient-level
+- **Privacy-preserving analysis**: No individual patient records required
+- **Large dataset performance**: Efficient computation with time-bucketed summaries
+- **Historical data**: Working with pre-aggregated reported statistics
+
+## When to Use Histogram Functions
+
+Use histogram functions when your data is:
+
+- Aggregated into time bins (weeks, months) with patient counts
+- Published in summary form (e.g., NHS England RTT statistics)
+- Too large for patient-level processing
+- Subject to privacy constraints
+
+## Histogram Data Structure
+
+A histogram in this package is a data frame with these essential columns:
+
+- `arrival_since` (Date): Start of the arrival time interval
+- `arrival_before` (Date): End of the arrival time interval  
+- `n` (Numeric): Count of patients in that interval
+- `report_date` (Date): Reference date of the waiting list snapshot
+
+Additional categorical columns (e.g., specialty, priority) are optional.
+
+# Creating Histogram Data
+
+## Example: Converting Weekly Bins
+
+```{r create-histogram}
+# Example: Waiting list snapshot from 31 Jan 2024
+# Bins represent weeks waiting
+wl_hist_jan <- data.frame(
+  arrival_since = as.Date(c("2024-01-24", "2024-01-17", "2024-01-10", "2024-01-03")),
+  arrival_before = as.Date(c("2024-01-30", "2024-01-23", "2024-01-16", "2024-01-09")),
+  n = c(45, 38, 52, 61), # Patients waiting 0-1, 1-2, 2-3, 3-4 weeks
+  report_date = as.Date("2024-01-31")
+)
+
+print(wl_hist_jan)
+```
+
+The first row shows 45 patients who arrived between 24-30 Jan (waiting < 1 week on 31 Jan).
+
+## Multiple Time Points
+
+For removal statistics, we need multiple snapshots:
+
+```{r multiple-snapshots}
+# Add February snapshot
+wl_hist_feb <- data.frame(
+  arrival_since = as.Date(c("2024-02-21", "2024-02-14", "2024-02-07", "2024-01-31")),
+  arrival_before = as.Date(c("2024-02-27", "2024-02-20", "2024-02-13", "2024-02-06")),
+  n = c(42, 35, 48, 55),
+  report_date = as.Date("2024-02-29")
+)
+
+# Combine into single histogram
+wl_hist <- rbind(wl_hist_jan, wl_hist_feb)
+
+# View unique report dates
+unique(wl_hist$report_date)
+```
+
+## Using format_histogram()
+
+The `format_histogram()` function ensures your data has the correct structure:
+
+```{r format-histogram}
+# If you only have arrival_since, format_histogram adds arrival_before
+hist_simple <- data.frame(
+  arrival_since = as.Date(c("2024-01-24", "2024-01-17", "2024-01-10")),
+  n = c(45, 38, 52),
+  report_date = as.Date("2024-01-31")
+)
+
+hist_formatted <- format_histogram(hist_simple, end_date = "2024-01-31")
+print(hist_formatted)
+```
+
+# Core Analysis Functions
+
+## Queue Size
+
+Calculate the total number of patients waiting:
+
+```{r queue-size}
+# Queue size at end of January
+queue_jan <- wl_queue_size_hist(wl_hist_jan)
+cat("Queue size (31 Jan):", queue_jan, "patients\n")
+
+# Queue size at end of February
+queue_feb <- wl_queue_size_hist(wl_hist_feb)
+cat("Queue size (29 Feb):", queue_feb, "patients\n")
+```
+
+## Referral Statistics (Demand)
+
+Calculate demand statistics from the most recent snapshot:
+
+```{r referral-stats}
+referral_stats <- wl_referral_stats_hist(wl_hist_feb)
+print(referral_stats)
+```
+
+This shows:
+- `demand_weekly`: Average weekly referrals
+- `demand_daily`: Average daily referrals
+- `demand_cov`: Coefficient of variation (uncertainty in arrival pattern)
+- `demand_count`: Total referrals over the period
+
+## Removal Statistics (Capacity)
+
+Calculate removal/capacity statistics by comparing multiple snapshots:
+
+```{r removal-stats}
+# Uses both Jan and Feb snapshots to estimate removals
+removal_stats <- wl_removal_stats_hist(wl_hist)
+print(removal_stats)
+```
+
+This shows:
+- `capacity_weekly`: Average weekly removals (treatments)
+- `capacity_daily`: Average daily removals
+- `capacity_cov`: Coefficient of variation
+- `removal_count`: Total removals between snapshots
+
+The function compares consecutive snapshots to detect where counts decreased (indicating removals).
+
+## Mean Waiting Time
+
+Calculate average waiting time from a snapshot:
+
+```{r mean-wait}
+mean_wait <- wl_mean_wait_age_hist(wl_hist_feb)
+cat("Mean waiting time:", round(mean_wait, 1), "weeks\n")
+```
+
+## Percentile Waiting Times
+
+Find specific percentiles of the waiting time distribution:
+
+```{r percentiles}
+# Median (50th percentile)
+p50 <- wl_percentile_hist(wl_hist_feb, percentage = 50)
+cat("Median wait:", round(p50$weeks, 1), "weeks\n")
+
+# 95th percentile
+p95 <- wl_percentile_hist(wl_hist_feb, percentage = 95)
+cat("95th percentile wait:", round(p95$weeks, 1), "weeks\n")
+```
+
+# Comprehensive Statistics with wl_stats_hist()
+
+The `wl_stats_hist()` function provides a complete analysis in one call:
+
+```{r comprehensive-stats}
+# Calculate all key statistics
+stats <- wl_stats_hist(wl_hist, target_wait = 18)
+print(stats)
+```
+
+This returns a data frame with:
+
+- **Demand/Capacity metrics**: Mean demand, mean capacity, load (demand/capacity ratio)
+- **Queue metrics**: Current size, target size, whether queue is too big
+- **Wait time metrics**: Mean wait, pressure indicator
+- **Planning metrics**: Target capacity, relief capacity (if needed)
+- **Variability**: Coefficients of variation for arrivals and removals
+
+### Understanding the Results
+
+```{r interpret-stats}
+cat("Current queue:", stats$queue_size, "patients\n")
+cat("Target queue:", round(stats$target_queue_size), "patients\n")
+cat("Queue too big?", stats$queue_too_big, "\n\n")
+
+cat("Mean demand:", round(stats$mean_demand, 1), "patients/week\n")
+cat("Mean capacity:", round(stats$mean_capacity, 1), "patients/week\n")
+cat("Load (demand/capacity):", round(stats$load, 2), "\n")
+cat("Load too big?", stats$load_too_big, "\n\n")
+
+cat("Mean waiting time:", round(stats$mean_wait_age, 1), "weeks\n")
+cat("Target wait:", 18, "weeks\n")
+cat("Pressure (2 × mean / target):", round(stats$pressure, 2), "\n")
+```
+
+**Key indicators:**
+
+- `load >= 1.0`: System is unstable (demand exceeds capacity)
+- `queue_too_big = TRUE`: Queue exceeds twice the target size
+- `pressure > 1.0`: Unlikely to meet waiting time targets
+
+# Working with Multiple Snapshots
+
+## Time Series Analysis
+
+```{r time-series-example}
+# Create a longer time series (3 months)
+wl_hist_mar <- data.frame(
+  arrival_since = as.Date(c("2024-03-20", "2024-03-13", "2024-03-06", "2024-02-28")),
+  arrival_before = as.Date(c("2024-03-26", "2024-03-19", "2024-03-12", "2024-03-05")),
+  n = c(48, 41, 50, 58),
+  report_date = as.Date("2024-03-31")
+)
+
+wl_hist_full <- rbind(wl_hist_jan, wl_hist_feb, wl_hist_mar)
+
+# Calculate stats using all three time points
+stats_full <- wl_stats_hist(wl_hist_full, target_wait = 18)
+
+# Removal stats averaged across Jan→Feb and Feb→Mar
+removal_stats_full <- wl_removal_stats_hist(wl_hist_full)
+print(removal_stats_full)
+```
+
+## Filtering Date Ranges
+
+Specify which time period to analyze:
+
+```{r date-filters}
+# Only analyze Feb→Mar period
+stats_feb_mar <- wl_stats_hist(
+  wl_hist_full,
+  target_wait = 18,
+  start_date = "2024-02-01",
+  end_date = "2024-03-31"
+)
+
+cat("Capacity (Feb-Mar only):", round(stats_feb_mar$mean_capacity, 1), "\n")
+
+# Compare to full period
+cat("Capacity (Jan-Mar):", round(stats_full$mean_capacity, 1), "\n")
+```
+
+# Working with Categorical Variables
+
+## Multiple Specialties
+
+```{r categorical-data}
+# Histogram with multiple specialties
+wl_hist_specialty <- data.frame(
+  specialty = rep(c("Cardiology", "Orthopedics"), each = 3),
+  arrival_since = rep(as.Date(c("2024-01-24", "2024-01-17", "2024-01-10")), 2),
+  arrival_before = rep(as.Date(c("2024-01-30", "2024-01-23", "2024-01-16")), 2),
+  n = c(45, 38, 52, 30, 42, 28),
+  report_date = as.Date("2024-01-31")
+)
+
+print(wl_hist_specialty)
+```
+
+## Aggregating Across Categories
+
+Remove categorical splits to get overall statistics:
+
+```{r aggregate-histogram}
+# Aggregate across specialties
+wl_hist_total <- aggregate_histogram(wl_hist_specialty)
+print(wl_hist_total)
+
+# Calculate overall queue size
+total_queue <- wl_queue_size_hist(wl_hist_total)
+cat("Total queue (all specialties):", total_queue, "\n")
+```
+
+## Keeping Categories
+
+Analyze by specialty:
+
+```{r by-category}
+# Keep specialty grouping
+wl_hist_by_specialty <- aggregate_histogram(
+  wl_hist_specialty,
+  group_columns = "specialty"
+)
+
+print(wl_hist_by_specialty)
+```
+
+# Practical Example: NHS National Data Pattern
+
+This example shows a typical workflow for NHS published statistics:
+
+```{r nhs-example}
+# Simulate NHS RTT data structure (weekly bins)
+create_nhs_snapshot <- function(report_date, base_count = 100) {
+  # NHS typically reports in 1-week bins up to 52+ weeks
+  weeks <- c(1, 2, 3, 4, 6, 8, 10, 12, 15, 18, 21, 26, 52)
+
+  data.frame(
+    arrival_since = as.Date(report_date) - (weeks * 7 + 6),
+    arrival_before = as.Date(report_date) - (weeks * 7),
+    n = round(base_count * exp(-weeks / 20)), # Exponential decay
+    report_date = as.Date(report_date)
+  )
+}
+
+# Create quarterly snapshots
+nhs_q4_2023 <- create_nhs_snapshot("2023-12-31", base_count = 120)
+nhs_q1_2024 <- create_nhs_snapshot("2024-03-31", base_count = 110)
+nhs_q2_2024 <- create_nhs_snapshot("2024-06-30", base_count = 105)
+
+nhs_hist <- rbind(nhs_q4_2023, nhs_q1_2024, nhs_q2_2024)
+
+# Analyze NHS data
+nhs_stats <- wl_stats_hist(nhs_hist, target_wait = 18)
+
+cat("NHS Example Analysis\n")
+cat("====================\n")
+cat("Queue size (Jun 2024):", nhs_stats$queue_size, "\n")
+cat("Target queue size:", round(nhs_stats$target_queue_size), "\n")
+cat("Mean waiting time:", round(nhs_stats$mean_wait_age, 1), "weeks\n")
+cat("Meeting 18-week target?", nhs_stats$pressure <= 1.0, "\n")
+```
+
+<!--
+# Comparison: Histogram vs Patient-Level
+
+## Creating Equivalent Data
+
+```{r comparison-setup}
+# Patient-level data
+set.seed(42)
+referral_dates <- seq(as.Date("2024-01-01"), as.Date("2024-01-31"), by = "day")
+patient_data <- data.frame(
+  referral = sample(referral_dates, 100, replace = TRUE),
+  removal = as.Date(NA)
+)
+
+# Simulate some removals
+removal_indices <- sample(1:100, 30)
+# Fix: use as.Date() to keep it as Date type
+patient_data$removal[removal_indices] <- as.Date(
+  patient_data$referral[removal_indices] + sample(7:60, 30, replace = TRUE),
+  origin = "1970-01-01"
+)
+
+head(patient_data)
+```
+
+## Patient-Level Analysis
+
+```{r patient-level-analysis}
+# Analyze with patient-level function
+patient_stats <- wl_stats(patient_data, target_wait = 18)
+patient_queue <- wl_queue_size(patient_data)
+
+cat("Patient-level approach:\n")
+cat("Queue size:", patient_queue$queue_size, "\n") # Changed: extract queue_size
+cat("Mean demand:", round(patient_stats$mean_demand, 1), "per week\n")
+cat("Mean capacity:", round(patient_stats$mean_capacity, 1), "per week\n")
+```
+
+## Histogram Analysis (Same Data)
+
+```{r histogram-from-patient}
+# Convert to histogram format (simplified)
+# Create bins: patients still waiting, grouped by referral week
+waiting_patients <- patient_data[is.na(patient_data$removal), ]
+
+# This is a simplified example - real conversion would be more complex
+hist_from_patient <- data.frame(
+  arrival_since = as.Date("2024-01-01"),
+  arrival_before = as.Date("2024-01-31"),
+  n = nrow(waiting_patients),
+  report_date = as.Date("2024-01-31")
+)
+
+hist_queue <- wl_queue_size_hist(hist_from_patient)
+cat("\nHistogram approach:\n")
+cat("Queue size:", hist_queue, "\n")
+```
+-->
+
+## Trade-offs
+
+**Patient-level approach:**
+- ✓ More precise calculations
+- ✓ Can track individual patient journeys
+- ✗ Requires detailed data
+- ✗ Privacy concerns
+- ✗ Slower with large datasets
+
+**Histogram approach:**
+- ✓ Works with aggregate published data
+- ✓ Privacy-preserving
+- ✓ Efficient for large datasets
+- ✗ Less precision (binned data)
+- ✗ Cannot track individuals
+- ✗ Requires multiple snapshots for removals
+
+# Summary
+
+## Key Functions
+
+| Function | Purpose | Input |
+|----------|---------|-------|
+| `format_histogram()` | Prepare/validate data | Histogram with arrival_since |
+| `aggregate_histogram()` | Collapse categories | Histogram with categorical variables |
+| `wl_queue_size_hist()` | Current queue size | Single snapshot |
+| `wl_referral_stats_hist()` | Demand statistics | Single snapshot |
+| `wl_removal_stats_hist()` | Capacity statistics | Multiple snapshots |
+| `wl_mean_wait_age_hist()` | Mean waiting time | Single snapshot |
+| `wl_percentile_hist()` | Percentile waits | Single snapshot |
+| `wl_stats_hist()` | Complete analysis | Multiple snapshots |
+
+## Best Practices
+
+1. **Always include report_date**: Essential for multi-snapshot analysis
+2. **Use consistent time bins**: Weekly or monthly bins work best
+3. **Multiple snapshots for accuracy**: More snapshots = better capacity estimates
+4. **Validate your data**: Use `format_histogram()` to ensure structure
+5. **Check for missing dates**: Ensure consecutive snapshots for reliable trends
+
+## Next Steps
+
+- Follow the [histogram walkthrough](histogram_walkthrough.html) for a worked end-to-end example
+- Explore the [simulation vignette](waiting_list_sim.html) for forward projections
+- See [example walkthrough](example_walkthrough.html) for patient-level analysis
+- Read about [queuing theory foundations](three_example_waiting_lists.html)
+
+# References
+
+This package implements methods described in:
+
+Fong et al. (2022). "Queueing Theory and Machine Learning Applied to National Scale Medical Waiting Lists." *medRxiv*. doi:10.1101/2022.08.23.22279117

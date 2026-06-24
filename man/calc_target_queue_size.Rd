@@ -16,7 +16,8 @@ target within which the patient should be seen.}
 \item{factor}{Numeric factor used in average wait calculation
 \itemize{
 \item to get a quarter of the target use factor=4
-\item to get one sixth of the target use factor = 6 etc. Defaults to 4.
+\item to get one sixth of the target use factor = 6 etc.
+Defaults to 4.
 }}
 }
 \value{
@@ -27,17 +28,18 @@ Uses Little's Law to calculate the target queue size to achieve
 a target waiting time as a function of observed demand, target wait and a
 variability factor used in the target mean waiting time calculation.
 
-Target Queue Size = Demand * Target Wait / 4.
+Target Queue Size = Demand * Target Mean Wait,
+where Target Mean Wait = Target Wait / factor.
 
 The average wait should sit somewhere between
-target_wait/factor=6 < Average Waiting Time < target_wait/factor=4
-The factor defaults to 4.
+\code{target_wait/6} and \code{target_wait/4} depending on the chosen
+factor. The factor defaults to 4.
 
 Only applicable when Capacity > Demand.
 }
 \examples{
 # If demand is 30 patients per week and the target wait is 52 weeks, then the
-# Target queue size = 30 * 52/4 = 390 patients.
+# for a quarter-target mean wait, target queue size = 30 * 52/4 = 390.
 
 calc_target_queue_size(30, 52, 4)
 

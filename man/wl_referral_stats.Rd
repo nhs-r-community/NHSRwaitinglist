@@ -40,8 +40,8 @@ additions to the waiting list.}
 Calculate some stats about referrals
 }
 \examples{
-referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
-removals <- c.Date("2024-01-08", NA, NA, NA)
+referrals <- as.Date(c("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16"))
+removals <- as.Date(c("2024-01-08", NA, NA, NA))
 waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 referral_stats <- wl_referral_stats(waiting_list)
 

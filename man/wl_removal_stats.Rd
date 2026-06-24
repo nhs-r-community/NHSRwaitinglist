@@ -37,15 +37,16 @@ list per day.}
 \item{capacity_cov}{Numeric. Coefficient of variation in the time between
 removals from the waiting list.}
 \item{removal_count}{Numeric. Total number of removals from the waiting
-list over the full time period.}
+list over the full time period. If no removals exist in the date range,
+capacity values are returned as \code{NA}.}
 }
 }
 \description{
 Calculate some stats about removals
 }
 \examples{
-referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
-removals <- c.Date("2024-01-08", NA, NA, NA)
+referrals <- as.Date(c("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16"))
+removals <- as.Date(c("2024-01-08", NA, NA, NA))
 waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 removal_stats <- wl_removal_stats(waiting_list)
 

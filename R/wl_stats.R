@@ -32,7 +32,8 @@
 #'   \item{queue_too_big}{Logical. Whether \code{queue_size} is more than twice
 #'     the \code{target_queue_size}. A value of \code{TRUE} indicates the queue
 #'     is at risk of missing its targets.}
-#'   \item{mean_wait}{Numeric. Mean waiting time in weeks.}
+#'   \item{mean_wait_age}{Numeric. Mean waiting age in days.}
+#'   \item{mean_wait}{Numeric. Legacy alias for \code{mean_wait_age}.}
 #'   \item{cv_arrival}{Numeric. Coefficient of variation in the time between
 #'     additions to the waiting list.}
 #'   \item{cv_removal}{Numeric. Coefficient of variation in the time between
@@ -45,7 +46,7 @@
 #'     assuming current demand remains steady. Calculated only if
 #'     \code{queue_too_big} is \code{TRUE}; otherwise returns \code{NA}.}
 #'   \item{pressure}{Numeric. A measure of pressure on the system, defined as
-#'     \code{2 × mean_wait / target_wait}. Values greater than 1 suggest the
+#'     \code{2 × mean_wait_age / target_wait}. Values greater than 1 suggest the
 #'     system is unlikely to meet its waiting time targets.}
 #' }
 #'
@@ -54,8 +55,8 @@
 #'
 #' @examples
 #'
-#' referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
-#' removals <- c.Date("2024-01-08", NA, NA, NA)
+#' referrals <- as.Date(c("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16"))
+#' removals <- as.Date(c("2024-01-08", NA, NA, NA))
 #' waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 #' waiting_list_stats <- wl_stats(waiting_list)
 #'
@@ -133,14 +134,8 @@ wl_stats <- function(waiting_list,
   # queue too big
   q_too_big <- (q_size > 2 * q_target)
 
-  # mean wait
-  waiting_patients <-
-    waiting_list[which((waiting_list[, removal_index] >
-      end_date | is.na(waiting_list[, removal_index]) &
-      waiting_list[, referral_index] <= end_date)), ]
-  wait_times <-
-    as.numeric(end_date) - as.numeric(waiting_patients[, referral_index])
-  mean_wait <- mean(wait_times)
+  # mean wait age
+  mean_wait_age <- wl_mean_wait_age(waiting_list, referral_index, removal_index, end_date)
 
   # target capacity
   if (!q_too_big) {
@@ -165,7 +160,7 @@ wl_stats <- function(waiting_list,
   }
 
   # pressure
-  pressure <- calc_waiting_list_pressure(mean_wait, target_wait)
+  pressure <- calc_waiting_list_pressure(mean_wait_age, target_wait)
 
   waiting_stats <- data.frame(
     "mean_demand" = referral_stats$demand_weekly,
@@ -176,7 +171,8 @@ wl_stats <- function(waiting_list,
     "queue_size" = q_size,
     "target_queue_size" = q_target,
     "queue_too_big" = q_too_big,
-    "mean_wait" = mean_wait,
+    "mean_wait_age" = mean_wait_age,
+    "mean_wait" = mean_wait_age,
     "cv_arrival" = referral_stats$demand_cov,
     "cv_removal" = removal_stats$capacity_cov,
     "target_capacity" = target_cap,

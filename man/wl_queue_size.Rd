@@ -42,8 +42,8 @@ on that date.}
 Calculates queue sizes from a waiting list
 }
 \examples{
-referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
-removals <- c.Date("2024-01-08", NA, NA, NA)
+referrals <- as.Date(c("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16"))
+removals <- as.Date(c("2024-01-08", NA, NA, NA))
 waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 wl_queue_size(waiting_list)
 }

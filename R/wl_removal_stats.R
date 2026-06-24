@@ -21,14 +21,15 @@
 #'   \item{capacity_cov}{Numeric. Coefficient of variation in the time between
 #'     removals from the waiting list.}
 #'   \item{removal_count}{Numeric. Total number of removals from the waiting
-#'     list over the full time period.}
+#'     list over the full time period. If no removals exist in the date range,
+#'     capacity values are returned as \code{NA}.}
 #' }
 #'
 #' @export
 #'
 #' @examples
-#' referrals <- c.Date("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16")
-#' removals <- c.Date("2024-01-08", NA, NA, NA)
+#' referrals <- as.Date(c("2024-01-01", "2024-01-04", "2024-01-10", "2024-01-16"))
+#' removals <- as.Date(c("2024-01-08", NA, NA, NA))
 #' waiting_list <- data.frame("referral" = referrals, "removal" = removals)
 #' removal_stats <- wl_removal_stats(waiting_list)
 #'
@@ -85,16 +86,33 @@ wl_removal_stats <- function(waiting_list,
   removals_and_zeros$diff <-
     as.numeric(removals_and_zeros[, 1]) - as.numeric(removals_and_zeros[, 3])
   differences <- removals_and_zeros[which(removals_and_zeros[, 2] == TRUE), 4]
+  num_removals <- length(differences)
+
+  if (num_removals == 0) {
+    return(data.frame(
+      "capacity_weekly" = NA_real_,
+      "capacity_daily" = NA_real_,
+      "capacity_cov" = NA_real_,
+      "removal_count" = 0
+    ))
+  }
+
   mean_removal <- as.numeric(mean(differences, na.rm = TRUE))
   sd_removal <- if (length(differences) <= 1) {
     0.
   } else {
     stats::sd(differences, na.rm = TRUE)
   }
-  cv_removal <- sd_removal / mean_removal
-  num_removals <- length(differences)
-  capacity <- 1 / mean_removal
-  capacity_weekly <- 7 / mean_removal
+
+  if (mean_removal == 0) {
+    cv_removal <- NA_real_
+    capacity <- Inf
+    capacity_weekly <- Inf
+  } else {
+    cv_removal <- sd_removal / mean_removal
+    capacity <- 1 / mean_removal
+    capacity_weekly <- 7 / mean_removal
+  }
 
   removal_stats <- data.frame(
     "capacity_weekly" = capacity_weekly,

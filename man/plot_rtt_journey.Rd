@@ -13,9 +13,12 @@ plot_rtt_journey(
 \arguments{
 \item{referral_rate}{numeric. A weekly referral rate to plot}
 
-\item{rtt_performance}{numeric vector. A vector of performance thresholds, as proportion e.g. 0.65 = 65\%.}
+\item{rtt_performance}{numeric vector. A vector of performance thresholds,
+as proportion e.g. 0.65 = 65\%.
+Default values are: c(0.5, 0.60, 0.70, 0.80, 0.92)}
 
-\item{n_bins}{numeric.  Number of bins for histogram. Default is 1 - 64 weeks.}
+\item{n_bins}{numeric.  Number of bins for histogram.
+Default is 1 - 64 weeks.}
 }
 \value{
 ggplot object

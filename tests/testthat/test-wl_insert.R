@@ -3,7 +3,7 @@ wl1 <- data.frame(
   removal = c.Date("2024-03-01", "2024-05-05")
 )
 
-additions <- c.Date("2024-01-02", "2024-03-03")
+additions <- as.Date(c("2024-01-02", "2024-03-03"))
 
 expected_out <-
   data.frame(
@@ -23,9 +23,7 @@ expected_out <-
     )
   )
 
-
 test_that("inserting to list returns right output", {
-  em <- "wl_insert(): list with inserts returns wrong class"
   expect_s3_class(wl_insert(wl1, additions), "data.frame")
 })
 
@@ -114,7 +112,7 @@ test_that("wl_insert errors with incorrect arg classes", {
 
   idx_msg <- "`referral_index` must be of class <numeric/character/logical>"
 
-  expect_error(wl_insert(wl1, additions, referral_index = list(), idx_msg))
-  expect_error(wl_insert(wl1, additions, referral_index = NULL, idx_msg))
+  expect_error(wl_insert(wl1, additions, referral_index = list()), idx_msg)
+  expect_error(wl_insert(wl1, additions, referral_index = NULL), idx_msg)
   expect_error(wl_insert(wl1, additions, referral_index = as.Date(1)), idx_msg)
 })

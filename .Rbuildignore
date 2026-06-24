@@ -18,5 +18,9 @@ OPCS4.csv
 
 # ignore development artifacts
 ^development_files$
+^inst/scripts/manual_test_wl_removal_stats_hist\.R$
 ^\.positai$
 ^\.claude$
+
+# Exclude local Python virtual environment
+^\.venv$
