@@ -20,8 +20,7 @@
 #'
 #' @export
 
-wl_join_hist <- function(wl_hist_1, wl_hist_2, categories = FALSE){
-
+wl_join_hist <- function(wl_hist_1, wl_hist_2, categories = FALSE) {
   # Ensure both waiting lists are in the correct histogram format
   wl_hist_1 <- format_histogram(wl_hist_1)
   wl_hist_2 <- format_histogram(wl_hist_2)
@@ -43,5 +42,4 @@ wl_join_hist <- function(wl_hist_1, wl_hist_2, categories = FALSE){
   joined_wl <- format_histogram(joined_wl, group_columns = group_columns)
 
   return(joined_wl)
-
 }

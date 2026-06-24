@@ -38,20 +38,21 @@
 #' referral_stats <- wl_referral_stats_hist(hist_waiting_list)
 #'
 wl_referral_stats_hist <- function(wl_hist,
-                              start_date = NULL,
-                              end_date = NULL,
-                              time_interval = "weeks") {
+                                   start_date = NULL,
+                                   end_date = NULL,
+                                   time_interval = "weeks") {
+  wl_hist <- format_histogram(wl_hist,
+    end_date = end_date,
+    time_interval = time_interval
+  )
 
-  wl_hist <- format_histogram(wl_hist, end_date = end_date, 
-                              time_interval = time_interval)
+  df_referrals <- wl_hist[which.max(wl_hist$arrival_before), ]
 
-  df_referrals <-  wl_hist[which.max(wl_hist$arrival_before),]
-
-  df_referrals$days <- as.numeric( df_referrals$arrival_before[1] + 1 - df_referrals$arrival_since[1])
+  df_referrals$days <- as.numeric(df_referrals$arrival_before[1] + 1 - df_referrals$arrival_since[1])
 
   referral_stats <- data.frame(
-    "demand_weekly" = (df_referrals$n[1] / df_referrals$days[1] ) * 7,
-    "demand_daily" = (df_referrals$n[1] / df_referrals$days[1] ),
+    "demand_weekly" = (df_referrals$n[1] / df_referrals$days[1]) * 7,
+    "demand_daily" = (df_referrals$n[1] / df_referrals$days[1]),
     "demand_cov" = 1,
     "demand_count" = df_referrals$n[1]
   )

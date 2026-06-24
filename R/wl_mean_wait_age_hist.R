@@ -13,18 +13,17 @@
 #'
 #' @return Numeric value of the mean waiting age in days.
 #' @export
-#' 
+#'
 wl_mean_wait_age_hist <- function(wl_hist) {
+  mean_age <- wl_hist %>%
+    mutate(
+      wait_days = as.numeric(as.Date(.data$report_date) - as.Date(.data$arrival_before)) +
+        as.numeric(as.Date(.data$arrival_before) + 1 - as.Date(.data$arrival_since)) / 2
+    ) %>%
+    summarise(
+      mean_wait = sum(.data$wait_days * .data$n) / sum(.data$n)
+    ) %>%
+    pull(.data$mean_wait)
 
-      mean_age <- wl_hist %>%
-        mutate(
-                        wait_days = as.numeric(as.Date(.data$report_date) - as.Date(.data$arrival_before)) +
-                            as.numeric(as.Date(.data$arrival_before) + 1 - as.Date(.data$arrival_since)) / 2
-        ) %>%
-        summarise(
-            mean_wait = sum(.data$wait_days * .data$n) / sum(.data$n)
-        ) %>%
-        pull(.data$mean_wait)
-
-    return(mean_age)
+  return(mean_age)
 }

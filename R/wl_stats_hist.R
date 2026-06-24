@@ -72,44 +72,45 @@ wl_stats_hist <- function(wl_hist,
                           target_wait = 4,
                           start_date = NULL,
                           end_date = NULL) {
-  
   # Check we have report_date column
   if (!"report_date" %in% colnames(wl_hist)) {
     stop("Histogram must contain a 'report_date' column")
   }
-  
+
   # Get unique report dates
   report_dates <- unique(wl_hist$report_date)
-  
+
   # Check we have at least 2 dates for removal stats
   if (length(report_dates) < 2) {
     stop("Histogram must contain at least 2 report_date values to calculate statistics")
   }
-  
+
   # Use most recent date for queue size and referral stats
   if (is.null(end_date)) {
     end_date <- max(report_dates, na.rm = TRUE)
   } else {
     end_date <- as.Date(end_date)
   }
-  
+
   # Filter to most recent snapshot for queue and referral calculations
   wl_hist_latest <- wl_hist |>
     dplyr::filter(.data$report_date == end_date)
-  
+
   # Calculate referral statistics from latest snapshot
   referral_stats <- wl_referral_stats_hist(wl_hist_latest)
-  
+
   # Calculate queue size from latest snapshot
   q_size <- wl_queue_size_hist(wl_hist_latest)
-  
+
   # Calculate removal statistics using all snapshots in date range
   removal_stats <- wl_removal_stats_hist(wl_hist, start_date, end_date)
 
   # load
   q_load <-
-    calc_queue_load(referral_stats$demand_weekly
-                    , removal_stats$capacity_weekly)
+    calc_queue_load(
+      referral_stats$demand_weekly,
+      removal_stats$capacity_weekly
+    )
 
   # load too big
   q_load_too_big <- (q_load >= 1.)
@@ -168,5 +169,4 @@ wl_stats_hist <- function(wl_hist,
   )
 
   return(waiting_stats)
-
 }

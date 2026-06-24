@@ -75,7 +75,7 @@ Additional categorical columns (e.g., specialty, priority) are optional.
 wl_hist_jan <- data.frame(
   arrival_since = as.Date(c("2024-01-24", "2024-01-17", "2024-01-10", "2024-01-03")),
   arrival_before = as.Date(c("2024-01-30", "2024-01-23", "2024-01-16", "2024-01-09")),
-  n = c(45, 38, 52, 61),  # Patients waiting 0-1, 1-2, 2-3, 3-4 weeks
+  n = c(45, 38, 52, 61), # Patients waiting 0-1, 1-2, 2-3, 3-4 weeks
   report_date = as.Date("2024-01-31")
 )
 
@@ -313,7 +313,7 @@ Analyze by specialty:
 ```{r by-category}
 # Keep specialty grouping
 wl_hist_by_specialty <- aggregate_histogram(
-  wl_hist_specialty, 
+  wl_hist_specialty,
   group_columns = "specialty"
 )
 
@@ -329,11 +329,11 @@ This example shows a typical workflow for NHS published statistics:
 create_nhs_snapshot <- function(report_date, base_count = 100) {
   # NHS typically reports in 1-week bins up to 52+ weeks
   weeks <- c(1, 2, 3, 4, 6, 8, 10, 12, 15, 18, 21, 26, 52)
-  
+
   data.frame(
     arrival_since = as.Date(report_date) - (weeks * 7 + 6),
     arrival_before = as.Date(report_date) - (weeks * 7),
-    n = round(base_count * exp(-weeks/20)),  # Exponential decay
+    n = round(base_count * exp(-weeks / 20)), # Exponential decay
     report_date = as.Date(report_date)
   )
 }
@@ -389,7 +389,7 @@ patient_stats <- wl_stats(patient_data, target_wait = 18)
 patient_queue <- wl_queue_size(patient_data)
 
 cat("Patient-level approach:\n")
-cat("Queue size:", patient_queue$queue_size, "\n")  # Changed: extract queue_size
+cat("Queue size:", patient_queue$queue_size, "\n") # Changed: extract queue_size
 cat("Mean demand:", round(patient_stats$mean_demand, 1), "per week\n")
 cat("Mean capacity:", round(patient_stats$mean_capacity, 1), "per week\n")
 ```

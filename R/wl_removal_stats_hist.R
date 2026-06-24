@@ -41,49 +41,46 @@
 #' removal_stats <- wl_removal_stats_hist(wl_hist)
 #' }
 #'
-
 # TODO: Currently assumes equal intervals between snapshots. Consider updating to handle unequal intervals (e.g., monthly then weekly snapshots, or irregular snapshot dates). This would improve flexibility for operational data.
-
 wl_removal_stats_hist <- function(wl_hist,
-                                   start_date = NULL,
-                                   end_date = NULL) {
-  
+                                  start_date = NULL,
+                                  end_date = NULL) {
   # Extract unique report dates
   report_dates <- unique(wl_hist$report_date)
   report_dates <- sort(report_dates)
-  
+
   # Set start_date to earliest if not provided
   if (is.null(start_date)) {
     start_date <- min(report_dates)
   } else {
     start_date <- as.Date(start_date)
   }
-  
+
   # Set end_date to latest if not provided
   if (is.null(end_date)) {
     end_date <- max(report_dates)
   } else {
     end_date <- as.Date(end_date)
   }
-  
+
   # Filter dates within range
   report_dates <- report_dates[report_dates >= start_date & report_dates <= end_date]
-  
+
   # Check we have at least 2 dates
   if (length(report_dates) < 2) {
     stop("Histogram must contain at least 2 report_date values within the specified date range to calculate removal statistics")
   }
-  
+
   # Initialize accumulators
   total_removals <- 0
   total_days <- 0
   weighted_capacity_sum <- 0
-  
+
   # Loop through consecutive pairs
   for (i in 1:(length(report_dates) - 1)) {
     date1 <- report_dates[i]
     date2 <- report_dates[i + 1]
-    
+
     # Filter histograms for these two dates
     wl_hist1 <- wl_hist |>
       dplyr::filter(.data$report_date == date1) |>
@@ -91,14 +88,14 @@ wl_removal_stats_hist <- function(wl_hist,
         n_hist1 = .data$n,
         arrival_before_hist1 = .data$arrival_before
       )
-    
+
     wl_hist2 <- wl_hist |>
       dplyr::filter(.data$report_date == date2) |>
       dplyr::rename(
         n_hist2 = .data$n,
         arrival_before_hist2 = .data$arrival_before
       )
-    
+
     # Compare the two snapshots
     comparison <- dplyr::full_join(wl_hist1, wl_hist2, by = "arrival_since") |>
       dplyr::mutate(
@@ -113,32 +110,32 @@ wl_removal_stats_hist <- function(wl_hist,
         .data$change
       ) |>
       dplyr::arrange(.data$arrival_since)
-    
+
     # Calculate removals for this period (negative changes)
     period_removals <- abs(sum(comparison$change[comparison$change < 0]))
-    
+
     # Calculate days between snapshots
     days_diff <- as.numeric(difftime(date2, date1, units = "days"))
-    
+
     # Accumulate
     total_removals <- total_removals + period_removals
     total_days <- total_days + days_diff
-    
+
     # Calculate capacity for this period
     period_capacity <- period_removals / days_diff
     weighted_capacity_sum <- weighted_capacity_sum + (period_capacity * days_diff)
   }
-  
+
   # Calculate mean capacity (weighted by days in each period)
   capacity_daily <- weighted_capacity_sum / total_days
   capacity_weekly <- capacity_daily * 7
-  
+
   removal_stats <- data.frame(
     "capacity_weekly" = capacity_weekly,
     "capacity_daily" = capacity_daily,
     "capacity_cov" = 1,
     "removal_count" = total_removals
   )
-  
+
   return(removal_stats)
 }

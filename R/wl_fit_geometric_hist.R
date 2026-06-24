@@ -74,8 +74,8 @@ wl_fit_geometric_hist <- function(wl_hist) {
 
   fit_bins$fitted_probability <- ifelse(
     fit_bins$open_ended,
-    q ^ fit_bins$weeks_waiting,
-    p * q ^ fit_bins$weeks_waiting
+    q^fit_bins$weeks_waiting,
+    p * q^fit_bins$weeks_waiting
   )
   fit_bins$fitted_n <- total * fit_bins$fitted_probability
 

@@ -109,11 +109,15 @@ The package also supports analysis of aggregated or binned waiting list data (hi
 ```{r histogram-example}
 # Example: Histogram format with 2 time points (needed for removal statistics)
 wl_hist <- data.frame(
-  arrival_since = as.Date(c("2024-01-24", "2024-01-17", "2024-01-10",
-                             "2024-02-21", "2024-02-14", "2024-02-07")),
-  arrival_before = as.Date(c("2024-01-30", "2024-01-23", "2024-01-16",
-                              "2024-02-27", "2024-02-20", "2024-02-13")),
-  n = c(45, 38, 52, 42, 35, 48),  # Patient counts in each week
+  arrival_since = as.Date(c(
+    "2024-01-24", "2024-01-17", "2024-01-10",
+    "2024-02-21", "2024-02-14", "2024-02-07"
+  )),
+  arrival_before = as.Date(c(
+    "2024-01-30", "2024-01-23", "2024-01-16",
+    "2024-02-27", "2024-02-20", "2024-02-13"
+  )),
+  n = c(45, 38, 52, 42, 35, 48), # Patient counts in each week
   report_date = as.Date(c(rep("2024-01-31", 3), rep("2024-02-29", 3)))
 )
 

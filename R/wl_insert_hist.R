@@ -9,9 +9,7 @@
 #' @return data.frame. A combined waiting list.
 #' @export
 #'
-wl_insert_hist <- function(waiting_list, additions){
-
+wl_insert_hist <- function(waiting_list, additions) {
   # use the join function internally
   wl_join_hist(waiting_list, additions)
-
 }

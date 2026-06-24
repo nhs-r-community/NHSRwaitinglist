@@ -11,10 +11,10 @@
 #' @return The mean age (numeric) for patients still waiting as of \code{end_date}.
 #' @export
 wl_mean_wait_age <- function(waiting_list, referral_index, removal_index, end_date) {
-    waiting_patients <-
-        waiting_list[which((waiting_list[, removal_index] > end_date | is.na(waiting_list[, removal_index])) &
-                                                waiting_list[, referral_index] <= end_date), ]
+  waiting_patients <-
+    waiting_list[which((waiting_list[, removal_index] > end_date | is.na(waiting_list[, removal_index])) &
+      waiting_list[, referral_index] <= end_date), ]
 
-    ages <- as.numeric(difftime(end_date, waiting_patients[, referral_index], units = "days")) 
-    mean(ages, na.rm = TRUE)
+  ages <- as.numeric(difftime(end_date, waiting_patients[, referral_index], units = "days"))
+  mean(ages, na.rm = TRUE)
 }

@@ -15,20 +15,18 @@
 #'   removal = as.Date(c("2024-01-05", NA))
 #' )
 #' wl_mean_wait_sojourn(waiting_list)
-
-
 wl_mean_wait_sojourn <- function(waiting_list) {
-    referral_index <- calc_index(waiting_list, type = "referral")
-    removal_index <- calc_index(waiting_list, type = "removal")
+  referral_index <- calc_index(waiting_list, type = "referral")
+  removal_index <- calc_index(waiting_list, type = "removal")
 
-    check_wl(waiting_list, referral_index, removal_index)
+  check_wl(waiting_list, referral_index, removal_index)
 
-    valid_rows <- !is.na(waiting_list[, referral_index]) & !is.na(waiting_list[, removal_index])
+  valid_rows <- !is.na(waiting_list[, referral_index]) & !is.na(waiting_list[, removal_index])
 
-    if (!any(valid_rows)) {
-        return(NA_real_)
-    }
+  if (!any(valid_rows)) {
+    return(NA_real_)
+  }
 
-    sojourn_days <- as.numeric(waiting_list[valid_rows, removal_index] - waiting_list[valid_rows, referral_index])
-    mean(sojourn_days)
+  sojourn_days <- as.numeric(waiting_list[valid_rows, removal_index] - waiting_list[valid_rows, referral_index])
+  mean(sojourn_days)
 }

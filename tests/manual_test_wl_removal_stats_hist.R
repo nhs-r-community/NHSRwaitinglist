@@ -31,13 +31,13 @@ wl_hist_test1 <- rbind(
   data.frame(
     arrival_since = as.Date(c("2024-01-01", "2024-01-08", "2024-01-15")),
     arrival_before = as.Date(c("2024-01-07", "2024-01-14", "2024-01-21")),
-    n = c(100, 80, 60),  # Total: 240 patients
+    n = c(100, 80, 60), # Total: 240 patients
     report_date = as.Date("2024-01-31")
   ),
   data.frame(
     arrival_since = as.Date(c("2024-01-01", "2024-01-08", "2024-01-15")),
     arrival_before = as.Date(c("2024-01-07", "2024-01-14", "2024-01-21")),
-    n = c(90, 70, 50),  # Total: 210 patients (30 removed)
+    n = c(90, 70, 50), # Total: 210 patients (30 removed)
     report_date = as.Date("2024-02-29")
   )
 )
@@ -52,8 +52,8 @@ print(result1)
 days_between <- as.numeric(difftime(as.Date("2024-02-29"), as.Date("2024-01-31"), units = "days"))
 cat("\nExpected removals: 30\n")
 cat("Expected days between snapshots:", days_between, "\n")
-cat("Expected capacity_daily:", 30/days_between, "\n")
-cat("Expected capacity_weekly:", (30/days_between) * 7, "\n\n")
+cat("Expected capacity_daily:", 30 / days_between, "\n")
+cat("Expected capacity_weekly:", (30 / days_between) * 7, "\n\n")
 
 # Test 2: Multiple time points (3 snapshots)
 cat("\nTest 2: Multiple time points (3 report dates)\n")
@@ -69,13 +69,13 @@ wl_hist_test2 <- rbind(
   data.frame(
     arrival_since = as.Date("2024-01-01"),
     arrival_before = as.Date("2024-01-07"),
-    n = 280,  # 20 removed
+    n = 280, # 20 removed
     report_date = as.Date("2024-02-29")
   ),
   data.frame(
     arrival_since = as.Date("2024-01-01"),
     arrival_before = as.Date("2024-01-07"),
-    n = 250,  # 30 more removed
+    n = 250, # 30 more removed
     report_date = as.Date("2024-03-31")
   )
 )
@@ -106,7 +106,7 @@ wl_hist_test3 <- rbind(
   data.frame(
     arrival_since = as.Date("2024-01-01"),
     arrival_before = as.Date("2024-01-07"),
-    n = 100,  # Same count
+    n = 100, # Same count
     report_date = as.Date("2024-02-29")
   )
 )
@@ -155,9 +155,10 @@ cat("Input histogram (4 time points):\n")
 print(wl_hist_test4)
 
 # Filter to only Feb-Mar
-result4 <- wl_removal_stats_hist(wl_hist_test4, 
-                                  start_date = "2024-02-01", 
-                                  end_date = "2024-03-31")
+result4 <- wl_removal_stats_hist(wl_hist_test4,
+  start_date = "2024-02-01",
+  end_date = "2024-03-31"
+)
 cat("\nResult (filtered to Feb-Mar only):\n")
 print(result4)
 

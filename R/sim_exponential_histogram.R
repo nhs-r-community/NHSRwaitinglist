@@ -11,14 +11,14 @@
 #'
 #' @export
 #'
-sim_exponential_histogram <- function(num_intervals = 52, 
-  end_date = Sys.Date(), 
-  rate = 0.1, 
+sim_exponential_histogram <- function(
+  num_intervals = 52,
+  end_date = Sys.Date(),
+  rate = 0.1,
   queue_size = 1000,
   time_interval = "weeks",
   random = FALSE
-  ){
-
+) {
   # Adjust end_date back if it's today's date.
   if (as.Date(end_date) == Sys.Date()) {
     if (is.numeric(time_interval)) {
@@ -32,22 +32,22 @@ sim_exponential_histogram <- function(num_intervals = 52,
 
   # Determine the sequence by time_interval
   if (is.numeric(time_interval)) {
-  # Numeric: treat as days
-  dates <- seq.Date(end_date, by = paste0("-", time_interval, " days"), length.out = num_intervals)
+    # Numeric: treat as days
+    dates <- seq.Date(end_date, by = paste0("-", time_interval, " days"), length.out = num_intervals)
   } else if (tolower(time_interval) == "months") {
-  dates <- seq.Date(end_date, by = "-1 month", length.out = num_intervals)
+    dates <- seq.Date(end_date, by = "-1 month", length.out = num_intervals)
   } else {
-  # Default to weeks
-  dates <- seq.Date(end_date, by = "-1 week", length.out = num_intervals)
+    # Default to weeks
+    dates <- seq.Date(end_date, by = "-1 week", length.out = num_intervals)
   }
 
   if (random) {
-  # generate exponential values for each date
-  n_values_raw <- ceiling(stats::rexp(queue_size, rate = rate))
-  n_values <- tabulate(n_values_raw + 1, nbins = num_intervals)
+    # generate exponential values for each date
+    n_values_raw <- ceiling(stats::rexp(queue_size, rate = rate))
+    n_values <- tabulate(n_values_raw + 1, nbins = num_intervals)
   } else {
-  # calculate values using the exponential function
-  n_values <- ceiling(queue_size * exp(-rate * seq(0, num_intervals - 1)) * (1 - exp(-rate)))
+    # calculate values using the exponential function
+    n_values <- ceiling(queue_size * exp(-rate * seq(0, num_intervals - 1)) * (1 - exp(-rate)))
   }
 
   # Ensure n_values length matches dates
